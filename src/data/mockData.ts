@@ -1,301 +1,7 @@
 import { Questao, MateriaEdital } from '../types';
+import { QUESTOES_EXPANDIDAS_PMBA } from './questionsData';
 
-export const QUESTOES_PMBA: Questao[] = [
-  {
-    id: 'q-1',
-    numero: 1,
-    banca: 'FCC',
-    orgao: 'PM-BA',
-    cargo: 'Soldado da Polícia Militar da Bahia',
-    ano: 2023,
-    disciplina: 'Direito Constitucional',
-    assunto: 'Direitos Fundamentais - Inviolabilidade de Domicílio (Art. 5º, XI)',
-    dificuldade: 'Média',
-    enunciado: 'Nos termos da Constituição Federal de 1988 e da consolidada jurisprudência do Supremo Tribunal Federal (STF), a casa é asilo inviolável do indivíduo, ninguém nela podendo penetrar sem consentimento do morador. A respeito das exceções constitucionais a essa regra, assinale a alternativa correta aplicável à atuação da Polícia Militar:',
-    alternativas: [
-      {
-        id: 'A',
-        texto: 'Durante o dia ou durante a noite, por determinação judicial prévia, independentemente de haver consentimento do morador.'
-      },
-      {
-        id: 'B',
-        texto: 'Em caso de flagrante delito ou desastre, ou para prestar socorro, tanto durante o dia quanto durante o período noturno.'
-      },
-      {
-        id: 'C',
-        texto: 'Apenas durante o período diurno nos casos de flagrante delito e mediante autorização verbal do Delegado de Polícia.'
-      },
-      {
-        id: 'D',
-        texto: 'A qualquer hora do dia ou da noite para averiguação de mera atitude suspeita nas proximidades da residência.'
-      },
-      {
-        id: 'E',
-        texto: 'Durante a noite, por determinação judicial, desde que a guarnição esteja acompanhada por membro do Ministério Público.'
-      }
-    ],
-    respostaCorreta: 'B',
-    comentario: {
-      professor: 'Capitão Dr. Marcos Valente',
-      cargo: 'Especialista em Direito Constitucional e Segurança Pública',
-      analiseGeral: 'Questão clássica do concurso da PMBA! O artigo 5º, inciso XI, da CF/88 é tema certíssimo nas provas. Ele diz textualmente: "a casa é asilo inviolável do indivíduo, ninguém nela podendo penetrar sem consentimento do morador, salvo em caso de flagrante delito ou desastre, ou para prestar socorro, ou, durante o dia, por determinação judicial".',
-      justificativaAlternativas: {
-        A: 'Incorreta. A determinação judicial só autoriza o ingresso DURANTE O DIA. À noite não pode haver ingresso por ordem judicial sem consentimento.',
-        B: 'CORRETA. Flagrante delito, desastre e prestação de socorro autorizam o ingresso a QUALQUER HORA (dia ou noite). Fixe a tríade: "Flagrante, Socorro, Desastre = Dia e Noite".',
-        C: 'Incorreta. O flagrante delito autoriza tanto de dia quanto de noite, e não requer autorização de Delegado.',
-        D: 'Incorreta. O STF já fixou a tese de que mera suspeita sem justa causa prévia documentada torna a invasão domiciliar ilícita.',
-        E: 'Incorreta. Ordem judicial NUNCA autoriza entrada noturna sem consentimento do morador, mesmo com MP.'
-      },
-      bizuPMBA: 'Bizu do Soldado: Lembre-se do mnemônico "F-S-D" (Flagrante, Socorro, Desastre) -> A QUALQUER HORA. Já "Ordem Judicial" -> SOMENTE DE DIA!',
-      artigosCitados: ['Art. 5º, XI da Constituição Federal de 1988', 'Tema 280 da Repercussão Geral do STF']
-    }
-  },
-  {
-    id: 'q-2',
-    numero: 2,
-    banca: 'IBFC',
-    orgao: 'PM-BA',
-    cargo: 'Soldado da Polícia Militar da Bahia',
-    ano: 2020,
-    disciplina: 'Igualdade de Gênero e Raça',
-    assunto: 'Estatuto da Igualdade Racial (Lei Federal nº 12.288/2010)',
-    dificuldade: 'Fácil',
-    enunciado: 'A Lei Federal nº 12.288/2010 (Estatuto da Igualdade Racial) é de observância obrigatória e constante no edital da Polícia Militar da Bahia. De acordo com o art. 1º dessa lei, considera-se "discriminação racial ou étnico-racial":',
-    alternativas: [
-      {
-        id: 'A',
-        texto: 'Toda distinção, exclusão, restrição ou preferência baseada em raça, cor, descendência ou origem nacional ou étnica que tenha por objeto anular ou restringir o reconhecimento ou exercício de direitos fundamentais.'
-      },
-      {
-        id: 'B',
-        texto: 'Exclusivamente as agressões físicas comprovadas contra indivíduos pertencentes a povos e comunidades tradicionais em áreas urbanas.'
-      },
-      {
-        id: 'C',
-        texto: 'Apenas a recusa formal e documentada de contratação de pessoas autodeclaradas pretas ou pardas no setor público.'
-      },
-      {
-        id: 'D',
-        texto: 'A adoção de medidas de ação afirmativa de incentivo temporário a grupos étnico-raciais historicamente vulnerabilizados.'
-      },
-      {
-        id: 'E',
-        texto: 'Toda medida governamental que vise equiparar salários de homens e mulheres no serviço militar estadual.'
-      }
-    ],
-    respostaCorreta: 'A',
-    comentario: {
-      professor: 'Prof.ª Dra. Luiza Dandara',
-      cargo: 'Professora de Legislação Especial e Direitos Étnico-Raciais',
-      analiseGeral: 'A banca copiou literalmente o texto legal do art. 1º, parágrafo único, inciso I, da Lei 12.288/2010. É crucial decorar os conceitos essenciais do Estatuto para a prova da PMBA.',
-      justificativaAlternativas: {
-        A: 'CORRETA. Transcrição literal do art. 1º, parágrafo único, I, da Lei nº 12.288/2010.',
-        B: 'Incorreta. Discriminação não é restrita a agressões físicas nem a áreas urbanas; abrange quaisquer atos que restrinjam o gozo de direitos.',
-        C: 'Incorreta. Não se restringe a recusa formal de contratação nem exclusivamente ao serviço público.',
-        D: 'Incorreta. As ações afirmativas NÃO configuram discriminação racial; pelo contrário, são instrumentos legítimos de reparação e promoção da igualdade material (art. 4º, parágrafo único).',
-        E: 'Incorreta. Essa alternativa mistura a lei com equiparação salarial genérica de gênero militar.'
-      },
-      bizuPMBA: 'Bizu do Edital: A banca adora confundir "discriminação racial" com "ações afirmativas". Lembre-se: Ação afirmativa é política pública legal de inclusão, NUNCA é discriminação!',
-      artigosCitados: ['Lei nº 12.288/2010, Art. 1º, Parágrafo Único, Inciso I']
-    }
-  },
-  {
-    id: 'q-3',
-    numero: 3,
-    banca: 'FCC',
-    orgao: 'PM-BA',
-    cargo: 'Soldado da Polícia Militar da Bahia',
-    ano: 2023,
-    disciplina: 'História da Bahia',
-    assunto: 'Independência da Bahia (Dois de Julho de 1823) e Heroínas da Independência',
-    dificuldade: 'Média',
-    enunciado: 'Em 2 de julho de 1823, consolidou-se a Independência da Bahia e a efetiva expulsão das tropas portuguesas comandadas pelo brigadeiro Madeira de Melo. Sobre este episódio marcante da história baiana e nacional, assinale a afirmação correta:',
-    alternativas: [
-      {
-        id: 'A',
-        texto: 'A luta se restringiu a negociações diplomáticas em Salvador, sem que houvesse engajamento popular ou confrontos armados no Recôncavo.'
-      },
-      {
-        id: 'B',
-        texto: 'Maria Quitéria de Jesus alistou-se no Batalhão dos "Voluntários do Príncipe Dom Pedro", destacando-se por sua bravura em combates como a Batalha de Pirajá.'
-      },
-      {
-        id: 'C',
-        texto: 'Joana Angélica participou liderando tropas no front militar de Cachoeira, recebendo condecoração imperial direta de Dom Pedro I.'
-      },
-      {
-        id: 'D',
-        texto: 'O movimento foi repelido pelo povo soteropolitano, que preferia a permanência sob a coroa lusitana devido ao livre comércio de açúcar.'
-      },
-      {
-        id: 'E',
-        texto: 'O 2 de Julho ocorreu antes do 7 de Setembro de 1822 e não teve relação com a independência do restante do território brasileiro.'
-      }
-    ],
-    respostaCorreta: 'B',
-    comentario: {
-      professor: 'Prof. Antônio Carlos Ribeiro',
-      cargo: 'Historiador e Especialista em História e Geografia da Bahia',
-      analiseGeral: 'A Independência da Bahia é o tema mais cobrado de História nos concursos da PMBA. A data de 2 de Julho de 1823 representa a verdadeira expulsão das tropas coloniais portuguesas do Brasil com ampla participação popular, sertaneja e feminina.',
-      justificativaAlternativas: {
-        A: 'Incorreta. Houve sangrentos confrontos armados, especialmente no Recôncavo Baiano (Cachoeira, Santo Amaro, Maragogipe, Itaparica) e na Batalha de Pirajá.',
-        B: 'CORRETA. Maria Quitéria usou o pseudônimo "Soldado Medeiros", lutou com heroísmo no Batalhão dos Voluntários do Príncipe e foi condecorada com a Ordem Imperial do Cruzeiro por D. Pedro I.',
-        C: 'Incorreta. Joana Angélica foi a abadessa do Convento da Lapa morta ao defender o claustro contra os soldados portugueses em Salvador em fevereiro de 1822.',
-        D: 'Incorreta. A população baiana cerrou fileiras em massa contra o domínio de Madeira de Melo.',
-        E: 'Incorreta. O 2 de Julho ocorreu em 1823 (depois do 7 de Setembro de 1822), concluindo a independência nacional.'
-      },
-      bizuPMBA: 'Bizu da Bahia: Grave a trinca de heroínas da Independência Baiana: Maria Quitéria (armas/batalha), Maria Felipa (mariscadeira/Itaparica queimando barcos) e Joana Angélica (mártir no Convento da Lapa).',
-      artigosCitados: ['Constituição da Bahia / Efeméride Cívica Estadual']
-    }
-  },
-  {
-    id: 'q-4',
-    numero: 4,
-    banca: 'FCC',
-    orgao: 'PM-BA',
-    cargo: 'Soldado da Polícia Militar da Bahia',
-    ano: 2023,
-    disciplina: 'Língua Portuguesa',
-    assunto: 'Emprego do Sinal Indicativo de Crase',
-    dificuldade: 'Média',
-    enunciado: 'Considere a seguinte frase adaptada de uma ocorrência policial: "O policial militar dirigiu-se ___ guarnição de serviço para prestar apoio ___ vítimas, obedecendo ___ ordens do oficial de dia." Assinale a alternativa que preenche correta e respectivamente as lacunas:',
-    alternativas: [
-      {
-        id: 'A',
-        texto: 'à — às — às'
-      },
-      {
-        id: 'B',
-        texto: 'a — as — às'
-      },
-      {
-        id: 'C',
-        texto: 'à — as — as'
-      },
-      {
-        id: 'D',
-        texto: 'a — às — as'
-      },
-      {
-        id: 'E',
-        texto: 'à — as — às'
-      }
-    ],
-    respostaCorreta: 'A',
-    comentario: {
-      professor: 'Prof. Sérgio Nogueira',
-      cargo: 'Mestre em Língua Portuguesa para Carreiras Policiais',
-      analiseGeral: 'A FCC cobra com muita frequência a regência de verbos de movimento (dirigir-se a), transitivos indiretos (prestar apoio a algo/alguém) e o verbo obedecer (que exige a preposição "a").',
-      justificativaAlternativas: {
-        A: 'CORRETA. 1ª: quem se dirige, dirige-se "a" + "a guarnição" = à. 2ª: prestar apoio "a" + "as vítimas" = às. 3ª: o verbo obedecer é transitivo indireto e exige preposição "a" + "as ordens" = às ordens.',
-        B: 'Incorreta. "Dirigiu-se a" exige crase diante de substantivo feminino determinado.',
-        C: 'Incorreta. O apoio foi prestado "a" alguém + "as vítimas", exigindo a crase.',
-        D: 'Incorreta. O verbo obedecer rege preposição "a", portanto obedece-se "às" ordens.',
-        E: 'Incorreta. Faltou a crase na segunda lacuna (às vítimas).'
-      },
-      bizuPMBA: 'Bizu de Português: Lembra do verbo OBEDECER / DESOBEDECER! Eles exigem a preposição "A" ("Obedeceu às leis", "Obedeceu ao regulamento"). Nunca use sem preposição!',
-      artigosCitados: ['Regência Verbal e Sintaxe de Concordância']
-    }
-  },
-  {
-    id: 'q-5',
-    numero: 5,
-    banca: 'IBFC',
-    orgao: 'PM-BA',
-    cargo: 'Soldado da Polícia Militar da Bahia',
-    ano: 2020,
-    disciplina: 'Direito Administrativo',
-    assunto: 'Estatuto dos Policiais Militares da Bahia (Lei Estadual nº 7.990/2001)',
-    dificuldade: 'Difícil',
-    enunciado: 'Em conformidade com o Estatuto dos Policiais Militares do Estado da Bahia (Lei Estadual nº 7.990/2001), a hierarquia e a disciplina são a base institucional da Polícia Militar. Sobre a precedência hierárquica e círculos hierárquicos, é correto afirmar que:',
-    alternativas: [
-      {
-        id: 'A',
-        texto: 'A precedência entre policiais militares da ativa, do mesmo grau hierárquico, é assegurada pela antiguidade no posto ou graduação, salvo nos casos de precedência funcional estabelecida em lei.'
-      },
-      {
-        id: 'B',
-        texto: 'Os Alunos-a-Oficial PM e os Alunos do Curso de Formação de Soldados pertencem ao mesmo círculo hierárquico dos Oficiais Superiores.'
-      },
-      {
-        id: 'C',
-        texto: 'A disciplina militar consiste unicamente no direito do subordinado de questionar previamente qualquer ordem do superior em redes sociais.'
-      },
-      {
-        id: 'D',
-        texto: 'A hierarquia militar prevalece apenas em situações de combate ou operação especial de garantia da lei e da ordem.'
-      },
-      {
-        id: 'E',
-        texto: 'O policial militar da reserva remunerada quando convocado terá precedência hierárquica automática sobre qualquer oficial da ativa.'
-      }
-    ],
-    respostaCorreta: 'A',
-    comentario: {
-      professor: 'Major PMBA Carlos Eduardo',
-      cargo: 'Bacharel em Direito e Instrutor da Academia de Polícia Militar da Bahia',
-      analiseGeral: 'A Lei Estadual nº 7.990/2001 é a legislação específica de maior peso no concurso da PMBA. O candidato a Soldado precisa dominar os artigos iniciais sobre Hierarquia, Disciplina, Antiguidade e Deveres Policiais.',
-      justificativaAlternativas: {
-        A: 'CORRETA. É a regra matriz estampada na Lei Estadual 7.990/2001: em igualdade de grau hierárquico, a precedência dá-se pela antiguidade, salvo exceção funcional expressa.',
-        B: 'Incorreta. Alunos de cursos de formação são praças especiais e têm círculo próprio de convivência.',
-        C: 'Incorreta. A disciplina militar é a rigorosa observância e o acatamento integral das leis, regulamentos e ordens.',
-        D: 'Incorreta. A hierarquia e a disciplina operam de forma permanente em todos os momentos da vida militar, ativa e inativa.',
-        E: 'Incorreta. A convocação de militar da reserva segue regras estritas de antiguidade e não concede supremacia automática irrestrita.'
-      },
-      bizuPMBA: 'Bizu do Estatuto: Artigo 14 e seguintes da Lei 7.990/2001: A hierarquia é a ordenação da autoridade em níveis diferentes; a disciplina é o acatamento integral das normas. Ambos constituem a BASE INSTITUCIONAL da PMBA!',
-      artigosCitados: ['Lei Estadual nº 7.990/2001 (Estatuto dos PMs da Bahia), Art. 14 a 19']
-    }
-  },
-  {
-    id: 'q-6',
-    numero: 6,
-    banca: 'FCC',
-    orgao: 'PM-BA',
-    cargo: 'Soldado da Polícia Militar da Bahia',
-    ano: 2023,
-    disciplina: 'Direitos Humanos',
-    assunto: 'Declaração Universal dos Direitos Humanos (DUDH) e Prisão Legal',
-    dificuldade: 'Fácil',
-    enunciado: 'Segundo o Artigo 9º da Declaração Universal dos Direitos Humanos (DUDH), proclamada pela Assembleia Geral da ONU em 1948:',
-    alternativas: [
-      {
-        id: 'A',
-        texto: 'Ninguém será arbitrariamente preso, detido ou exilado.'
-      },
-      {
-        id: 'B',
-        texto: 'Todo cidadão suspeito perde de imediato sua presunção de inocência no momento da abordagem policial ostensiva.'
-      },
-      {
-        id: 'C',
-        texto: 'A prisão civil por dívida de qualquer natureza pode ser decretada discricionariamente pelo agente policial.'
-      },
-      {
-        id: 'D',
-        texto: 'O banimento de cidadãos nacionais é incentivado quando houver reincidência em contravenções penais.'
-      },
-      {
-        id: 'E',
-        texto: 'As penas cruéis e degradantes são permitidas excepcionalmente em interrogatórios de crimes hediondos.'
-      }
-    ],
-    respostaCorreta: 'A',
-    comentario: {
-      professor: 'Prof. Rafael Barretto',
-      cargo: 'Especialista em Direitos Humanos e Segurança Pública',
-      analiseGeral: 'A DUDH é cobrada de forma literal nas provas da FCC e IBFC para a PMBA. O artigo 9º veda prisões e detenções arbitrárias, garantindo a legalidade estrita de qualquer restrição à liberdade.',
-      justificativaAlternativas: {
-        A: 'CORRETA. Artigo 9º da DUDH: "Ninguém será arbitrariamente preso, detido ou exilado".',
-        B: 'Incorreta. O art. 11 da DUDH garante a presunção de inocência até que a culpa seja provada.',
-        C: 'Incorreta. A DUDH e o Pacto de San José vedam prisões civis arbitrárias; a polícia não decreta prisões civis.',
-        D: 'Incorreta. O exílio e banimento arbitrário são expressamente proibidos.',
-        E: 'Incorreta. O artigo 5º da DUDH veda terminantemente a tortura e tratamento cruel, desumano ou degradante, sem exceção.'
-      },
-      bizuPMBA: 'Bizu de Direitos Humanos: Os artigos 1º ao 11 da DUDH são os mais cobrados pela FCC. A vedação à tortura e à prisão arbitrária são cláusulas pétreas internacionais.',
-      artigosCitados: ['DUDH de 1948, Artigo 9º e Artigo 5º']
-    }
-  }
-];
+export const QUESTOES_PMBA: Questao[] = QUESTOES_EXPANDIDAS_PMBA;
 
 export const TEORIA_PMBA: MateriaEdital[] = [
   {
@@ -530,6 +236,30 @@ export const TEORIA_PMBA: MateriaEdital[] = [
         ],
         dicaDeProva: 'O excesso punível: Não há crime quando o militar atua em estrito cumprimento do dever legal ou legítima defesa, MAS responderá pelo excesso doloso ou culposo!',
         legislacaoOuReferencia: 'Código Penal Brasileiro, Arts. 23 a 25.'
+      }
+    ]
+  },
+  {
+    id: 'mat-rlm',
+    nome: 'Raciocínio Lógico & Matemática',
+    icone: 'Calculator',
+    totalQuestoesEdital: '06 Questões no Edital',
+    relevancia: 'Alta',
+    descricao: 'Lógica proposicional, conectivos lógicos, negações, equivalências, porcentagem, razão, proporção e análise combinatória.',
+    topicos: [
+      {
+        id: 'trlm-1',
+        titulo: 'Lógica Proposicional: Conectivos e Negação do Se... Então',
+        tempoLeituraMin: 5,
+        resumoIntro: 'Compreensão de proposições simples e compostas, tabelas-verdade essenciais e a tão cobrada regra de negação da condicional.',
+        pontosImportantes: [
+          'Conectivos Lógicos: Conjunção (E / ^), Disjunção inclusiva (OU / v), Condicional (Se... então / ->) e Bicondicional (Se e somente se / <->).',
+          'Negação da Condicional (Regra do MANÉ): ~(P -> Q) <=> P ^ ~Q. Mantém a primeira afirmação E nega a segunda afirmação.',
+          'Leis de De Morgan: Negação de (P e Q) = ~P ou ~Q. Negação de (P ou Q) = ~P e ~Q.',
+          'Equivalência da Condicional (Contrapositiva): P -> Q é logicamente equivalente a ~Q -> ~P.'
+        ],
+        dicaDeProva: 'Cuidado: NUNCA negue "Se P então Q" com outro "Se não P então não Q"! Use a regra do MANÉ: mantém a 1ª E nega a 2ª!',
+        legislacaoOuReferencia: 'Lógica Matemática / Edital Soldado PMBA'
       }
     ]
   }

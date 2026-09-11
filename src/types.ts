@@ -1,4 +1,5 @@
 export type AlternativaId = 'A' | 'B' | 'C' | 'D' | 'E';
+export type TemaApp = 'dark' | 'light';
 
 export interface Alternativa {
   id: AlternativaId;
