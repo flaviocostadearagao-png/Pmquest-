@@ -170,9 +170,7 @@ export default function App() {
   // Filtered questions respecting disciplina, assunto, banca, and "ocultarRespondidas"
   const questoesFiltradas = useMemo(() => {
     return todasQuestoes.filter((q) => {
-      const matchDisciplina =
-        disciplinaFiltro === 'Todas as Disciplinas' ||
-        q.disciplina.toLowerCase() === disciplinaFiltro.toLowerCase();
+      const matchDisciplina = q.disciplina.toLowerCase() === disciplinaFiltro.toLowerCase();
       const matchAssunto =
         assuntoFiltro === 'Todos os Assuntos' ||
         q.assunto.toLowerCase() === assuntoFiltro.toLowerCase();
@@ -189,15 +187,26 @@ export default function App() {
   // Keep active question ID in sync with the current question
   useEffect(() => {
     if (questoesFiltradas.length > 0) {
+      if (questaoAtivaId) {
+        const foundIndex = questoesFiltradas.findIndex(q => q.id === questaoAtivaId);
+        if (foundIndex !== -1 && foundIndex !== currentIndex) {
+          setCurrentIndex(foundIndex);
+          return;
+        }
+      }
+      
       const safeIndex = Math.min(Math.max(currentIndex, 0), questoesFiltradas.length - 1);
       const curr = questoesFiltradas[safeIndex];
       if (curr && (!questaoAtivaId || !questoesFiltradas.some((q) => q.id === questaoAtivaId))) {
         setQuestaoAtivaId(curr.id);
+        if (currentIndex !== safeIndex) {
+          setCurrentIndex(safeIndex);
+        }
       }
     } else {
       setQuestaoAtivaId(null);
     }
-  }, [questoesFiltradas, currentIndex]);
+  }, [questoesFiltradas, currentIndex, questaoAtivaId]);
 
   const handleNavigateQuestion = (newIndex: number) => {
     if (questoesFiltradas[newIndex]) {
@@ -260,6 +269,14 @@ export default function App() {
     setCloudSyncStatus('synced');
   };
 
+  // ONE-TIME WIPE (requested by user)
+  useEffect(() => {
+    if (!localStorage.getItem('force_wipe_stats_v1')) {
+      handleResetarTudo();
+      localStorage.setItem('force_wipe_stats_v1', 'true');
+    }
+  }, []);
+
   // Switch from theory or home directly to questions of that subject
   const handleIrParaQuestoesDaMateria = (disciplinaNome: string) => {
     let match = 'Direito Constitucional';
@@ -275,7 +292,9 @@ export default function App() {
 
     setDisciplinaFiltro(match);
     setAssuntoFiltro('Todos os Assuntos');
+    setBancaFiltro('Todas as Bancas');
     setCurrentIndex(0);
+    setQuestaoAtivaId(null);
     setActiveTab('questoes');
   };
 

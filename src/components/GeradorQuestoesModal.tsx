@@ -104,7 +104,7 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
   const [assunto, setAssunto] = useState<string>(
     assuntoInicial && assuntoInicial !== 'Todos os Assuntos'
       ? assuntoInicial
-      : SUGESTOES_ASSUNTOS['Direito Constitucional'][0]
+      : 'Geral (Todos os Assuntos)'
   );
   const [quantidade, setQuantidade] = useState<number>(3);
   const [dificuldade, setDificuldade] = useState<'Fácil' | 'Média' | 'Difícil'>('Média');
@@ -122,7 +122,7 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
         if (assuntoInicial && assuntoInicial !== 'Todos os Assuntos') {
           setAssunto(assuntoInicial);
         } else {
-          setAssunto(SUGESTOES_ASSUNTOS[disciplinaInicial]?.[0] || 'Tópicos gerais do edital');
+          setAssunto('Geral (Todos os Assuntos)');
         }
       }
       setQuestoesGeradasPreview(null);
@@ -133,8 +133,7 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
   // When disciplina changes, reset suggested assunto
   const handleDisciplinaChange = (novaDisciplina: string) => {
     setDisciplina(novaDisciplina);
-    const sugestoes = SUGESTOES_ASSUNTOS[novaDisciplina] || [];
-    setAssunto(sugestoes[0] || 'Tópicos gerais do edital');
+    setAssunto('Geral (Todos os Assuntos)');
     setQuestoesGeradasPreview(null);
     setErrorMessage(null);
   };
@@ -352,6 +351,19 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
                   2. Tópicos Frequentes no Concurso PMBA
                 </label>
                 <div className="flex flex-wrap gap-1.5 mb-2">
+                  <button
+                    type="button"
+                    onClick={() => setAssunto('Geral (Todos os Assuntos)')}
+                    className={`text-[11px] text-left px-2.5 py-1.5 rounded-lg border transition-all cursor-pointer ${
+                      assunto === 'Geral (Todos os Assuntos)'
+                        ? 'bg-amber-500 text-slate-950 font-bold border-amber-400 shadow-sm'
+                        : isDark
+                        ? 'bg-slate-950/80 text-slate-300 border-slate-800 hover:border-slate-700'
+                        : 'bg-slate-100 text-slate-700 border-slate-200 hover:border-slate-300'
+                    }`}
+                  >
+                    Geral (Todos os Assuntos)
+                  </button>
                   {(SUGESTOES_ASSUNTOS[disciplina] || []).map((sugestao) => {
                     const isSelected = assunto === sugestao;
                     return (

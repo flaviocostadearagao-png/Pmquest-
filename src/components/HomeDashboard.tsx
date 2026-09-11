@@ -398,9 +398,19 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
 
         <div className="space-y-2">
           {materias.map((materia) => {
-            const questoesDaMateria = questoes.filter(
-              (q) => q.disciplina.toLowerCase().includes(materia.nome.toLowerCase().split(' ')[0])
-            );
+            const questoesDaMateria = questoes.filter((q) => {
+              const qd = q.disciplina.toLowerCase();
+              const md = materia.nome.toLowerCase();
+              if (md.includes('constitucional')) return qd.includes('constitucional');
+              if (md.includes('igualdade') || md.includes('raça')) return qd.includes('igualdade') || qd.includes('raça');
+              if (md.includes('história')) return qd.includes('história');
+              if (md.includes('portuguesa') || md.includes('português')) return qd.includes('portugues') || qd.includes('português');
+              if (md.includes('administrativo')) return qd.includes('administrativo');
+              if (md.includes('humanos')) return qd.includes('humanos');
+              if (md.includes('geografia')) return qd.includes('geografia');
+              if (md.includes('penal')) return qd.includes('penal');
+              return qd.includes(md.split(' ')[0]);
+            });
             const respondidasMat = questoesDaMateria.filter((q) => !!historicoRespostas[q.id]);
             const acertosMat = respondidasMat.filter((q) => historicoRespostas[q.id]?.acertou).length;
             const taxaMat = respondidasMat.length > 0 ? Math.round((acertosMat / respondidasMat.length) * 100) : 0;

@@ -98,6 +98,17 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
     )
   ];
 
+  const DISCIPLINAS_EDITAL = [
+    'Direito Constitucional',
+    'Promoção da Igualdade Racial e de Gênero',
+    'História da Bahia',
+    'Direitos Humanos',
+    'Direito Administrativo',
+    'Língua Portuguesa',
+    'Geografia da Bahia',
+    'Noções de Direito Penal',
+  ];
+
   // Bancas list for filter
   const bancasDisponiveis = [
     'Todas as Bancas',
@@ -332,6 +343,32 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
                 isDark ? 'border-slate-800/80' : 'border-slate-200'
               }`}
             >
+              <div>
+                <label className={`text-[11px] block mb-1 font-medium ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                  Mudar Matéria em Estudo
+                </label>
+                <select
+                  id="select-disciplina"
+                  value={disciplinaFiltro}
+                  onChange={(e) => {
+                    onSelectDisciplina(e.target.value);
+                    onSelectAssunto('Todos os Assuntos');
+                    onSelectBanca('Todas as Bancas');
+                  }}
+                  className={`w-full text-xs rounded-xl px-3 py-2 focus:outline-none focus:border-amber-400 cursor-pointer mb-2.5 ${
+                    isDark
+                      ? 'bg-slate-950 text-slate-200 border border-slate-700'
+                      : 'bg-slate-50 text-slate-900 border border-slate-300'
+                  }`}
+                >
+                  {DISCIPLINAS_EDITAL.map((d) => (
+                    <option key={d} value={d}>
+                      {d}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               <div>
                 <label className={`text-[11px] block mb-1 font-medium ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
                   Assunto Específico
