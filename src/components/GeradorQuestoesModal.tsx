@@ -113,6 +113,7 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [questoesGeradasPreview, setQuestoesGeradasPreview] = useState<Questao[] | null>(null);
+  const [fonteGeracao, setFonteGeracao] = useState<string>('gemini_ai');
 
   // When disciplina changes, reset suggested assunto
   const handleDisciplinaChange = (novaDisciplina: string) => {
@@ -139,6 +140,7 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
 
       if (response && response.questoes && response.questoes.length > 0) {
         setQuestoesGeradasPreview(response.questoes);
+        setFonteGeracao(response.fonte || 'banco_pedagogico_pmba');
       } else {
         setErrorMessage('Não foi possível gerar questões no momento. Tente novamente.');
       }
@@ -217,6 +219,25 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
               >
                 <div className="w-10 h-10 rounded-full bg-emerald-500/20 mx-auto flex items-center justify-center mb-1 text-emerald-500">
                   <CheckCircle2 className="w-6 h-6" />
+                </div>
+                <div className="flex items-center justify-center gap-2 mb-1">
+                  <span className={`inline-flex items-center gap-1 text-[10px] uppercase font-bold px-2 py-0.5 rounded-full ${
+                    fonteGeracao === 'gemini_ai'
+                      ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40'
+                      : 'bg-blue-500/20 text-blue-400 border border-blue-500/40'
+                  }`}>
+                    {fonteGeracao === 'gemini_ai' ? (
+                      <>
+                        <Sparkles className="w-3 h-3" />
+                        <span>IA Gemini Especialista</span>
+                      </>
+                    ) : (
+                      <>
+                        <Award className="w-3 h-3" />
+                        <span>Banco Oficial PMBA (FCC/IBFC)</span>
+                      </>
+                    )}
+                  </span>
                 </div>
                 <h4 className="text-sm font-bold">
                   {questoesGeradasPreview.length} Questões Inéditas Geradas!
