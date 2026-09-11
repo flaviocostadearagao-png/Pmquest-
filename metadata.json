@@ -1,0 +1,6 @@
+{
+  "name": "Simulado PMBA - Questões e Teoria",
+  "description": "Plataforma mobile-first para o concurso da Polícia Militar da Bahia (PMBA), com resolução de questões comentadas e resumos teóricos do edital.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
