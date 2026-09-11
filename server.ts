@@ -94,7 +94,7 @@ Retorne ESTRITAMENTE um array JSON puro (sem markdown ou texto extra) onde cada 
     });
 
     const aiCall = ai.models.generateContent({
-      model: 'gemini-3.8-flash',
+      model: 'gemini-2.5-flash',
       contents: prompt,
       config: {
         responseMimeType: 'application/json',

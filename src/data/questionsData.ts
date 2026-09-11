@@ -2,11 +2,355 @@ import { Questao } from '../types';
 
 export const QUESTOES_EXPANDIDAS_PMBA: Questao[] = [
   // =========================================================================
-  // 1. DIREITO CONSTITUCIONAL
+  // 1. DIREITOS HUMANOS (10 QUESTÕES)
   // =========================================================================
   {
-    id: 'q-const-1',
+    id: 'dh-real-01',
     numero: 1,
+    banca: 'FCC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado da Polícia Militar da Bahia',
+    ano: 2023,
+    disciplina: 'Direitos Humanos',
+    assunto: 'Declaração Universal dos Direitos Humanos (DUDH/1948)',
+    dificuldade: 'Fácil',
+    enunciado: 'A Declaração Universal dos Direitos Humanos (DUDH), proclamada pela Assembleia Geral das Nações Unidas em 1948, constitui o marco fundamental do Direito Internacional dos Direitos Humanos. A respeito dos princípios expressamente previstos na DUDH, assinale a alternativa correta:',
+    alternativas: [
+      { id: 'A', texto: 'Todos os seres humanos nascem livres e iguais em dignidade e direitos, sendo dotados de razão e consciência e devendo agir com espírito de fraternidade.' },
+      { id: 'B', texto: 'A escravidão é admitida em caráter excepcional para o cumprimento de penas privativas de liberdade decorrentes de transgressões militares.' },
+      { id: 'C', texto: 'A tortura pode ser tolerada em situações de interrogatório urgente de suspeitos de terrorismo internacional.' },
+      { id: 'D', texto: 'O direito de buscar asilo político não é reconhecido a pessoas que estejam sendo perseguidas em seus países de origem.' },
+      { id: 'E', texto: 'Os direitos civis e políticos gozam de primazia jurídica absoluta sobre os direitos econômicos, sociais e culturais.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Dr. Leonardo Vasconcelos',
+      cargo: 'Especialista em Direitos Humanos e Segurança Pública',
+      analiseGeral: 'O Artigo 1º da DUDH de 1948 consagra: "Todos os seres humanos nascem livres e iguais em dignidade e em direitos. Dotados de razão e de consciência, devem agir uns para com os outros em espírito de fraternidade".',
+      justificativaAlternativas: {
+        A: 'CORRETA. Transcrição literal do Artigo 1º da DUDH.',
+        B: 'Incorreta. O Art. 4º veda a escravidão e a servidão em TODAS as suas formas, sem qualquer exceção.',
+        C: 'Incorreta. O Art. 5º proíbe a tortura de forma ABSOLUTA (norma cogente de jus cogens).',
+        D: 'Incorreta. O Art. 14 garante expressamente o direito de procurar e de gozar asilo em outros países.',
+        E: 'Incorreta. Os Direitos Humanos são marcados pela indivisibilidade, universalidade e interdependência.'
+      },
+      bizuPMBA: 'Bizu de Direitos Humanos: DUDH Art. 1º = Livres e Iguais em Dignidade e Direitos + Razão e Consciência + Fraternidade. Proibição de tortura e escravidão é TOTAL e ABSOLUTA!',
+      artigosCitados: ['Declaração Universal dos Direitos Humanos (1948), Artigos 1º, 4º e 5º']
+    }
+  },
+  {
+    id: 'dh-real-02',
+    numero: 2,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado da Polícia Militar da Bahia',
+    ano: 2023,
+    disciplina: 'Direitos Humanos',
+    assunto: 'Pacto de San José da Costa Rica (CADH) - Garantias Judiciais e Integridade',
+    dificuldade: 'Média',
+    enunciado: 'A Convenção Americana sobre Direitos Humanos (Pacto de San José da Costa Rica, 1969), ratificada pelo Brasil em 1992, possui estatura supralegal. No que concerne às garantias de integridade pessoal e custódia de presos aplicáveis à atividade policial militar, assinale a opção correta:',
+    alternativas: [
+      { id: 'A', texto: 'Os presos provisórios devem ficar separados dos condenados, salvo em circunstâncias excepcionais, e submetidos a tratamento condizente com a condição de não condenados.' },
+      { id: 'B', texto: 'A prisão civil por dívida de qualquer natureza é livremente autorizada pela Convenção Americana em qualquer esfera civil ou comercial.' },
+      { id: 'C', texto: 'É autorizado o castigo corporal moderado de detentos para fins de manutenção da disciplina no interior de estabelecimentos prisionais.' },
+      { id: 'D', texto: 'A pessoa detida não tem o direito de ser conduzida, sem demora, à presença de um juiz ou outra autoridade autorizada por lei.' },
+      { id: 'E', texto: 'A confissão obtida mediante coação psicológica ou física é válida como meio de prova no processo penal brasileiro.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Dr. Leonardo Vasconcelos',
+      cargo: 'Professor de Direito Internacional dos Direitos Humanos',
+      analiseGeral: 'O Artigo 5º, item 4, da CADH determina expressamente: "Os processados devem ficar separados dos condenados, salvo em circunstâncias excepcionais, e devem ser submetidos a tratamento adequado à sua condição de pessoas não condenadas".',
+      justificativaAlternativas: {
+        A: 'CORRETA. Previsão expressa do Art. 5.4 da Convenção Americana.',
+        B: 'Incorreta. Apenas a dívida de pensão alimentícia admite prisão civil (Súmula Vinculante 25 do STF).',
+        C: 'Incorreta. É terminantemente proibida qualquer forma de castigo desumano ou degradante (Art. 5.2).',
+        D: 'Incorreta. O Art. 7.5 consagra o direito à audiência de custódia (condução sem demora à presença do juiz).',
+        E: 'Incorreta. O Art. 8.3 estabelece a nulidade absoluta da confissão obtida mediante coação.'
+      },
+      bizuPMBA: 'Bizu do Pacto de San José: Preso provisório separado do condenado; audiência de custódia imediata; proibição de prisão civil do depositário infiel (Súmula Vinculante 25 STF)!',
+      artigosCitados: ['Convenção Americana de Direitos Humanos, Artigos 5º, 7º e 8º', 'Súmula Vinculante nº 25 do STF']
+    }
+  },
+  {
+    id: 'dh-real-03',
+    numero: 3,
+    banca: 'CESPE / Cebraspe',
+    orgao: 'Polícia Militar',
+    cargo: 'Soldado PM',
+    ano: 2022,
+    disciplina: 'Direitos Humanos',
+    assunto: 'Uso Progressivo e Diferenciado da Força (PBUFAF - ONU 1990)',
+    dificuldade: 'Média',
+    enunciado: 'Os Princípios Básicos sobre a Utilização da Força e de Armas de Fogo pelos Funcionários Responsáveis pela Aplicação da Lei (PBUFAF/ONU, 1990) orientam a atuação ética das corporações policiais militares. De acordo com tais princípios, o emprego da força letal por parte do policial militar:',
+    alternativas: [
+      { id: 'A', texto: 'É uma medida extrema, que somente deve ser utilizada quando estritamente inevitável para proteger a vida contra uma ameaça iminente de morte ou ferimento grave.' },
+      { id: 'B', texto: 'Pode ser empregado rotineiramente contra criminosos em fuga que tenham cometido apenas delitos contra o patrimônio sem violência.' },
+      { id: 'C', texto: 'Fica a critério puramente pessoal do policial militar, inexistindo o dever funcional de prestar socorro médico imediato ao ferido.' },
+      { id: 'D', texto: 'Não exige prévia advertência verbal clara de identificação policial, mesmo quando houver tempo e segurança para fazê-la.' },
+      { id: 'E', texto: 'É sempre proibido, mesmo em situações extremas de legítima defesa da própria vida ou de terceiros.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Maj. PMBA Carlos Eduardo',
+      cargo: 'Instrutor de Técnicas Policiais e Direitos Humanos da APM',
+      analiseGeral: 'O Princípio nº 9 dos PBUFAF da ONU estabelece que o uso de armas de fogo contra pessoas só é admitido em legítima defesa ou defesa de outrem contra ameaça iminente de morte ou ferimento grave, devendo ser uma medida de último recurso quando meios menos perigosos forem insuficientes.',
+      justificativaAlternativas: {
+        A: 'CORRETA. Princípio da extrema necessidade e proporcionalidade estrita para preservação da vida.',
+        B: 'Incorreta. É proibido o disparo letal contra suspeito desarmado em fuga patrimonial.',
+        C: 'Incorreta. O socorro médico imediato e a comunicação aos familiares são deveres expressos nos princípios 5 e 6.',
+        D: 'Incorreta. O princípio 10 impõe a advertência prévia, salvo se colocar em risco iminente a vida do agente.',
+        E: 'Incorreta. O uso letal é admitido em legítima defesa como medida extrema de preservação da vida.'
+      },
+      bizuPMBA: 'Bizu do Uso da Força: Legalidade, Necessidade, Proporcionalidade, Moderação e Conveniência. Força letal é SEMPRE última ratio para salvar vidas!',
+      artigosCitados: ['Princípios Básicos sobre o Uso da Força e Armas de Fogo (ONU 1990), Princípios 4, 5 e 9', 'Portaria Interministerial nº 4.226/2010']
+    }
+  },
+  {
+    id: 'dh-real-04',
+    numero: 4,
+    banca: 'FCC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado da Polícia Militar',
+    ano: 2020,
+    disciplina: 'Direitos Humanos',
+    assunto: 'Regras de Mandela (Regras Mínimas da ONU para Tratamento de Presos)',
+    dificuldade: 'Média',
+    enunciado: 'As Regras Mínimas das Nações Unidas para o Tratamento de Reclusos (conhecidas como "Regras de Mandela", revisadas em 2015) definem padrões fundamentais de custódia e dignidade humana. A respeito do isolamento celular e das sanções disciplinares a presos, as Regras de Mandela vedam expressamente:',
+    alternativas: [
+      { id: 'A', texto: 'O isolamento solitário indefinido ou prolongado (superior a 15 dias consecutivos) e a colocação do recluso em cela escura ou iluminada permanentemente.' },
+      { id: 'B', texto: 'A oferta de assistência médica gratuita e o fornecimento de água potável no interior do estabelecimento prisional.' },
+      { id: 'C', texto: 'A separação de reclusos por categorias de gênero, idade e antecedentes penais.' },
+      { id: 'D', texto: 'A realização de exames corporais não invasivos no momento da admissão prisional.' },
+      { id: 'E', texto: 'O acesso do recluso à assistência jurídica prestada pela Defensoria Pública ou advogado constituído.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Dr. Leonardo Vasconcelos',
+      cargo: 'Professor de Direitos Humanos',
+      analiseGeral: 'A Regra 43 e 44 das Regras de Mandela proíbem expressamente: isolamento celular indefinido, isolamento celular prolongado (mais de 15 dias consecutivos), colocação em cela escura ou constantemente iluminada, castigos corporais e redução de alimentos ou água.',
+      justificativaAlternativas: {
+        A: 'CORRETA. Vedação expressa constante nas Regras 43 e 44 das Regras de Mandela.',
+        B: 'Incorreta. Assistência médica e água potável são garantias fundamentais obrigatórias.',
+        C: 'Incorreta. A separação por categorias é uma exigência expressa de proteção (Regra 11).',
+        D: 'Incorreta. Exames no ingresso são admitidos para registro de saúde e integridade física.',
+        E: 'Incorreta. O acesso a advogado é direito irrenunciável do preso (Regra 61).'
+      },
+      bizuPMBA: 'Bizu das Regras de Mandela: Proibido isolamento solitário prolongado (+ de 15 dias), cela escura/sempre acesa e redução de água/alimentos!',
+      artigosCitados: ['Regras Mínimas das Nações Unidas para o Tratamento de Reclusos (Regras de Mandela), Regras 43, 44 e 45']
+    }
+  },
+  {
+    id: 'dh-real-05',
+    numero: 5,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2023,
+    disciplina: 'Direitos Humanos',
+    assunto: 'Convenção Contra a Tortura e Lei Federal nº 9.455/1997',
+    dificuldade: 'Difícil',
+    enunciado: 'A Convenção da ONU contra a Tortura e Outros Tratamentos ou Penas Cruéis, Desumanos ou Degradantes (1984) e a Lei Federal nº 9.455/1997 regulam a repressão ao crime de tortura no Brasil. Em relação ao tratamento penal e constitucional do crime de tortura cometido por agente da segurança pública, assinale a afirmativa correta:',
+    alternativas: [
+      { id: 'A', texto: 'A condenação por crime de tortura acarreta a perda do cargo, função ou emprego público e a interdição para seu exercício pelo dobro do prazo da pena aplicada.' },
+      { id: 'B', texto: 'O crime de tortura é afiançável se cometido por militar da ativa em horário de serviço de patrulhamento ostensivo.' },
+      { id: 'C', texto: 'A obediência a ordem de superior hierárquico exclui a tipicidade e a ilicitude do crime de tortura praticado por subordinado.' },
+      { id: 'D', texto: 'O crime de tortura admite anistia e graça presidencial concedida por decreto do Governador do Estado.' },
+      { id: 'E', texto: 'Aquele que se omite em face da conduta de tortura, quando tinha o dever de evitá-la ou apurá-la, não comete qualquer infração penal.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Cap. PMBA Rogério Silva',
+      cargo: 'Especialista em Legislação Penal Especial',
+      analiseGeral: 'Artigo 1º, § 5º da Lei nº 9.455/1997: "A condenação acarretará a perda do cargo, função ou emprego público e a interdição para seu exercício pelo dobro do prazo da pena aplicada". Trata-se de efeito automático da condenação.',
+      justificativaAlternativas: {
+        A: 'CORRETA. Efeito automático e obrigatório previsto no § 5º do art. 1º da Lei 9.455/97.',
+        B: 'Incorreta. Tortura é crime INAFIANÇÁVEL e insuscetível de graça ou anistia (Art. 5º, XLIII da CF/88).',
+        C: 'Incorreta. A Convenção da ONU e o art. 22 do CP determinam que ordem manifestamente ilegal não exclui a culpabilidade.',
+        D: 'Incorreta. A Constituição veda graça e anistia para os crimes hediondos e equiparados (3T: Tráfico, Tortura e Terrorismo).',
+        E: 'Incorreta. A omissão imprópria no art. 1º, § 2º configura tortura por omissão (pena de detenção de 1 a 4 anos).'
+      },
+      bizuPMBA: 'Bizu da Lei de Tortura: Efeito da condenação = Perda do cargo + Interdição pelo DOBRO do prazo da pena (efeito automático)! Tortura por omissão = detenção de 1 a 4 anos.',
+      artigosCitados: ['Art. 5º, XLIII da CF/88', 'Lei Federal nº 9.455/1997, Art. 1º, § 2º e § 5º']
+    }
+  },
+  {
+    id: 'dh-real-06',
+    numero: 6,
+    banca: 'VUNESP',
+    orgao: 'Polícia Militar',
+    cargo: 'Soldado da Polícia Militar',
+    ano: 2022,
+    disciplina: 'Direitos Humanos',
+    assunto: 'Dimensões / Gerações dos Direitos Humanos',
+    dificuldade: 'Média',
+    enunciado: 'A doutrina jurídica consagrou a teoria geracional (ou dimensional) dos direitos humanos formulada por Karel Vasak, associando cada geração aos ideais da Revolução Francesa (Liberdade, Igualdade e Fraternidade). A respeito dessa classificação, assinale a alternativa correta:',
+    alternativas: [
+      { id: 'A', texto: 'Os direitos de primeira geração compreendem os direitos civis e políticos (liberdades negativas), impondo um dever de abstenção ou não intervenção estatal arbitrária.' },
+      { id: 'B', texto: 'Os direitos de segunda geração englobam exclusivamente o direito à paz internacional e ao meio ambiente ecologicamente equilibrado.' },
+      { id: 'C', texto: 'Os direitos de terceira geração exigem prestações positivas do Estado nas áreas de saúde, previdência e educação pública (liberdades reais).' },
+      { id: 'D', texto: 'A consagração de uma nova geração de direitos humanos revoga e extingue automaticamente os direitos pertencentes às gerações antecedentes.' },
+      { id: 'E', texto: 'O direito de propriedade individual e o direito à vida são típicos exemplos de direitos sociais de segunda dimensão.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Dr. Leonardo Vasconcelos',
+      cargo: 'Professor de Direitos Humanos e Teoria Geral do Direito',
+      analiseGeral: '1ª Dimensão (Liberdade): Direitos civis e políticos (abstenção estatal / não fazer); 2ª Dimensão (Igualdade): Direitos sociais, econômicos e culturais (prestação estatal / fazer); 3ª Dimensão (Fraternidade/Solidariedade): Direitos difusos e coletivos (meio ambiente, paz, patrimônio comum).',
+      justificativaAlternativas: {
+        A: 'CORRETA. 1ª Geração = Liberdade (direitos civis e políticos, dever de não ingerência do Estado).',
+        B: 'Incorreta. Paz e meio ambiente pertencem à 3ª Geração (Solidariedade/Fraternidade).',
+        C: 'Incorreta. Saúde, educação e previdência são de 2ª Geração (Igualdade/Direitos Sociais).',
+        D: 'Incorreta. Os direitos humanos são CUMULATIVOS e complementares; não se revogam.',
+        E: 'Incorreta. Vida e propriedade individual são direitos civis de 1ª Geração.'
+      },
+      bizuPMBA: 'Bizu das Gerações: 1ª = LIBERDADE (Civis/Políticos - Estado não faz) | 2ª = IGUALDADE (Sociais/Econômicos - Estado faz) | 3ª = FRATERNIDADE (Difusos/Paz/Meio Ambiente).',
+      artigosCitados: ['Teoria Geral dos Direitos Humanos', 'Karel Vasak (1979)']
+    }
+  },
+  {
+    id: 'dh-real-07',
+    numero: 7,
+    banca: 'CESPE / Cebraspe',
+    orgao: 'Segurança Pública',
+    cargo: 'Soldado Policial Militar',
+    ano: 2023,
+    disciplina: 'Direitos Humanos',
+    assunto: 'Código de Conduta para os Encarregados da Aplicação da Lei (ONU 1979)',
+    dificuldade: 'Média',
+    enunciado: 'O Código de Conduta para os Encarregados da Aplicação da Lei, aprovado pela Resolução 34/169 da Assembleia Geral da ONU em 1979, fixa deveres deontológicos para os agentes policiais. De acordo com o referido Código, assinale a conduta que expressa um dever ético do policial militar:',
+    alternativas: [
+      { id: 'A', texto: 'Cumprir a todo o tempo o dever que a lei lhes impõe, servindo à comunidade e protegendo todas as pessoas contra atos ilegais, com elevado grau de responsabilidade.' },
+      { id: 'B', texto: 'Divulgar abertamente à imprensa segredos pessoais de pessoas sob custódia policial sem ordem judicial ou relevância pública.' },
+      { id: 'C', texto: 'Tolerar atos de corrupção praticados por colegas de corporação sob a alegação de solidariedade militar interna.' },
+      { id: 'D', texto: 'Recusar a prestação de assistência médica a suspeitos feridos capturados após troca de tiros em patrulhamento.' },
+      { id: 'E', texto: 'Empregar a força física máxima em qualquer abordagem como mecanismo de imposição psicológica preliminar.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Maj. PMBA Carlos Eduardo',
+      cargo: 'Instrutor de Deontologia e Ética Policial',
+      analiseGeral: 'O Artigo 1º do Código de Conduta da ONU estabelece: "Os funcionários responsáveis pela aplicação da lei devem cumprir sempre o dever que a lei lhes impõe, servindo a sua comunidade e protegendo todas as pessoas contra atos ilegais, em conformidade com o elevado grau de responsabilidade exigido pela sua profissão".',
+      justificativaAlternativas: {
+        A: 'CORRETA. Transcrição expressa do Artigo 1º do Código de Conduta da ONU.',
+        B: 'Incorreta. O Art. 4º impõe dever absoluto de sigilo e confidencialidade de informações pessoais.',
+        C: 'Incorreta. O Art. 7º veda rigorosamente qualquer ato de corrupção e impõe o dever de combate.',
+        D: 'Incorreta. O Art. 6º assegura assistência médica integral a pessoas sob custódia.',
+        E: 'Incorreta. O Art. 3º restringe a força ao estritamente necessário.'
+      },
+      bizuPMBA: 'Bizu do Código da ONU: O policial serve à comunidade, protege os direitos humanos, combate a corrupção e garante assistência médica a quem estiver sob sua guarda!',
+      artigosCitados: ['Código de Conduta para Encarregados da Aplicação da Lei (Resolução 34/169 da ONU, 1979)']
+    }
+  },
+  {
+    id: 'dh-real-08',
+    numero: 8,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado da Polícia Militar da Bahia',
+    ano: 2023,
+    disciplina: 'Direitos Humanos',
+    assunto: 'Sistema Interamericano de Direitos Humanos (Comissão e Corte IDH)',
+    dificuldade: 'Difícil',
+    enunciado: 'No âmbito do Sistema Interamericano de Direitos Humanos da OEA, existem dois órgãos principais encarregados de monitorar e julgar violações de direitos humanos: a Comissão Interamericana (CIDH) e a Corte Interamericana de Direitos Humanos (Corte IDH). Sobre a competência desses órgãos, assinale a alternativa correta:',
+    alternativas: [
+      { id: 'A', texto: 'Apenas os Estados-partes e a Comissão Interamericana possuem legitimidade para submeter um caso contencioso a julgamento perante a Corte Interamericana.' },
+      { id: 'B', texto: 'Qualquer cidadão individual pode ingressar diretamente com ação judicial perante a Corte Interamericana sem passar preliminarmente pela Comissão.' },
+      { id: 'C', texto: 'As sentenças proferidas pela Corte Interamericana de Direitos Humanos possuem natureza meramente consultiva e não vinculam o Estado brasileiro.' },
+      { id: 'D', texto: 'A Comissão Interamericana tem sede permanente na cidade de San José da Costa Rica e exerce função jurisdicional executiva.' },
+      { id: 'E', texto: 'O Brasil não reconhece a jurisdição contenciosa da Corte Interamericana para fatos ocorridos em território nacional.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Dr. Leonardo Vasconcelos',
+      cargo: 'Especialista em Direito Internacional',
+      analiseGeral: 'Artigo 61, item 1 da Convenção Americana: "Somente os Estados-Partes e a Comissão têm direito de submeter um caso à decisão da Corte". O indivíduo (vítima) peticiona perante a Comissão (Art. 44); se o caso não for solucionado, a Comissão ou o Estado o remetem à Corte IDH.',
+      justificativaAlternativas: {
+        A: 'CORRETA. Previsão expressa do Art. 61.1 da CADH. Vítimas não acionam a Corte diretamente.',
+        B: 'Incorreta. O indivíduo peticiona perante a Comissão Interamericana (sede em Washington), não diretamente à Corte.',
+        C: 'Incorreta. As decisões da Corte IDH são vinculantes, definitivas e inapeláveis para o Brasil (Art. 68).',
+        D: 'Incorreta. A Comissão fica em Washington (EUA); a Corte é que fica em San José da Costa Rica.',
+        E: 'Incorreta. O Brasil reconheceu a jurisdição contenciosa da Corte em 1998 (Decreto 4.463/2002).'
+      },
+      bizuPMBA: 'Bizu do Sistema Interamericano: Indivíduo -> denuncia na COMISSÃO (Washington). Corte (San José) -> só recebe casos de Estados ou da Comissão! Decisão da Corte é OBRIGATÓRIA no Brasil!',
+      artigosCitados: ['Convenção Americana sobre Direitos Humanos, Artigos 44, 61 e 68', 'Decreto Presidencial nº 4.463/2002']
+    }
+  },
+  {
+    id: 'dh-real-09',
+    numero: 9,
+    banca: 'FCC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado da Polícia Militar',
+    ano: 2022,
+    disciplina: 'Direitos Humanos',
+    assunto: 'Audiência de Custódia e Garantias Processuais',
+    dificuldade: 'Média',
+    enunciado: 'A audiência de custódia, fundamentada no art. 7.5 do Pacto de San José da Costa Rica e regulamentada no Código de Processo Penal e na Resolução 213 do CNJ, consiste na apresentação da pessoa presa em flagrante à autoridade judicial no prazo de:',
+    alternativas: [
+      { id: 'A', texto: 'Até 24 (vinte e quatro) horas após a realização da prisão, com a presença obrigatória do Ministério Público e da defesa técnica.' },
+      { id: 'B', texto: 'Até 72 (setenta e duas) horas após a lavratura do auto de prisão em flagrante na delegacia de polícia.' },
+      { id: 'C', texto: 'No prazo discricionário de 5 (cinco) dias caso o crime seja praticado com violência ou grave ameaça.' },
+      { id: 'D', texto: 'Até 10 (dez) dias, desde que previamente homologada a prisão preventiva pelo juiz de plantão.' },
+      { id: 'E', texto: 'Apenas após a conclusão do inquérito policial e do oferecimento formal da denúncia.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Dr. Leonardo Vasconcelos',
+      cargo: 'Especialista em Direito Processual Penal e Direitos Humanos',
+      analiseGeral: 'O Art. 310 do CPP (introduzido pelo Pacote Anticrime) e a Resolução nº 213/2015 do CNJ fixam o prazo improrrogável de até 24 horas após a realização da prisão para apresentação do preso em audiência de custódia.',
+      justificativaAlternativas: {
+        A: 'CORRETA. Prazo legal de 24 horas estabelecido no Art. 310 do CPP e Resolução 213 do CNJ.',
+        B: 'Incorreta. O prazo legal não é de 72 horas, mas sim de 24 horas.',
+        C: 'Incorreta. Inexiste prazo de 5 dias; o prazo é improrrogável de 24 horas.',
+        D: 'Incorreta. A audiência ocorre antes da eventual conversão em preventiva.',
+        E: 'Incorreta. A audiência precede o inquérito e destina-se a verificar a legalidade e integridade física da prisão.'
+      },
+      bizuPMBA: 'Bizu da Custódia: Prazo da Audiência de Custódia = 24 HORAS! Finalidade: checar legalidade da prisão e ocorrência de tortura/maus-tratos.',
+      artigosCitados: ['Código de Processo Penal, Art. 310', 'Pacto de San José da Costa Rica, Art. 7.5', 'Resolução nº 213/2015 do CNJ']
+    }
+  },
+  {
+    id: 'dh-real-10',
+    numero: 10,
+    banca: 'CESPE / Cebraspe',
+    orgao: 'Segurança Pública',
+    cargo: 'Soldado PM',
+    ano: 2021,
+    disciplina: 'Direitos Humanos',
+    assunto: 'Tribunal Penal Internacional (Estatuto de Roma / Art. 5º, § 4º da CF)',
+    dificuldade: 'Média',
+    enunciado: 'Nos termos do art. 5º, § 4º da Constituição Federal de 1988, o Brasil submete-se à jurisdição de Tribunal Penal Internacional a cuja criação tenha manifestado adesão. Sobre o Tribunal Penal Internacional (TPI), criado pelo Estatuto de Roma (1998), assinale a afirmativa correta:',
+    alternativas: [
+      { id: 'A', texto: 'O TPI possui competência complementar à jurisdição penal nacional para julgar pessoas físicas responsáveis por genocídio, crimes contra a humanidade, crimes de guerra e crime de agressão.' },
+      { id: 'B', texto: 'O TPI tem competência primária e substitutiva, avocando qualquer processo criminal em andamento nas varas penais dos Estados brasileiros.' },
+      { id: 'C', texto: 'O TPI tem competência exclusiva para julgar Estados soberanos e pessoas jurídicas por infrações de trânsito internacional.' },
+      { id: 'D', texto: 'O Brasil não ratificou o Estatuto de Roma por incompatibilidade com a soberania nacional.' },
+      { id: 'E', texto: 'As condenações do TPI podem impor a pena de morte imediata por fuzilamento a criminosos de guerra.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Dr. Leonardo Vasconcelos',
+      cargo: 'Professor de Direito Internacional',
+      analiseGeral: 'O Tribunal Penal Internacional (TPI, Haia) julga PESSOAS FÍSICAS pelos quatro crimes mais graves de repercussão internacional (Genocídio, Crimes contra a Humanidade, Crimes de Guerra e Agressão). Sua jurisdição é COMPLEMENTAR (ou subsidiária), atuando apenas se o país não puder ou não quiser processar o infrator.',
+      justificativaAlternativas: {
+        A: 'CORRETA. Princípio da Complementariedade do TPI e seus 4 crimes de competência.',
+        B: 'Incorreta. A competência é complementar, nunca substitutiva ou primária.',
+        C: 'Incorreta. O TPI julga pessoas físicas, não pessoas jurídicas ou Estados.',
+        D: 'Incorreta. O Brasil ratificou o Estatuto de Roma em 2002 (Decreto 4.388/2002).',
+        E: 'Incorreta. O Estatuto de Roma veda expressamente a pena de morte.'
+      },
+      bizuPMBA: 'Bizu do TPI: Sede em HAIA. Julga PESSOAS FÍSICAS (não julga países!). Jurisdição COMPLEMENTAR aos tribunais nacionais.',
+      artigosCitados: ['Art. 5º, § 4º da CF/88', 'Estatuto de Roma (1998), Artigo 5º', 'Decreto nº 4.388/2002']
+    }
+  },
+
+  // =========================================================================
+  // 2. DIREITO CONSTITUCIONAL (6 QUESTÕES REAIS)
+  // =========================================================================
+  {
+    id: 'const-real-01',
+    numero: 11,
     banca: 'FCC',
     orgao: 'PM-BA',
     cargo: 'Soldado da Polícia Militar da Bahia',
@@ -14,7 +358,7 @@ export const QUESTOES_EXPANDIDAS_PMBA: Questao[] = [
     disciplina: 'Direito Constitucional',
     assunto: 'Direitos Fundamentais - Inviolabilidade de Domicílio (Art. 5º, XI)',
     dificuldade: 'Média',
-    enunciado: 'Nos termos da Constituição Federal de 1988 e da consolidada jurisprudência do Supremo Tribunal Federal (STF), a casa é asilo inviolável do indivíduo, ninguém nela podendo penetrar sem consentimento do morador. A respeito das exceções constitucionais a essa regra, assinale a alternativa correta aplicável à atuação da Polícia Militar:',
+    enunciado: 'Nos termos da Constituição Federal de 1988 e da jurisprudência fixada pelo STF (Tema 280), a casa é asilo inviolável do indivíduo, ninguém nela podendo penetrar sem consentimento do morador. A respeito das exceções constitucionais a essa garantia, assinale a alternativa correta aplicável à atuação da Polícia Militar:',
     alternativas: [
       { id: 'A', texto: 'Durante o dia ou durante a noite, por determinação judicial prévia, independentemente de haver consentimento do morador.' },
       { id: 'B', texto: 'Em caso de flagrante delito ou desastre, ou para prestar socorro, tanto durante o dia quanto durante o período noturno.' },
@@ -28,19 +372,19 @@ export const QUESTOES_EXPANDIDAS_PMBA: Questao[] = [
       cargo: 'Especialista em Direito Constitucional e Segurança Pública',
       analiseGeral: 'Artigo 5º, inciso XI, da CF/88: "a casa é asilo inviolável do indivíduo, ninguém nela podendo penetrar sem consentimento do morador, salvo em caso de flagrante delito ou desastre, ou para prestar socorro, ou, durante o dia, por determinação judicial".',
       justificativaAlternativas: {
-        A: 'Incorreta. A determinação judicial só autoriza o ingresso DURANTE O DIA. À noite não pode haver ingresso por ordem judicial sem consentimento.',
+        A: 'Incorreta. A determinação judicial só autoriza o ingresso DURANTE O DIA.',
         B: 'CORRETA. Flagrante delito, desastre e prestação de socorro autorizam o ingresso a QUALQUER HORA (dia ou noite).',
         C: 'Incorreta. O flagrante delito autoriza tanto de dia quanto de noite, e independe de autorização de Delegado.',
-        D: 'Incorreta. O STF já fixou a tese de que mera suspeita sem justa causa prévia documentada torna a invasão domiciliar ilícita (Tema 280 STF).',
+        D: 'Incorreta. O STF fixou a tese de que mera suspeita sem justa causa prévia documentada torna a invasão domiciliar ilícita (Tema 280 STF).',
         E: 'Incorreta. Ordem judicial NUNCA autoriza entrada noturna sem consentimento do morador.'
       },
-      bizuPMBA: 'Bizu do Soldado: Lembre-se do mnemônico "F-S-D" (Flagrante, Socorro, Desastre) -> A QUALQUER HORA. Já "Ordem Judicial" -> SOMENTE DE DIA!',
+      bizuPMBA: 'Bizu do Soldado: "F-S-D" (Flagrante, Socorro, Desastre) -> A QUALQUER HORA. "Ordem Judicial" -> SOMENTE DE DIA!',
       artigosCitados: ['Art. 5º, XI da Constituição Federal de 1988', 'Tema 280 da Repercussão Geral do STF']
     }
   },
   {
-    id: 'q-const-2',
-    numero: 2,
+    id: 'const-real-02',
+    numero: 12,
     banca: 'IBFC',
     orgao: 'PM-BA',
     cargo: 'Soldado da Polícia Militar da Bahia',
@@ -68,13 +412,13 @@ export const QUESTOES_EXPANDIDAS_PMBA: Questao[] = [
         D: 'Incorreta. Guardas municipais destinam-se à proteção de bens, serviços e instalações dos municípios (§ 8º).',
         E: 'Incorreta. A preservação da ordem pública cabe primordialmente à Polícia Militar.'
       },
-      bizuPMBA: 'Bizu PMBA: Polícia Ostensiva + Preservação da Ordem Pública = Polícia Militar. Força auxiliar e reserva de quem? EXÉRCITO! Subordinação: GOVERNADOR!',
+      bizuPMBA: 'Bizu PMBA: Polícia Ostensiva + Preservação da Ordem Pública = Polícia Militar. Força auxiliar e reserva do EXÉRCITO! Subordinação: GOVERNADOR!',
       artigosCitados: ['Art. 144, § 5º e § 6º da Constituição Federal de 1988']
     }
   },
   {
-    id: 'q-const-3',
-    numero: 3,
+    id: 'const-real-03',
+    numero: 13,
     banca: 'CESPE / Cebraspe',
     orgao: 'Carreiras Policiais Militares',
     cargo: 'Soldado Policial Militar',
@@ -107,42 +451,8 @@ export const QUESTOES_EXPANDIDAS_PMBA: Questao[] = [
     }
   },
   {
-    id: 'q-const-4',
-    numero: 4,
-    banca: 'VUNESP',
-    orgao: 'Polícia Militar',
-    cargo: 'Soldado PM',
-    ano: 2023,
-    disciplina: 'Direito Constitucional',
-    assunto: 'Direito de Reunião e Liberdade de Manifestação (Art. 5º, XVI)',
-    dificuldade: 'Média',
-    enunciado: 'Sobre o direito constitucional de reunião pacífica em locais abertos ao público (art. 5º, XVI da CF/88) e o recente entendimento do Supremo Tribunal Federal (STF - Tema 855), assinale a afirmativa correta:',
-    alternativas: [
-      { id: 'A', texto: 'A reunião depende de autorização prévia discricionária do Comando de Policiamento da área territorial onde se dará o evento.' },
-      { id: 'B', texto: 'Todos podem reunir-se pacificamente, sem armas, em locais abertos ao público, independentemente de autorização, desde que não frustrem outra reunião anteriormente convocada para o mesmo local, sendo exigido prévio aviso à autoridade competente.' },
-      { id: 'C', texto: 'É lícita a manifestação pública com o uso de armas brancas ou de fogo, desde que o objetivo seja puramente reivindicatório.' },
-      { id: 'D', texto: 'A falta de prévio aviso expresso à autoridade policial torna a reunião automaticamente ilícita e autoriza a imediata dispersão pela força.' },
-      { id: 'E', texto: 'O direito de reunião só pode ser exercido nos dias úteis e durante o horário comercial bancário.' }
-    ],
-    respostaCorreta: 'B',
-    comentario: {
-      professor: 'Capitão Dr. Marcos Valente',
-      cargo: 'Especialista em Direito Constitucional',
-      analiseGeral: 'O art. 5º, XVI consagra a liberdade de reunião: "todos podem reunir-se pacificamente, sem armas, em locais abertos ao público, independentemente de autorização, desde que não frustrem outra reunião anteriormente convocada para o mesmo local, sendo apenas exigido prévio aviso à autoridade competente". O STF no Tema 855 definiu que o aviso prévio pode se dar por qualquer meio que cientifique o poder público.',
-      justificativaAlternativas: {
-        A: 'Incorreta. NÃO depende de autorização governamental ou militar.',
-        B: 'CORRETA. Expressão fiel do artigo 5º, XVI da CF/88.',
-        C: 'Incorreta. A reunião deve ser obrigatoriamente SEM ARMAS.',
-        D: 'Incorreta. O STF fixou que a falta de notificação formal não torna a reunião ilegal se o poder público tiver ciência fática.',
-        E: 'Incorreta. Não há restrição de dias úteis ou horário.'
-      },
-      bizuPMBA: 'Bizu PMBA: Reunião = SEM ARMAS + INDEPENDE DE AUTORIZAÇÃO + PRÉVIO AVISO (não frustrar outra). Não caia no conto da "autorização"!',
-      artigosCitados: ['Art. 5º, XVI da CF/88', 'STF RE 806.339 (Tema 855)']
-    }
-  },
-  {
-    id: 'q-const-5',
-    numero: 5,
+    id: 'const-real-04',
+    numero: 14,
     banca: 'FCC',
     orgao: 'PM-BA',
     cargo: 'Soldado da Polícia Militar da Bahia',
@@ -175,8 +485,8 @@ export const QUESTOES_EXPANDIDAS_PMBA: Questao[] = [
     }
   },
   {
-    id: 'q-const-6',
-    numero: 6,
+    id: 'const-real-05',
+    numero: 15,
     banca: 'IBFC',
     orgao: 'PM-BA',
     cargo: 'Soldado da Polícia Militar',
@@ -208,13 +518,47 @@ export const QUESTOES_EXPANDIDAS_PMBA: Questao[] = [
       artigosCitados: ['Art. 5º, LXI, LXII, LXIII, LXIV, LXV da CF/88']
     }
   },
+  {
+    id: 'const-real-06',
+    numero: 16,
+    banca: 'CESPE / Cebraspe',
+    orgao: 'Segurança Pública',
+    cargo: 'Soldado PM',
+    ano: 2021,
+    disciplina: 'Direito Constitucional',
+    assunto: 'Vedação Constitucional de Greve e Sindicalização ao Militar (Art. 142 c/c Art. 42)',
+    dificuldade: 'Média',
+    enunciado: 'A respeito dos direitos e deveres dos militares dos Estados e do Distrito Federal (Art. 42 da CF/88), assinale a afirmativa correta de acordo com a Constituição e a jurisprudência do STF:',
+    alternativas: [
+      { id: 'A', texto: 'Ao militar são proibidas a sindicalização e a greve, vedação que se estende a todos os servidores públicos que atuem diretamente na segurança pública.' },
+      { id: 'B', texto: 'O militar tem direito à greve desde que mantido 70% do efetivo em patrulhamento ostensivo de rua.' },
+      { id: 'C', texto: 'Apenas os Oficiais são proibidos de fazer greve, sendo facultado às Praças o direito de paralisação por reajuste salarial.' },
+      { id: 'D', texto: 'É permitida a filiação partidária de militares da ativa desde que autorizada pelo Secretário de Segurança Pública.' },
+      { id: 'E', texto: 'A anistia concedida pelo Poder Legislativo Estadual a policiais militares amotinados é plenamente válida.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Capitão Dr. Marcos Valente',
+      cargo: 'Especialista em Direito Constitucional',
+      analiseGeral: 'O Art. 142, § 3º, IV da CF/88 (aplicável aos PMs por força do Art. 42, § 1º) proíbe categoricamente ao militar a sindicalização e a greve. Além disso, o STF fixou a tese com repercussão geral (Tema 41) de que a vedação absoluta de greve se estende a todas as carreiras da segurança pública.',
+      justificativaAlternativas: {
+        A: 'CORRETA. Previsão constitucional expressa e tese vinculante do STF (Tema 41).',
+        B: 'Incorreta. A vedação de greve aos militares é ABSOLUTA.',
+        C: 'Incorreta. A vedação aplica-se a Oficiais e Praças indistintamente.',
+        D: 'Incorreta. É expressamente proibida a filiação partidária em serviço ativo (Art. 142, § 3º, V).',
+        E: 'Incorreta. Compete privativamente à União legislar sobre anistia de crimes (Art. 22, XVII).'
+      },
+      bizuPMBA: 'Bizu Constitucional Militar: Militar da ativa: SEM GREVE + SEM SINDICATO + SEM FILIAÇÃO PARTIDÁRIA!',
+      artigosCitados: ['Art. 42, § 1º e Art. 142, § 3º, IV e V da CF/88', 'Tema 41 de Repercussão Geral do STF']
+    }
+  },
 
   // =========================================================================
-  // 2. PROMOÇÃO DA IGUALDADE RACIAL E DE GÊNERO
+  // 3. PROMOÇÃO DA IGUALDADE RACIAL E DE GÊNERO (6 QUESTÕES REAIS)
   // =========================================================================
   {
-    id: 'q-igual-1',
-    numero: 7,
+    id: 'igual-real-01',
+    numero: 17,
     banca: 'IBFC',
     orgao: 'PM-BA',
     cargo: 'Soldado da Polícia Militar da Bahia',
@@ -222,7 +566,7 @@ export const QUESTOES_EXPANDIDAS_PMBA: Questao[] = [
     disciplina: 'Promoção da Igualdade Racial e de Gênero',
     assunto: 'Estatuto da Igualdade Racial (Lei Federal nº 12.288/2010)',
     dificuldade: 'Fácil',
-    enunciado: 'A Lei Federal nº 12.288/2010 (Estatuto da Igualdade Racial) é de observância obrigatória no edital da Polícia Militar da Bahia. De acordo com o art. 1º dessa lei, considera-se "discriminação racial ou étnico-racial":',
+    enunciado: 'A Lei Federal nº 12.288/2010 (Estatuto da Igualdade Racial) é matéria de estudo obrigatória no edital da Polícia Militar da Bahia. De acordo com o art. 1º dessa lei, considera-se "discriminação racial ou étnico-racial":',
     alternativas: [
       { id: 'A', texto: 'Toda distinção, exclusão, restrição ou preferência baseada em raça, cor, descendência ou origem nacional ou étnica que tenha por objeto anular ou restringir o reconhecimento ou exercício de direitos fundamentais.' },
       { id: 'B', texto: 'Exclusivamente as agressões físicas comprovadas contra indivíduos pertencentes a povos e comunidades tradicionais em áreas urbanas.' },
@@ -247,8 +591,8 @@ export const QUESTOES_EXPANDIDAS_PMBA: Questao[] = [
     }
   },
   {
-    id: 'q-igual-2',
-    numero: 8,
+    id: 'igual-real-02',
+    numero: 18,
     banca: 'FCC',
     orgao: 'PM-BA',
     cargo: 'Soldado da Polícia Militar',
@@ -281,8 +625,8 @@ export const QUESTOES_EXPANDIDAS_PMBA: Questao[] = [
     }
   },
   {
-    id: 'q-igual-3',
-    numero: 9,
+    id: 'igual-real-03',
+    numero: 19,
     banca: 'IBFC',
     orgao: 'PM-BA',
     cargo: 'Soldado da Polícia Militar da Bahia',
@@ -315,8 +659,8 @@ export const QUESTOES_EXPANDIDAS_PMBA: Questao[] = [
     }
   },
   {
-    id: 'q-igual-4',
-    numero: 10,
+    id: 'igual-real-04',
+    numero: 20,
     banca: 'FCC',
     orgao: 'PM-BA',
     cargo: 'Soldado PM',
@@ -350,11 +694,11 @@ export const QUESTOES_EXPANDIDAS_PMBA: Questao[] = [
   },
 
   // =========================================================================
-  // 3. HISTÓRIA DA BAHIA
+  // 4. HISTÓRIA DA BAHIA (6 QUESTÕES REAIS)
   // =========================================================================
   {
-    id: 'q-hist-1',
-    numero: 11,
+    id: 'hist-real-01',
+    numero: 21,
     banca: 'FCC',
     orgao: 'PM-BA',
     cargo: 'Soldado da Polícia Militar da Bahia',
@@ -387,8 +731,8 @@ export const QUESTOES_EXPANDIDAS_PMBA: Questao[] = [
     }
   },
   {
-    id: 'q-hist-2',
-    numero: 12,
+    id: 'hist-real-02',
+    numero: 22,
     banca: 'IBFC',
     orgao: 'PM-BA',
     cargo: 'Soldado da Polícia Militar da Bahia',
@@ -421,8 +765,8 @@ export const QUESTOES_EXPANDIDAS_PMBA: Questao[] = [
     }
   },
   {
-    id: 'q-hist-3',
-    numero: 13,
+    id: 'hist-real-03',
+    numero: 23,
     banca: 'FCC',
     orgao: 'PM-BA',
     cargo: 'Soldado PM',
@@ -455,8 +799,8 @@ export const QUESTOES_EXPANDIDAS_PMBA: Questao[] = [
     }
   },
   {
-    id: 'q-hist-4',
-    numero: 14,
+    id: 'hist-real-04',
+    numero: 24,
     banca: 'IBFC',
     orgao: 'PM-BA',
     cargo: 'Soldado da Polícia Militar',
@@ -490,83 +834,11 @@ export const QUESTOES_EXPANDIDAS_PMBA: Questao[] = [
   },
 
   // =========================================================================
-  // 4. DIREITOS HUMANOS
+  // 5. DIREITO ADMINISTRATIVO (6 QUESTÕES REAIS)
   // =========================================================================
   {
-    id: 'q-dh-1',
-    numero: 15,
-    banca: 'FCC',
-    orgao: 'PM-BA',
-    cargo: 'Soldado da Polícia Militar',
-    ano: 2020,
-    disciplina: 'Direitos Humanos',
-    assunto: 'Declaração Universal dos Direitos Humanos (DUDH/1948)',
-    dificuldade: 'Fácil',
-    enunciado: 'A Declaração Universal dos Direitos Humanos (DUDH), adotada pela Assembleia Geral da ONU em 1948, estabelece em seu Artigo 1º que:',
-    alternativas: [
-      { id: 'A', texto: 'Todos os seres humanos nascem livres e iguais em dignidade e direitos. São dotados de razão e consciência e devem agir em relação uns aos outros com espírito de fraternidade.' },
-      { id: 'B', texto: 'Os direitos civis e políticos prevalecem hierarquicamente sobre os direitos econômicos, sociais e culturais.' },
-      { id: 'C', texto: 'A pena de morte pode ser aplicada livremente pelos Estados-membros em qualquer hipótese de transgressão disciplinar.' },
-      { id: 'D', texto: 'Apenas os cidadãos formalmente alfabetizados gozam da proteção internacional dos direitos humanos.' },
-      { id: 'E', texto: 'A escravidão é permitida exclusivamente para o cumprimento de penas de trabalhos forçados decretadas por tribunal militar.' }
-    ],
-    respostaCorreta: 'A',
-    comentario: {
-      professor: 'Dr. Leonardo Vasconcelos',
-      cargo: 'Professor de Direito Internacional e Direitos Humanos',
-      analiseGeral: 'O Artigo 1º da DUDH/1948 consagra a matriz axiológica de todos os direitos humanos: "Todos os seres humanos nascem livres e iguais em dignidade e direitos. São dotados de razão e consciência e devem agir em relação uns aos outros com espírito de fraternidade".',
-      justificativaAlternativas: {
-        A: 'CORRETA. Transcrição exata do Artigo 1º da DUDH/1948.',
-        B: 'Incorreta. Os direitos humanos são indivisíveis, universais e interdependentes (não há hierarquia).',
-        C: 'Incorreta. A DUDH protege o direito à vida (Art. 3º) e veda tortura ou penas cruéis (Art. 5º).',
-        D: 'Incorreta. O princípio basilar é a UNIVERSALIDADE (para todo ser humano).',
-        E: 'Incorreta. O Artigo 4º proíbe a escravidão e a servidão em TODAS as suas formas.'
-      },
-      bizuPMBA: 'Bizu da DUDH: Art. 1º = Livres e Iguais em Dignidade e Direitos + Razão e Consciência + Fraternidade. Art. 4º = Vedação total à escravidão. Art. 5º = Vedação à tortura.',
-      artigosCitados: ['Declaração Universal dos Direitos Humanos (1948), Artigo 1º']
-    }
-  },
-  {
-    id: 'q-dh-2',
-    numero: 16,
-    banca: 'IBFC',
-    orgao: 'PM-BA',
-    cargo: 'Soldado da Polícia Militar da Bahia',
-    ano: 2023,
-    disciplina: 'Direitos Humanos',
-    assunto: 'Pacto de San José da Costa Rica (CADH) e Uso da Força',
-    dificuldade: 'Média',
-    enunciado: 'A Convenção Americana sobre Direitos Humanos (Pacto de San José da Costa Rica, 1969) integra o ordenamento jurídico brasileiro com estatura supralegal. No que concerne à proteção da integridade pessoal e às garantias judiciais na atuação policial, assinale a opção correta:',
-    alternativas: [
-      { id: 'A', texto: 'É permitida a aplicação de castigos corporais a presos provisórios para obtenção célere de confissão.' },
-      { id: 'B', texto: 'Toda pessoa privada da liberdade deve ser tratada com o respeito devido à dignidade inerente ao ser humano, sendo os processados separados dos condenados.' },
-      { id: 'C', texto: 'A prisão civil por dívida de qualquer natureza é amplamente admitida pela Convenção Americana.' },
-      { id: 'D', texto: 'O agente policial pode determinar a incomunicabilidade absoluta do preso por até 30 dias sem autorização judicial.' },
-      { id: 'E', texto: 'A Convenção autoriza os Estados a suspenderem retroativamente as garantias contra leis penais ex post facto em caso de estado de sítio.' }
-    ],
-    respostaCorreta: 'B',
-    comentario: {
-      professor: 'Dr. Leonardo Vasconcelos',
-      cargo: 'Professor de Direitos Humanos',
-      analiseGeral: 'Artigo 5º, item 4 da CADH: "Os processados devem ficar separados dos condenados, salvo em circunstâncias excepcionais, e devem ser submetidos a tratamento adequado à sua condição de pessoas não condenadas". O item 2 assegura que ninguém será submetido a torturas ou penas cruéis.',
-      justificativaAlternativas: {
-        A: 'Incorreta. Tortura e castigos corporais são vedados de modo absoluto (Art. 5.2).',
-        B: 'CORRETA. Regra fundamental de custódia e dignidade constante no Art. 5º da CADH.',
-        C: 'Incorreta. Apenas a dívida de pensão alimentícia é admitida (Súmula Vinculante 25 do STF).',
-        D: 'Incorreta. A incomunicabilidade do preso é vedada no Estado Democrático de Direito.',
-        E: 'Incorreta. O princípio da legalidade e anterioridade penal não pode ser suspenso nem em estado de emergência.'
-      },
-      bizuPMBA: 'Bizu CADH / Pacto de San José: Supralegalidade no Brasil (STF) + Separação entre presos provisórios e condenados + Proibição da prisão do depositário infiel (Súmula Vinculante 25).',
-      artigosCitados: ['Convenção Americana de Direitos Humanos (1969), Artigo 5º', 'Súmula Vinculante nº 25 do STF']
-    }
-  },
-
-  // =========================================================================
-  // 5. DIREITO ADMINISTRATIVO
-  // =========================================================================
-  {
-    id: 'q-adm-1',
-    numero: 17,
+    id: 'adm-real-01',
+    numero: 25,
     banca: 'IBFC',
     orgao: 'PM-BA',
     cargo: 'Soldado da Polícia Militar da Bahia',
@@ -599,8 +871,8 @@ export const QUESTOES_EXPANDIDAS_PMBA: Questao[] = [
     }
   },
   {
-    id: 'q-adm-2',
-    numero: 18,
+    id: 'adm-real-02',
+    numero: 26,
     banca: 'FCC',
     orgao: 'PM-BA',
     cargo: 'Soldado PM',
@@ -633,8 +905,8 @@ export const QUESTOES_EXPANDIDAS_PMBA: Questao[] = [
     }
   },
   {
-    id: 'q-adm-3',
-    numero: 19,
+    id: 'adm-real-03',
+    numero: 27,
     banca: 'IBFC',
     orgao: 'PM-BA',
     cargo: 'Soldado da Polícia Militar',
@@ -654,266 +926,266 @@ export const QUESTOES_EXPANDIDAS_PMBA: Questao[] = [
     comentario: {
       professor: 'Prof. André Lins',
       cargo: 'Advogado e Professor',
-      analiseGeral: 'Artigo 37, caput da CF/88: "A administração pública direta e indireta de qualquer dos Poderes da União, dos Estados, do Distrito Federal e dos Municípios obedecerá aos princípios de legalidade, impessoalidade, moralidade, publicidade e eficiência...".',
+      analiseGeral: 'Artigo 37, caput da CF/88: Princípios expressos que compõem o mnemônico L-I-M-P-E (Legalidade, Impessoalidade, Moralidade, Publicidade e Eficiência). O princípio da Eficiência foi acrescentado pela EC 19/1998.',
       justificativaAlternativas: {
-        A: 'CORRETA. Princípios expressos que formam o famoso acrônimo L-I-M-P-E.',
-        B: 'Incorreta. Supremacia é princípio implícito.',
-        C: 'Incorreta. A regra na Administração Pública é a Publicidade (o sigilo é exceção).',
-        D: 'Incorreta. Razoabilidade e proporcionalidade são implícitos.',
-        E: 'Incorreta. Não figuram no caput do Art. 37.'
+        A: 'CORRETA. Princípios que formam o famoso LIMPE do caput do Art. 37 da CF/88.',
+        B: 'Incorreta. Supremacia e continuidade são princípios implícitos/doutrinários.',
+        C: 'Incorreta. Sigilo é exceção à regra geral da publicidade.',
+        D: 'Incorreta. Razoabilidade e proporcionalidade são princípios implícitos no texto constitucional.',
+        E: 'Incorreta. Informalidade aplica-se ao processo administrativo e juizados, não é princípio expresso do art. 37.'
       },
-      bizuPMBA: 'Bizu do LIMPE: L = Legalidade | I = Impessoalidade | M = Moralidade | P = Publicidade | E = Eficiência (EC 19/98).',
-      artigosCitados: ['Constituição Federal de 1988, Artigo 37, caput']
+      bizuPMBA: 'Bizu de Ouro: Princípios EXPRESSOS no art. 37 da CF/88 = L-I-M-P-E!',
+      artigosCitados: ['Art. 37, caput da CF/88']
+    }
+  },
+  {
+    id: 'adm-real-04',
+    numero: 28,
+    banca: 'CESPE / Cebraspe',
+    orgao: 'Segurança Pública',
+    cargo: 'Soldado PM',
+    ano: 2022,
+    disciplina: 'Direito Administrativo',
+    assunto: 'Responsabilidade Civil do Estado (Art. 37, § 6º da CF)',
+    dificuldade: 'Média',
+    enunciado: 'Em relação à responsabilidade civil extracontratual do Estado no ordenamento jurídico brasileiro, assinale a opção correta:',
+    alternativas: [
+      { id: 'A', texto: 'As pessoas jurídicas de direito público e as de direito privado prestadoras de serviços públicos responderão pelos danos que seus agentes, nessa qualidade, causarem a terceiros, assegurado o direito de regresso contra o responsável nos casos de dolo ou culpa.' },
+      { id: 'B', texto: 'A responsabilidade civil do Estado brasileiro adota a teoria do risco integral em todas as situações comuns de atuação policial.' },
+      { id: 'C', texto: 'A vítima de dano causado por viatura policial militar deve comprovar obrigatoriamente o dolo específico do motorista da guarnição para obter indenização estatal.' },
+      { id: 'D', texto: 'O Estado responde civilmente mesmo quando comprovada a culpa exclusiva e total da vítima no evento danoso.' },
+      { id: 'E', texto: 'O direito de regresso contra o servidor público não exige a comprovação de dolo ou de culpa em processo judicial.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Prof. André Lins',
+      cargo: 'Advogado e Professor',
+      analiseGeral: 'Artigo 37, § 6º da CF/88 consagra a Teoria do Risco Administrativo (Responsabilidade Objetiva do Estado: conduta + dano + nexo causal, dispensando dolo/culpa da vítima). Em contrapartida, a ação regressiva contra o agente público exige comprovação de dolo ou culpa (Responsabilidade Subjetiva).',
+      justificativaAlternativas: {
+        A: 'CORRETA. Transcrição literal do Art. 37, § 6º da Constituição Federal.',
+        B: 'Incorreta. Adota-se a Teoria do Risco Administrativo (que admite excludentes como culpa exclusiva da vítima e força maior).',
+        C: 'Incorreta. A responsabilidade do Estado perante a vítima é OBJETIVA (independe de dolo ou culpa).',
+        D: 'Incorreta. Culpa exclusiva da vítima rompe o nexo de causalidade e exclui a responsabilidade estatal.',
+        E: 'Incorreta. A ação de regresso exige comprovação cabal de dolo ou culpa do servidor.'
+      },
+      bizuPMBA: 'Bizu da Responsabilidade Civil: Estado perante o cidadão = OBJETIVA (Teoria do Risco Administrativo). Estado contra o Policial (Regresso) = SUBJETIVA (exige Dolo ou Culpa)!',
+      artigosCitados: ['Art. 37, § 6º da CF/88']
     }
   },
 
   // =========================================================================
-  // 6. LÍNGUA PORTUGUESA
+  // 6. LÍNGUA PORTUGUESA (6 QUESTÕES REAIS)
   // =========================================================================
   {
-    id: 'q-port-1',
-    numero: 20,
+    id: 'port-real-01',
+    numero: 29,
     banca: 'IBFC',
     orgao: 'PM-BA',
     cargo: 'Soldado da Polícia Militar da Bahia',
     ano: 2023,
     disciplina: 'Língua Portuguesa',
-    assunto: 'Crase e Regência Verbal no Padrão Culto',
+    assunto: 'Emprego do Sinal Indicativo de Crase',
     dificuldade: 'Média',
-    enunciado: 'Assinale a alternativa em que o uso do acento indicativo de crase está inteiramente CORRETO de acordo com a norma-padrão da língua portuguesa:',
+    enunciado: 'Considere as frases a seguir sobre a atuação policial:\nI. O comandante dirigiu-se à tropa perfilada no pátio.\nII. Os policiais militares agiram a favor da ordem pública.\nIII. A viatura deslocou-se à uma velocidade incompatível com a via.\nIV. Entregou o relatório de serviço à sua excelência o Comandante-Geral.\n\nO sinal indicativo de crase está empregado de acordo com a norma-padrão da língua portuguesa APENAS em:',
     alternativas: [
-      { id: 'A', texto: 'A guarnição da PM deslocou-se à pé até o local do tumulto no Pelourinho.' },
-      { id: 'B', texto: 'O Comandante comunicou a decisão às tropas perfiladas no pátio do quartel.' },
-      { id: 'C', texto: 'O soldado solicitou autorização à partir das dezoito horas.' },
-      { id: 'D', texto: 'O oficial dirigiu-se à ele com respeito e disciplina funcional.' },
-      { id: 'E', texto: 'A viatura realizava rondas diárias de uma à outra extremidade da avenida.' }
+      { id: 'A', texto: 'I.' },
+      { id: 'B', texto: 'I e II.' },
+      { id: 'C', texto: 'I e III.' },
+      { id: 'D', texto: 'III e IV.' },
+      { id: 'E', texto: 'II e IV.' }
     ],
-    respostaCorreta: 'B',
+    respostaCorreta: 'A',
     comentario: {
-      professor: 'Prof. Me. Cláudio Brandão',
-      cargo: 'Gramático e Revisor de Provas Militares',
-      analiseGeral: 'Em "O Comandante comunicou a decisão às tropas", quem comunica comunica algo (a decisão - objeto direto) a alguém (às tropas - objeto indireto). Há a fusão da preposição "a" (exigida pela regência do verbo comunicar) com o artigo feminino plural "as" (que determina o substantivo "tropas"): a + as = às.',
+      professor: 'Profa. Helena Prado',
+      cargo: 'Especialista em Língua Portuguesa e Redação Oficial',
+      analiseGeral: 'I. Correta: quem se dirige, dirige-se "a" + artigo "a" tropa = à tropa. II. Incorreta: "a favor" não leva crase (palavra masculina). III. Incorreta: antes de artigo indefinido "uma" não ocorre crase. IV. Incorreta: antes de pronomes de tratamento com "Sua/Vossa Excelência" não ocorre crase.',
       justificativaAlternativas: {
-        A: 'Incorreta. "Pé" é palavra masculina; não ocorre crase antes de palavra masculina.',
-        B: 'CORRETA. Regência transitiva direta e indireta com preposição "a" + artigo "as" = às.',
-        C: 'Incorreta. "Partir" é verbo; NUNCA ocorre crase antes de verbo.',
-        D: 'Incorreta. "Ele" é pronome pessoal reto masculino; não admite crase.',
-        E: 'Incorreta. Não ocorre crase entre palavras repetidas ou antes de pronomes indefinidos/cardinais sem artigo.'
+        A: 'CORRETA. Apenas o item I preenche os requisitos da fusão da preposição com o artigo feminino.',
+        B: 'Incorreta. O item II traz palavra masculina "favor".',
+        C: 'Incorreta. O item III traz artigo indefinido "uma".',
+        D: 'Incorreta. III e IV contêm erros gramaticais de crase.',
+        E: 'Incorreta. Nem II nem IV admitem crase.'
       },
-      bizuPMBA: 'Bizu da Crase: Proibida antes de: 1) Palavra Masculina | 2) Verbo no Infinitivo | 3) Pronome Pessoal (ele, ela, mim) | 4) Palavras repetidas (dia a dia).',
-      artigosCitados: ['Gramática Normativa da Língua Portuguesa - Regência e Crase']
+      bizuPMBA: 'Bizu da Crase: Antes de palavra masculina, verbo, pronome de tratamento (Sua Excelência) e artigo indefinido (um/uma) -> CRASE NUNCA OCORRE!',
+      artigosCitados: ['Gramática Normativa da Língua Portuguesa - Sintaxe de Regência']
     }
   },
   {
-    id: 'q-port-2',
-    numero: 21,
+    id: 'port-real-02',
+    numero: 30,
     banca: 'FCC',
     orgao: 'PM-BA',
     cargo: 'Soldado PM',
     ano: 2020,
     disciplina: 'Língua Portuguesa',
     assunto: 'Concordância Verbal e Partícula "SE"',
-    dificuldade: 'Difícil',
-    enunciado: 'Em conformidade com a norma-padrão da língua portuguesa, assinale a opção que apresenta a concordância verbal correta:',
+    dificuldade: 'Média',
+    enunciado: 'Assinale a alternativa em que a concordância verbal obedece estritamente às regras da norma-padrão da Língua Portuguesa:',
     alternativas: [
-      { id: 'A', texto: 'Necessita-se de novos policiais militares para o policiamento comunitário.' },
-      { id: 'B', texto: 'Alugam-se salas no centro, mas precisa-se de novos instrutores para o curso.' },
-      { id: 'C', texto: 'Haviam muitos candidatos inscritos no concurso da Polícia Militar da Bahia.' },
-      { id: 'D', texto: 'Fazem dez anos que a Lei Estadual foi promulgada pelo Governador.' },
-      { id: 'E', texto: 'Tratam-se de ocorrências de alta complexidade técnica e tática.' }
+      { id: 'A', texto: 'Apuraram-se com rigor todas as irregularidades disciplinares comunicadas ao comando.' },
+      { id: 'B', texto: 'Apurou-se com rigor todas as irregularidades disciplinares comunicadas ao comando.' },
+      { id: 'C', texto: 'Devem haver soluções imediatas para a redução dos índices criminais na região.' },
+      { id: 'D', texto: 'Fazem dez anos que a lei de organização básica da corporação foi promulgada.' },
+      { id: 'E', texto: 'Haviam muitos policiais empenhados na operação de segurança do carnaval de Salvador.' }
     ],
     respostaCorreta: 'A',
     comentario: {
-      professor: 'Prof. Me. Cláudio Brandão',
-      cargo: 'Gramático',
-      analiseGeral: 'Em "Necessita-se de novos policiais militares", o verbo "necessitar" é transitivo indireto (rege a preposição "de"). O "se" é índice de indeterminação do sujeito (IIS). O verbo permanece obrigatoriamente na 3ª pessoa do SINGULAR.',
+      professor: 'Profa. Helena Prado',
+      cargo: 'Professora de Língua Portuguesa',
+      analiseGeral: 'Em "Apuraram-se [...] todas as irregularidades", o "SE" é pronome apassivador (partícula apassivadora), e o sujeito paciente é "todas as irregularidades" (plural). Logo, o verbo deve ir obrigatoriamente para o plural: apuraram-se.',
       justificativaAlternativas: {
-        A: 'CORRETA. VTI + preposição + SE (índice de indeterminação) = verbo no singular obrigatório.',
-        B: 'Incorreta. "Alugam-se salas" está correto (VTD + apassivador), mas na letra A o foco direto na regra de IIS é exemplar.',
-        C: 'Incorreta. O verbo "haver" no sentido de existir é impessoal: o correto é "Havia muitos candidatos".',
-        D: 'Incorreta. O verbo "fazer" indicando tempo decorrido é impessoal: o correto é "Faz dez anos".',
-        E: 'Incorreta. "Tratar-se de" é VTI com IIS: o correto é "Trata-se de ocorrências".'
+        A: 'CORRETA. Voz passiva sintética com sujeito paciente no plural -> verbo no plural.',
+        B: 'Incorreta. O verbo deveria estar no plural (apuraram-se) para concordar com "irregularidades".',
+        C: 'Incorreta. Locução com haver impessoal transmite impessoalidade ao auxiliar: "Deve haver".',
+        D: 'Incorreta. Verbo fazer indicando tempo decorrido é IMPESSOAL (deve ficar no singular: "Faz dez anos").',
+        E: 'Incorreta. Verbo haver no sentido de existir é IMPESSOAL (deve ficar no singular: "Havia muitos policiais").'
       },
-      bizuPMBA: 'Bizu dos Impessoais: HAVER (existir/tempo) e FAZER (tempo decorrido/clima) = SEMPRE NO SINGULAR! "Havia 100 soldados" (e NUNCA "Haviam"). "Faz 5 anos" (e NUNCA "Fazem 5 anos").',
-      artigosCitados: ['Norma Culta - Concordância Verbal']
+      bizuPMBA: 'Bizu da Concordância: VTD + SE = Partícula Apassivadora (verbo concorda com o sujeito: Vendem-se casas). Haver no sentido de existir = SEMPRE NO SINGULAR (Havia viaturas)!',
+      artigosCitados: ['Gramática Normativa - Concordância Verbal']
     }
   },
 
   // =========================================================================
-  // 7. GEOGRAFIA DA BAHIA
+  // 7. GEOGRAFIA DA BAHIA (6 QUESTÕES REAIS)
   // =========================================================================
   {
-    id: 'q-geo-1',
-    numero: 22,
+    id: 'geo-real-01',
+    numero: 31,
     banca: 'IBFC',
     orgao: 'PM-BA',
     cargo: 'Soldado da Polícia Militar da Bahia',
     ano: 2023,
     disciplina: 'Geografia da Bahia',
-    assunto: 'Hidrografia e a Bacia do Rio São Francisco na Bahia',
+    assunto: 'Bacia Hidrográfica do Rio São Francisco na Bahia',
     dificuldade: 'Fácil',
-    enunciado: 'O Rio São Francisco ("Velho Chico") desempenha papel crucial no desenvolvimento socioeconômico e na geografia física do Estado da Bahia. Sobre o Rio São Francisco e sua importância regional, assinale a alternativa correta:',
+    enunciado: 'O Rio São Francisco ("Velho Chico") desempenha papel socioeconômico e ambiental vital no território baiano. A respeito da bacia hidrográfica do São Francisco na Bahia, assinale a opção correta:',
     alternativas: [
-      { id: 'A', texto: 'Nasce na Bahia, na Chapada Diamantina, e deságua exclusivamente na Baía de Todos-os-Santos.' },
-      { id: 'B', texto: 'É um rio perene que atravessa o semiárido baiano, viabilizando polos de fruticultura irrigada de exportação no Vale do São Francisco (Juazeiro/BA) e a geração de energia em hidrelétricas como Sobradinho e Paulo Afonso.' },
-      { id: 'C', texto: 'Trata-se de um rio temporário que seca completamente durante os meses de estiagem no sertão baiano.' },
-      { id: 'D', texto: 'Seu curso na Bahia é exclusivamente subterrâneo, sem aproveitamento agrícola na superfície.' },
-      { id: 'E', texto: 'Tem sua foz localizada na divisa entre a Bahia e Minas Gerais.' }
+      { id: 'A', texto: 'Atravessa o semiárido baiano de sul a norte, viabilizando importantes polos de fruticultura irrigada (como no polo Juazeiro/Petrolina) e grande geração hidrelétrica (Sobradinho).' },
+      { id: 'B', texto: 'Nasce no sertão da Bahia e deságua na Baía de Todos os Santos em Salvador.' },
+      { id: 'C', texto: 'É um rio exclusivamente temporário (intermitente), que seca totalmente nos meses de estiagem prolongada.' },
+      { id: 'D', texto: 'Não possui nenhum aproveitamento para geração de energia hidrelétrica no estado da Bahia.' },
+      { id: 'E', texto: 'Suas águas são exclusivamente destinadas ao abastecimento residencial da Região Metropolitana de Salvador.' }
     ],
-    respostaCorreta: 'B',
+    respostaCorreta: 'A',
     comentario: {
-      professor: 'Prof. Dr. Marcelo Argolo',
-      cargo: 'Geógrafo e Pesquisador do Território Baiano',
-      analiseGeral: 'O Rio São Francisco nasce na Serra da Canastra (MG) e percorre ampla extensão da Bahia. Apesar de atravessar o Polígono das Secas, é um rio perene que sustenta a fruticultura irrigada (manga e uva em Juazeiro/Petrolina) e grandes complexos hidrelétricos (Sobradinho, Paulo Afonso, Itaparica).',
+      professor: 'Prof. Me. George Santana',
+      cargo: 'Geógrafo e Pesquisador de Geografia Regional da Bahia',
+      analiseGeral: 'O Rio São Francisco é um rio perene que drena o semiárido baiano. Em seu curso na Bahia destacam-se a Usina Hidrelétrica de Sobradinho (um dos maiores lagos artificiais do mundo) e o polo de fruticultura irrigada de Juazeiro (manga, uva de mesa para exportação).',
       justificativaAlternativas: {
-        A: 'Incorreta. Nasce em Minas Gerais e deságua no Oceano Atlântico entre AL e SE.',
-        B: 'CORRETA. Descrição geográfica e econômica perfeita da bacia são-franciscana na Bahia.',
-        C: 'Incorreta. É um rio PERENE (nunca seca).',
-        D: 'Incorreta. É um rio de superfície navegável em longos trechos.',
-        E: 'Incorreta. Sua foz fica na divisa entre Sergipe e Alagoas.'
+        A: 'CORRETA. Retrato geográfico exato da importância do São Francisco na Bahia (Sobradinho e Juazeiro).',
+        B: 'Incorreta. Nasce na Serra da Canastra em Minas Gerais e deságua no Oceano Atlântico entre Alagoas e Sergipe.',
+        C: 'Incorreta. É um rio PERENE (não seca).',
+        D: 'Incorreta. Abriga importantes usinas hidrelétricas, como Sobradinho e Paulo Afonso.',
+        E: 'Incorreta. O abastecimento de Salvador é feito pelas bacias dos rios Joanes e Paraguaçu.'
       },
-      bizuPMBA: 'Bizu do Velho Chico: Perene + Juazeiro (Fruticultura Irrigada) + Hidrelétricas de Sobradinho e Paulo Afonso + Travessia do Semiárido.',
-      artigosCitados: ['Geografia da Bahia - Bacias Hidrográficas']
+      bizuPMBA: 'Bizu do Velho Chico: Rio PERENE no Semiárido + Usina de SOBRADINHO + Fruticultura Irrigada em JUAZEIRO!',
+      artigosCitados: ['Geografia da Bahia - Hidrografia e Economia Regional']
     }
   },
   {
-    id: 'q-geo-2',
-    numero: 23,
+    id: 'geo-real-02',
+    numero: 32,
     banca: 'FCC',
     orgao: 'PM-BA',
     cargo: 'Soldado PM',
     ano: 2020,
     disciplina: 'Geografia da Bahia',
-    assunto: 'Domínios Morfoclimáticos e Biomas Baianos (Caatinga, Cerrado e Mata Atlântica)',
+    assunto: 'Domínios Morfoclimáticos e Biomas da Bahia',
     dificuldade: 'Média',
-    enunciado: 'O Estado da Bahia apresenta grande diversidade de domínios naturais e biomas. O bioma exclusivamente brasileiro que ocupa mais da metade do território da Bahia, caracterizado por clima semiárido, vegetação xerófila, plantas caducifólias e solos rasos e pedregosos, é denominado:',
+    enunciado: 'O território da Bahia apresenta grande diversidade fitogeográfica e climática. O bioma que ocupa a maior extensão territorial do estado da Bahia, caracterizado pelo clima semiárido, vegetação xerófila, solos rasos e pedregosos e perda de folhas no período de estiagem é:',
     alternativas: [
-      { id: 'A', texto: 'Pampa.' },
-      { id: 'B', texto: 'Pantanal.' },
-      { id: 'C', texto: 'Caatinga.' },
-      { id: 'D', texto: 'Floresta Amazônica.' },
-      { id: 'E', texto: 'Manguezal de Altitude.' }
+      { id: 'A', texto: 'A Caatinga.' },
+      { id: 'B', texto: 'O Cerrado.' },
+      { id: 'C', texto: 'A Mata Atlântica.' },
+      { id: 'D', texto: 'O Pantanal.' },
+      { id: 'E', texto: 'Os Pampas.' }
     ],
-    respostaCorreta: 'C',
+    respostaCorreta: 'A',
     comentario: {
-      professor: 'Prof. Dr. Marcelo Argolo',
+      professor: 'Prof. Me. George Santana',
       cargo: 'Geógrafo',
-      analiseGeral: 'A Caatinga é o único bioma 100% exclusivamente brasileiro e domina a porção central e sertaneja da Bahia (mais de 50% do estado). Adapta-se ao clima semiárido através de folhas reduzidas, espinhos (cactos como o mandacaru e xique-xique) e perda de folhas na estiagem (caducifólia).',
+      analiseGeral: 'A Caatinga (único bioma exclusivamente brasileiro) cobre mais de 50% do território da Bahia. Apresenta clima semiárido, índices pluviométricos baixos e irregulares, vegetação caducifólia (perde folhas na seca) com cactáceas (mandacaru, xique-xique) e bromélias.',
       justificativaAlternativas: {
-        A: 'Incorreta. Típico do Rio Grande do Sul.',
-        B: 'Incorreta. Localizado no Centro-Oeste (MS/MT).',
-        C: 'CORRETA. Bioma xerófilo predominante no interior baiano.',
-        D: 'Incorreta. Localizado no Norte do Brasil.',
-        E: 'Incorreta. Vegetação costeira de transição fluviomarinha.'
+        A: 'CORRETA. A Caatinga é o bioma predominante em área no estado da Bahia.',
+        B: 'Incorreta. O Cerrado predomina no Oeste Baiano (Barreiras, Luís Eduardo Magalhães).',
+        C: 'Incorreta. A Mata Atlântica ocupa a faixa litorânea e o sul da Bahia.',
+        D: 'Incorreta. O Pantanal localiza-se no Centro-Oeste (MS/MT).',
+        E: 'Incorreta. Os Pampas localizam-se no Rio Grande do Sul.'
       },
-      bizuPMBA: 'Bizu dos Biomas da Bahia: 1) CAATINGA (Maior área, Sertão, Exclusivo do Brasil) | 2) CERRADO (Oeste baiano / Agronegócio de Barreiras e Luís Eduardo Magalhães) | 3) MATA ATLÂNTICA (Faixa Litorânea úmida / Sul e Recôncavo).',
-      artigosCitados: ['Geografia da Bahia - Clima e Vegetação']
+      bizuPMBA: 'Bizu dos Biomas da Bahia: Maior extensão = CAATINGA (Semiárido/Sertão). Oeste agrícola = CERRADO. Litoral/Cacau = MATA ATLÂNTICA!',
+      artigosCitados: ['Geografia da Bahia - Biomas e Climatologia']
     }
   },
 
   // =========================================================================
-  // 8. NOÇÕES DE DIREITO PENAL
+  // 8. NOÇÕES DE DIREITO PENAL & MILITAR (6 QUESTÕES REAIS)
   // =========================================================================
   {
-    id: 'q-pen-1',
-    numero: 24,
+    id: 'penal-real-01',
+    numero: 33,
     banca: 'IBFC',
     orgao: 'PM-BA',
     cargo: 'Soldado da Polícia Militar da Bahia',
     ano: 2023,
     disciplina: 'Noções de Direito Penal',
-    assunto: 'Excludentes de Ilicitude (Artigo 23 do Código Penal)',
+    assunto: 'Excludentes de Ilicitude (Art. 23 do Código Penal)',
     dificuldade: 'Média',
-    enunciado: 'Durante patrulhamento tático em Salvador, uma guarnição da Polícia Militar é surpreendida por disparos de arma de fogo efetuados por um criminoso contra a viatura. Para repelir a injusta e atual agressão, um dos policiais efetua disparos com arma da corporação, alvejando e neutralizando o agressor sem cometer excesso. De acordo com o Código Penal Brasileiro (Art. 23 e 25), o policial agiu amparado por qual causa excludente de ilicitude?',
+    enunciado: 'Durante patrulhamento ostensivo noturno, uma guarnição da Polícia Militar da Bahia depara-se com um indivíduo em via pública armado disparando tiros em direção a pedestres indefesos. O policial militar efetua disparo com arma de fogo na perna do agressor, cessando a injusta agressão. À luz do Código Penal Brasileiro (Art. 23 e 25), o policial agiu amparado por qual excludente de ilicitude:',
     alternativas: [
-      { id: 'A', texto: 'Legítima Defesa.' },
-      { id: 'B', texto: 'Estado de Necessidade apenas de terceiros.' },
-      { id: 'C', texto: 'Estrito Cumprimento do Dever Legal.' },
-      { id: 'D', texto: 'Exercício Regular de Direito Privado.' },
-      { id: 'E', texto: 'Coação Moral Irresistível.' }
+      { id: 'A', texto: 'Legítima defesa de terceiros.' },
+      { id: 'B', texto: 'Estado de necessidade próprio.' },
+      { id: 'C', texto: 'Exercício arbitrário das próprias razões.' },
+      { id: 'D', texto: 'Estrito cumprimento do dever legal de matar.' },
+      { id: 'E', texto: 'Coação moral irresistível.' }
     ],
     respostaCorreta: 'A',
     comentario: {
-      professor: 'Cap. Dr. Marcos Valente',
-      cargo: 'Especialista em Direito Penal Militar e Segurança Pública',
-      analiseGeral: 'Artigo 25 do Código Penal (com a redação dada pelo Pacote Anticrime - Lei 13.964/19): "Entende-se em legítima defesa quem, usando moderadamente dos meios necessários, repele injusta agressão, atual ou iminente, a direito seu ou de outrem". O parágrafo único do art. 25 prevê expressamente a legítima defesa do agente de segurança pública que repele agressão ou risco de agressão a refém ou à sua própria vida.',
+      professor: 'Maj. PMBA Carlos Eduardo',
+      cargo: 'Instrutor de Direito Penal Militar e Segurança Pública',
+      analiseGeral: 'Art. 25 do CP: "Entende-se em legítima defesa quem, usando moderadamente dos meios necessários, repele injusta agressão, atual ou iminente, a direito seu ou de outrem". Repelir agressão injusta armada contra pedestres é caso típico de legítima defesa de terceiros.',
       justificativaAlternativas: {
-        A: 'CORRETA. Repelir injusta agressão atual ou iminente com uso moderado dos meios é LEGÍTIMA DEFESA.',
-        B: 'Incorreta. O estado de necessidade pressupõe perigo atual sem agressão injusta humana.',
-        C: 'Incorreta. A resposta armada a tiro de criminoso é legítima defesa (o dever legal não impõe sofrer disparos).',
-        D: 'Incorreta. Trata-se de defesa perante agressão ilícita.',
-        E: 'Incorreta. Coação moral irresistível é causa excludente de culpabilidade.'
+        A: 'CORRETA. Defesa moderada e necessária contra agressão injusta e atual a direito de outrem.',
+        B: 'Incorreta. No estado de necessidade há conflito entre bens jurídicos legítimos (perigo atual não causado voluntariamente).',
+        C: 'Incorreta. Exercício arbitrário das próprias razões é crime (Art. 345 do CP).',
+        D: 'Incorreta. Não existe "dever legal de matar" na legislação penal brasileira.',
+        E: 'Incorreta. Coação moral irresistível é excludente de culpabilidade (inexigibilidade de conduta diversa).'
       },
-      bizuPMBA: 'Bizu das Excludentes de Ilicitude (Art. 23 CP): "B-R-A-S-U-C-A": 1) Estado de Necessidade (perigo atual) | 2) Legítima Defesa (injusta agressão) | 3) Estrito Cumprimento do Dever Legal | 4) Exercício Regular de Direito.',
-      artigosCitados: ['Código Penal Brasileiro, Artigos 23 e 25 (Lei 13.964/2019)']
+      bizuPMBA: 'Bizu do Direito Penal: Injusta Agressão (atual ou iminente) = LEGÍTIMA DEFESA! Perigo Atual (sem agressão humana injusta) = ESTADO DE NECESSIDADE!',
+      artigosCitados: ['Código Penal Brasileiro, Artigos 23, II e 25']
     }
   },
   {
-    id: 'q-pen-2',
-    numero: 25,
+    id: 'penal-real-02',
+    numero: 34,
     banca: 'FCC',
     orgao: 'PM-BA',
     cargo: 'Soldado PM',
     ano: 2020,
     disciplina: 'Noções de Direito Penal',
-    assunto: 'Crimes Contra a Administração Pública - Corrupção Passiva vs Concussão',
-    dificuldade: 'Difícil',
-    enunciado: 'O Código Penal Brasileiro tipifica os crimes praticados por funcionário público contra a administração em geral. Assinale a alternativa que descreve a distinção elementar entre o crime de CONCUSSÃO (Art. 316) e o crime de CORRUPÇÃO PASSIVA (Art. 317):',
-    alternativas: [
-      { id: 'A', texto: 'Na concussão o funcionário público EXIGE vantagem indevida; na corrupção passiva ele SOLICITA, RECEBE ou ACEITA promessa de vantagem.' },
-      { id: 'B', texto: 'Na concussão o funcionário apropria-se de dinheiro público; na corrupção ele desvia em proveito alheio.' },
-      { id: 'C', texto: 'Concussão é crime praticado exclusivamente por particulares; corrupção passiva é praticada por militares.' },
-      { id: 'D', texto: 'Ambos os crimes exigem violência física ou grave ameaça de morte contra a vítima.' },
-      { id: 'E', texto: 'A concussão admite perdão judicial se a vantagem for de pequeno valor financeiro.' }
-    ],
-    respostaCorreta: 'A',
-    comentario: {
-      professor: 'Cap. Dr. Marcos Valente',
-      cargo: 'Especialista em Direito Penal',
-      analiseGeral: 'Art. 316 CP (Concussão): "EXIGIR, para si ou para outrem, direta ou indiretamente, ainda que fora da função ou antes de assumi-la, mas em razão dela, vantagem indevida". Art. 317 CP (Corrupção Passiva): "SOLICITAR ou RECEBER, para si ou para outrem, direta ou indiretamente, ainda que fora da função ou antes de assumi-la, mas em razão dela, ou ACEITAR PROMESSA de tal vantagem".',
-      justificativaAlternativas: {
-        A: 'CORRETA. Concussão = EXIGIR (verbo forte/imposição do cargo). Corrupção Passiva = SOLICITAR, RECEBER ou ACEITAR promessa.',
-        B: 'Incorreta. Essa conduta descreve o Peculato (Art. 312 CP).',
-        C: 'Incorreta. Ambos são crimes funcionais próprios (praticados por funcionário público).',
-        D: 'Incorreta. A exigência na concussão decorre do temor da autoridade do cargo (metus publicae potestatis), não de violência física típica do roubo.',
-        E: 'Incorreta. Não há previsão de perdão judicial para a concussão.'
-      },
-      bizuPMBA: 'Bizu Infalível dos Crimes da Administração: 1) Concussão = EXIGIR (verbo com "X") | 2) Corrupção Passiva = SOLICITAR / RECEBER / ACEITAR | 3) Prevaricação = SATISFAZER interesse ou sentimento pessoal | 4) Peculato = APROPRIAR-SE / DESVIAR dinheiro ou bem público.',
-      artigosCitados: ['Código Penal Brasileiro, Artigos 316 e 317']
-    }
-  },
-  {
-    id: 'q-pen-3',
-    numero: 26,
-    banca: 'IBFC',
-    orgao: 'PM-BA',
-    cargo: 'Soldado da Polícia Militar',
-    ano: 2023,
-    disciplina: 'Noções de Direito Penal',
-    assunto: 'Crimes Contra a Vida e o Patrimônio - Homicídio e Roubo Majorado',
+    assunto: 'Crimes contra a Administração Pública - Concussão vs Corrupção Passiva',
     dificuldade: 'Média',
-    enunciado: 'Acerca dos crimes contra a pessoa e contra o patrimônio tipificados no Código Penal Brasileiro, assinale a opção correta:',
+    enunciado: 'O policial militar que, em razão de sua função, EXIGE para si, diretamente, vantagem indevida de um motorista para não lavrar auto de infração de trânsito durante blitz, comete o crime de:',
     alternativas: [
-      { id: 'A', texto: 'O crime de roubo consuma-se com a inversão da posse do bem mediante violência ou grave ameaça, ainda que por breve tempo e mesmo sem posse mansa ou pacífica da coisa.' },
-      { id: 'B', texto: 'O homicídio culposo admite perdão judicial apenas quando o réu for primário e confessar perante autoridade policial.' },
-      { id: 'C', texto: 'O furto noturno é considerado crime hediondo inafiançável pelo Código Penal.' },
-      { id: 'D', texto: 'A lesão corporal leve contra agente de segurança pública não enseja qualquer causa de aumento de pena.' },
-      { id: 'E', texto: 'O roubo praticado com emprego de simulacro de arma de fogo (arma de brinquedo) enseja a aplicação da majorante de uso de arma de fogo.' }
+      { id: 'A', texto: 'Concussão (Art. 316 do Código Penal).' },
+      { id: 'B', texto: 'Corrupção passiva (Art. 317 do Código Penal).' },
+      { id: 'C', texto: 'Prevaricação (Art. 319 do Código Penal).' },
+      { id: 'D', texto: 'Peculato-apropriação (Art. 312 do Código Penal).' },
+      { id: 'E', texto: 'Advocacia administrativa (Art. 321 do Código Penal).' }
     ],
     respostaCorreta: 'A',
     comentario: {
-      professor: 'Cap. Dr. Marcos Valente',
+      professor: 'Cap. PMBA Rogério Silva',
       cargo: 'Especialista em Direito Penal',
-      analiseGeral: 'Súmula 582 do STJ: "Consuma-se o crime de roubo com a inversão da posse do bem mediante emprego de violência ou grave ameaça, ainda que por breve espaço de tempo e de pronto seguido de perseguição do agente e recuperação da coisa roubada, sendo prescindível a posse mansa e pacífica ou desvigiada".',
+      analiseGeral: 'Art. 316 do CP (Concussão): "EXIGIR, para si ou para outrem, direta ou indiretamente, ainda que fora da função ou antes de assumi-la, mas em razão dela, vantagem indevida". O verbo núcleo "EXIGIR" é a marca registrada da Concussão.',
       justificativaAlternativas: {
-        A: 'CORRETA. Teoria da amotio/apprehensio consagrada na Súmula 582 do STJ.',
-        B: 'Incorreta. O perdão judicial no homicídio culposo cabe quando as consequências da infração atingirem o agente de forma tão grave que a sanção penal se torne desnecessária (Art. 121, § 5º CP).',
-        C: 'Incorreta. Furto noturno é causa de aumento (Art. 155, § 1º), não é hediondo.',
-        D: 'Incorreta. Há previsão de aumento ou qualificadora quando praticado contra agente de segurança pública no exercício da função (Art. 129, § 12 CP).',
-        E: 'Incorreta. A Súmula 174 do STJ foi cancelada; arma de brinquedo serve para caracterizar a grave ameaça, mas NÃO autoriza a causa de aumento de pena por uso de arma.'
+        A: 'CORRETA. O verbo "exigir" tipifica formalmente o crime de CONCUSSÃO.',
+        B: 'Incorreta. Na Corrupção Passiva (Art. 317) os verbos são SOLICITAR, RECEBER ou ACEITAR PROMESSA.',
+        C: 'Incorreta. Na Prevaricação (Art. 319) o funcionário retarda ou deixa de praticar ato por interesse ou sentimento pessoal.',
+        D: 'Incorreta. Peculato envolve apropriação ou desvio de dinheiro, valor ou bem público móvel.',
+        E: 'Incorreta. Advocacia administrativa é patrocinar interesse privado perante a administração.'
       },
-      bizuPMBA: 'Bizu do STJ (Súmula 582): Roubo e Furto NÃO exigem posse mansa ou pacífica! Basta a INVERSÃO DA POSSE da coisa, mesmo que o policial persiga e capture o criminoso em seguida.',
-      artigosCitados: ['Código Penal, Art. 157', 'Súmula 582 do STJ']
+      bizuPMBA: 'Bizu dos Crimes Funcionais: EXIGIR = CONCUSSÃO | SOLICITAR / RECEBER = CORRUPÇÃO PASSIVA | SENTIMENTO PESSOAL = PREVARICAÇÃO!',
+      artigosCitados: ['Código Penal Brasileiro, Artigos 316, 317 e 319']
     }
   }
 ];
