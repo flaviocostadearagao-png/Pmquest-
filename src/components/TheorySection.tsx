@@ -27,6 +27,7 @@ interface TheorySectionProps {
   onIrParaQuestoesDaMateria: (disciplinaNome: string) => void;
   topicosLidos: Record<string, boolean>;
   onToggleLido: (topicoId: string) => void;
+  onAbrirGerador?: (disciplina?: string, assunto?: string) => void;
 }
 
 // Icon helper
@@ -57,6 +58,7 @@ export const TheorySection: React.FC<TheorySectionProps> = ({
   onIrParaQuestoesDaMateria,
   topicosLidos,
   onToggleLido,
+  onAbrirGerador,
 }) => {
   const { isDark } = useTheme();
   const [expandedMateriaId, setExpandedMateriaId] = useState<string | null>(materias[0]?.id || null);
@@ -299,19 +301,37 @@ export const TheorySection: React.FC<TheorySectionProps> = ({
                                 <ArrowRight className="w-3.5 h-3.5" />
                               </button>
 
-                              <button
-                                type="button"
-                                onClick={() => onIrParaQuestoesDaMateria(materia.nome)}
-                                className={`text-[11px] font-semibold flex items-center gap-1 py-1 px-2 rounded-lg border cursor-pointer ${
-                                  isDark
-                                    ? 'text-blue-300 hover:text-blue-200 bg-blue-950/60 border-blue-800/60'
-                                    : 'text-blue-900 hover:bg-blue-100 bg-blue-50 border-blue-200'
-                                }`}
-                                title="Treinar questões desta matéria"
-                              >
-                                <span>Questões</span>
-                                <ExternalLink className="w-3 h-3" />
-                              </button>
+                              <div className="flex items-center gap-1.5">
+                                {onAbrirGerador && (
+                                  <button
+                                    type="button"
+                                    onClick={() => onAbrirGerador(materia.nome, topico.titulo)}
+                                    className={`text-[11px] font-bold flex items-center gap-1 py-1 px-2 rounded-lg border cursor-pointer ${
+                                      isDark
+                                        ? 'text-amber-400 bg-amber-950/40 border-amber-500/30 hover:bg-amber-950/70'
+                                        : 'text-amber-900 bg-amber-100 border-amber-300 hover:bg-amber-200'
+                                    }`}
+                                    title="Gerar questões inéditas com IA sobre este tópico"
+                                  >
+                                    <Sparkles className="w-3 h-3 text-amber-500" />
+                                    <span>+ IA</span>
+                                  </button>
+                                )}
+
+                                <button
+                                  type="button"
+                                  onClick={() => onIrParaQuestoesDaMateria(materia.nome)}
+                                  className={`text-[11px] font-semibold flex items-center gap-1 py-1 px-2 rounded-lg border cursor-pointer ${
+                                    isDark
+                                      ? 'text-blue-300 hover:text-blue-200 bg-blue-950/60 border-blue-800/60'
+                                      : 'text-blue-900 hover:bg-blue-100 bg-blue-50 border-blue-200'
+                                  }`}
+                                  title="Treinar questões desta matéria"
+                                >
+                                  <span>Questões</span>
+                                  <ExternalLink className="w-3 h-3" />
+                                </button>
+                              </div>
                             </div>
                           </div>
                         );

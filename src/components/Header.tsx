@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, Award, BarChart3, Smartphone, Monitor, Sun, Moon } from 'lucide-react';
+import { Shield, Award, BarChart3, Smartphone, Monitor, Sun, Moon, Sparkles } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
 interface HeaderProps {
@@ -9,6 +9,7 @@ interface HeaderProps {
   isMobileFrame: boolean;
   onToggleFrame: () => void;
   cloudSyncStatus?: 'synced' | 'syncing' | 'offline';
+  onOpenGerador?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -17,7 +18,8 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenStats,
   isMobileFrame,
   onToggleFrame,
-  cloudSyncStatus = 'synced'
+  cloudSyncStatus = 'synced',
+  onOpenGerador
 }) => {
   const { theme, isDark, toggleTheme } = useTheme();
   const taxaAcerto = totalRespondidas > 0 ? Math.round((acertos / totalRespondidas) * 100) : 0;
@@ -56,6 +58,19 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Controls */}
         <div className="flex items-center gap-1.5 sm:gap-2">
+          {/* Quick AI Question Generator Button */}
+          {onOpenGerador && (
+            <button
+              id="header-open-gerador-btn"
+              onClick={onOpenGerador}
+              className="flex items-center gap-1 px-2 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 active:scale-95 border border-amber-400/40 text-amber-300 text-[11px] font-bold transition-all cursor-pointer shadow-sm"
+              title="Gerar novas questões com IA baseadas no edital"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <span className="hidden xs:inline">Gerar IA</span>
+            </button>
+          )}
+
           {/* Cloud Sync Status indicator */}
           <div
             className="flex items-center gap-1 text-[10px] px-2 py-1 rounded-lg bg-black/30 border border-white/10 text-slate-300"
@@ -76,7 +91,7 @@ export const Header: React.FC<HeaderProps> = ({
                   : 'bg-slate-400'
               }`}
             />
-            <span className="hidden xs:inline text-[10px] font-medium">
+            <span className="hidden sm:inline text-[10px] font-medium">
               {cloudSyncStatus === 'synced' ? 'Nuvem' : cloudSyncStatus === 'syncing' ? 'Gravando' : 'Nuvem'}
             </span>
           </div>
@@ -129,3 +144,4 @@ export const Header: React.FC<HeaderProps> = ({
     </header>
   );
 };
+

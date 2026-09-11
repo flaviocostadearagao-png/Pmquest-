@@ -31,6 +31,7 @@ interface HomeDashboardProps {
   onIrParaMateria: (materiaNome: string) => void;
   onResetarProgresso: () => void;
   cloudSyncStatus: 'synced' | 'syncing' | 'offline';
+  onAbrirGerador?: () => void;
 }
 
 export const HomeDashboard: React.FC<HomeDashboardProps> = ({
@@ -43,6 +44,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
   onIrParaMateria,
   onResetarProgresso,
   cloudSyncStatus,
+  onAbrirGerador,
 }) => {
   const { isDark, toggleTheme } = useTheme();
   const totalQuestoes = questoes.length;
@@ -127,6 +129,24 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
               <span>Estudar Teoria</span>
             </button>
           </div>
+
+          {onAbrirGerador && (
+            <button
+              id="home-btn-gerador-ia"
+              type="button"
+              onClick={onAbrirGerador}
+              className="w-full py-2.5 px-3.5 rounded-xl font-bold text-xs bg-gradient-to-r from-amber-500/20 via-amber-500/30 to-amber-600/20 hover:from-amber-500/30 hover:to-amber-500/40 text-amber-300 flex items-center justify-between border border-amber-400/50 cursor-pointer active:scale-98 transition-all"
+            >
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
+                <span className="text-left">
+                  <strong className="block text-white text-[11px]">Gerador de Questões Inéditas</strong>
+                  <span className="text-[10px] text-amber-200/80">Criar simulados por disciplina com IA</span>
+                </span>
+              </div>
+              <ArrowRight className="w-4 h-4 text-amber-400" />
+            </button>
+          )}
         </div>
       </section>
 

@@ -12,7 +12,9 @@ import {
   Filter,
   Check,
   HelpCircle,
-  Flame
+  Flame,
+  Eye,
+  EyeOff
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Questao, AlternativaId, RespostaUsuario } from '../types';
@@ -30,6 +32,9 @@ interface QuestionCardProps {
   onSelectDisciplina: (disc: string) => void;
   assuntoFiltro: string;
   onSelectAssunto: (assunto: string) => void;
+  ocultarRespondidas?: boolean;
+  onToggleOcultarRespondidas?: () => void;
+  onAbrirGerador?: () => void;
 }
 
 export const QuestionCard: React.FC<QuestionCardProps> = ({
@@ -44,6 +49,9 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   onSelectDisciplina,
   assuntoFiltro,
   onSelectAssunto,
+  ocultarRespondidas = false,
+  onToggleOcultarRespondidas,
+  onAbrirGerador,
 }) => {
   const { isDark } = useTheme();
   const [selectedAlternativa, setSelectedAlternativa] = useState<AlternativaId | null>(null);
@@ -57,6 +65,15 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   const statusResposta = currentQuestao ? historicoRespostas[currentQuestao.id] : undefined;
   const foiRespondida = !!statusResposta;
   const alternativaMarcada = statusResposta ? statusResposta.alternativaEscolhida : selectedAlternativa;
+
+  // Questions in current filter (independent of hide answered toggle)
+  const todasNoFiltro = todasQuestoes.filter((q) => {
+    const matchDisc = disciplinaFiltro === 'Todas as Disciplinas' || q.disciplina.toLowerCase() === disciplinaFiltro.toLowerCase();
+    const matchAss = assuntoFiltro === 'Todos os Assuntos' || q.assunto.toLowerCase() === assuntoFiltro.toLowerCase();
+    return matchDisc && matchAss;
+  });
+  const respondidasNoFiltro = todasNoFiltro.filter((q) => !!historicoRespostas[q.id]).length;
+  const todasForamRespondidas = todasNoFiltro.length > 0 && respondidasNoFiltro === todasNoFiltro.length;
 
   // Disciplinas list for filter
   const disciplinasDisponiveis = [
@@ -110,18 +127,85 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   };
 
   if (!currentQuestao) {
+    if (ocultarRespondidas && todasForamRespondidas) {
+      return (
+        <div className="w-full max-w-md mx-auto space-y-4 pb-20">
+          <div className={`p-6 text-center rounded-3xl border shadow-xl ${
+            isDark ? 'bg-slate-900 border-slate-800 text-slate-100' : 'bg-white border-slate-200 text-slate-900'
+          }`}>
+            <div className="w-14 h-14 rounded-2xl bg-emerald-500/20 text-emerald-400 mx-auto flex items-center justify-center mb-3">
+              <CheckCircle2 className="w-8 h-8" />
+            </div>
+            <span className="text-[11px] font-bold text-emerald-500 uppercase tracking-wider block mb-1">
+              Filtro 100% Concluído
+            </span>
+            <h3 className="text-lg font-extrabold mb-1.5">
+              Todas as {todasNoFiltro.length} questões foram respondidas!
+            </h3>
+            <p className={`text-xs mb-5 max-w-xs mx-auto leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+              Você já resolveu todas as questões de <strong>{disciplinaFiltro}</strong>. Desative a opção abaixo para rever seus acertos e erros, ou gere novas questões inéditas com IA!
+            </p>
+            <div className="flex flex-col gap-2.5 max-w-xs mx-auto">
+              {onToggleOcultarRespondidas && (
+                <button
+                  id="btn-desativar-ocultar-vazio"
+                  onClick={onToggleOcultarRespondidas}
+                  className="w-full py-2.5 px-4 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-amber-500/20 transition-transform active:scale-98"
+                >
+                  <Eye className="w-4 h-4" />
+                  <span>Exibir Questões Respondidas</span>
+                </button>
+              )}
+              {onAbrirGerador && (
+                <button
+                  id="btn-gerar-mais-vazio"
+                  onClick={onAbrirGerador}
+                  className="w-full py-2.5 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-blue-600/25 transition-transform active:scale-98"
+                >
+                  <Sparkles className="w-4 h-4 text-amber-300" />
+                  <span>Gerar Mais Questões com IA</span>
+                </button>
+              )}
+              <button
+                onClick={() => {
+                  onSelectDisciplina('Todas as Disciplinas');
+                  onSelectAssunto('Todos os Assuntos');
+                }}
+                className={`w-full py-2 px-4 border rounded-xl text-xs cursor-pointer font-medium ${
+                  isDark ? 'border-slate-700 hover:bg-slate-800 text-slate-300' : 'border-slate-300 hover:bg-slate-100 text-slate-700'
+                }`}
+              >
+                Ver Todas as Disciplinas
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
     return (
-      <div className={`p-6 text-center ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-        <p className="font-semibold">Nenhuma questão encontrada para este filtro.</p>
-        <button
-          onClick={() => {
-            onSelectDisciplina('Todas as Disciplinas');
-            onSelectAssunto('Todos os Assuntos');
-          }}
-          className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-white font-medium"
-        >
-          Limpar Filtros
-        </button>
+      <div className={`p-6 text-center rounded-3xl border ${isDark ? 'bg-slate-900 border-slate-800 text-slate-300' : 'bg-white border-slate-200 text-slate-700'}`}>
+        <p className="font-semibold mb-2">Nenhuma questão encontrada para este filtro.</p>
+        <div className="flex flex-col gap-2 max-w-xs mx-auto mt-4">
+          {onAbrirGerador && (
+            <button
+              onClick={onAbrirGerador}
+              className="py-2.5 px-4 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs flex items-center justify-center gap-2 cursor-pointer shadow-md"
+            >
+              <Sparkles className="w-4 h-4" />
+              <span>Gerar Questões para este Filtro</span>
+            </button>
+          )}
+          <button
+            onClick={() => {
+              onSelectDisciplina('Todas as Disciplinas');
+              onSelectAssunto('Todos os Assuntos');
+            }}
+            className="py-2 px-4 bg-blue-600 hover:bg-blue-500 rounded-xl text-white text-xs font-semibold cursor-pointer"
+          >
+            Limpar Filtros
+          </button>
+        </div>
       </div>
     );
   }
@@ -161,6 +245,66 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
             <span>Filtrar</span>
             <ChevronRight className={`w-3.5 h-3.5 transition-transform ${showFiltros ? 'rotate-90' : ''}`} />
           </button>
+        </div>
+
+        {/* Quick Action Toolbar: Ocultar Respondidas & Gerador com IA */}
+        <div className="flex items-center gap-2 mt-2.5 pt-2.5 border-t border-slate-800/40">
+          {onToggleOcultarRespondidas && (
+            <button
+              id="btn-toggle-ocultar-respondidas"
+              onClick={onToggleOcultarRespondidas}
+              className={`flex-1 flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs transition-all cursor-pointer ${
+                ocultarRespondidas
+                  ? 'bg-amber-500 text-slate-950 border border-amber-400 font-bold shadow-sm shadow-amber-500/20'
+                  : isDark
+                  ? 'bg-slate-950/70 border border-slate-800 text-slate-300 hover:border-slate-700'
+                  : 'bg-slate-100 border border-slate-300 text-slate-700 hover:bg-slate-200 font-medium'
+              }`}
+              title={
+                ocultarRespondidas
+                  ? 'Exibindo apenas questões não respondidas. Clique para ver todas.'
+                  : 'Ocultar questões que você já resolveu'
+              }
+            >
+              {ocultarRespondidas ? (
+                <EyeOff className="w-3.5 h-3.5 shrink-0" />
+              ) : (
+                <Eye className="w-3.5 h-3.5 shrink-0 text-slate-400" />
+              )}
+              <span className="truncate">
+                {ocultarRespondidas ? 'Ocultando respondidas' : 'Ocultar respondidas'}
+              </span>
+              {respondidasNoFiltro > 0 && (
+                <span
+                  className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono font-bold shrink-0 ${
+                    ocultarRespondidas
+                      ? 'bg-slate-950/30 text-slate-950'
+                      : isDark
+                      ? 'bg-blue-900/60 text-blue-300'
+                      : 'bg-blue-100 text-blue-800'
+                  }`}
+                >
+                  {respondidasNoFiltro}
+                </span>
+              )}
+            </button>
+          )}
+
+          {onAbrirGerador && (
+            <button
+              id="btn-card-abrir-gerador"
+              onClick={onAbrirGerador}
+              className={`flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer shrink-0 ${
+                isDark
+                  ? 'bg-blue-950/80 text-amber-400 border border-blue-800 hover:bg-blue-900'
+                  : 'bg-amber-50 text-amber-900 border border-amber-300 hover:bg-amber-100'
+              }`}
+              title="Gerar questões inéditas com IA para esta disciplina"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+              <span>+ Gerar IA</span>
+            </button>
+          )}
         </div>
 
         {/* Collapsible Filter Selectors */}
@@ -224,6 +368,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
           )}
         </AnimatePresence>
       </section>
+
 
       {/* Question Progression Bar & Quick Index Pills */}
       <section

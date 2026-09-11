@@ -1,11 +1,13 @@
 import { doc, getDoc, setDoc, deleteDoc } from 'firebase/firestore';
 import { db, ensureAuthUser } from './firebase';
-import { RespostaUsuario, TemaApp } from '../types';
+import { RespostaUsuario, TemaApp, Questao } from '../types';
 
 export interface UserStudyData {
   historicoRespostas: Record<string, RespostaUsuario>;
   topicosLidos: Record<string, boolean>;
   theme?: TemaApp;
+  questoesGeradas?: Questao[];
+  ocultarRespondidas?: boolean;
   lastUpdated: string;
 }
 
@@ -24,6 +26,8 @@ export async function loadUserDataFromFirestore(): Promise<UserStudyData | null>
         historicoRespostas: (data.historicoRespostas as Record<string, RespostaUsuario>) || {},
         topicosLidos: (data.topicosLidos as Record<string, boolean>) || {},
         theme: data.theme === 'light' || data.theme === 'dark' ? data.theme : undefined,
+        questoesGeradas: Array.isArray(data.questoesGeradas) ? data.questoesGeradas : [],
+        ocultarRespondidas: typeof data.ocultarRespondidas === 'boolean' ? data.ocultarRespondidas : false,
         lastUpdated: data.lastUpdated || new Date().toISOString(),
       };
     }
@@ -40,7 +44,9 @@ export async function loadUserDataFromFirestore(): Promise<UserStudyData | null>
 export async function saveUserDataToFirestore(
   historicoRespostas: Record<string, RespostaUsuario>,
   topicosLidos: Record<string, boolean>,
-  theme?: TemaApp
+  theme?: TemaApp,
+  questoesGeradas?: Questao[],
+  ocultarRespondidas?: boolean
 ): Promise<boolean> {
   try {
     const user = await ensureAuthUser();
@@ -57,6 +63,15 @@ export async function saveUserDataToFirestore(
 
     if (theme) {
       payload.theme = theme;
+    }
+
+    if (Array.isArray(questoesGeradas)) {
+      payload.questoesGeradas = questoesGeradas;
+      payload.totalQuestoesGeradas = questoesGeradas.length;
+    }
+
+    if (typeof ocultarRespondidas === 'boolean') {
+      payload.ocultarRespondidas = ocultarRespondidas;
     }
 
     await setDoc(userDocRef, payload, { merge: true });

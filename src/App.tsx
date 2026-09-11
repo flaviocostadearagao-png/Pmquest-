@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Header } from './components/Header';
 import { BottomNav, ActiveTab } from './components/BottomNav';
@@ -6,8 +6,9 @@ import { QuestionCard } from './components/QuestionCard';
 import { TheorySection } from './components/TheorySection';
 import { StatsModal } from './components/StatsModal';
 import { HomeDashboard } from './components/HomeDashboard';
+import { GeradorQuestoesModal } from './components/GeradorQuestoesModal';
 import { QUESTOES_PMBA, TEORIA_PMBA } from './data/mockData';
-import { AlternativaId, RespostaUsuario } from './types';
+import { AlternativaId, RespostaUsuario, Questao } from './types';
 import { useTheme } from './context/ThemeContext';
 import {
   loadUserDataFromFirestore,
@@ -17,6 +18,8 @@ import {
 
 const STORAGE_KEY_RESPOSTAS = 'simulado_pmba_respostas_v1';
 const STORAGE_KEY_TOPICOS = 'simulado_pmba_topicos_v1';
+const STORAGE_KEY_QUESTOES_GERADAS = 'simulado_pmba_questoes_geradas_v1';
+const STORAGE_KEY_OCULTAR_RESPONDIDAS = 'simulado_pmba_ocultar_respondidas_v1';
 
 export default function App() {
   const { isDark } = useTheme();
@@ -27,6 +30,31 @@ export default function App() {
   const [isStatsOpen, setIsStatsOpen] = useState<boolean>(false);
   const [isMobileFrame, setIsMobileFrame] = useState<boolean>(true);
   const [cloudSyncStatus, setCloudSyncStatus] = useState<'synced' | 'syncing' | 'offline'>('syncing');
+
+  // AI Question Generator Modal states
+  const [isGeradorOpen, setIsGeradorOpen] = useState<boolean>(false);
+  const [geradorDisciplina, setGeradorDisciplina] = useState<string>('Direito Constitucional');
+  const [geradorAssunto, setGeradorAssunto] = useState<string>('');
+
+  // User toggle: Ocultar questões já respondidas
+  const [ocultarRespondidas, setOcultarRespondidas] = useState<boolean>(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY_OCULTAR_RESPONDIDAS);
+      return saved === 'true';
+    } catch {
+      return false;
+    }
+  });
+
+  // User AI-generated questions persisted locally and merged with base questions
+  const [questoesGeradas, setQuestoesGeradas] = useState<Questao[]>(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY_QUESTOES_GERADAS);
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
 
   // User answers history stored in state & localStorage
   const [historicoRespostas, setHistoricoRespostas] = useState<Record<string, RespostaUsuario>>(() => {
@@ -48,6 +76,11 @@ export default function App() {
     }
   });
 
+  // Combined pool: original questions + AI-generated questions
+  const todasQuestoes = useMemo(() => {
+    return [...QUESTOES_PMBA, ...questoesGeradas];
+  }, [questoesGeradas]);
+
   // Track initial load from cloud to prevent overwriting with empty state
   const isCloudLoadedRef = useRef(false);
 
@@ -68,6 +101,16 @@ export default function App() {
             ...prev,
             ...cloudData.topicosLidos,
           }));
+          if (Array.isArray(cloudData.questoesGeradas) && cloudData.questoesGeradas.length > 0) {
+            setQuestoesGeradas((prev) => {
+              const existing = new Set(prev.map((q) => q.id));
+              const fromCloud = cloudData.questoesGeradas!.filter((q) => !existing.has(q.id));
+              return [...prev, ...fromCloud];
+            });
+          }
+          if (typeof cloudData.ocultarRespondidas === 'boolean') {
+            setOcultarRespondidas(cloudData.ocultarRespondidas);
+          }
           setCloudSyncStatus('synced');
         } else if (isMounted) {
           setCloudSyncStatus('synced');
@@ -92,6 +135,8 @@ export default function App() {
     try {
       localStorage.setItem(STORAGE_KEY_RESPOSTAS, JSON.stringify(historicoRespostas));
       localStorage.setItem(STORAGE_KEY_TOPICOS, JSON.stringify(topicosLidos));
+      localStorage.setItem(STORAGE_KEY_QUESTOES_GERADAS, JSON.stringify(questoesGeradas));
+      localStorage.setItem(STORAGE_KEY_OCULTAR_RESPONDIDAS, String(ocultarRespondidas));
     } catch (err) {
       console.warn('Erro ao salvar progresso no localStorage:', err);
     }
@@ -101,7 +146,13 @@ export default function App() {
     setCloudSyncStatus('syncing');
     const timer = setTimeout(async () => {
       try {
-        const ok = await saveUserDataToFirestore(historicoRespostas, topicosLidos);
+        const ok = await saveUserDataToFirestore(
+          historicoRespostas,
+          topicosLidos,
+          undefined,
+          questoesGeradas,
+          ocultarRespondidas
+        );
         setCloudSyncStatus(ok ? 'synced' : 'offline');
       } catch {
         setCloudSyncStatus('offline');
@@ -109,23 +160,28 @@ export default function App() {
     }, 1200);
 
     return () => clearTimeout(timer);
-  }, [historicoRespostas, topicosLidos]);
+  }, [historicoRespostas, topicosLidos, questoesGeradas, ocultarRespondidas]);
 
-  // Filtered questions
-  const questoesFiltradas = QUESTOES_PMBA.filter((q) => {
-    const matchDisciplina =
-      disciplinaFiltro === 'Todas as Disciplinas' || q.disciplina.toLowerCase() === disciplinaFiltro.toLowerCase();
-    const matchAssunto =
-      assuntoFiltro === 'Todos os Assuntos' || q.assunto.toLowerCase() === assuntoFiltro.toLowerCase();
-    return matchDisciplina && matchAssunto;
-  });
+  // Filtered questions respecting disciplina, assunto, and "ocultarRespondidas"
+  const questoesFiltradas = useMemo(() => {
+    return todasQuestoes.filter((q) => {
+      const matchDisciplina =
+        disciplinaFiltro === 'Todas as Disciplinas' ||
+        q.disciplina.toLowerCase() === disciplinaFiltro.toLowerCase();
+      const matchAssunto =
+        assuntoFiltro === 'Todos os Assuntos' ||
+        q.assunto.toLowerCase() === assuntoFiltro.toLowerCase();
+      const matchOcultar = ocultarRespondidas ? !historicoRespostas[q.id] : true;
+      return matchDisciplina && matchAssunto && matchOcultar;
+    });
+  }, [todasQuestoes, disciplinaFiltro, assuntoFiltro, ocultarRespondidas, historicoRespostas]);
 
   // Calculate stats
   const totalRespondidas = Object.keys(historicoRespostas).length;
   const acertos = (Object.values(historicoRespostas) as RespostaUsuario[]).filter((r) => r.acertou).length;
 
   const handleResponder = (questaoId: string, alternativa: AlternativaId) => {
-    const questao = QUESTOES_PMBA.find((q) => q.id === questaoId);
+    const questao = todasQuestoes.find((q) => q.id === questaoId);
     if (!questao) return;
 
     const acertou = questao.respostaCorreta === alternativa;
@@ -169,14 +225,44 @@ export default function App() {
     let match = 'Todas as Disciplinas';
     const lower = disciplinaNome.toLowerCase();
     if (lower.includes('constitucional')) match = 'Direito Constitucional';
-    else if (lower.includes('igualdade') || lower.includes('raça')) match = 'Igualdade de Gênero e Raça';
+    else if (lower.includes('igualdade') || lower.includes('raça')) match = 'Promoção da Igualdade Racial e de Gênero';
     else if (lower.includes('história')) match = 'História da Bahia';
     else if (lower.includes('portuguesa') || lower.includes('português')) match = 'Língua Portuguesa';
     else if (lower.includes('administrativo')) match = 'Direito Administrativo';
     else if (lower.includes('humanos')) match = 'Direitos Humanos';
-    else if (lower.includes('geografia')) match = 'Todas as Disciplinas';
+    else if (lower.includes('geografia')) match = 'Geografia da Bahia';
+    else if (lower.includes('penal')) match = 'Noções de Direito Penal';
 
     setDisciplinaFiltro(match);
+    setAssuntoFiltro('Todos os Assuntos');
+    setCurrentIndex(0);
+    setActiveTab('questoes');
+  };
+
+  const handleAbrirGerador = (disciplina?: string, assunto?: string) => {
+    if (disciplina && disciplina !== 'Todas as Disciplinas') {
+      setGeradorDisciplina(disciplina);
+    } else if (disciplinaFiltro !== 'Todas as Disciplinas') {
+      setGeradorDisciplina(disciplinaFiltro);
+    }
+    if (assunto && assunto !== 'Todos os Assuntos') {
+      setGeradorAssunto(assunto);
+    } else if (assuntoFiltro !== 'Todos os Assuntos') {
+      setGeradorAssunto(assuntoFiltro);
+    } else {
+      setGeradorAssunto('');
+    }
+    setIsGeradorOpen(true);
+  };
+
+  const handleNovasQuestoesGeradas = (novasQuestoes: Questao[], disciplinaGerada: string) => {
+    setQuestoesGeradas((prev) => {
+      const existingIds = new Set(prev.map((q) => q.id));
+      const filtered = novasQuestoes.filter((q) => !existingIds.has(q.id));
+      return [...filtered, ...prev];
+    });
+
+    setDisciplinaFiltro(disciplinaGerada);
     setAssuntoFiltro('Todos os Assuntos');
     setCurrentIndex(0);
     setActiveTab('questoes');
@@ -206,6 +292,7 @@ export default function App() {
           isMobileFrame={isMobileFrame}
           onToggleFrame={() => setIsMobileFrame(!isMobileFrame)}
           cloudSyncStatus={cloudSyncStatus}
+          onOpenGerador={() => handleAbrirGerador()}
         />
 
         {/* Dynamic Main Body with smooth tab transitions */}
@@ -220,7 +307,7 @@ export default function App() {
                 transition={{ duration: 0.2 }}
               >
                 <HomeDashboard
-                  questoes={QUESTOES_PMBA}
+                  questoes={todasQuestoes}
                   materias={TEORIA_PMBA}
                   historicoRespostas={historicoRespostas}
                   topicosLidos={topicosLidos}
@@ -229,6 +316,7 @@ export default function App() {
                   onIrParaMateria={handleIrParaQuestoesDaMateria}
                   onResetarProgresso={handleResetarTudo}
                   cloudSyncStatus={cloudSyncStatus}
+                  onAbrirGerador={() => handleAbrirGerador()}
                 />
               </motion.div>
             ) : activeTab === 'questoes' ? (
@@ -240,8 +328,8 @@ export default function App() {
                 transition={{ duration: 0.2 }}
               >
                 <QuestionCard
-                  questoes={questoesFiltradas.length > 0 ? questoesFiltradas : QUESTOES_PMBA}
-                  todasQuestoes={QUESTOES_PMBA}
+                  questoes={questoesFiltradas}
+                  todasQuestoes={todasQuestoes}
                   currentIndex={currentIndex}
                   onNavigate={setCurrentIndex}
                   historicoRespostas={historicoRespostas}
@@ -257,6 +345,9 @@ export default function App() {
                     setAssuntoFiltro(a);
                     setCurrentIndex(0);
                   }}
+                  ocultarRespondidas={ocultarRespondidas}
+                  onToggleOcultarRespondidas={() => setOcultarRespondidas(!ocultarRespondidas)}
+                  onAbrirGerador={() => handleAbrirGerador()}
                 />
               </motion.div>
             ) : (
@@ -272,6 +363,7 @@ export default function App() {
                   onIrParaQuestoesDaMateria={handleIrParaQuestoesDaMateria}
                   topicosLidos={topicosLidos}
                   onToggleLido={handleToggleTopicoLido}
+                  onAbrirGerador={handleAbrirGerador}
                 />
               </motion.div>
             )}
@@ -282,7 +374,7 @@ export default function App() {
         <BottomNav
           activeTab={activeTab}
           onTabChange={setActiveTab}
-          questoesCount={QUESTOES_PMBA.length}
+          questoesCount={todasQuestoes.length}
           questoesRespondidas={totalRespondidas}
         />
       </div>
@@ -292,10 +384,18 @@ export default function App() {
         isOpen={isStatsOpen}
         onClose={() => setIsStatsOpen(false)}
         historicoRespostas={historicoRespostas}
-        todasQuestoes={QUESTOES_PMBA}
+        todasQuestoes={todasQuestoes}
         onResetarTudo={handleResetarTudo}
+      />
+
+      {/* AI Question Generator Modal */}
+      <GeradorQuestoesModal
+        isOpen={isGeradorOpen}
+        onClose={() => setIsGeradorOpen(false)}
+        disciplinaInicial={geradorDisciplina}
+        assuntoInicial={geradorAssunto}
+        onQuestoesGeradas={handleNovasQuestoesGeradas}
       />
     </div>
   );
 }
-
