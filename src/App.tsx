@@ -162,6 +162,9 @@ export default function App() {
     return () => clearTimeout(timer);
   }, [historicoRespostas, topicosLidos, questoesGeradas, ocultarRespondidas]);
 
+  // Active question ID to keep the currently answered question visible until the user navigates
+  const [questaoAtivaId, setQuestaoAtivaId] = useState<string | null>(null);
+
   // Filtered questions respecting disciplina, assunto, and "ocultarRespondidas"
   const questoesFiltradas = useMemo(() => {
     return todasQuestoes.filter((q) => {
@@ -171,10 +174,32 @@ export default function App() {
       const matchAssunto =
         assuntoFiltro === 'Todos os Assuntos' ||
         q.assunto.toLowerCase() === assuntoFiltro.toLowerCase();
-      const matchOcultar = ocultarRespondidas ? !historicoRespostas[q.id] : true;
+      
+      const isCurrentlyActive = questaoAtivaId !== null && q.id === questaoAtivaId;
+      const matchOcultar = ocultarRespondidas ? (!historicoRespostas[q.id] || isCurrentlyActive) : true;
       return matchDisciplina && matchAssunto && matchOcultar;
     });
-  }, [todasQuestoes, disciplinaFiltro, assuntoFiltro, ocultarRespondidas, historicoRespostas]);
+  }, [todasQuestoes, disciplinaFiltro, assuntoFiltro, ocultarRespondidas, historicoRespostas, questaoAtivaId]);
+
+  // Keep active question ID in sync with the current question
+  useEffect(() => {
+    if (questoesFiltradas.length > 0) {
+      const safeIndex = Math.min(Math.max(currentIndex, 0), questoesFiltradas.length - 1);
+      const curr = questoesFiltradas[safeIndex];
+      if (curr && (!questaoAtivaId || !questoesFiltradas.some((q) => q.id === questaoAtivaId))) {
+        setQuestaoAtivaId(curr.id);
+      }
+    } else {
+      setQuestaoAtivaId(null);
+    }
+  }, [questoesFiltradas, currentIndex]);
+
+  const handleNavigateQuestion = (newIndex: number) => {
+    if (questoesFiltradas[newIndex]) {
+      setQuestaoAtivaId(questoesFiltradas[newIndex].id);
+    }
+    setCurrentIndex(newIndex);
+  };
 
   // Calculate stats
   const totalRespondidas = Object.keys(historicoRespostas).length;
@@ -184,11 +209,21 @@ export default function App() {
     const questao = todasQuestoes.find((q) => q.id === questaoId);
     if (!questao) return;
 
-    const acertou = questao.respostaCorreta === alternativa;
+    const gabaritoNormalizado = String(questao.respostaCorreta || '')
+      .trim()
+      .toUpperCase()
+      .replace(/[^A-E]/g, '')[0] || 'A';
+
+    const alternativaNormalizada = String(alternativa || '')
+      .trim()
+      .toUpperCase()
+      .replace(/[^A-E]/g, '')[0] || 'A';
+
+    const acertou = gabaritoNormalizado === alternativaNormalizada;
     setHistoricoRespostas((prev) => ({
       ...prev,
       [questaoId]: {
-        alternativaEscolhida: alternativa,
+        alternativaEscolhida: (alternativaNormalizada as AlternativaId) || alternativa,
         acertou,
         data: new Date().toISOString(),
       },
@@ -331,7 +366,7 @@ export default function App() {
                   questoes={questoesFiltradas}
                   todasQuestoes={todasQuestoes}
                   currentIndex={currentIndex}
-                  onNavigate={setCurrentIndex}
+                  onNavigate={handleNavigateQuestion}
                   historicoRespostas={historicoRespostas}
                   onResponder={handleResponder}
                   onResetarQuestao={handleResetarQuestao}
@@ -339,14 +374,20 @@ export default function App() {
                   onSelectDisciplina={(d) => {
                     setDisciplinaFiltro(d);
                     setCurrentIndex(0);
+                    setQuestaoAtivaId(null);
                   }}
                   assuntoFiltro={assuntoFiltro}
                   onSelectAssunto={(a) => {
                     setAssuntoFiltro(a);
                     setCurrentIndex(0);
+                    setQuestaoAtivaId(null);
                   }}
                   ocultarRespondidas={ocultarRespondidas}
-                  onToggleOcultarRespondidas={() => setOcultarRespondidas(!ocultarRespondidas)}
+                  onToggleOcultarRespondidas={() => {
+                    setOcultarRespondidas((prev) => !prev);
+                    setCurrentIndex(0);
+                    setQuestaoAtivaId(null);
+                  }}
                   onAbrirGerador={() => handleAbrirGerador()}
                 />
               </motion.div>

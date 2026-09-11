@@ -104,28 +104,49 @@ Retorne ESTRITAMENTE um array JSON puro (sem markdown ou texto extra) onde cada 
     const rawList = Array.isArray(rawData) ? rawData : [rawData];
     const timestamp = Date.now();
 
-    const questoes = rawList.map((q: any, idx: number) => ({
-      id: `q-ia-live-${timestamp}-${idx + 1}`,
-      numero: (timestamp % 9000) + 1000 + idx,
-      banca: banca.includes('IBFC') ? 'IBFC' : banca.includes('FCC') ? 'FCC' : 'Simulado PMBA',
-      orgao: 'PM-BA',
-      cargo: 'Soldado da Polícia Militar da Bahia',
-      ano: 2026,
-      disciplina: q.disciplina || disciplina,
-      assunto: q.assunto || (assunto !== 'Todos os Assuntos' ? assunto : 'Tópicos do Edital PMBA'),
-      dificuldade: (dificuldade as any) || 'Média',
-      enunciado: q.enunciado,
-      alternativas: Array.isArray(q.alternativas) ? q.alternativas : [],
-      respostaCorreta: q.respostaCorreta || 'A',
-      comentario: {
-        professor: q.comentario?.professor || 'Coordenação Pedagógica PMBA',
-        cargo: q.comentario?.cargo || `Especialista em ${disciplina}`,
-        analiseGeral: q.comentario?.analiseGeral || 'Comentário fundamentado no edital da Polícia Militar da Bahia.',
-        justificativaAlternativas: q.comentario?.justificativaAlternativas || {},
-        bizuPMBA: q.comentario?.bizuPMBA || 'Bizu PMBA: Atente-se à literalidade da lei e enunciados de jurisprudência.',
-        artigosCitados: q.comentario?.artigosCitados || [`Edital PMBA - ${disciplina}`]
-      }
-    }));
+    const questoes = rawList.map((q: any, idx: number) => {
+      const rawResp = (q.respostaCorreta || 'A').toString().trim().toUpperCase();
+      const cleanResp = (rawResp.match(/[A-E]/)?.[0] || 'A') as 'A' | 'B' | 'C' | 'D' | 'E';
+
+      const alternativasLimpa = Array.isArray(q.alternativas)
+        ? q.alternativas.map((alt: any, aIdx: number) => {
+            const fallbackId = (['A', 'B', 'C', 'D', 'E'][aIdx] || 'A') as 'A' | 'B' | 'C' | 'D' | 'E';
+            const rawId = (alt.id || fallbackId).toString().trim().toUpperCase();
+            const cleanId = (rawId.match(/[A-E]/)?.[0] || fallbackId) as 'A' | 'B' | 'C' | 'D' | 'E';
+            return {
+              id: cleanId,
+              texto: String(alt.texto || '').trim(),
+            };
+          })
+        : [];
+
+      return {
+        id: `q-ia-live-${timestamp}-${idx + 1}`,
+        numero: (timestamp % 9000) + 1000 + idx,
+        banca: banca.includes('IBFC') ? 'IBFC' : banca.includes('FCC') ? 'FCC' : 'Simulado PMBA',
+        orgao: 'PM-BA',
+        cargo: 'Soldado da Polícia Militar da Bahia',
+        ano: 2026,
+        disciplina: q.disciplina || disciplina,
+        assunto: q.assunto || (assunto !== 'Todos os Assuntos' ? assunto : 'Tópicos do Edital PMBA'),
+        dificuldade: (dificuldade as any) || 'Média',
+        enunciado: String(q.enunciado || '').trim(),
+        alternativas: alternativasLimpa,
+        respostaCorreta: cleanResp,
+        comentario: {
+          professor: q.comentario?.professor || 'Coordenação Pedagógica PMBA',
+          cargo: q.comentario?.cargo || `Especialista em ${disciplina}`,
+          analiseGeral: q.comentario?.analiseGeral || 'Comentário fundamentado no edital da Polícia Militar da Bahia.',
+          justificativaAlternativas: typeof q.comentario?.justificativaAlternativas === 'object' && q.comentario?.justificativaAlternativas !== null
+            ? q.comentario.justificativaAlternativas
+            : {},
+          bizuPMBA: q.comentario?.bizuPMBA || 'Bizu PMBA: Atente-se à literalidade da lei e enunciados de jurisprudência.',
+          artigosCitados: Array.isArray(q.comentario?.artigosCitados)
+            ? q.comentario.artigosCitados
+            : [`Edital PMBA - ${disciplina}`]
+        }
+      };
+    });
 
     if (questoes.length > 0 && questoes[0].alternativas?.length >= 2) {
       return res.json({ questoes, fonte: 'gemini_ai' });

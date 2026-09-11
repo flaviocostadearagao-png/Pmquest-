@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   CheckCircle2,
   XCircle,
@@ -60,6 +60,12 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
 
   // Current question
   const currentQuestao = questoes[currentIndex] || questoes[0];
+
+  // Reset selected alternative and comment status whenever current question changes
+  useEffect(() => {
+    setSelectedAlternativa(null);
+    setShowComentario(false);
+  }, [currentQuestao?.id]);
 
   // Check if current question has been answered
   const statusResposta = currentQuestao ? historicoRespostas[currentQuestao.id] : undefined;
@@ -483,8 +489,12 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
           </span>
 
           {currentQuestao.alternativas.map((alt) => {
-            const isSelected = alternativaMarcada === alt.id;
-            const isCorrectAnswer = currentQuestao.respostaCorreta === alt.id;
+            const cleanAltId = String(alt.id || '').trim().toUpperCase().replace(/[^A-E]/g, '');
+            const cleanMarcada = String(alternativaMarcada || '').trim().toUpperCase().replace(/[^A-E]/g, '');
+            const cleanCorreta = String(currentQuestao.respostaCorreta || '').trim().toUpperCase().replace(/[^A-E]/g, '');
+
+            const isSelected = cleanMarcada.length > 0 && cleanMarcada === cleanAltId;
+            const isCorrectAnswer = cleanCorreta.length > 0 && cleanCorreta === cleanAltId;
 
             // Visual state styling
             let containerClasses = isDark
@@ -734,13 +744,13 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
                       <h4 className={`text-xs font-bold flex items-center gap-1.5 ${
                         isDark ? 'text-slate-100' : 'text-slate-900'
                       }`}>
-                        {currentQuestao.comentario.professor}
+                        {currentQuestao.comentario?.professor || 'Coordenação Pedagógica PMBA'}
                         <Award className="w-3.5 h-3.5 text-amber-500" />
                       </h4>
                       <p className={`text-[10px] leading-none mt-0.5 ${
                         isDark ? 'text-slate-400' : 'text-slate-500'
                       }`}>
-                        {currentQuestao.comentario.cargo}
+                        {currentQuestao.comentario?.cargo || 'Especialista em Concursos Militares'}
                       </p>
                     </div>
                   </div>
@@ -767,7 +777,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
                       ? 'bg-slate-900/60 text-slate-300 border-slate-800/80'
                       : 'bg-white text-slate-700 border-slate-200 shadow-xs'
                   }`}>
-                    {currentQuestao.comentario.analiseGeral}
+                    {currentQuestao.comentario?.analiseGeral || 'Comentário fundamentado de acordo com a legislação e o edital da Polícia Militar da Bahia.'}
                   </p>
                 </div>
 
@@ -780,7 +790,16 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
                   </h5>
                   <div className="space-y-1.5">
                     {currentQuestao.alternativas.map((alt) => {
-                      const isCorrect = currentQuestao.respostaCorreta === alt.id;
+                      const cleanAltId = String(alt.id || '').trim().toUpperCase().replace(/[^A-E]/g, '');
+                      const cleanCorreta = String(currentQuestao.respostaCorreta || '').trim().toUpperCase().replace(/[^A-E]/g, '');
+                      const isCorrect = cleanCorreta.length > 0 && cleanCorreta === cleanAltId;
+                      const justificativaTexto =
+                        currentQuestao.comentario?.justificativaAlternativas?.[alt.id] ||
+                        currentQuestao.comentario?.justificativaAlternativas?.[cleanAltId as AlternativaId] ||
+                        (isCorrect
+                          ? 'Alternativa correta conforme gabarito oficial do concurso.'
+                          : 'Alternativa incorreta de acordo com as normas vigentes.');
+
                       return (
                         <div
                           key={alt.id}
@@ -805,7 +824,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
                           >
                             Opção {alt.id}
                           </span>
-                          {currentQuestao.comentario.justificativaAlternativas[alt.id]}
+                          {justificativaTexto}
                         </div>
                       );
                     })}
@@ -823,7 +842,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
                     <span>Dica de Prova • Bizu PMBA</span>
                   </div>
                   <p className="text-xs leading-relaxed font-medium">
-                    {currentQuestao.comentario.bizuPMBA}
+                    {currentQuestao.comentario?.bizuPMBA || 'Bizu do Soldado: Fixe a literalidade dos artigos mais cobrados e estude as peculiaridades do estado da Bahia!'}
                   </p>
                 </div>
 
