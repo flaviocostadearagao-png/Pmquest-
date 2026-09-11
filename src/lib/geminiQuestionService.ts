@@ -20,7 +20,7 @@ export async function gerarQuestoesEdital(
   params: GerarQuestoesParams
 ): Promise<GerarQuestoesResponse> {
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 6500);
+  const timeoutId = setTimeout(() => controller.abort(), 12000);
 
   try {
     const response = await fetch('/api/gerar-questoes', {

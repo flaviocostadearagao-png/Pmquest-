@@ -43,10 +43,17 @@ app.post('/api/gerar-questoes', async (req: Request, res: Response) => {
   }
 
   try {
-    const prompt = `Você é uma banca examinadora pedagógica para o concurso de Soldado da Polícia Militar da Bahia (PMBA).
-Gere exatamente ${numQuestoes} questões inéditas e EXCLUSIVAS de múltipla escolha no estilo da banca: ${banca}.
-ATENÇÃO: Mesmo que a banca escolhida não seja a padrão do concurso, as questões DEVEM ser estritamente baseadas e adaptadas aos tópicos do edital da PMBA.
-IMPORTANTE: Para evitar repetições, garanta que CADA questão aborde um subtópico, artigo ou conceito TOTALMENTE DIFERENTE dentro de "${assunto}". Seja criativo.
+    const seedAleatoria = Date.now() + Math.random().toString(36).substring(7);
+    const prompt = `Você é uma banca examinadora pedagógica de alto nível para o concurso de Soldado da Polícia Militar da Bahia (PMBA).
+[SEED DE VARIABILIDADE: ${seedAleatoria}] - Use essa semente para gerar um ângulo completamente novo!
+
+Gere exatamente ${numQuestoes} questões INÉDITAS, AUTÊNTICAS e EXCLUSIVAS de múltipla escolha no estilo da banca: ${banca}.
+ATENÇÃO: Mesmo que a banca escolhida não seja a padrão do concurso, as questões DEVEM ser estritamente baseadas e adaptadas aos tópicos do edital da PMBA (Lei nº 7.990/2001, Lei nº 13.201/2015, Decreto nº 14.224/2012, CF/88, etc).
+
+INSTRUÇÕES CRÍTICAS PARA EVITAR REPETIÇÃO:
+1. NUNCA gere questões parecidas com as mais óbvias ou comuns. Explore artigos escondidos, jurisprudências (quando aplicável ao assunto), ou situações práticas do dia a dia policial (casos hipotéticos de policiamento ostensivo, abordagens, hierarquia e disciplina).
+2. Para evitar repetições, garanta que CADA questão abordada nesta resposta teste um artigo, inciso ou conceito TOTALMENTE DIFERENTE dentro de "${assunto}". 
+3. Varie o formato das questões: faça algumas diretas (letra da lei), outras situacionais (fictícias envolvendo o Soldado PM João, etc), e outras de "V ou F" adaptadas para múltipla escolha.
 
 Disciplina: ${disciplina}
 Assunto: ${assunto}
@@ -81,9 +88,9 @@ Retorne ESTRITAMENTE um array JSON puro (sem markdown ou texto extra) onde cada 
   }
 ]`;
 
-    // Strict timeout promise (4.5s) to guarantee the server never hangs on external API delays or 503 spikes
+    // Strict timeout promise (8.5s) to guarantee the server never hangs on external API delays
     const timeoutPromise = new Promise<never>((_, reject) => {
-      setTimeout(() => reject(new Error('TIMEOUT_GEMINI_API')), 4500);
+      setTimeout(() => reject(new Error('TIMEOUT_GEMINI_API')), 8500);
     });
 
     const aiCall = ai.models.generateContent({
@@ -91,6 +98,7 @@ Retorne ESTRITAMENTE um array JSON puro (sem markdown ou texto extra) onde cada 
       contents: prompt,
       config: {
         responseMimeType: 'application/json',
+        temperature: 0.85
       }
     });
 
