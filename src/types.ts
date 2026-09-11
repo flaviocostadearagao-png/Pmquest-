@@ -56,3 +56,33 @@ export interface RespostaUsuario {
   acertou: boolean;
   data: string;
 }
+
+// --- Novos Tipos (Redação e Patente) ---
+
+export interface RedacaoTema {
+  tipo: 'redacao_tema';
+  tema: string;
+  textos_motivadores: string[];
+  diretrizes: string;
+}
+
+export interface RedacaoCorrecao {
+  tipo: 'redacao_correcao';
+  nota_final: number;
+  criterios: {
+    ortografia_gramatica: string;
+    estrutura_dissertativa: string;
+    relevancia_ao_tema: string;
+  };
+  pontos_fortes: string[];
+  pontos_de_melhoria: string[];
+  exemplo_melhorado: string;
+}
+
+export interface PatenteFeedback {
+  tipo: 'patente_feedback';
+  nova_patente: string;
+  mensagem_comandante: string;
+  missao_diaria: string;
+}
+

@@ -1,9 +1,9 @@
 import React from 'react';
-import { Home, CheckSquare, BookOpen } from 'lucide-react';
+import { Home, CheckSquare, BookOpen, PenTool } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useTheme } from '../context/ThemeContext';
 
-export type ActiveTab = 'inicio' | 'questoes' | 'teoria';
+export type ActiveTab = 'inicio' | 'questoes' | 'teoria' | 'redacao';
 
 interface BottomNavProps {
   activeTab: ActiveTab;
@@ -30,7 +30,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
           : 'bg-white/95 backdrop-blur-xl border-t border-slate-200 shadow-lg'
       }`}
     >
-      <div className="max-w-md mx-auto grid grid-cols-3 px-2 py-1.5 gap-1.5">
+      <div className="max-w-md mx-auto grid grid-cols-4 px-2 py-1.5 gap-1.5">
         {/* Aba 1: Início / Painel */}
         <button
           id="tab-btn-inicio"
@@ -147,6 +147,43 @@ export const BottomNav: React.FC<BottomNavProps> = ({
             />
             <span className="text-[11px] mt-1 tracking-tight leading-none">
               Teoria
+            </span>
+          </div>
+        </button>
+
+        {/* Aba 4: Redação */}
+        <button
+          id="tab-btn-redacao"
+          type="button"
+          onClick={() => onTabChange('redacao')}
+          className={`relative flex flex-col items-center justify-center min-h-[50px] py-1 px-1 rounded-xl transition-all duration-200 cursor-pointer select-none active:scale-95 ${
+            activeTab === 'redacao'
+              ? isDark ? 'text-amber-400 font-bold' : 'text-blue-900 font-bold'
+              : isDark ? 'text-slate-400 hover:text-slate-200 font-medium' : 'text-slate-500 hover:text-slate-800 font-medium'
+          }`}
+        >
+          {activeTab === 'redacao' && (
+            <motion.div
+              layoutId="active-tab-glow"
+              className={`absolute inset-0 rounded-xl ${
+                isDark
+                  ? 'bg-gradient-to-t from-blue-900/40 to-slate-800/70 border border-blue-600/40'
+                  : 'bg-blue-50/90 border border-blue-200 shadow-xs'
+              }`}
+              transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+            />
+          )}
+
+          <div className="relative z-10 flex flex-col items-center">
+            <PenTool
+              className={`w-5 h-5 transition-transform ${
+                activeTab === 'redacao'
+                  ? `scale-110 ${isDark ? 'text-amber-400' : 'text-blue-700'}`
+                  : isDark ? 'text-slate-400' : 'text-slate-500'
+              }`}
+            />
+            <span className="text-[11px] mt-1 tracking-tight leading-none">
+              Redação
             </span>
           </div>
         </button>

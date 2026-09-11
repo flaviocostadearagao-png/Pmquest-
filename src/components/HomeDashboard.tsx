@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Shield,
   Award,
@@ -15,10 +15,11 @@ import {
   HelpCircle,
   FileCheck,
   Sun,
-  Moon
+  Moon,
+  RefreshCw
 } from 'lucide-react';
 import { motion } from 'motion/react';
-import { Questao, MateriaEdital, RespostaUsuario } from '../types';
+import { Questao, MateriaEdital, RespostaUsuario, PatenteFeedback } from '../types';
 import { useTheme } from '../context/ThemeContext';
 
 interface HomeDashboardProps {
@@ -47,6 +48,9 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
   onAbrirGerador,
 }) => {
   const { isDark, toggleTheme } = useTheme();
+  const [patenteFeedback, setPatenteFeedback] = useState<PatenteFeedback | null>(null);
+  const [isEvaluatingRank, setIsEvaluatingRank] = useState(false);
+
   const totalQuestoes = questoes.length;
   const respondidas = Object.keys(historicoRespostas).length;
   const acertos = (Object.values(historicoRespostas) as RespostaUsuario[]).filter((r) => r.acertou).length;
@@ -57,6 +61,27 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
   const totalTopicos = materias.reduce((acc, m) => acc + m.topicos.length, 0);
   const totalTopicosEstudados = Object.values(topicosLidos).filter(Boolean).length;
   const progressoTeoria = totalTopicos > 0 ? Math.round((totalTopicosEstudados / totalTopicos) * 100) : 0;
+
+  const avaliarPatente = async () => {
+    setIsEvaluatingRank(true);
+    try {
+      const patenteAtual = patenteFeedback?.nova_patente || 'Civil';
+      const res = await fetch('/api/agente-pmba', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          comando: `Patente: ${patenteAtual} | Acertos: ${acertos} | Erros: ${erros} | Materia: Geral`
+        })
+      });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      setPatenteFeedback(data);
+    } catch (err) {
+      console.error('Erro ao avaliar patente:', err);
+    } finally {
+      setIsEvaluatingRank(false);
+    }
+  };
 
   // Calculo de prontidão estimada para o concurso
   const prontidao = Math.min(100, Math.round((taxaAcerto * 0.7) + (progressoTeoria * 0.3)));
@@ -147,6 +172,50 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
               <ArrowRight className="w-4 h-4 text-amber-400" />
             </button>
           )}
+
+          {/* Cartão de Avaliação de Patente */}
+          <div className="mt-4 pt-4 border-t border-blue-800/50">
+            <div className="flex justify-between items-center mb-3">
+              <div className="flex items-center gap-2">
+                <Award className="w-4 h-4 text-amber-400" />
+                <span className="text-xs font-bold uppercase tracking-wider text-amber-400">
+                  Sua Patente: {patenteFeedback?.nova_patente || 'Civil (Em treinamento)'}
+                </span>
+              </div>
+              <button
+                onClick={avaliarPatente}
+                disabled={isEvaluatingRank}
+                className="text-[10px] flex items-center gap-1 bg-blue-900/50 hover:bg-blue-800/80 border border-blue-700/50 px-2.5 py-1 rounded-lg text-slate-200 transition-colors"
+              >
+                {isEvaluatingRank ? (
+                  <RefreshCw className="w-3 h-3 animate-spin" />
+                ) : (
+                  <Shield className="w-3 h-3" />
+                )}
+                {isEvaluatingRank ? 'Avaliando...' : 'Pedir Avaliação'}
+              </button>
+            </div>
+            {patenteFeedback && (
+              <motion.div
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-blue-950/60 border border-blue-500/30 rounded-xl p-3 space-y-2 mt-2"
+              >
+                <p className="text-xs text-slate-200 italic border-l-2 border-amber-500 pl-2">
+                  "{patenteFeedback.mensagem_comandante}"
+                </p>
+                <div className="bg-black/30 rounded-lg p-2 flex gap-2 items-start mt-2 border border-blue-900/30">
+                  <Target className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Missão do Comandante</span>
+                    <span className="text-[11px] text-slate-300 font-medium leading-snug block mt-0.5">
+                      {patenteFeedback.missao_diaria}
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </div>
         </div>
       </section>
 

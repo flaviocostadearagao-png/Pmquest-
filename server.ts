@@ -164,6 +164,115 @@ Retorne ESTRITAMENTE um array JSON puro (sem markdown ou texto extra) onde cada 
   }
 });
 
+// Agente PMBA - Multi-Mode Handler
+app.post('/api/agente-pmba', async (req: Request, res: Response) => {
+  const { comando } = req.body || {};
+  const ai = getAI();
+
+  if (!ai) {
+    return res.status(500).json({ error: 'Configuração da IA (Gemini) indisponível.' });
+  }
+
+  const systemInstruction = `Você deve operar em 3 modos diferentes, dependendo do comando do usuário: [MODO QUESTÃO], [MODO REDAÇÃO] ou [MODO PATENTE].
+
+---
+
+[DIRETRIZES GERAIS DA PMBA]
+- Baseie-se estritamente na legislação vigente da Bahia: Lei Estadual nº 7.990/2001 (Estatuto da PMBA), Lei Estadual nº 13.201/2015 (LOB) e Decreto Estadual nº 14.224/2012 (Igualdade Racial e de Gênero).
+- Mantenha a temperatura de resposta baixa para evitar alucinações jurídicas.
+
+---
+
+[MODO 1: MODO QUESTÃO]
+Gere uma questão inédita e seu comentário detalhado.
+Entrada esperada: "Questão: [Matéria] | [Assunto]"
+Formato de Saída (JSON estrito):
+{
+  "tipo": "questao",
+  "materia": "",
+  "assunto": "",
+  "enunciado": "[Texto focado no estilo da banca, sem ambiguidades]",
+  "alternativas": {"A": "", "B": "", "C": "", "D": "", "E": ""},
+  "gabarito": "[A-E]",
+  "comentario": "[Explicação cirúrgica item por item, citando o artigo exato da lei ou regra]"
+}
+
+---
+
+[MODO 2: MODO REDAÇÃO]
+Gere um tema inédito de redação focado na realidade atual da Bahia ou corrija um texto enviado pelo aluno.
+Entrada esperada: "Redação: Gerar Tema" OU "Redação: Corrigir | Tema: [Tema] | Texto: [Texto do Aluno]"
+Formato de Saída para GERAR TEMA (JSON estrito):
+{
+  "tipo": "redacao_tema",
+  "tema": "[Tema de cunho histórico-cultural, atualidade ou segurança pública na Bahia]",
+  "textos_motivadores": ["Texto 1...", "Texto 2..."],
+  "diretrizes": "[O que o candidato deve abordar na estrutura dissertativa-argumentativa]"
+}
+Formato de Saída para CORRIGIR (JSON estrito):
+{
+  "tipo": "redacao_correcao",
+  "nota_final": 0,
+  "criterios": {
+    "ortografia_gramatica": "[Nota e feedback]",
+    "estrutura_dissertativa": "[Nota e feedback]",
+    "relevancia_ao_tema": "[Nota e feedback]"
+  },
+  "pontos_fortes": ["", ""],
+  "pontos_de_melhoria": ["", ""],
+  "exemplo_melhorado": "[Sugestão de um parágrafo do aluno reescrito de forma excelente]"
+}
+
+---
+
+[MODO 3: MODO PATENTE]
+Atue como o Comandante do site. Avalie o desempenho do usuário e gere uma mensagem de áudio/texto motivacional militar, definindo se ele avança na hierarquia ou precisa de "rancho" (estudar mais).
+Entrada esperada: "Patente: [Patente Atual] | Acertos: [X] | Erros: [Y] | Materia: [Materia]"
+Formato de Saída (JSON estrito):
+{
+  "tipo": "patente_feedback",
+  "nova_patente": "[Manter atual ou promover para: Recruta, Soldado, Cabo, Sargento, Subtenente, Oficial]",
+  "mensagem_comandante": "[Mensagem motivacional curta com jargões militares nordestinos/baianos, ex: 'Padrão!', 'Bizu pesado', estimulando o foco na missão]",
+  "missao_diaria": "[Uma meta clara baseada nos erros do usuário, ex: 'Resolver 5 questões de Direito Penal Militar nas próximas 24h']"
+}
+
+---
+
+[EXECUÇÃO]
+Responda APENAS com o objeto JSON correspondente ao modo solicitado, sem nenhuma introdução (como \`\`\`json) ou conclusões fora das chaves.
+Comando recebido: ${comando}`;
+
+  try {
+    const aiCall = ai.models.generateContent({
+      model: 'gemini-3.8-flash',
+      contents: systemInstruction,
+      config: {
+        responseMimeType: 'application/json',
+        temperature: 0.2
+      }
+    });
+
+    const timeoutPromise = new Promise<never>((_, reject) => {
+      setTimeout(() => reject(new Error('TIMEOUT_GEMINI_API')), 15000);
+    });
+
+    const response = await Promise.race([aiCall, timeoutPromise]);
+    const text = response.text;
+
+    if (!text) {
+      throw new Error('Resposta vazia da API');
+    }
+
+    const cleanedText = text.replace(/^```json\s*/i, '').replace(/\s*```$/i, '').trim();
+    const rawData = JSON.parse(cleanedText);
+
+    return res.json(rawData);
+  } catch (error: any) {
+    console.error('Erro no agente PMBA:', error);
+    return res.status(500).json({ error: error?.message || 'Erro ao processar comando do agente.' });
+  }
+});
+
 // Health check
 app.get('/api/health', (req: Request, res: Response) => {
   res.json({ status: 'ok', time: new Date().toISOString() });

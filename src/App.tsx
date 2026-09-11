@@ -7,6 +7,7 @@ import { TheorySection } from './components/TheorySection';
 import { StatsModal } from './components/StatsModal';
 import { HomeDashboard } from './components/HomeDashboard';
 import { GeradorQuestoesModal } from './components/GeradorQuestoesModal';
+import { RedacaoSection } from './components/RedacaoSection';
 import { QUESTOES_PMBA, TEORIA_PMBA } from './data/mockData';
 import { AlternativaId, RespostaUsuario, Questao } from './types';
 import { useTheme } from './context/ThemeContext';
@@ -402,7 +403,7 @@ export default function App() {
                   onAbrirGerador={() => handleAbrirGerador()}
                 />
               </motion.div>
-            ) : (
+            ) : activeTab === 'teoria' ? (
               <motion.div
                 key="tab-teoria"
                 initial={{ opacity: 0, x: 10 }}
@@ -417,6 +418,16 @@ export default function App() {
                   onToggleLido={handleToggleTopicoLido}
                   onAbrirGerador={handleAbrirGerador}
                 />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="tab-redacao"
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
+                transition={{ duration: 0.2 }}
+              >
+                <RedacaoSection />
               </motion.div>
             )}
           </AnimatePresence>
