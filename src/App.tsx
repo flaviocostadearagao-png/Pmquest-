@@ -25,8 +25,9 @@ export default function App() {
   const { isDark } = useTheme();
   const [activeTab, setActiveTab] = useState<ActiveTab>('inicio');
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [disciplinaFiltro, setDisciplinaFiltro] = useState<string>('Todas as Disciplinas');
+  const [disciplinaFiltro, setDisciplinaFiltro] = useState<string>('Direito Constitucional');
   const [assuntoFiltro, setAssuntoFiltro] = useState<string>('Todos os Assuntos');
+  const [bancaFiltro, setBancaFiltro] = useState<string>('Todas as Bancas');
   const [isStatsOpen, setIsStatsOpen] = useState<boolean>(false);
   const [isMobileFrame, setIsMobileFrame] = useState<boolean>(true);
   const [cloudSyncStatus, setCloudSyncStatus] = useState<'synced' | 'syncing' | 'offline'>('syncing');
@@ -165,7 +166,7 @@ export default function App() {
   // Active question ID to keep the currently answered question visible until the user navigates
   const [questaoAtivaId, setQuestaoAtivaId] = useState<string | null>(null);
 
-  // Filtered questions respecting disciplina, assunto, and "ocultarRespondidas"
+  // Filtered questions respecting disciplina, assunto, banca, and "ocultarRespondidas"
   const questoesFiltradas = useMemo(() => {
     return todasQuestoes.filter((q) => {
       const matchDisciplina =
@@ -174,12 +175,15 @@ export default function App() {
       const matchAssunto =
         assuntoFiltro === 'Todos os Assuntos' ||
         q.assunto.toLowerCase() === assuntoFiltro.toLowerCase();
+      const matchBanca = 
+        bancaFiltro === 'Todas as Bancas' ||
+        q.banca.toLowerCase() === bancaFiltro.toLowerCase();
       
       const isCurrentlyActive = questaoAtivaId !== null && q.id === questaoAtivaId;
       const matchOcultar = ocultarRespondidas ? (!historicoRespostas[q.id] || isCurrentlyActive) : true;
-      return matchDisciplina && matchAssunto && matchOcultar;
+      return matchDisciplina && matchAssunto && matchBanca && matchOcultar;
     });
-  }, [todasQuestoes, disciplinaFiltro, assuntoFiltro, ocultarRespondidas, historicoRespostas, questaoAtivaId]);
+  }, [todasQuestoes, disciplinaFiltro, assuntoFiltro, bancaFiltro, ocultarRespondidas, historicoRespostas, questaoAtivaId]);
 
   // Keep active question ID in sync with the current question
   useEffect(() => {
@@ -257,7 +261,7 @@ export default function App() {
 
   // Switch from theory or home directly to questions of that subject
   const handleIrParaQuestoesDaMateria = (disciplinaNome: string) => {
-    let match = 'Todas as Disciplinas';
+    let match = 'Direito Constitucional';
     const lower = disciplinaNome.toLowerCase();
     if (lower.includes('constitucional')) match = 'Direito Constitucional';
     else if (lower.includes('igualdade') || lower.includes('raça')) match = 'Promoção da Igualdade Racial e de Gênero';
@@ -275,11 +279,12 @@ export default function App() {
   };
 
   const handleAbrirGerador = (disciplina?: string, assunto?: string) => {
-    if (disciplina && disciplina !== 'Todas as Disciplinas') {
+    if (disciplina) {
       setGeradorDisciplina(disciplina);
-    } else if (disciplinaFiltro !== 'Todas as Disciplinas') {
+    } else {
       setGeradorDisciplina(disciplinaFiltro);
     }
+    
     if (assunto && assunto !== 'Todos os Assuntos') {
       setGeradorAssunto(assunto);
     } else if (assuntoFiltro !== 'Todos os Assuntos') {
@@ -379,6 +384,12 @@ export default function App() {
                   assuntoFiltro={assuntoFiltro}
                   onSelectAssunto={(a) => {
                     setAssuntoFiltro(a);
+                    setCurrentIndex(0);
+                    setQuestaoAtivaId(null);
+                  }}
+                  bancaFiltro={bancaFiltro}
+                  onSelectBanca={(b) => {
+                    setBancaFiltro(b);
                     setCurrentIndex(0);
                     setQuestaoAtivaId(null);
                   }}

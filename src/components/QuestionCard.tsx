@@ -32,6 +32,8 @@ interface QuestionCardProps {
   onSelectDisciplina: (disc: string) => void;
   assuntoFiltro: string;
   onSelectAssunto: (assunto: string) => void;
+  bancaFiltro: string;
+  onSelectBanca: (banca: string) => void;
   ocultarRespondidas?: boolean;
   onToggleOcultarRespondidas?: () => void;
   onAbrirGerador?: () => void;
@@ -49,6 +51,8 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   onSelectDisciplina,
   assuntoFiltro,
   onSelectAssunto,
+  bancaFiltro,
+  onSelectBanca,
   ocultarRespondidas = false,
   onToggleOcultarRespondidas,
   onAbrirGerador,
@@ -74,18 +78,13 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
 
   // Questions in current filter (independent of hide answered toggle)
   const todasNoFiltro = todasQuestoes.filter((q) => {
-    const matchDisc = disciplinaFiltro === 'Todas as Disciplinas' || q.disciplina.toLowerCase() === disciplinaFiltro.toLowerCase();
+    const matchDisc = q.disciplina.toLowerCase() === disciplinaFiltro.toLowerCase();
     const matchAss = assuntoFiltro === 'Todos os Assuntos' || q.assunto.toLowerCase() === assuntoFiltro.toLowerCase();
-    return matchDisc && matchAss;
+    const matchBan = bancaFiltro === 'Todas as Bancas' || q.banca.toLowerCase() === bancaFiltro.toLowerCase();
+    return matchDisc && matchAss && matchBan;
   });
   const respondidasNoFiltro = todasNoFiltro.filter((q) => !!historicoRespostas[q.id]).length;
   const todasForamRespondidas = todasNoFiltro.length > 0 && respondidasNoFiltro === todasNoFiltro.length;
-
-  // Disciplinas list for filter
-  const disciplinasDisponiveis = [
-    'Todas as Disciplinas',
-    ...Array.from(new Set(todasQuestoes.map((q) => q.disciplina)))
-  ];
 
   // Assuntos list for current disciplina
   const assuntosDisponiveis = [
@@ -93,10 +92,16 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
     ...Array.from(
       new Set(
         todasQuestoes
-          .filter((q) => disciplinaFiltro === 'Todas as Disciplinas' || q.disciplina === disciplinaFiltro)
+          .filter((q) => q.disciplina === disciplinaFiltro)
           .map((q) => q.assunto)
       )
     )
+  ];
+
+  // Bancas list for filter
+  const bancasDisponiveis = [
+    'Todas as Bancas',
+    ...Array.from(new Set(todasQuestoes.map((q) => q.banca)))
   ];
 
   const handleSelectAlternative = (id: AlternativaId) => {
@@ -174,14 +179,17 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
               )}
               <button
                 onClick={() => {
-                  onSelectDisciplina('Todas as Disciplinas');
                   onSelectAssunto('Todos os Assuntos');
+                  onSelectBanca('Todas as Bancas');
+                  if (onToggleOcultarRespondidas && ocultarRespondidas) {
+                     onToggleOcultarRespondidas();
+                  }
                 }}
                 className={`w-full py-2 px-4 border rounded-xl text-xs cursor-pointer font-medium ${
                   isDark ? 'border-slate-700 hover:bg-slate-800 text-slate-300' : 'border-slate-300 hover:bg-slate-100 text-slate-700'
                 }`}
               >
-                Ver Todas as Disciplinas
+                Limpar Subfiltros (Assunto/Banca)
               </button>
             </div>
           </div>
@@ -204,12 +212,12 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
           )}
           <button
             onClick={() => {
-              onSelectDisciplina('Todas as Disciplinas');
               onSelectAssunto('Todos os Assuntos');
+              onSelectBanca('Todas as Bancas');
             }}
             className="py-2 px-4 bg-blue-600 hover:bg-blue-500 rounded-xl text-white text-xs font-semibold cursor-pointer"
           >
-            Limpar Filtros
+            Limpar Subfiltros
           </button>
         </div>
       </div>
@@ -231,10 +239,10 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
             <Filter className="w-4 h-4 text-amber-500 shrink-0" />
             <div className="truncate">
               <span className={`text-[11px] font-bold uppercase tracking-wider block ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                Filtro Atual
+                Matéria em Estudo
               </span>
               <span className={`text-xs font-semibold truncate block ${isDark ? 'text-slate-200' : 'text-slate-900'}`}>
-                {disciplinaFiltro === 'Todas as Disciplinas' ? 'Todas as Matérias' : disciplinaFiltro}
+                {disciplinaFiltro}
               </span>
             </div>
           </div>
@@ -326,31 +334,6 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
             >
               <div>
                 <label className={`text-[11px] block mb-1 font-medium ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
-                  Disciplina do Edital PMBA
-                </label>
-                <select
-                  id="select-disciplina"
-                  value={disciplinaFiltro}
-                  onChange={(e) => {
-                    onSelectDisciplina(e.target.value);
-                    onSelectAssunto('Todos os Assuntos');
-                  }}
-                  className={`w-full text-xs rounded-xl px-3 py-2 focus:outline-none focus:border-amber-400 cursor-pointer ${
-                    isDark
-                      ? 'bg-slate-950 text-slate-200 border border-slate-700'
-                      : 'bg-slate-50 text-slate-900 border border-slate-300'
-                  }`}
-                >
-                  {disciplinasDisponiveis.map((d) => (
-                    <option key={d} value={d}>
-                      {d}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <label className={`text-[11px] block mb-1 font-medium ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
                   Assunto Específico
                 </label>
                 <select
@@ -366,6 +349,28 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
                   {assuntosDisponiveis.map((a) => (
                     <option key={a} value={a}>
                       {a}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className={`text-[11px] block mb-1 font-medium ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                  Banca
+                </label>
+                <select
+                  id="select-banca"
+                  value={bancaFiltro}
+                  onChange={(e) => onSelectBanca(e.target.value)}
+                  className={`w-full text-xs rounded-xl px-3 py-2 focus:outline-none focus:border-amber-400 cursor-pointer ${
+                    isDark
+                      ? 'bg-slate-950 text-slate-200 border border-slate-700'
+                      : 'bg-slate-50 text-slate-900 border border-slate-300'
+                  }`}
+                >
+                  {bancasDisponiveis.map((b) => (
+                    <option key={b} value={b}>
+                      {b}
                     </option>
                   ))}
                 </select>

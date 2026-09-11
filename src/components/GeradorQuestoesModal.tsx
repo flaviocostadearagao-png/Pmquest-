@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Sparkles,
   X,
@@ -114,6 +114,21 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [questoesGeradasPreview, setQuestoesGeradasPreview] = useState<Questao[] | null>(null);
   const [fonteGeracao, setFonteGeracao] = useState<string>('gemini_ai');
+
+  useEffect(() => {
+    if (isOpen) {
+      if (disciplinaInicial && DISCIPLINAS_EDITAL.includes(disciplinaInicial)) {
+        setDisciplina(disciplinaInicial);
+        if (assuntoInicial && assuntoInicial !== 'Todos os Assuntos') {
+          setAssunto(assuntoInicial);
+        } else {
+          setAssunto(SUGESTOES_ASSUNTOS[disciplinaInicial]?.[0] || 'Tópicos gerais do edital');
+        }
+      }
+      setQuestoesGeradasPreview(null);
+      setErrorMessage(null);
+    }
+  }, [isOpen, disciplinaInicial, assuntoInicial]);
 
   // When disciplina changes, reset suggested assunto
   const handleDisciplinaChange = (novaDisciplina: string) => {
@@ -314,7 +329,8 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
                   id="select-gerador-disciplina"
                   value={disciplina}
                   onChange={(e) => handleDisciplinaChange(e.target.value)}
-                  className={`w-full text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-amber-500 cursor-pointer font-medium ${
+                  disabled={true}
+                  className={`w-full text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-amber-500 font-medium opacity-80 cursor-not-allowed ${
                     isDark
                       ? 'bg-slate-950 text-slate-200 border border-slate-700'
                       : 'bg-slate-50 text-slate-900 border border-slate-300'
@@ -440,6 +456,11 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
                   <option value="FCC / IBFC (Padrão PMBA)">FCC / IBFC (Padrão Histórico PMBA)</option>
                   <option value="FCC (Casos Práticos e Jurisprudência)">FCC (Casos Práticos e Jurisprudência)</option>
                   <option value="IBFC (Letra da Lei e Doutrina)">IBFC (Letra da Lei e Doutrina)</option>
+                  <option value="CESPE / Cebraspe">CESPE / Cebraspe (Múltipla Escolha)</option>
+                  <option value="VUNESP">VUNESP</option>
+                  <option value="AOCP">Instituto AOCP</option>
+                  <option value="FGV">Fundação Getulio Vargas (FGV)</option>
+                  <option value="UNEB">UNEB (Universidade do Estado da Bahia)</option>
                   <option value="Simulado Tático PMBA">Simulado Tático PMBA (Situações de Ronda)</option>
                 </select>
               </div>

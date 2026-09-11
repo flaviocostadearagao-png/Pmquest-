@@ -44,7 +44,10 @@ app.post('/api/gerar-questoes', async (req: Request, res: Response) => {
 
   try {
     const prompt = `Você é uma banca examinadora pedagógica para o concurso de Soldado da Polícia Militar da Bahia (PMBA).
-Gere exatamente ${numQuestoes} questões inéditas de múltipla escolha no estilo ${banca}.
+Gere exatamente ${numQuestoes} questões inéditas e EXCLUSIVAS de múltipla escolha no estilo da banca: ${banca}.
+ATENÇÃO: Mesmo que a banca escolhida não seja a padrão do concurso, as questões DEVEM ser estritamente baseadas e adaptadas aos tópicos do edital da PMBA.
+IMPORTANTE: Para evitar repetições, garanta que CADA questão aborde um subtópico, artigo ou conceito TOTALMENTE DIFERENTE dentro de "${assunto}". Seja criativo.
+
 Disciplina: ${disciplina}
 Assunto: ${assunto}
 Dificuldade: ${dificuldade}
@@ -123,7 +126,7 @@ Retorne ESTRITAMENTE um array JSON puro (sem markdown ou texto extra) onde cada 
       return {
         id: `q-ia-live-${timestamp}-${idx + 1}`,
         numero: (timestamp % 9000) + 1000 + idx,
-        banca: banca.includes('IBFC') ? 'IBFC' : banca.includes('FCC') ? 'FCC' : 'Simulado PMBA',
+        banca: banca === 'FCC / IBFC (Padrão PMBA)' ? 'IBFC/FCC (PMBA)' : banca,
         orgao: 'PM-BA',
         cargo: 'Soldado da Polícia Militar da Bahia',
         ano: 2026,
