@@ -78,9 +78,22 @@ export default function App() {
     }
   });
 
-  // Combined pool: original questions + AI-generated questions
+  // Combined pool: original questions + AI-generated questions with strict deduplication
   const todasQuestoes = useMemo(() => {
-    return [...QUESTOES_PMBA, ...questoesGeradas];
+    const map = new Map<string, Questao>();
+    for (const q of QUESTOES_PMBA) {
+      const key = (q.enunciado || '').trim();
+      if (!map.has(key)) {
+        map.set(key, q);
+      }
+    }
+    for (const q of questoesGeradas) {
+      const key = (q.enunciado || '').trim();
+      if (!map.has(key)) {
+        map.set(key, q);
+      }
+    }
+    return Array.from(map.values());
   }, [questoesGeradas]);
 
   // Track initial load from cloud to prevent overwriting with empty state
@@ -169,14 +182,16 @@ export default function App() {
 
   // Filtered questions respecting disciplina, assunto, banca, and "ocultarRespondidas"
   const questoesFiltradas = useMemo(() => {
+    const norm = (s: string) => (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+
     return todasQuestoes.filter((q) => {
-      const matchDisciplina = q.disciplina.toLowerCase() === disciplinaFiltro.toLowerCase();
+      const matchDisciplina = norm(q.disciplina) === norm(disciplinaFiltro);
       const matchAssunto =
         assuntoFiltro === 'Todos os Assuntos' ||
-        q.assunto.toLowerCase() === assuntoFiltro.toLowerCase();
+        norm(q.assunto) === norm(assuntoFiltro);
       const matchBanca = 
         bancaFiltro === 'Todas as Bancas' ||
-        q.banca.toLowerCase() === bancaFiltro.toLowerCase();
+        norm(q.banca) === norm(bancaFiltro);
       
       const isCurrentlyActive = questaoAtivaId !== null && q.id === questaoAtivaId;
       const matchOcultar = ocultarRespondidas ? (!historicoRespostas[q.id] || isCurrentlyActive) : true;

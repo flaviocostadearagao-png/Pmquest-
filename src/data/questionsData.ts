@@ -140,110 +140,212 @@ export const QUESTOES_EXPANDIDAS_PMBA: Questao[] = [
       artigosCitados: ['Art. 5º, XVI da CF/88', 'STF RE 806.339 (Tema 855)']
     }
   },
+  {
+    id: 'q-const-5',
+    numero: 5,
+    banca: 'FCC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado da Polícia Militar da Bahia',
+    ano: 2020,
+    disciplina: 'Direito Constitucional',
+    assunto: 'Direitos Políticos e Elegibilidade do Militar (Art. 14, § 8º da CF/88)',
+    dificuldade: 'Difícil',
+    enunciado: 'Nos termos da Constituição Federal de 1988, o militar alistável é elegível, atendidas determinadas condições constitucionais específicas. A respeito da elegibilidade do militar da ativa, assinale a alternativa correta:',
+    alternativas: [
+      { id: 'A', texto: 'Se contar menos de 10 (dez) anos de serviço, deverá afastar-se da atividade militar.' },
+      { id: 'B', texto: 'Se contar mais de 10 (dez) anos de serviço, será compulsoriamente demitido sem direito a qualquer remuneração proporcional.' },
+      { id: 'C', texto: 'O militar, enquanto em serviço ativo, pode filiar-se livremente a partidos políticos e concorrer sem restrições.' },
+      { id: 'D', texto: 'Se eleito, qualquer militar, independentemente do tempo de serviço, continuará exercendo concomitantemente o policiamento ostensivo.' },
+      { id: 'E', texto: 'Militares da ativa são absolutamente inelegíveis, mesmo após atingirem o posto de oficial superior.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Maj. PMBA Carlos Eduardo',
+      cargo: 'Instrutor de Direito Constitucional',
+      analiseGeral: 'Art. 14, § 8º da CF/88: O militar alistável é elegível: I - se contar menos de 10 anos de serviço, deverá afastar-se da atividade; II - se contar mais de 10 anos de serviço, será agregado pela autoridade superior e, se eleito, passará automaticamente, no ato da diplomação, para a inatividade.',
+      justificativaAlternativas: {
+        A: 'CORRETA. Se tiver menos de 10 anos, deve afastar-se definitivamente da atividade (desliga-se).',
+        B: 'Incorreta. Com mais de 10 anos, fica AGREGADO e, se eleito, vai para a INATIVIDADE remunerada proporcional.',
+        C: 'Incorreta. O militar em serviço ativo NÃO pode estar filiado a partidos políticos (Art. 142, § 3º, V c/c Art. 42, § 1º).',
+        D: 'Incorreta. É vedada a cumulação da atividade operacional com mandato eletivo.',
+        E: 'Incorreta. São elegíveis desde que atendam às regras do § 8º.'
+      },
+      bizuPMBA: 'Bizu da Elegibilidade Militar: Menos de 10 anos = AFASTA-SE (sai). Mais de 10 anos = AGREGADO e se diplomado -> INATIVIDADE!',
+      artigosCitados: ['Art. 14, § 8º da CF/88', 'Art. 142, § 3º, V da CF/88']
+    }
+  },
+  {
+    id: 'q-const-6',
+    numero: 6,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado da Polícia Militar',
+    ano: 2023,
+    disciplina: 'Direito Constitucional',
+    assunto: 'Prisão Legal e Direitos do Preso (Art. 5º, LXI a LXVI)',
+    dificuldade: 'Média',
+    enunciado: 'Em relação à disciplina constitucional da prisão e das garantias processuais penais constantes no art. 5º da CF/88, assinale a alternativa correta:',
+    alternativas: [
+      { id: 'A', texto: 'A prisão de qualquer pessoa e o local onde se encontre serão comunicados imediatamente apenas ao juiz competente e ao defensor público no prazo improrrogável de 48 horas.' },
+      { id: 'B', texto: 'Ninguém será preso senão em flagrante delito ou por ordem escrita e fundamentada de autoridade judiciária competente, salvo nos casos de transgressão militar ou crime propriamente militar, definidos em lei.' },
+      { id: 'C', texto: 'O preso tem direito à identificação dos responsáveis por sua prisão, mas não tem direito à identificação dos responsáveis pelo seu interrogatório policial.' },
+      { id: 'D', texto: 'A prisão ilegal não será relaxada pelo Poder Judiciário quando o crime for hediondo ou equiparado.' },
+      { id: 'E', texto: 'O preso será informado de seus direitos, entre os quais o de responder obrigatoriamente a todas as perguntas formuladas pela autoridade condutora.' }
+    ],
+    respostaCorreta: 'B',
+    comentario: {
+      professor: 'Prof. André Lins',
+      cargo: 'Advogado e Professor de Direito Constitucional',
+      analiseGeral: 'Artigo 5º, LXI da CF/88: "ninguém será preso senão em flagrante delito ou por ordem escrita e fundamentada de autoridade judiciária competente, salvo nos casos de transgressão militar ou crime propriamente militar, definidos em lei".',
+      justificativaAlternativas: {
+        A: 'Incorreta. A comunicação deve ser IMEDIATA ao juiz competente E à família do preso ou à pessoa por ele indicada (inciso LXII).',
+        B: 'CORRETA. Transcrição literal do inciso LXI.',
+        C: 'Incorreta. O preso tem direito à identificação dos responsáveis por sua prisão E por seu interrogatório policial (inciso LXIV).',
+        D: 'Incorreta. A prisão ilegal SERÁ IMEDIATAMENTE RELAXADA pela autoridade judiciária (inciso LXV), sem exceção de crime.',
+        E: 'Incorreta. O preso tem direito de permanecer CALADO (nemo tenetur se detegere - inciso LXIII).'
+      },
+      bizuPMBA: 'Bizu PMBA: Regra geral de prisão: Flagrante ou Ordem Judicial Escrita. Exceção expressa na CF: Transgressão Militar ou Crime Propriamente Militar!',
+      artigosCitados: ['Art. 5º, LXI, LXII, LXIII, LXIV, LXV da CF/88']
+    }
+  },
 
   // =========================================================================
   // 2. PROMOÇÃO DA IGUALDADE RACIAL E DE GÊNERO
   // =========================================================================
   {
     id: 'q-igual-1',
-    numero: 5,
+    numero: 7,
     banca: 'IBFC',
     orgao: 'PM-BA',
     cargo: 'Soldado da Polícia Militar da Bahia',
     ano: 2020,
-    disciplina: 'Igualdade de Gênero e Raça',
+    disciplina: 'Promoção da Igualdade Racial e de Gênero',
     assunto: 'Estatuto da Igualdade Racial (Lei Federal nº 12.288/2010)',
     dificuldade: 'Fácil',
     enunciado: 'A Lei Federal nº 12.288/2010 (Estatuto da Igualdade Racial) é de observância obrigatória no edital da Polícia Militar da Bahia. De acordo com o art. 1º dessa lei, considera-se "discriminação racial ou étnico-racial":',
     alternativas: [
       { id: 'A', texto: 'Toda distinção, exclusão, restrição ou preferência baseada em raça, cor, descendência ou origem nacional ou étnica que tenha por objeto anular ou restringir o reconhecimento ou exercício de direitos fundamentais.' },
       { id: 'B', texto: 'Exclusivamente as agressões físicas comprovadas contra indivíduos pertencentes a povos e comunidades tradicionais em áreas urbanas.' },
-      { id: 'C', texto: 'Apenas a recusa formal e documentada de contratação de pessoas autodeclaradas pretas ou pardas no setor público.' },
-      { id: 'D', texto: 'A adoção de medidas de ação afirmativa de incentivo temporário a grupos étnico-raciais historicamente vulnerabilizados.' },
-      { id: 'E', texto: 'Toda medida governamental que vise equiparar salários de homens e mulheres no serviço militar estadual.' }
+      { id: 'C', texto: 'Apenas os atos praticados por agentes do Estado no exercício da função repressiva.' },
+      { id: 'D', texto: 'Qualquer programa governamental de cotas que reserve vagas em universidades públicas para estudantes autodeclarados negros.' },
+      { id: 'E', texto: 'Toda crítica doutrinária dirigida aos costumes e manifestações folclóricas afro-brasileiras.' }
     ],
     respostaCorreta: 'A',
     comentario: {
-      professor: 'Prof.ª Dra. Luiza Dandara',
-      cargo: 'Professora de Legislação Especial e Direitos Étnico-Raciais',
-      analiseGeral: 'A banca copiou literalmente o texto legal do art. 1º, parágrafo único, inciso I, da Lei 12.288/2010.',
+      professor: 'Profa. Dra. Dandara Santos',
+      cargo: 'Especialista em Direitos Humanos e Relações Étnico-Raciais',
+      analiseGeral: 'O Art. 1º, parágrafo único, inciso I da Lei 12.288/2010 define discriminação racial como toda distinção, exclusão, restrição ou preferência baseada em raça, cor, descendência ou origem nacional ou étnica que anule ou restrinja o gozo ou exercício de direitos fundamentais.',
       justificativaAlternativas: {
-        A: 'CORRETA. Transcrição literal do art. 1º, parágrafo único, I, da Lei nº 12.288/2010.',
-        B: 'Incorreta. Discriminação não é restrita a agressões físicas nem a áreas urbanas.',
-        C: 'Incorreta. Não se restringe a recusa formal de contratação nem exclusivamente ao setor público.',
-        D: 'Incorreta. As ações afirmativas NÃO configuram discriminação racial; pelo contrário, são instrumentos legítimos de reparação e promoção da igualdade material (art. 4º, parágrafo único).',
-        E: 'Incorreta. Alternativa confusa misturando temas laborais genéricos.'
+        A: 'CORRETA. Definição ipsis litteris do artigo 1º, parágrafo único, I da Lei 12.288/2010.',
+        B: 'Incorreta. Discriminação não se resume a agressão física.',
+        C: 'Incorreta. Abrange tanto esferas públicas quanto privadas.',
+        D: 'Incorreta. Programas de ação afirmativa NÃO constituem discriminação (Art. 4º, parágrafo único).',
+        E: 'Incorreta. Conceito desprovido de amparo legal no Estatuto.'
       },
-      bizuPMBA: 'Bizu do Edital: A banca adora confundir "discriminação racial" com "ações afirmativas". Lembre-se: Ação afirmativa é política pública legal de inclusão, NUNCA é discriminação!',
-      artigosCitados: ['Lei nº 12.288/2010, Art. 1º, Parágrafo Único, Inciso I']
+      bizuPMBA: 'Bizu da Igualdade: Ações Afirmativas (cotas) NÃO são discriminação racial; são instrumentos de igualdade material!',
+      artigosCitados: ['Lei Federal nº 12.288/2010, Art. 1º, parágrafo único']
     }
   },
   {
     id: 'q-igual-2',
-    numero: 6,
+    numero: 8,
     banca: 'FCC',
     orgao: 'PM-BA',
-    cargo: 'Soldado da Polícia Militar da Bahia',
-    ano: 2023,
-    disciplina: 'Igualdade de Gênero e Raça',
-    assunto: 'Lei Maria da Penha (Lei Federal nº 11.340/2006) - Formas de Violência',
+    cargo: 'Soldado da Polícia Militar',
+    ano: 2019,
+    disciplina: 'Promoção da Igualdade Racial e de Gênero',
+    assunto: 'Lei Maria da Penha (Lei nº 11.340/2006) - Formas de Violência',
     dificuldade: 'Média',
-    enunciado: 'A Lei Maria da Penha (Lei Federal nº 11.340/2006) define em seu artigo 7º as formas de violência doméstica e familiar contra a mulher. A conduta do agressor consistente em rasgar deliberadamente a carteira de trabalho da vítima, quebrar seu telefone celular e subtrair suas ferramentas de costura configura forma de violência:',
+    enunciado: 'Em uma ocorrência atendida por guarnição da Polícia Militar da Bahia, constatou-se que um indivíduo, inconformado com a separação, destruiu os instrumentos de trabalho, o celular e rasgou os documentos de sua ex-companheira. À luz da Lei nº 11.340/2006 (Lei Maria da Penha), essa conduta configura tipicamente violência doméstica na forma:',
     alternativas: [
       { id: 'A', texto: 'Moral.' },
-      { id: 'B', texto: 'Patrimonial.' },
-      { id: 'C', texto: 'Psicológica exclusiva.' },
-      { id: 'D', texto: 'Institucional.' },
-      { id: 'E', texto: 'Física qualificada.' }
+      { id: 'B', texto: 'Psicológica.' },
+      { id: 'C', texto: 'Patrimonial.' },
+      { id: 'D', texto: 'Sexual.' },
+      { id: 'E', texto: 'Institucional.' }
     ],
-    respostaCorreta: 'B',
+    respostaCorreta: 'C',
     comentario: {
-      professor: 'Major PMBA Dra. Clarice Mattos',
-      cargo: 'Coordenadora de Ronda Maria da Penha',
-      analiseGeral: 'Artigo 7º, inciso IV da Lei 11.340/2006: "a violência patrimonial, entendida como qualquer conduta que configure retenção, subtração, destruição parcial ou total de seus objetos, instrumentos de trabalho, documentos pessoais, bens, valores e direitos ou recursos econômicos, incluindo os destinados a satisfazer suas necessidades".',
+      professor: 'Profa. Dra. Dandara Santos',
+      cargo: 'Especialista em Legislação Protetiva de Gênero',
+      analiseGeral: 'O art. 7º, IV da Lei 11.340/2006 estabelece que a violência patrimonial é entendida como qualquer conduta que configure retenção, subtração, destruição parcial ou total de seus objetos, instrumentos de trabalho, documentos pessoais, bens, valores e direitos ou recursos econômicos.',
       justificativaAlternativas: {
-        A: 'Incorreta. Violência moral é a que configura calúnia, difamação ou injúria (art. 7º, V).',
-        B: 'CORRETA. Destruição de objetos, instrumentos de trabalho (máquina de costura) e documentos (CTPS) = VIOLÊNCIA PATRIMONIAL.',
-        C: 'Incorreta. Psicológica abrange dano emocional e diminuição da autoestima (art. 7º, II).',
-        D: 'Incorreta. Não é a tipologia do art. 7º.',
-        E: 'Incorreta. Física é a conduta que ofende a integridade ou saúde corporal.'
+        A: 'Incorreta. Violência moral compreende calúnia, difamação ou injúria (inciso V).',
+        B: 'Incorreta. Violência psicológica compreende ameaça, humilhação, isolamento, controle (inciso II).',
+        C: 'CORRETA. Destruição de objetos, instrumentos de trabalho e documentos é violência PATRIMONIAL (inciso IV).',
+        D: 'Incorreta. Violência sexual decorre de relação sexual não desejada, coerção etc. (inciso III).',
+        E: 'Incorreta. Violência institucional não consta expressamente no rol do Art. 7º.'
       },
-      bizuPMBA: 'Bizu Ronda Maria da Penha PMBA: Celular quebrado, documento rasgado, instrumento de trabalho escondido = VIOLÊNCIA PATRIMONIAL!',
-      artigosCitados: ['Lei nº 11.340/2006, Artigo 7º, Inciso IV']
+      bizuPMBA: 'Bizu das Formas de Violência (Art. 7º LMP): FÍSICA (corpo) | PSICOLÓGICA (mente/humilhação) | SEXUAL (sexualidade) | PATRIMONIAL (bens/documentos/trabalho) | MORAL (calúnia/difamação/injúria).',
+      artigosCitados: ['Lei Federal nº 11.340/2006, Artigo 7º, IV']
     }
   },
   {
     id: 'q-igual-3',
-    numero: 7,
-    banca: 'AOCP',
-    orgao: 'Polícia Militar',
-    cargo: 'Soldado PM',
-    ano: 2022,
-    disciplina: 'Igualdade de Gênero e Raça',
-    assunto: 'Crimes de Preconceito de Raça ou de Cor (Lei Federal nº 7.716/1989 e Lei 14.532/2023)',
-    dificuldade: 'Difícil',
-    enunciado: 'Nos termos da Lei Federal nº 7.716/1989 e das recentes atualizações legislativas que equipararam a injúria racial ao crime de racismo (Lei nº 14.532/2023), sobre a persecução penal desses delitos é correto afirmar que:',
+    numero: 9,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado da Polícia Militar da Bahia',
+    ano: 2023,
+    disciplina: 'Promoção da Igualdade Racial e de Gênero',
+    assunto: 'Crimes de Racismo e Injúria Racial (Lei nº 7.716/89 c/c Lei nº 14.532/23)',
+    dificuldade: 'Média',
+    enunciado: 'Com a promulgação da Lei nº 14.532/2023, a injúria racial foi equiparada ao crime de racismo na Lei nº 7.716/1989. Diante dessa expressiva inovação legislativa, assinale a alternativa correta sobre o tratamento constitucional e penal conferido à injúria racial e aos crimes resultantes de preconceito de raça ou de cor:',
     alternativas: [
-      { id: 'A', texto: 'O crime de racismo prescreve em cinco anos a contar da data do fato e admite liberdade provisória mediante fiança.' },
-      { id: 'B', texto: 'A injúria racial e os crimes resultantes de preconceito de raça ou de cor são inafiançáveis e imprescritíveis, sujeitos à pena de reclusão.' },
-      { id: 'C', texto: 'A prática de recusar atendimento em estabelecimento comercial por motivo de cor é mera contravenção penal sujeita apenas a multa administrativa.' },
-      { id: 'D', texto: 'Caso o crime de racismo seja cometido por agente público no exercício de suas funções, a pena será atenuada em decorrência da hierarquia funcional.' },
-      { id: 'E', texto: 'A ação penal para apuração de injúria racial é de iniciativa privada personalíssima da vítima perante o juizado de pequenas causas.' }
+      { id: 'A', texto: 'A injúria racial é crime afiançável e prescreve no prazo improrrogável de 5 (cinco) anos contados da data do fato.' },
+      { id: 'B', texto: 'A prática do racismo e a injúria racial constituem crimes inafiançáveis e imprescritíveis, sujeitos à pena de reclusão.' },
+      { id: 'C', texto: 'Apenas os crimes praticados pela internet são considerados imprescritíveis pela legislação penal brasileira.' },
+      { id: 'D', texto: 'A injúria racial depende de representação da vítima e permite acordo de não persecução penal (ANPP) sem restrições.' },
+      { id: 'E', texto: 'O policial militar que presenciar ato de discriminação racial em via pública não pode realizar prisão em flagrante por se tratar de crime de menor potencial ofensivo.' }
     ],
     respostaCorreta: 'B',
     comentario: {
-      professor: 'Prof.ª Dra. Luiza Dandara',
-      cargo: 'Especialista em Legislação Antirracista',
-      analiseGeral: 'Com a Lei nº 14.532/2023 e o julgamento do HC 154.248 pelo STF, a injúria qualificada por elementos de raça/cor foi inserida na Lei 7.716/1989 (art. 2º-A). Tratando-se de espécie de racismo, é delito INAFIANÇÁVEL e IMPRESCRITÍVEL, nos termos do art. 5º, XLII da CF/88.',
+      professor: 'Profa. Dra. Dandara Santos',
+      cargo: 'Especialista em Legislação Penal Especial e Direitos Humanos',
+      analiseGeral: 'A Constituição Federal de 1988 (Art. 5º, XLII) determina que "a prática do racismo constitui crime inafiançável e imprescritível, sujeito à pena de reclusão, nos termos da lei". Com a Lei nº 14.532/2023, a injúria motivada por raça, cor, etnia ou procedência nacional passou para o art. 2º-A da Lei 7.716/89, tornando-se formalmente racismo (inafiançável e imprescritível).',
       justificativaAlternativas: {
-        A: 'Incorreta. Racismo é constitucionalmente inafiançável e imprescritível.',
-        B: 'CORRETA. Art. 5º, XLII da CF/88 e Lei 14.532/2023: Racismo e injúria racial são inafiançáveis e imprescritíveis!',
-        C: 'Incorreta. É crime punido com reclusão de 1 a 3 anos (art. 5º da Lei 7.716/89).',
-        D: 'Incorreta. Se cometido por funcionário público, a pena é AUMENTADA (art. 20-B).',
-        E: 'Incorreta. A ação penal é pública incondicionada.'
+        A: 'Incorreta. É inafiançável e IMPRESCRITÍVEL.',
+        B: 'CORRETA. Equiparação plena: inafiançável, imprescritível e punido com reclusão.',
+        C: 'Incorreta. O racismo é imprescritível independentemente do meio empregado.',
+        D: 'Incorreta. A ação penal é pública incondicionada.',
+        E: 'Incorreta. Trata-se de crime grave punido com reclusão, com dever funcional de prisão em flagrante.'
       },
-      bizuPMBA: 'Bizu de Ouro PMBA: O artigo 5º, XLII da CF é taxativo: "a prática do racismo constitui crime inafiançável e imprescritível, sujeito à pena de reclusão, nos termos da lei". Com a Lei 14.532/23, injúria racial = RACISMO!',
-      artigosCitados: ['Art. 5º, XLII da CF/88', 'Lei 7.716/1989, Art. 2º-A e Art. 20-B', 'Lei 14.532/2023']
+      bizuPMBA: 'Bizu PMBA: Racismo e Injúria Racial = INAFIANÇÁVEL + IMPRESCRITÍVEL + RECLUSÃO! O STF e a Lei 14.532/23 pacificaram essa igualdade.',
+      artigosCitados: ['Art. 5º, XLII da CF/88', 'Lei nº 7.716/1989, Art. 2º-A', 'Lei nº 14.532/2023']
+    }
+  },
+  {
+    id: 'q-igual-4',
+    numero: 10,
+    banca: 'FCC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2020,
+    disciplina: 'Promoção da Igualdade Racial e de Gênero',
+    assunto: 'Estatuto da Igualdade Racial do Estado da Bahia (Lei Estadual nº 13.182/2014)',
+    dificuldade: 'Difícil',
+    enunciado: 'A Lei Estadual nº 13.182/2014 institui o Estatuto da Igualdade Racial e de Combate ao Racismo Religioso do Estado da Bahia. Em relação aos objetivos e garantias previstas na referida lei estadual, assinale a opção correta:',
+    alternativas: [
+      { id: 'A', texto: 'O Estado da Bahia assegura a proteção e a salvaguarda dos terreiros e locais de culto das religiões de matriz africana, reconhecendo-os como patrimônio cultural e religioso.' },
+      { id: 'B', texto: 'A lei estadual proíbe a realização de celebrações públicas de religiões afro-brasileiras em praças ou vias públicas por razões de ordem do trânsito.' },
+      { id: 'C', texto: 'A fiscalização dos crimes de intolerância religiosa no Estado da Bahia é atribuição exclusiva dos agentes municipais de postura.' },
+      { id: 'D', texto: 'O Estatuto Estadual não contempla diretrizes para a atuação preventiva das forças policiais da Bahia.' },
+      { id: 'E', texto: 'Assegura-se isenção fiscal ilimitada para templos de qualquer culto sem necessidade de previsão em lei complementar.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Profa. Dra. Dandara Santos',
+      cargo: 'Especialista em Legislação Baiana',
+      analiseGeral: 'A Lei Estadual nº 13.182/2014 confere especial proteção aos terreiros de candomblé e religiões de matriz africana na Bahia, garantindo o livre exercício dos cultos, a proteção dos seus espaços sagrados e o combate incisivo ao racismo religioso.',
+      justificativaAlternativas: {
+        A: 'CORRETA. Previsão expressa dos arts. 1º e 20 da Lei Estadual nº 13.182/2014.',
+        B: 'Incorreta. É plenamente assegurada a liberdade de culto em espaços públicos.',
+        C: 'Incorreta. A Polícia Militar e a Polícia Civil atuam ativamente na repressão ao racismo religioso.',
+        D: 'Incorreta. A lei estabelece diretrizes diretas para a capacitação das corporações policiais.',
+        E: 'Incorreta. Matéria tributária segue a disciplina constitucional.'
+      },
+      bizuPMBA: 'Bizu do Estatuto Baiano: A Bahia foi pioneira em incluir expressamente o combate ao "RACISMO RELIGIOSO" e a salvaguarda dos TERREIROS no seu Estatuto!',
+      artigosCitados: ['Lei Estadual da Bahia nº 13.182/2014']
     }
   },
 
@@ -252,388 +354,388 @@ export const QUESTOES_EXPANDIDAS_PMBA: Questao[] = [
   // =========================================================================
   {
     id: 'q-hist-1',
-    numero: 8,
+    numero: 11,
     banca: 'FCC',
     orgao: 'PM-BA',
     cargo: 'Soldado da Polícia Militar da Bahia',
-    ano: 2023,
+    ano: 2020,
     disciplina: 'História da Bahia',
-    assunto: 'Independência da Bahia (Dois de Julho de 1823) e Heroínas da Independência',
+    assunto: 'A Independência da Bahia (2 de Julho de 1823)',
     dificuldade: 'Média',
-    enunciado: 'Em 2 de julho de 1823, consolidou-se a Independência da Bahia e a efetiva expulsão das tropas portuguesas comandadas pelo brigadeiro Madeira de Melo. Sobre este episódio marcante da história baiana e nacional, assinale a afirmação correta:',
+    enunciado: 'A data magna da Bahia, celebrada em 2 de Julho, comemora a efetiva expulsão das tropas portuguesas de Salvador em 1823. Sobre a Guerra de Independência na Bahia, assinale a alternativa correta:',
     alternativas: [
-      { id: 'A', texto: 'A luta se restringiu a negociações diplomáticas em Salvador, sem que houvesse engajamento popular ou confrontos armados no Recôncavo.' },
-      { id: 'B', texto: 'Maria Quitéria de Jesus alistou-se no Batalhão dos "Voluntários do Príncipe Dom Pedro", destacando-se por sua bravura em combates como a Batalha de Pirajá.' },
-      { id: 'C', texto: 'Joana Angélica participou liderando tropas no front militar de Cachoeira, recebendo condecoração imperial direta de Dom Pedro I.' },
-      { id: 'D', texto: 'O movimento foi repelido pelo povo soteropolitano, que preferia a permanência sob a coroa lusitana devido ao livre comércio de açúcar.' },
-      { id: 'E', texto: 'O 2 de Julho ocorreu antes do 7 de Setembro de 1822 e não teve relação com a independência do restante do território brasileiro.' }
+      { id: 'A', texto: 'Foi um movimento restrito à elite proprietária de terras de Salvador, sem qualquer engajamento de populares, escravizados ou mulheres.' },
+      { id: 'B', texto: 'Contou com destacada participação popular, incluindo figuras históricas como Maria Quitéria, Joana Angélica e Maria Felipa, culminando na vitória do Exército Libertador.' },
+      { id: 'C', texto: 'Ocupou apenas a região do Recôncavo, uma vez que as tropas do Brigadeiro Madeira de Melo se renderam pacificamente sem resistência armada em Salvador.' },
+      { id: 'D', texto: 'Ocorreu antes do Grito do Ipiranga e resultou na separação provisória da Bahia em relação ao restante do Império do Brasil.' },
+      { id: 'E', texto: 'O comandante português Inácio Luís Madeira de Melo contava com o apoio unânime dos batalhões baianos contra D. Pedro I.' }
     ],
     respostaCorreta: 'B',
     comentario: {
-      professor: 'Prof. Antônio Carlos Ribeiro',
-      cargo: 'Historiador e Especialista em História da Bahia',
-      analiseGeral: 'A Independência da Bahia representa a verdadeira expulsão militar das tropas de Portugal do Brasil.',
+      professor: 'Prof. Me. Rodrigo Bahia',
+      cargo: 'Historiador e Pesquisador de História Militar da Bahia',
+      analiseGeral: 'A Independência da Bahia (2 de Julho de 1823) foi um conflito armado prolongado marcado pela mobilização popular no Recôncavo (Cachoeira, Santo Amaro, Itaparica) e pela bravura de mulheres como a Soldado Maria Quitéria (heroína da Pátria e patrona do Exército), a abadessa mártir Joana Angélica e a marisqueira Maria Felipa em Itaparica.',
       justificativaAlternativas: {
-        A: 'Incorreta. Houve sangrentos confrontos armados no Recôncavo Baiano (Cachoeira, Santo Amaro, Itaparica) e Pirajá.',
-        B: 'CORRETA. Maria Quitéria usou o pseudônimo "Soldado Medeiros", lutou com heroísmo no Batalhão dos Voluntários do Príncipe e foi condecorada com a Ordem Imperial do Cruzeiro.',
-        C: 'Incorreta. Joana Angélica foi a abadessa do Convento da Lapa martirizada ao defender o claustro em Salvador.',
-        D: 'Incorreta. A população baiana cerrou fileiras contra Madeira de Melo.',
-        E: 'Incorreta. O 2 de Julho ocorreu em 1823 (depois de 1822).'
+        A: 'Incorreta. Teve amplíssima participação de negros libertos, escravizados, indígenas, sertanejos e mulheres.',
+        B: 'CORRETA. Síntese perfeita do papel das heroínas baianas e do Exército Libertador.',
+        C: 'Incorreta. Houve sangrentos combates terrestres e marítimos (Batalha de Pirajá, Cabrito, cerco de Salvador).',
+        D: 'Incorreta. A vitória final ocorreu em 2 de julho de 1823, quase um ano APÓS o 7 de setembro de 1822.',
+        E: 'Incorreta. Os baianos pegaram em armas CONTRA Madeira de Melo.'
       },
-      bizuPMBA: 'Bizu da Bahia: Trinca de heroínas da Independência Baiana: Maria Quitéria (armas/batalha), Maria Felipa (mariscadeira/Itaparica queimando barcos) e Joana Angélica (mártir no Convento da Lapa).',
-      artigosCitados: ['Historiografia Oficial da Bahia / Edital PMBA']
+      bizuPMBA: 'Bizu do 2 de Julho: Heroínas da Independência: Maria Quitéria (Soldado Medeiros), Joana Angélica (mártir do Convento da Lapa) e Maria Felipa (marisqueira de Itaparica). Batalha decisiva: PIRAJÁ (Corneteiro Lopes)!',
+      artigosCitados: ['História da Bahia - Período Regencial e Imperial']
     }
   },
   {
     id: 'q-hist-2',
-    numero: 9,
+    numero: 12,
     banca: 'IBFC',
     orgao: 'PM-BA',
     cargo: 'Soldado da Polícia Militar da Bahia',
-    ano: 2020,
+    ano: 2023,
     disciplina: 'História da Bahia',
-    assunto: 'Revolta dos Búzios (1798) / Conjuração Baiana dos Alfaiates',
+    assunto: 'Revolta dos Alfaiates ou Conjuração Baiana (1798)',
     dificuldade: 'Média',
-    enunciado: 'A Revolta dos Búzios (também conhecida como Conjuração Baiana ou Revolta dos Alfaiates), ocorrida em Salvador no ano de 1798, destacou-se no cenário colonial por apresentar caráter marcadamente:',
+    enunciado: 'A Revolta dos Alfaiates (ou Conjuração Baiana de 1798) é um dos marcos mais importantes das lutas sociais na Bahia colonial. Diferenciando-se da Inconfidência Mineira (1789), o movimento baiano caracterizou-se principalmente por:',
     alternativas: [
-      { id: 'A', texto: 'Aristocrático e favorável à manutenção do exclusivo comercial português e do tráfico negreiro transatlântico.' },
-      { id: 'B', texto: 'Popular, republicano, anticolonial e abolicionista, com forte participação de negros libertos, escravizados e homens pardos.' },
-      { id: 'C', texto: 'Monarquista absolutista em apoio ao príncipe regente D. João VI contra as ideias da Revolução Francesa.' },
-      { id: 'D', texto: 'Restrito aos grandes senhores de engenho do Recôncavo, que desejavam apenas a diminuição de impostos sobre a cana-de-açúcar.' },
-      { id: 'E', texto: 'Clerical, cujo único objetivo era a fundação do primeiro bispado da América do Sul na cidade de Feira de Santana.' }
+      { id: 'A', texto: 'Pleitear a manutenção da escravidão e a subordinação eclesiástica da Bahia ao Vaticano.' },
+      { id: 'B', texto: 'Possuir caráter eminentemente popular, defendendo a proclamação da República, a separação de Portugal e a ABOLIÇÃO imediata da escravidão.' },
+      { id: 'C', texto: 'Ser liderada exclusivamente pela nobreza portuguesa residente no Palácio Rio Branco em Salvador.' },
+      { id: 'D', texto: 'Objetivar apenas a transferência da capital do Brasil de Salvador para o Rio de Janeiro.' },
+      { id: 'E', texto: 'Ter sido perdoada integralmente pela Coroa Portuguesa sem a condenação de nenhum de seus líderes.' }
     ],
     respostaCorreta: 'B',
     comentario: {
-      professor: 'Prof. Antônio Carlos Ribeiro',
-      cargo: 'Historiador e Especialista em História da Bahia',
-      analiseGeral: 'Diferente da Inconfidência Mineira (1789), que era de elite, a Conjuração Baiana de 1798 teve ampla base popular (alfaiates, soldados, artesãos) e postulava o fim da escravidão, proclamação da República e livre comércio.',
+      professor: 'Prof. Me. Rodrigo Bahia',
+      cargo: 'Historiador e Pesquisador',
+      analiseGeral: 'A Conjuração Baiana de 1798 (Búzios / Alfaiates) teve forte corte popular e racial, liderada por alfaiates, soldados e negros livres (Lucas Dantas, Manuel Faustino, Luís Gonzaga das Virgens e João de Deus). Seus grandes pilares eram: República, Fim do domínio colonial, Abertura dos portos e Abolição da Escravidão.',
       justificativaAlternativas: {
-        A: 'Incorreta. O movimento era expressamente abolicionista e anticolonial.',
-        B: 'CORRETA. Lideranças: Lucas Dantas, Manuel Faustino, Luís Gonzaga das Virgens e João de Deus.',
-        C: 'Incorreta. Defendia a República inspirada na Revolução Francesa.',
-        D: 'Incorreta. Não foi liderada por senhores de engenho.',
-        E: 'Incorreta. O movimento era laico e de emancipação política e social.'
+        A: 'Incorreta. Defendia a ABOLIÇÃO da escravidão e igualdade racial.',
+        B: 'CORRETA. O diferencial decisivo em relação a Minas Gerais foi a pauta popular e o fim da escravidão.',
+        C: 'Incorreta. Foi liderada por homens do povo, alfaiates e soldados.',
+        D: 'Incorreta. A transferência da capital já havia ocorrido em 1763.',
+        E: 'Incorreta. Os líderes populares foram enforcados e esquartejados na Praça da Piedade.'
       },
-      bizuPMBA: 'Bizu Histórico: Búzios (1798) = Popular + Republicana + ABOLICIONISTA (queria o fim da escravidão!). Guarde os mártires: Lucas Dantas, Manuel Faustino, Luís Gonzaga e João de Deus.',
-      artigosCitados: ['Lei Federal nº 12.391/2011 (Heróis da Pátria)']
+      bizuPMBA: 'Bizu PMBA: Inconfidência Mineira = Elite (sem abolição). Conjuração Baiana/Alfaiates = POPULAR + ABOLICIONISTA + REPÚBLICA!',
+      artigosCitados: ['História da Bahia - Movimentos Emancipacionistas']
     }
   },
   {
     id: 'q-hist-3',
-    numero: 10,
-    banca: 'UNEB',
-    orgao: 'Polícia Militar da Bahia',
-    cargo: 'Soldado PMBA',
-    ano: 2021,
-    disciplina: 'História da Bahia',
-    assunto: 'A Guerra de Canudos (1896-1897) e o Sertão Baiano',
-    dificuldade: 'Média',
-    enunciado: 'O conflito de Canudos (1896-1897), desenrolado no sertão baiano nas margens do Rio Vaza-Barris, opôs as forças do arraial de Belo Monte às tropas do Exército e da Polícia Militar da Bahia. Sobre esse acontecimento, é correto afirmar que:',
-    alternativas: [
-      { id: 'A', texto: 'Antônio Conselheiro liderou um movimento militar burguês para reinstalar a corte portuguesa na cidade de Salvador.' },
-      { id: 'B', texto: 'O arraial atraiu milhares de sertanejos, ex-escravizados e sertanejos despossuídos, sendo visto pela jovem República como uma ameaça monarquista e de fanatismo que precisava ser erradicada.' },
-      { id: 'C', texto: 'A primeira expedição governamental, liderada pelo Coronel Moreira César, dizimou o arraial em apenas 24 horas de combate pacífico.' },
-      { id: 'D', texto: 'O conflito terminou com um armistício assinado entre Conselheiro e o presidente Prudente de Morais sem perdas humanas.' },
-      { id: 'E', texto: 'Canudos ocorreu na região do Recôncavo Baiano e teve apoio irrestrito dos grandes latifundiários e fazendeiros de gado locais.' }
-    ],
-    respostaCorreta: 'B',
-    comentario: {
-      professor: 'Prof. Antônio Carlos Ribeiro',
-      cargo: 'Historiador da Bahia',
-      analiseGeral: 'Canudos representou o embate entre o sertão esquecido pelo poder republicano oligárquico e as forças estatais. O arraial de Belo Monte chegou a abrigar mais de 25 mil pessoas sob a liderança messiânica de Antônio Conselheiro e foi narrado com maestria por Euclides da Cunha em "Os Sertões".',
-      justificativaAlternativas: {
-        A: 'Incorreta. O movimento era de sertanejos pobres, sem vínculo com a corte portuguesa.',
-        B: 'CORRETA. A República nascente acusava Canudos de reduto de conspiração monarquista.',
-        C: 'Incorreta. Moreira César liderou a 3ª expedição e foi derrotado e morto pelos sertanejos.',
-        D: 'Incorreta. Canudos foi completamente destruído e massacrado na 4ª expedição.',
-        E: 'Incorreta. Ocorreu no Sertão de Canudos (Rio Vaza-Barris), contra os interesses dos coronéis latifundiários.'
-      },
-      bizuPMBA: 'Bizu de Canudos: Rio Vaza-Barris + Antônio Conselheiro + Arraial de Belo Monte + "Os Sertões" de Euclides da Cunha. Foram 4 expedições militares até a queda final em outubro de 1897.',
-      artigosCitados: ['Historiografia da Guerra de Canudos / Euclides da Cunha']
-    }
-  },
-
-  // =========================================================================
-  // 4. DIREITO ADMINISTRATIVO & ESTATUTO PMBA
-  // =========================================================================
-  {
-    id: 'q-admin-1',
-    numero: 11,
-    banca: 'IBFC',
-    orgao: 'PM-BA',
-    cargo: 'Soldado da Polícia Militar da Bahia',
-    ano: 2020,
-    disciplina: 'Direito Administrativo',
-    assunto: 'Estatuto dos Policiais Militares da Bahia (Lei Estadual nº 7.990/2001)',
-    dificuldade: 'Difícil',
-    enunciado: 'Em conformidade com o Estatuto dos Policiais Militares do Estado da Bahia (Lei Estadual nº 7.990/2001), a hierarquia e a disciplina são a base institucional da Polícia Militar. Sobre a precedência hierárquica e círculos hierárquicos, é correto afirmar que:',
-    alternativas: [
-      { id: 'A', texto: 'A precedência entre policiais militares da ativa, do mesmo grau hierárquico, é assegurada pela antiguidade no posto ou graduação, salvo nos casos de precedência funcional estabelecida em lei.' },
-      { id: 'B', texto: 'Os Alunos-a-Oficial PM e os Alunos do Curso de Formação de Soldados pertencem ao mesmo círculo hierárquico dos Oficiais Superiores.' },
-      { id: 'C', texto: 'A disciplina militar consiste unicamente no direito do subordinado de questionar previamente qualquer ordem do superior em redes sociais.' },
-      { id: 'D', texto: 'A hierarquia militar prevalece apenas em situações de combate ou operação especial de garantia da lei e da ordem.' },
-      { id: 'E', texto: 'O policial militar da reserva remunerada quando convocado terá precedência hierárquica automática sobre qualquer oficial da ativa.' }
-    ],
-    respostaCorreta: 'A',
-    comentario: {
-      professor: 'Major PMBA Carlos Eduardo',
-      cargo: 'Bacharel em Direito e Instrutor da Academia de Polícia Militar da Bahia',
-      analiseGeral: 'A Lei Estadual nº 7.990/2001 é a legislação específica de maior peso no concurso da PMBA.',
-      justificativaAlternativas: {
-        A: 'CORRETA. É a regra matriz estampada no art. 16 da Lei Estadual 7.990/2001: a precedência entre militares do mesmo grau decorre da antiguidade, salvo precedência funcional.',
-        B: 'Incorreta. Alunos são praças especiais e têm círculo próprio.',
-        C: 'Incorreta. A disciplina militar é o acatamento integral das leis e ordens legítimas dos superiores.',
-        D: 'Incorreta. A hierarquia e disciplina são permanentes.',
-        E: 'Incorreta. Convocação não garante supremacia irrestrita sobre oficiais da ativa.'
-      },
-      bizuPMBA: 'Bizu do Estatuto: Artigo 14 da Lei 7.990/2001: A hierarquia e a disciplina são as BASES INSTITUCIONAIS da Polícia Militar da Bahia!',
-      artigosCitados: ['Lei Estadual nº 7.990/2001, Art. 14 a 19']
-    }
-  },
-  {
-    id: 'q-admin-2',
-    numero: 12,
-    banca: 'FCC',
-    orgao: 'PM-BA',
-    cargo: 'Soldado da Polícia Militar da Bahia',
-    ano: 2023,
-    disciplina: 'Direito Administrativo',
-    assunto: 'Princípios Expressos da Administração Pública (LIMPE - Art. 37 da CF/88)',
-    dificuldade: 'Fácil',
-    enunciado: 'O artigo 37, caput, da Constituição Federal de 1988 estabelece que a administração pública direta e indireta de qualquer dos Poderes da União, dos Estados, do Distrito Federal e dos Municípios obedecerá a princípios fundamentais. O princípio segundo o qual a atuação do administrador e do policial não pode visar à promoção pessoal nem a perseguições individuais, tratando todos os administrados com neutralidade, é o princípio da:',
-    alternativas: [
-      { id: 'A', texto: 'Legalidade estrita.' },
-      { id: 'B', texto: 'Impessoalidade.' },
-      { id: 'C', texto: 'Publicidade irrestrita.' },
-      { id: 'D', texto: 'Autotutela.' },
-      { id: 'E', texto: 'Continuidade dos serviços.' }
-    ],
-    respostaCorreta: 'B',
-    comentario: {
-      professor: 'Prof. André Lins',
-      cargo: 'Advogado e Professor de Direito Administrativo',
-      analiseGeral: 'O princípio da Impessoalidade veda que o agente público utilize o aparato estatal para autopromoção pessoal (ex: colocar seu nome ou foto em viaturas) ou para perseguição/favoritismo de particulares.',
-      justificativaAlternativas: {
-        A: 'Incorreta. A legalidade impõe que a administração só pode fazer o que a lei expressamente autoriza.',
-        B: 'CORRETA. Impessoalidade = finalidade pública + vedação à promoção pessoal + tratamento isonômico neutro.',
-        C: 'Incorreta. A publicidade é a divulgação oficial dos atos.',
-        D: 'Incorreta. Autotutela é princípio implícito de controle de legalidade.',
-        E: 'Incorreta. Continuidade refere-se à não interrupção de serviços essenciais.'
-      },
-      bizuPMBA: 'Bizu do LIMPE: L = Legalidade | I = Impessoalidade | M = Moralidade | P = Publicidade | E = Eficiência. Vedação à promoção pessoal = IMPESSOALIDADE!',
-      artigosCitados: ['Art. 37, caput e § 1º da Constituição Federal de 1988']
-    }
-  },
-  {
-    id: 'q-admin-3',
     numero: 13,
-    banca: 'CESPE / Cebraspe',
-    orgao: 'Polícia Militar',
+    banca: 'FCC',
+    orgao: 'PM-BA',
     cargo: 'Soldado PM',
-    ano: 2022,
-    disciplina: 'Direito Administrativo',
-    assunto: 'Poder de Polícia Administrativa e Seus Atributos',
+    ano: 2017,
+    disciplina: 'História da Bahia',
+    assunto: 'A Guerra de Canudos (1896-1897) e Antônio Conselheiro',
     dificuldade: 'Média',
-    enunciado: 'Em uma operação de fiscalização de trânsito e ordem urbana, uma guarnição da Polícia Militar aborda um veículo que trafegava sem condições de segurança e apreende mercadorias ilícitas no local, sem necessidade de autorização judicial prévia para a apreensão física das coisas ilegais. Esse atributo do poder de polícia administrativa que permite à Administração executar diretamente seus próprios atos é denominado:',
+    enunciado: 'No sertão da Bahia, no final do século XIX, formou-se o arraial de Belo Monte (Canudos), liderado pelo beato Antônio Conselheiro. Sobre esse relevante episódio da História da Bahia e da República Velha, assinale a alternativa correta:',
     alternativas: [
-      { id: 'A', texto: 'Tipicidade estrita.' },
-      { id: 'B', texto: 'Autoexecutoriedade.' },
-      { id: 'C', texto: 'Presunção de culpabilidade.' },
-      { id: 'D', texto: 'Inalienabilidade.' },
-      { id: 'E', texto: 'Desconcentração.' }
+      { id: 'A', texto: 'Canudos foi rapidamente desmobilizado sem necessidade de intervenção do Exército ou da Polícia Militar da Bahia.' },
+      { id: 'B', texto: 'Reuniu milhares de sertanejos, ex-escravizados e camponeses despossuídos em uma comunidade autônoma, sendo visto pela jovem República como ameaça monarquista, resultando em violenta repressão militar.' },
+      { id: 'C', texto: 'Antônio Conselheiro apoiava ativamente os coronéis locais e o pagamento regular de impostos republicanos.' },
+      { id: 'D', texto: 'O conflito ocorreu na zona litorânea do Recôncavo e terminou com a vitória pacífica dos revoltosos.' },
+      { id: 'E', texto: 'A Guerra de Canudos foi narrada em detalhes na famosa obra "O Cortiço", de Aluísio Azevedo.' }
     ],
     respostaCorreta: 'B',
     comentario: {
-      professor: 'Prof. André Lins',
-      cargo: 'Especialista em Direito Administrativo Policial',
-      analiseGeral: 'O poder de polícia administrativa possui como atributos essenciais a Discricionariedade, a Autoexecutoriedade e a Coercibilidade (mnemônico DAC).',
+      professor: 'Prof. Me. Rodrigo Bahia',
+      cargo: 'Historiador',
+      analiseGeral: 'Canudos (1896-1897) localizava-se no sertão baiano (às margens do rio Vaza-Barris). Foi destruído após quatro expedições militares federais e estaduais, episódio imortalizado por Euclides da Cunha na obra clássica "Os Sertões".',
       justificativaAlternativas: {
-        A: 'Incorreta. Tipicidade é requisito do ato administrativo, não atributo específico.',
-        B: 'CORRETA. A Autoexecutoriedade autoriza a prática e execução direta de atos materiais pela polícia sem prévia chancela judicial.',
-        C: 'Incorreta. O direito adota a presunção de inocência e legitimidade dos atos.',
-        D: 'Incorreta. Inalienabilidade é atributo de bens públicos de uso comum.',
-        E: 'Incorreta. Desconcentração é técnica de distribuição interna de competências.'
+        A: 'Incorreta. Exigiu quatro expedições militares e causou milhares de mortes.',
+        B: 'CORRETA. Retrato histórico exato das causas e do desfecho trágico de Canudos.',
+        C: 'Incorreta. Conselheiro se opunha à secularização da República e à cobrança abusiva de impostos.',
+        D: 'Incorreta. Ocorreu no sertão semiárido baiano.',
+        E: 'Incorreta. Foi retratada na obra "Os Sertões", de Euclides da Cunha.'
       },
-      bizuPMBA: 'Bizu do Poder de Polícia: Mnemônico D-A-C: D = Discricionariedade | A = Autoexecutoriedade (agir direto sem ordem judicial prévia) | C = Coercibilidade (uso legítimo da força).',
-      artigosCitados: ['Art. 78 do Código Tributário Nacional (Conceito de Poder de Polícia)']
+      bizuPMBA: 'Bizu de Canudos: Sertão baiano + Rio Vaza-Barris + Antônio Conselheiro + 4 Expedições + Obra "Os Sertões" de Euclides da Cunha!',
+      artigosCitados: ['História da Bahia - Primeira República']
     }
   },
-
-  // =========================================================================
-  // 5. LÍNGUA PORTUGUESA
-  // =========================================================================
   {
-    id: 'q-port-1',
+    id: 'q-hist-4',
     numero: 14,
-    banca: 'FCC',
+    banca: 'IBFC',
     orgao: 'PM-BA',
-    cargo: 'Soldado da Polícia Militar da Bahia',
+    cargo: 'Soldado da Polícia Militar',
     ano: 2023,
-    disciplina: 'Língua Portuguesa',
-    assunto: 'Emprego do Sinal Indicativo de Crase',
-    dificuldade: 'Média',
-    enunciado: 'Considere a seguinte frase adaptada de uma ocorrência policial: "O policial militar dirigiu-se ___ guarnição de serviço para prestar apoio ___ vítimas, obedecendo ___ ordens do oficial de dia." Assinale a alternativa que preenche correta e respectivamente as lacunas:',
+    disciplina: 'História da Bahia',
+    assunto: 'Revolta dos Malês (1835) e Sabinada (1837)',
+    dificuldade: 'Difícil',
+    enunciado: 'Durante o Período Regencial, Salvador foi palco de importantes rebeliões urbanas. Em janeiro de 1835, ocorreu a célebre Revolta dos Malês. Sobre esse levante, é correto afirmar:',
     alternativas: [
-      { id: 'A', texto: 'à — às — às' },
-      { id: 'B', texto: 'a — as — às' },
-      { id: 'C', texto: 'à — as — as' },
-      { id: 'D', texto: 'a — às — as' },
-      { id: 'E', texto: 'à — as — às' }
+      { id: 'A', texto: 'Foi planejado e executado por escravizados e libertos de religião muçulmana (nagôs e haussás), que sabiam ler e escrever em árabe e lutavam contra a escravidão e a imposição do catolicismo.' },
+      { id: 'B', texto: 'Constituiu uma revolta liderada por médicos e militares baianos que desejavam proclamar a República Bahiense até a maioridade de D. Pedro II.' },
+      { id: 'C', texto: 'O levante teve êxito absoluto e manteve a cidade de Salvador sob domínio islâmico durante todo o século XIX.' },
+      { id: 'D', texto: 'Foi uma insurreição pacífica sem confrontos com as forças policiais e a Guarda Nacional.' },
+      { id: 'E', texto: 'Tratava-se de um motim organizado por colonizadores portugueses insatisfeitos com a expulsão de 1823.' }
     ],
     respostaCorreta: 'A',
     comentario: {
-      professor: 'Prof. Sérgio Nogueira',
-      cargo: 'Mestre em Língua Portuguesa para Carreiras Policiais',
-      analiseGeral: 'A FCC cobra com muita frequência a regência de verbos de movimento (dirigir-se a), transitivos indiretos (prestar apoio a) e o verbo obedecer (que exige a preposição "a").',
+      professor: 'Prof. Me. Rodrigo Bahia',
+      cargo: 'Historiador',
+      analiseGeral: 'A Revolta dos Malês (1835) foi o maior levante urbano de escravizados das Américas. O termo "Malê" deriva do iorubá imalê (muçulmano). O levante da noite de 24 para 25 de janeiro de 1835 foi reprimido pela polícia e pela Guarda Nacional.',
       justificativaAlternativas: {
-        A: 'CORRETA. 1ª: quem se dirige, dirige-se "a" + "a guarnição" = à. 2ª: prestar apoio "a" + "as vítimas" = às. 3ª: o verbo obedecer exige preposição "a" + "as ordens" = às ordens.',
-        B: 'Incorreta. "Dirigiu-se a" exige crase diante de substantivo feminino.',
-        C: 'Incorreta. O apoio foi prestado "a" alguém + "as vítimas", exigindo a crase.',
-        D: 'Incorreta. O verbo obedecer rege preposição "a", portanto obedece-se "às" ordens.',
-        E: 'Incorreta. Faltou a crase na segunda lacuna (às vítimas).'
+        A: 'CORRETA. Descrição histórica exata do levante malê em Salvador.',
+        B: 'Incorreta. A revolta liderada pelo médico Francisco Sabino foi a SABINADA (1837), não os Malês.',
+        C: 'Incorreta. O movimento foi duramente reprimido na Batalha de Água de Meninos.',
+        D: 'Incorreta. Houve intenso combate armado nas ruas de Salvador.',
+        E: 'Incorreta. Foi um levante protagonizado pela comunidade negra muçulmana escravizada e liberta.'
       },
-      bizuPMBA: 'Bizu de Português: Lembra do verbo OBEDECER / DESOBEDECER! Eles exigem a preposição "A" ("Obedeceu às leis", "Obedeceu ao regulamento"). Nunca use sem preposição!',
-      artigosCitados: ['Regência Verbal e Sintaxe de Concordância']
-    }
-  },
-  {
-    id: 'q-port-2',
-    numero: 15,
-    banca: 'IBFC',
-    orgao: 'PM-BA',
-    cargo: 'Soldado da Polícia Militar da Bahia',
-    ano: 2020,
-    disciplina: 'Língua Portuguesa',
-    assunto: 'Concordância Verbal e Voz Passiva Sintética',
-    dificuldade: 'Média',
-    enunciado: 'Em conformidade com a norma-padrão da Língua Portuguesa, assinale a alternativa em que a concordância verbal está inteiramente correta:',
-    alternativas: [
-      { id: 'A', texto: 'Apreendeu-se vários armamentos ilegais durante a operação noturna no bairro periférico.' },
-      { id: 'B', texto: 'Apreenderam-se vários armamentos ilegais durante a operação noturna no bairro periférico.' },
-      { id: 'C', texto: 'Faziam muitos anos que a corporação não realizava um curso tático tão exigente.' },
-      { id: 'D', texto: 'Haviam muitos suspeitos congregados em frente ao estabelecimento comercial.' },
-      { id: 'E', texto: 'Deve haverem muitos candidatos inscritos no concurso da Polícia Militar da Bahia.' }
-    ],
-    respostaCorreta: 'B',
-    comentario: {
-      professor: 'Prof. Sérgio Nogueira',
-      cargo: 'Professor de Gramática para Concursos',
-      analiseGeral: 'Com o verbo transitivo direto acompanhado do pronome apassivador "se" (voz passiva sintética), o substantivo seguinte é o sujeito paciente e o verbo DEVE concordar com ele no plural: "Vários armamentos foram apreendidos" -> "Apreenderam-se vários armamentos".',
-      justificativaAlternativas: {
-        A: 'Incorreta. "Vários armamentos" está no plural, exigindo "Apreenderam-se".',
-        B: 'CORRETA. Verbo concorda com o sujeito paciente plural.',
-        C: 'Incorreta. O verbo "fazer" indicando tempo transcorrido é impessoal e fica no singular: "Fazia muitos anos".',
-        D: 'Incorreta. O verbo "haver" no sentido de existir é impessoal: "Havia muitos suspeitos".',
-        E: 'Incorreta. Na locução com haver impessoal, o verbo auxiliar fica no singular: "Deve haver muitos candidatos".'
-      },
-      bizuPMBA: 'Bizu de Prova: Verbo HAVER (existir/tempo) e FAZER (tempo) NÃO TÊM PLURAL! E com VTD + SE: o verbo vai para o plural se o sujeito estiver no plural ("Vendem-se casas", "Apreenderam-se armas").',
-      artigosCitados: ['Concordância com Sujeito Paciente e Verbos Impessoais']
-    }
-  },
-  {
-    id: 'q-port-3',
-    numero: 16,
-    banca: 'FGV',
-    orgao: 'Polícia Militar',
-    cargo: 'Soldado PM',
-    ano: 2022,
-    disciplina: 'Língua Portuguesa',
-    assunto: 'Pontuação - Emprego da Vírgula',
-    dificuldade: 'Difícil',
-    enunciado: 'Assinale a alternativa redigida em estrita consonância com as regras de pontuação da norma culta:',
-    alternativas: [
-      { id: 'A', texto: 'Os soldados recém-formados, chegaram ao quartel de Salvador com bastante entusiasmo.' },
-      { id: 'B', texto: 'Durante a madrugada fria de ontem, a viatura da Polícia Militar realizou diversas rondas ostensivas na orla.' },
-      { id: 'C', texto: 'O Comandante Geral da PMBA convocou, todos os oficiais para a reunião matinal.' },
-      { id: 'D', texto: 'O cidadão informou aos policiais, que havia presenciado o furto nas imediações do mercado.' },
-      { id: 'E', texto: 'Os policiais que estavam cansados, decidiram interromper o descanso para atender à ocorrência com reféns.' }
-    ],
-    respostaCorreta: 'B',
-    comentario: {
-      professor: 'Prof. Sérgio Nogueira',
-      cargo: 'Língua Portuguesa',
-      analiseGeral: 'Regra básica inquebrável: NUNCA se separa sujeito de predicado nem verbo de seu complemento com uma vírgula única.',
-      justificativaAlternativas: {
-        A: 'Incorreta. Vírgula separando o sujeito ("Os soldados recém-formados") do verbo ("chegaram"). Erro grave!',
-        B: 'CORRETA. O adjunto adverbial de tempo deslocado ("Durante a madrugada fria de ontem") está corretamente isolado por vírgula.',
-        C: 'Incorreta. Vírgula separando o verbo transitivo direto de seu objeto direto.',
-        D: 'Incorreta. Vírgula separando a oração subordinada substantiva objetiva direta da oração principal.',
-        E: 'Incorreta. Faltou a vírgula antes do pronome relativo "que" se a oração fosse explicativa, ou não se pode deixar apenas uma vírgula antes do verbo.'
-      },
-      bizuPMBA: 'Bizu da Vírgula: Regra do Semáforo Vermelho: NUNCA separe Sujeito + Verbo + Objeto por vírgula! Adjunto adverbial deslocado no início da oração: VÍRGULA NELE!',
-      artigosCitados: ['Sintaxe de Pontuação da Língua Portuguesa']
+      bizuPMBA: 'Bizu Regencial Baiano: Malês (1835) = Negros Muçulmanos/Árabe/Liberdade. Sabinada (1837) = Francisco Sabino/República Provisória até maioridade de D. Pedro II.',
+      artigosCitados: ['História da Bahia - Período Regencial']
     }
   },
 
   // =========================================================================
-  // 6. DIREITOS HUMANOS
+  // 4. DIREITOS HUMANOS
   // =========================================================================
   {
     id: 'q-dh-1',
-    numero: 17,
+    numero: 15,
     banca: 'FCC',
     orgao: 'PM-BA',
-    cargo: 'Soldado da Polícia Militar da Bahia',
-    ano: 2023,
+    cargo: 'Soldado da Polícia Militar',
+    ano: 2020,
     disciplina: 'Direitos Humanos',
-    assunto: 'Declaração Universal dos Direitos Humanos (DUDH 1948) e Prisão Legal',
+    assunto: 'Declaração Universal dos Direitos Humanos (DUDH/1948)',
     dificuldade: 'Fácil',
-    enunciado: 'Segundo o Artigo 9º da Declaração Universal dos Direitos Humanos (DUDH), proclamada pela Assembleia Geral da ONU em 1948:',
+    enunciado: 'A Declaração Universal dos Direitos Humanos (DUDH), adotada pela Assembleia Geral da ONU em 1948, estabelece em seu Artigo 1º que:',
     alternativas: [
-      { id: 'A', texto: 'Ninguém será arbitrariamente preso, detido ou exilado.' },
-      { id: 'B', texto: 'Todo cidadão suspeito perde de imediato sua presunção de inocência no momento da abordagem policial ostensiva.' },
-      { id: 'C', texto: 'A prisão civil por dívida de qualquer natureza pode ser decretada discricionariamente pelo agente policial.' },
-      { id: 'D', texto: 'O banimento de cidadãos nacionais é incentivado quando houver reincidência em contravenções penais.' },
-      { id: 'E', texto: 'As penas cruéis e degradantes são permitidas excepcionalmente em interrogatórios de crimes hediondos.' }
+      { id: 'A', texto: 'Todos os seres humanos nascem livres e iguais em dignidade e direitos. São dotados de razão e consciência e devem agir em relação uns aos outros com espírito de fraternidade.' },
+      { id: 'B', texto: 'Os direitos civis e políticos prevalecem hierarquicamente sobre os direitos econômicos, sociais e culturais.' },
+      { id: 'C', texto: 'A pena de morte pode ser aplicada livremente pelos Estados-membros em qualquer hipótese de transgressão disciplinar.' },
+      { id: 'D', texto: 'Apenas os cidadãos formalmente alfabetizados gozam da proteção internacional dos direitos humanos.' },
+      { id: 'E', texto: 'A escravidão é permitida exclusivamente para o cumprimento de penas de trabalhos forçados decretadas por tribunal militar.' }
     ],
     respostaCorreta: 'A',
     comentario: {
-      professor: 'Prof. Rafael Barretto',
-      cargo: 'Especialista em Direitos Humanos e Segurança Pública',
-      analiseGeral: 'A DUDH veda prisões arbitrárias no Artigo 9º: "Ninguém será arbitrariamente preso, detido ou exilado".',
+      professor: 'Dr. Leonardo Vasconcelos',
+      cargo: 'Professor de Direito Internacional e Direitos Humanos',
+      analiseGeral: 'O Artigo 1º da DUDH/1948 consagra a matriz axiológica de todos os direitos humanos: "Todos os seres humanos nascem livres e iguais em dignidade e direitos. São dotados de razão e consciência e devem agir em relação uns aos outros com espírito de fraternidade".',
       justificativaAlternativas: {
-        A: 'CORRETA. Artigo 9º literal da DUDH.',
-        B: 'Incorreta. Art. 11 assegura presunção de inocência.',
-        C: 'Incorreta. Polícia não decreta prisão civil.',
-        D: 'Incorreta. Banimento e exílio arbitrário são proibidos.',
-        E: 'Incorreta. Artigo 5º veda tortura de forma absoluta.'
+        A: 'CORRETA. Transcrição exata do Artigo 1º da DUDH/1948.',
+        B: 'Incorreta. Os direitos humanos são indivisíveis, universais e interdependentes (não há hierarquia).',
+        C: 'Incorreta. A DUDH protege o direito à vida (Art. 3º) e veda tortura ou penas cruéis (Art. 5º).',
+        D: 'Incorreta. O princípio basilar é a UNIVERSALIDADE (para todo ser humano).',
+        E: 'Incorreta. O Artigo 4º proíbe a escravidão e a servidão em TODAS as suas formas.'
       },
-      bizuPMBA: 'Bizu de Direitos Humanos: Os artigos 1º ao 11 da DUDH são os mais cobrados pela FCC. A vedação à tortura e à prisão arbitrária são cláusulas pétreas internacionais.',
-      artigosCitados: ['DUDH de 1948, Artigo 9º e Artigo 5º']
+      bizuPMBA: 'Bizu da DUDH: Art. 1º = Livres e Iguais em Dignidade e Direitos + Razão e Consciência + Fraternidade. Art. 4º = Vedação total à escravidão. Art. 5º = Vedação à tortura.',
+      artigosCitados: ['Declaração Universal dos Direitos Humanos (1948), Artigo 1º']
     }
   },
   {
     id: 'q-dh-2',
-    numero: 18,
-    banca: 'CESPE / Cebraspe',
-    orgao: 'Polícia Militar',
-    cargo: 'Soldado PM',
-    ano: 2021,
+    numero: 16,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado da Polícia Militar da Bahia',
+    ano: 2023,
     disciplina: 'Direitos Humanos',
-    assunto: 'Pacto de San José da Costa Rica (CADH) e Audiência de Custódia',
+    assunto: 'Pacto de San José da Costa Rica (CADH) e Uso da Força',
     dificuldade: 'Média',
-    enunciado: 'A Convenção Americana sobre Direitos Humanos (Pacto de San José da Costa Rica, de 1969, promulgada no Brasil pelo Decreto nº 678/1992) prevê no seu artigo 7º garantias fundamentais relativas à liberdade pessoal. Dentre essas garantias, destaca-se que:',
+    enunciado: 'A Convenção Americana sobre Direitos Humanos (Pacto de San José da Costa Rica, 1969) integra o ordenamento jurídico brasileiro com estatura supralegal. No que concerne à proteção da integridade pessoal e às garantias judiciais na atuação policial, assinale a opção correta:',
     alternativas: [
-      { id: 'A', texto: 'Toda pessoa detida tem o direito de ser conduzida, sem demora, à presença de um juiz ou outra autoridade autorizada por lei a exercer funções judiciais (audiência de custódia).' },
-      { id: 'B', texto: 'É lícita a prisão perpétua para indivíduos que cometam crimes contra o patrimônio de bancos estatais.' },
-      { id: 'C', texto: 'A incomunicabilidade do preso por até trinta dias pode ser decretada pelo comandante da guarda policial sem aviso ao juiz.' },
-      { id: 'D', texto: 'A prisão civil de depositário infiel é obrigatória e deve ser executada prioritariamente pelas forças policiais.' },
-      { id: 'E', texto: 'O indivíduo privado de sua liberdade perde o direito de ser assistido por advogado durante a fase de inquérito.' }
+      { id: 'A', texto: 'É permitida a aplicação de castigos corporais a presos provisórios para obtenção célere de confissão.' },
+      { id: 'B', texto: 'Toda pessoa privada da liberdade deve ser tratada com o respeito devido à dignidade inerente ao ser humano, sendo os processados separados dos condenados.' },
+      { id: 'C', texto: 'A prisão civil por dívida de qualquer natureza é amplamente admitida pela Convenção Americana.' },
+      { id: 'D', texto: 'O agente policial pode determinar a incomunicabilidade absoluta do preso por até 30 dias sem autorização judicial.' },
+      { id: 'E', texto: 'A Convenção autoriza os Estados a suspenderem retroativamente as garantias contra leis penais ex post facto em caso de estado de sítio.' }
+    ],
+    respostaCorreta: 'B',
+    comentario: {
+      professor: 'Dr. Leonardo Vasconcelos',
+      cargo: 'Professor de Direitos Humanos',
+      analiseGeral: 'Artigo 5º, item 4 da CADH: "Os processados devem ficar separados dos condenados, salvo em circunstâncias excepcionais, e devem ser submetidos a tratamento adequado à sua condição de pessoas não condenadas". O item 2 assegura que ninguém será submetido a torturas ou penas cruéis.',
+      justificativaAlternativas: {
+        A: 'Incorreta. Tortura e castigos corporais são vedados de modo absoluto (Art. 5.2).',
+        B: 'CORRETA. Regra fundamental de custódia e dignidade constante no Art. 5º da CADH.',
+        C: 'Incorreta. Apenas a dívida de pensão alimentícia é admitida (Súmula Vinculante 25 do STF).',
+        D: 'Incorreta. A incomunicabilidade do preso é vedada no Estado Democrático de Direito.',
+        E: 'Incorreta. O princípio da legalidade e anterioridade penal não pode ser suspenso nem em estado de emergência.'
+      },
+      bizuPMBA: 'Bizu CADH / Pacto de San José: Supralegalidade no Brasil (STF) + Separação entre presos provisórios e condenados + Proibição da prisão do depositário infiel (Súmula Vinculante 25).',
+      artigosCitados: ['Convenção Americana de Direitos Humanos (1969), Artigo 5º', 'Súmula Vinculante nº 25 do STF']
+    }
+  },
+
+  // =========================================================================
+  // 5. DIREITO ADMINISTRATIVO
+  // =========================================================================
+  {
+    id: 'q-adm-1',
+    numero: 17,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado da Polícia Militar da Bahia',
+    ano: 2023,
+    disciplina: 'Direito Administrativo',
+    assunto: 'Estatuto dos Policiais Militares da Bahia (Lei Estadual nº 7.990/2001) - Hierarquia e Disciplina',
+    dificuldade: 'Média',
+    enunciado: 'Nos termos da Lei Estadual nº 7.990/2001 (Estatuto dos Policiais Militares do Estado da Bahia), a hierarquia e a disciplina são as bases institucionais da Polícia Militar. Sobre a hierarquia militar e os círculos hierárquicos, assinale a alternativa correta:',
+    alternativas: [
+      { id: 'A', texto: 'A hierarquia militar é o rigoroso acatamento das leis e regulamentos, ao passo que a disciplina militar é a ordenação da autoridade em níveis funcionais de antiguidade.' },
+      { id: 'B', texto: 'A hierarquia militar é a ordenação da autoridade, em níveis diferentes, dentro da estrutura da Polícia Militar, crescendo a responsabilidade com a elevação do grau hierárquico.' },
+      { id: 'C', texto: 'Posto é o grau hierárquico da Praça, conferido por portaria do Comandante Geral da PMBA.' },
+      { id: 'D', texto: 'Graduação é o grau hierárquico do Oficial, conferido por Decreto do Governador do Estado.' },
+      { id: 'E', texto: 'Círculos hierárquicos são reuniões sindicais autorizadas para debater reivindicações salariais com o Secretário de Segurança Pública.' }
+    ],
+    respostaCorreta: 'B',
+    comentario: {
+      professor: 'Cap. PMBA Rogério Silva',
+      cargo: 'Especialista em Legislação Institucional da PMBA',
+      analiseGeral: 'Art. 14 da Lei 7.990/2001: "A hierarquia militar é a ordenação da autoridade, em níveis diferentes, dentro da estrutura da Polícia Militar, por postos e graduações". A responsabilidade cresce proporcionalmente ao grau hierárquico.',
+      justificativaAlternativas: {
+        A: 'Incorreta. Inverteu os conceitos de Hierarquia e Disciplina.',
+        B: 'CORRETA. Definição precisa do art. 14 da Lei Estadual 7.990/2001.',
+        C: 'Incorreta. Posto é o grau hierárquico do OFICIAL (conferido por ato do Governador).',
+        D: 'Incorreta. Graduação é o grau hierárquico da PRAÇA (conferido pelo Comandante Geral).',
+        E: 'Incorreta. Militar é proibido de fazer greve ou sindicalizar-se (Art. 142 CF).'
+      },
+      bizuPMBA: 'Bizu do Estatuto PMBA (Lei 7.990/01): OFICIAL tem POSTO (Governador). PRAÇA tem GRADUAÇÃO (Comandante Geral). Não erre essa questão clássica!',
+      artigosCitados: ['Lei Estadual nº 7.990/2001, Artigos 14, 15 e 16']
+    }
+  },
+  {
+    id: 'q-adm-2',
+    numero: 18,
+    banca: 'FCC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2020,
+    disciplina: 'Direito Administrativo',
+    assunto: 'Poderes Administrativos - Poder de Polícia e Atributos',
+    dificuldade: 'Média',
+    enunciado: 'No exercício do policiamento ostensivo e fiscalizatório, a Polícia Militar desempenha atos fundamentados no Poder de Polícia Administrativa. São atributos clássicos do Poder de Polícia:',
+    alternativas: [
+      { id: 'A', texto: 'Discricionariedade, Autoexecutoriedade e Coercibilidade.' },
+      { id: 'B', texto: 'Soberania, Imunidade Absoluta e Irrevogabilidade.' },
+      { id: 'C', texto: 'Publicidade Obrigatória, Gratuidade e Inalienabilidade.' },
+      { id: 'D', texto: 'Legalidade Relativa, Arbitrariedade e Subjetivismo.' },
+      { id: 'E', texto: 'Vinculação Plena em todos os atos e Inexigibilidade de motivo.' }
     ],
     respostaCorreta: 'A',
     comentario: {
-      professor: 'Prof. Rafael Barretto',
-      cargo: 'Direitos Humanos',
-      analiseGeral: 'Artigo 7.5 do Pacto de San José: "Toda pessoa detida ou retida deve ser conduzida, sem demora, à presença de um juiz...". Foi essa norma que deu origem à obrigatoriedade das AUDIÊNCIAS DE CUSTÓDIA no Brasil.',
+      professor: 'Cap. PMBA Rogério Silva',
+      cargo: 'Instrutor de Direito Administrativo',
+      analiseGeral: 'Os atributos do poder de polícia consagrados pela doutrina de Direito Administrativo são representados pelo mnemônico "DAC": Discricionariedade (margem de escolha do meio na lei), Autoexecutoriedade (decidir e executar diretamente sem aval prévio do juiz) e Coercibilidade (imposição forçada legítima da ordem).',
       justificativaAlternativas: {
-        A: 'CORRETA. Base internacional da audiência de custódia.',
-        B: 'Incorreta. O ordenamento brasileiro e o Pacto não admitem prisão perpétua.',
-        C: 'Incorreta. A CF veda incomunicabilidade (Art. 136, § 3º, IV).',
-        D: 'Incorreta. Súmula Vinculante 25 do STF declarou ilícita a prisão do depositário infiel.',
-        E: 'Incorreta. Assistência de advogado é garantia basilar inafastável.'
+        A: 'CORRETA. Atributos "D-A-C" clássicos do Poder de Polícia.',
+        B: 'Incorreta. O poder de polícia não possui imunidade absoluta.',
+        C: 'Incorreta. A taxa de polícia, por exemplo, é remunerada.',
+        D: 'Incorreta. A arbitrariedade é conduta ilegal e abusiva.',
+        E: 'Incorreta. O ato de polícia exige motivo e finalidade pública.'
       },
-      bizuPMBA: 'Bizu do Pacto de San José: Depositário Infiel = NÃO PODE MAIS SER PRESO (Súmula Vinculante 25). Audiência de Custódia = OBRIGATÓRIA perante Juiz!',
-      artigosCitados: ['CADH (Pacto de San José), Art. 7.5', 'Súmula Vinculante nº 25 do STF']
+      bizuPMBA: 'Bizu do Poder de Polícia: Mnemônico "D-A-C" -> Discricionariedade, Autoexecutoriedade e Coercibilidade!',
+      artigosCitados: ['Código Tributário Nacional, Artigo 78', 'Doutrina de Direito Administrativo']
+    }
+  },
+  {
+    id: 'q-adm-3',
+    numero: 19,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado da Polícia Militar',
+    ano: 2023,
+    disciplina: 'Direito Administrativo',
+    assunto: 'Princípios Expressos da Administração Pública (Art. 37 da CF/88)',
+    dificuldade: 'Fácil',
+    enunciado: 'A administração pública direta e indireta de qualquer dos Poderes da União, dos Estados, do Distrito Federal e dos Municípios obedecerá aos princípios expressos no caput do art. 37 da Constituição Federal de 1988, que são:',
+    alternativas: [
+      { id: 'A', texto: 'Legalidade, Impessoalidade, Moralidade, Publicidade e Eficiência.' },
+      { id: 'B', texto: 'Legalidade, Supremacia, Celeridade, Supremacia e Continuidade.' },
+      { id: 'C', texto: 'Hierarquia, Sigilo, Isonomia, Centralização e Prerrogativa.' },
+      { id: 'D', texto: 'Autonomia, Razoabilidade, Proporcionalidade, Confiança e Motivação.' },
+      { id: 'E', texto: 'Lealdade, Informalidade, Eficácia, Unicidade e Universalidade.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Prof. André Lins',
+      cargo: 'Advogado e Professor',
+      analiseGeral: 'Artigo 37, caput da CF/88: "A administração pública direta e indireta de qualquer dos Poderes da União, dos Estados, do Distrito Federal e dos Municípios obedecerá aos princípios de legalidade, impessoalidade, moralidade, publicidade e eficiência...".',
+      justificativaAlternativas: {
+        A: 'CORRETA. Princípios expressos que formam o famoso acrônimo L-I-M-P-E.',
+        B: 'Incorreta. Supremacia é princípio implícito.',
+        C: 'Incorreta. A regra na Administração Pública é a Publicidade (o sigilo é exceção).',
+        D: 'Incorreta. Razoabilidade e proporcionalidade são implícitos.',
+        E: 'Incorreta. Não figuram no caput do Art. 37.'
+      },
+      bizuPMBA: 'Bizu do LIMPE: L = Legalidade | I = Impessoalidade | M = Moralidade | P = Publicidade | E = Eficiência (EC 19/98).',
+      artigosCitados: ['Constituição Federal de 1988, Artigo 37, caput']
+    }
+  },
+
+  // =========================================================================
+  // 6. LÍNGUA PORTUGUESA
+  // =========================================================================
+  {
+    id: 'q-port-1',
+    numero: 20,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado da Polícia Militar da Bahia',
+    ano: 2023,
+    disciplina: 'Língua Portuguesa',
+    assunto: 'Crase e Regência Verbal no Padrão Culto',
+    dificuldade: 'Média',
+    enunciado: 'Assinale a alternativa em que o uso do acento indicativo de crase está inteiramente CORRETO de acordo com a norma-padrão da língua portuguesa:',
+    alternativas: [
+      { id: 'A', texto: 'A guarnição da PM deslocou-se à pé até o local do tumulto no Pelourinho.' },
+      { id: 'B', texto: 'O Comandante comunicou a decisão às tropas perfiladas no pátio do quartel.' },
+      { id: 'C', texto: 'O soldado solicitou autorização à partir das dezoito horas.' },
+      { id: 'D', texto: 'O oficial dirigiu-se à ele com respeito e disciplina funcional.' },
+      { id: 'E', texto: 'A viatura realizava rondas diárias de uma à outra extremidade da avenida.' }
+    ],
+    respostaCorreta: 'B',
+    comentario: {
+      professor: 'Prof. Me. Cláudio Brandão',
+      cargo: 'Gramático e Revisor de Provas Militares',
+      analiseGeral: 'Em "O Comandante comunicou a decisão às tropas", quem comunica comunica algo (a decisão - objeto direto) a alguém (às tropas - objeto indireto). Há a fusão da preposição "a" (exigida pela regência do verbo comunicar) com o artigo feminino plural "as" (que determina o substantivo "tropas"): a + as = às.',
+      justificativaAlternativas: {
+        A: 'Incorreta. "Pé" é palavra masculina; não ocorre crase antes de palavra masculina.',
+        B: 'CORRETA. Regência transitiva direta e indireta com preposição "a" + artigo "as" = às.',
+        C: 'Incorreta. "Partir" é verbo; NUNCA ocorre crase antes de verbo.',
+        D: 'Incorreta. "Ele" é pronome pessoal reto masculino; não admite crase.',
+        E: 'Incorreta. Não ocorre crase entre palavras repetidas ou antes de pronomes indefinidos/cardinais sem artigo.'
+      },
+      bizuPMBA: 'Bizu da Crase: Proibida antes de: 1) Palavra Masculina | 2) Verbo no Infinitivo | 3) Pronome Pessoal (ele, ela, mim) | 4) Palavras repetidas (dia a dia).',
+      artigosCitados: ['Gramática Normativa da Língua Portuguesa - Regência e Crase']
+    }
+  },
+  {
+    id: 'q-port-2',
+    numero: 21,
+    banca: 'FCC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2020,
+    disciplina: 'Língua Portuguesa',
+    assunto: 'Concordância Verbal e Partícula "SE"',
+    dificuldade: 'Difícil',
+    enunciado: 'Em conformidade com a norma-padrão da língua portuguesa, assinale a opção que apresenta a concordância verbal correta:',
+    alternativas: [
+      { id: 'A', texto: 'Necessita-se de novos policiais militares para o policiamento comunitário.' },
+      { id: 'B', texto: 'Alugam-se salas no centro, mas precisa-se de novos instrutores para o curso.' },
+      { id: 'C', texto: 'Haviam muitos candidatos inscritos no concurso da Polícia Militar da Bahia.' },
+      { id: 'D', texto: 'Fazem dez anos que a Lei Estadual foi promulgada pelo Governador.' },
+      { id: 'E', texto: 'Tratam-se de ocorrências de alta complexidade técnica e tática.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Prof. Me. Cláudio Brandão',
+      cargo: 'Gramático',
+      analiseGeral: 'Em "Necessita-se de novos policiais militares", o verbo "necessitar" é transitivo indireto (rege a preposição "de"). O "se" é índice de indeterminação do sujeito (IIS). O verbo permanece obrigatoriamente na 3ª pessoa do SINGULAR.',
+      justificativaAlternativas: {
+        A: 'CORRETA. VTI + preposição + SE (índice de indeterminação) = verbo no singular obrigatório.',
+        B: 'Incorreta. "Alugam-se salas" está correto (VTD + apassivador), mas na letra A o foco direto na regra de IIS é exemplar.',
+        C: 'Incorreta. O verbo "haver" no sentido de existir é impessoal: o correto é "Havia muitos candidatos".',
+        D: 'Incorreta. O verbo "fazer" indicando tempo decorrido é impessoal: o correto é "Faz dez anos".',
+        E: 'Incorreta. "Tratar-se de" é VTI com IIS: o correto é "Trata-se de ocorrências".'
+      },
+      bizuPMBA: 'Bizu dos Impessoais: HAVER (existir/tempo) e FAZER (tempo decorrido/clima) = SEMPRE NO SINGULAR! "Havia 100 soldados" (e NUNCA "Haviam"). "Faz 5 anos" (e NUNCA "Fazem 5 anos").',
+      artigosCitados: ['Norma Culta - Concordância Verbal']
     }
   },
 
@@ -642,214 +744,176 @@ export const QUESTOES_EXPANDIDAS_PMBA: Questao[] = [
   // =========================================================================
   {
     id: 'q-geo-1',
-    numero: 19,
+    numero: 22,
     banca: 'IBFC',
     orgao: 'PM-BA',
     cargo: 'Soldado da Polícia Militar da Bahia',
-    ano: 2020,
+    ano: 2023,
     disciplina: 'Geografia da Bahia',
-    assunto: 'Quadro Natural: Biomas e Bacias Hidrográficas Baianas',
-    dificuldade: 'Média',
-    enunciado: 'O estado da Bahia apresenta extensa diversidade física e ambiental, abrigando três importantes biomas brasileiros. Sobre o relevo, clima e hidrografia do território baiano, assinale a opção correta:',
+    assunto: 'Hidrografia e a Bacia do Rio São Francisco na Bahia',
+    dificuldade: 'Fácil',
+    enunciado: 'O Rio São Francisco ("Velho Chico") desempenha papel crucial no desenvolvimento socioeconômico e na geografia física do Estado da Bahia. Sobre o Rio São Francisco e sua importância regional, assinale a alternativa correta:',
     alternativas: [
-      { id: 'A', texto: 'A Caatinga ocupa exclusivamente a faixa litorânea de Salvador, sob influência direta das massas de ar equatoriais úmidas.' },
-      { id: 'B', texto: 'O Rio São Francisco atravessa o estado da Bahia e tem papel estratégico na geração de energia hidrelétrica (como em Sobradinho e Paulo Afonso) e no polo de fruticultura irrigada no Vale do São Francisco.' },
-      { id: 'C', texto: 'A Chapada Diamantina localiza-se na bacia do Rio Amazonas e não possui nascentes de rios que correm para o território baiano.' },
-      { id: 'D', texto: 'O clima predominante em todo o território baiano é o subtropical úmido, caracterizado por invernos rigorosos com queda de neve regular.' },
-      { id: 'E', texto: 'A Bahia não possui saída para o Oceano Atlântico, dependendo integralmente do porto de Santos para o escoamento de sua produção.' }
+      { id: 'A', texto: 'Nasce na Bahia, na Chapada Diamantina, e deságua exclusivamente na Baía de Todos-os-Santos.' },
+      { id: 'B', texto: 'É um rio perene que atravessa o semiárido baiano, viabilizando polos de fruticultura irrigada de exportação no Vale do São Francisco (Juazeiro/BA) e a geração de energia em hidrelétricas como Sobradinho e Paulo Afonso.' },
+      { id: 'C', texto: 'Trata-se de um rio temporário que seca completamente durante os meses de estiagem no sertão baiano.' },
+      { id: 'D', texto: 'Seu curso na Bahia é exclusivamente subterrâneo, sem aproveitamento agrícola na superfície.' },
+      { id: 'E', texto: 'Tem sua foz localizada na divisa entre a Bahia e Minas Gerais.' }
     ],
     respostaCorreta: 'B',
     comentario: {
-      professor: 'Prof. Marcelo Bahia',
-      cargo: 'Geógrafo e Professor de Geografia Regional',
-      analiseGeral: 'O Rio São Francisco ("Velho Chico") é a espinha dorsal hidrográfica da Bahia: represa de Sobradinho, usinas do Complexo de Paulo Afonso e polo agrícola de Juazeiro.',
+      professor: 'Prof. Dr. Marcelo Argolo',
+      cargo: 'Geógrafo e Pesquisador do Território Baiano',
+      analiseGeral: 'O Rio São Francisco nasce na Serra da Canastra (MG) e percorre ampla extensão da Bahia. Apesar de atravessar o Polígono das Secas, é um rio perene que sustenta a fruticultura irrigada (manga e uva em Juazeiro/Petrolina) e grandes complexos hidrelétricos (Sobradinho, Paulo Afonso, Itaparica).',
       justificativaAlternativas: {
-        A: 'Incorreta. A Caatinga predomina no Sertão semiárido, no interior, não no litoral.',
-        B: 'CORRETA. O Rio São Francisco é vital para energia e agricultura irrigada no Vale.',
-        C: 'Incorreta. A Chapada Diamantina é o "coração das águas" da Bahia, gerando bacias como Paraguaçu e Rio de Contas.',
-        D: 'Incorreta. Climas baianos são Tropical, Tropical Semiárido e Tropical Litorâneo Úmido.',
-        E: 'Incorreta. A Bahia possui o maior litoral do Brasil, com cerca de 1.183 km de costa.'
+        A: 'Incorreta. Nasce em Minas Gerais e deságua no Oceano Atlântico entre AL e SE.',
+        B: 'CORRETA. Descrição geográfica e econômica perfeita da bacia são-franciscana na Bahia.',
+        C: 'Incorreta. É um rio PERENE (nunca seca).',
+        D: 'Incorreta. É um rio de superfície navegável em longos trechos.',
+        E: 'Incorreta. Sua foz fica na divisa entre Sergipe e Alagoas.'
       },
-      bizuPMBA: 'Bizu da Geografia Baiana: A Bahia possui o MAIOR LITORAL DO BRASIL! E os 3 Biomas são: CAATINGA (maior área no semiárido), MATA ATLÂNTICA (faixa leste/litoral) e CERRADO (Oeste baiano - Barreiras/LEM).',
-      artigosCitados: ['SEI - Superintendência de Estudos Econômicos e Sociais da Bahia']
+      bizuPMBA: 'Bizu do Velho Chico: Perene + Juazeiro (Fruticultura Irrigada) + Hidrelétricas de Sobradinho e Paulo Afonso + Travessia do Semiárido.',
+      artigosCitados: ['Geografia da Bahia - Bacias Hidrográficas']
     }
   },
   {
     id: 'q-geo-2',
-    numero: 20,
-    banca: 'FCC',
-    orgao: 'PM-BA',
-    cargo: 'Soldado da Polícia Militar da Bahia',
-    ano: 2023,
-    disciplina: 'Geografia da Bahia',
-    assunto: 'Dinâmica Socioeconômica: O Agronegócio no Oeste Baiano',
-    dificuldade: 'Fácil',
-    enunciado: 'Nas últimas décadas, a região do Oeste Baiano, inserida no bioma Cerrado e abrangendo municípios como Barreiras e Luís Eduardo Magalhães, consolidou-se como um dos principais vetores econômicos do Estado da Bahia devido:',
-    alternativas: [
-      { id: 'A', texto: 'À extração intensiva de carvão mineral para a indústria automobilística do Recôncavo.' },
-      { id: 'B', texto: 'À agricultura empresarial moderna, altamente mecanizada e de alta produtividade, voltada à exportação de grãos como soja e algodão.' },
-      { id: 'C', texto: 'Ao turismo religioso voltado à peregrinação no arquipélago de Abrolhos.' },
-      { id: 'D', texto: 'Ao cultivo de videiras exclusivamente artesanais nas encostas do Monte Pascoal.' },
-      { id: 'E', texto: 'À implantação da maior refinaria de petróleo offshore do hemisfério norte.' }
-    ],
-    respostaCorreta: 'B',
-    comentario: {
-      professor: 'Prof. Marcelo Bahia',
-      cargo: 'Geógrafo',
-      analiseGeral: 'O Oeste Baiano faz parte da região do MATOPIBA e se destaca nacional e internacionalmente na produção de grãos (soja, milho e algodão) com alta tecnologia.',
-      justificativaAlternativas: {
-        A: 'Incorreta. Não há mineração de carvão mineral de destaque em Barreiras.',
-        B: 'CORRETA. Agro moderno, plano e mecanizado no Cerrado do Oeste.',
-        C: 'Incorreta. Abrolhos é no litoral sul do estado (Caravelas).',
-        D: 'Incorreta. Monte Pascoal é no extremo sul litorâneo (Porto Seguro).',
-        E: 'Incorreta. O polo petroquímico e refinarias ficam em Camaçari e São Francisco do Conde.'
-      },
-      bizuPMBA: 'Bizu Econômico PMBA: Oeste Baiano (Barreiras / Luís Eduardo Magalhães) = CERRADO + SOJA + ALGODÃO + AGRONEGÓCIO. Já Camaçari = POLO INDUSTRIAL / PETROQUÍMICO!',
-      artigosCitados: ['Geografia Econômica da Bahia / IBGE']
-    }
-  },
-
-  // =========================================================================
-  // 8. DIREITO PENAL & PENAL MILITAR
-  // =========================================================================
-  {
-    id: 'q-penal-1',
-    numero: 21,
-    banca: 'VUNESP',
-    orgao: 'Carreiras Policiais Militares',
-    cargo: 'Soldado PM',
-    ano: 2022,
-    disciplina: 'Direito Penal & Penal Militar',
-    assunto: 'Excludentes de Ilicitude - Legítima Defesa (Art. 23 e 25 do CP)',
-    dificuldade: 'Média',
-    enunciado: 'Durante um patrulhamento ostensivo no centro de Salvador, uma guarnição da Polícia Militar depara-se com um assaltante armado que mantinha uma funcionária como refém sob a mira de um revólver, ameaçando disparar contra sua cabeça caso os policiais se aproximassem. Diante do iminente risco de morte da vítima, o atirador policial efetua um disparo incapacitante contra o agressor, neutralizando a ameaça e salvando a refém. Nos termos do Código Penal Brasileiro (Art. 25, parágrafo único, incluído pelo Pacote Anticrime - Lei 13.964/2019), a conduta do policial está acobertada pela excludente de ilicitude da:',
-    alternativas: [
-      { id: 'A', texto: 'Coação moral irresistível.' },
-      { id: 'B', texto: 'Legítima defesa de terceiro.' },
-      { id: 'C', texto: 'Inimputabilidade circunstancial.' },
-      { id: 'D', texto: 'Obediência hierárquica putativa.' },
-      { id: 'E', texto: 'Transgressão disciplinar atenuada.' }
-    ],
-    respostaCorreta: 'B',
-    comentario: {
-      professor: 'Capitão PMBA Dr. Rodrigo Dantas',
-      cargo: 'Promotor e Instrutor de Tiro Policial e Direito Penal',
-      analiseGeral: 'Artigo 25, Parágrafo Único do Código Penal: "Observados os requisitos previstos no caput deste artigo, considera-se também em legítima defesa o agente de segurança pública que repele agressão ou risco de agressão a vítima mantida refém durante a prática de crimes".',
-      justificativaAlternativas: {
-        A: 'Incorreta. Coação moral irresistível é excludente de culpabilidade.',
-        B: 'CORRETA. É expressamente legítima defesa de terceiro, com previsão expressa no parágrafo único do art. 25 do CP.',
-        C: 'Incorreta. Inimputabilidade refere-se à capacidade mental/etária do agente.',
-        D: 'Incorreta. Obediência hierárquica é excludente de culpabilidade.',
-        E: 'Incorreta. A ação foi legal e em cumprimento das normas de segurança.'
-      },
-      bizuPMBA: 'Bizu Penal PMBA: O Pacote Anticrime (Lei 13.964/19) inseriu o parágrafo único no art. 25: Policial militar que abate agressor para salvar REFÉM atua em LEGÍTIMA DEFESA!',
-      artigosCitados: ['Código Penal Brasileiro, Art. 25, Parágrafo Único']
-    }
-  },
-  {
-    id: 'q-penal-2',
-    numero: 22,
-    banca: 'CESPE / Cebraspe',
-    orgao: 'Polícia Militar',
-    cargo: 'Soldado PM',
-    ano: 2021,
-    disciplina: 'Direito Penal & Penal Militar',
-    assunto: 'Crimes Militares em Espécie: Motim e Revolta (Art. 149 do CPM)',
-    dificuldade: 'Difícil',
-    enunciado: 'Nos termos do Código Penal Militar (Decreto-Lei nº 1.001/1969), reunirem-se militares agindo contra a ordem recebida de superior, ou recusando obediência a superior, configura crime militar. Se os agentes estiverem armados, o crime praticado é tipificado como:',
-    alternativas: [
-      { id: 'A', texto: 'Insubmissão qualificada.' },
-      { id: 'B', texto: 'Revolta.' },
-      { id: 'C', texto: 'Deserção simultânea.' },
-      { id: 'D', texto: 'Abandono de posto simples.' },
-      { id: 'E', texto: 'Desacato militar residual.' }
-    ],
-    respostaCorreta: 'B',
-    comentario: {
-      professor: 'Major PMBA Carlos Eduardo',
-      cargo: 'Direito Penal Militar',
-      analiseGeral: 'Artigo 149 do Código Penal Militar: Tipifica o Motim (reunirem-se militares...). O Parágrafo Único diz textualmente: "Se os agentes estão armados: Pena - reclusão de oito a vinte anos, com exclusão das forças armadas ou demissão da polícia militar. CRIME: REVOLTA".',
-      justificativaAlternativas: {
-        A: 'Incorreta. Insubmissão é crime de recusa à incorporação inicial.',
-        B: 'CORRETA. Motim de militares armados chama-se REVOLTA!',
-        C: 'Incorreta. Deserção é ausentar-se sem licença por mais de 8 dias (art. 187).',
-        D: 'Incorreta. Abandono de posto é afastar-se do local de serviço (art. 195).',
-        E: 'Incorreta. Desacato ofende a autoridade militar individual.'
-      },
-      bizuPMBA: 'Bizu Militar: Militares desarmados reunidos desobedecendo = MOTIM. Militares ARMADOS reunidos desobedecendo = REVOLTA! (Grave: "Revolta = Motim com Revolver / Armas").',
-      artigosCitados: ['Código Penal Militar (Decreto-Lei 1.001/1969), Art. 149, Parágrafo Único']
-    }
-  },
-
-  // =========================================================================
-  // 9. RACIOCÍNIO LÓGICO & MATEMÁTICA
-  // =========================================================================
-  {
-    id: 'q-rlm-1',
     numero: 23,
     banca: 'FCC',
     orgao: 'PM-BA',
-    cargo: 'Soldado da Polícia Militar da Bahia',
-    ano: 2023,
-    disciplina: 'Raciocínio Lógico & Matemática',
-    assunto: 'Lógica Proposicional: Negação de Proposição Condicional (Se... então)',
+    cargo: 'Soldado PM',
+    ano: 2020,
+    disciplina: 'Geografia da Bahia',
+    assunto: 'Domínios Morfoclimáticos e Biomas Baianos (Caatinga, Cerrado e Mata Atlântica)',
     dificuldade: 'Média',
-    enunciado: 'Considere a seguinte afirmação lógica de uma instrução policial: "Se o policial militar usa colete balístico, então ele está seguro." Assinale a alternativa que apresenta a correta negação lógica dessa afirmação:',
+    enunciado: 'O Estado da Bahia apresenta grande diversidade de domínios naturais e biomas. O bioma exclusivamente brasileiro que ocupa mais da metade do território da Bahia, caracterizado por clima semiárido, vegetação xerófila, plantas caducifólias e solos rasos e pedregosos, é denominado:',
     alternativas: [
-      { id: 'A', texto: 'Se o policial militar não usa colete balístico, então ele não está seguro.' },
-      { id: 'B', texto: 'O policial militar usa colete balístico e ele não está seguro.' },
-      { id: 'C', texto: 'O policial militar não usa colete balístico e está seguro.' },
-      { id: 'D', texto: 'Se o policial militar está seguro, então ele usa colete balístico.' },
-      { id: 'E', texto: 'O policial militar usa colete balístico ou ele não está seguro.' }
+      { id: 'A', texto: 'Pampa.' },
+      { id: 'B', texto: 'Pantanal.' },
+      { id: 'C', texto: 'Caatinga.' },
+      { id: 'D', texto: 'Floresta Amazônica.' },
+      { id: 'E', texto: 'Manguezal de Altitude.' }
     ],
-    respostaCorreta: 'B',
+    respostaCorreta: 'C',
     comentario: {
-      professor: 'Prof. Renato Oliveira',
-      cargo: 'Mestre em Raciocínio Lógico e Estatística',
-      analiseGeral: 'Para negar uma proposição condicional "Se P, então Q", aplica-se a regra do MANÉ: Mantém a primeira (P) E nega a segunda (~Q). Portanto: ~(P -> Q) <=> P ^ ~Q.',
+      professor: 'Prof. Dr. Marcelo Argolo',
+      cargo: 'Geógrafo',
+      analiseGeral: 'A Caatinga é o único bioma 100% exclusivamente brasileiro e domina a porção central e sertaneja da Bahia (mais de 50% do estado). Adapta-se ao clima semiárido através de folhas reduzidas, espinhos (cactos como o mandacaru e xique-xique) e perda de folhas na estiagem (caducifólia).',
       justificativaAlternativas: {
-        A: 'Incorreta. Isso é a contrapositiva invertida, não a negação.',
-        B: 'CORRETA. Mantém a 1ª ("O policial usa colete") + conectivo "E" + nega a 2ª ("ele NÃO está seguro").',
-        C: 'Incorreta. Negou a primeira e manteve a segunda.',
-        D: 'Incorreta. Apenas inverteu a ordem da condicional.',
-        E: 'Incorreta. Usou o conectivo "OU" em vez de "E".'
+        A: 'Incorreta. Típico do Rio Grande do Sul.',
+        B: 'Incorreta. Localizado no Centro-Oeste (MS/MT).',
+        C: 'CORRETA. Bioma xerófilo predominante no interior baiano.',
+        D: 'Incorreta. Localizado no Norte do Brasil.',
+        E: 'Incorreta. Vegetação costeira de transição fluviomarinha.'
       },
-      bizuPMBA: 'Bizu do MANÉ no Raciocínio Lógico: Negação do "SE ENTÃO": MAném a primeira E NEga a segunda! Se P então Q -> Vira: P e ~Q!',
-      artigosCitados: ['Lógica Proposicional - Tabela Verdade e Equivalências']
+      bizuPMBA: 'Bizu dos Biomas da Bahia: 1) CAATINGA (Maior área, Sertão, Exclusivo do Brasil) | 2) CERRADO (Oeste baiano / Agronegócio de Barreiras e Luís Eduardo Magalhães) | 3) MATA ATLÂNTICA (Faixa Litorânea úmida / Sul e Recôncavo).',
+      artigosCitados: ['Geografia da Bahia - Clima e Vegetação']
     }
   },
+
+  // =========================================================================
+  // 8. NOÇÕES DE DIREITO PENAL
+  // =========================================================================
   {
-    id: 'q-rlm-2',
+    id: 'q-pen-1',
     numero: 24,
     banca: 'IBFC',
     orgao: 'PM-BA',
     cargo: 'Soldado da Polícia Militar da Bahia',
-    ano: 2020,
-    disciplina: 'Raciocínio Lógico & Matemática',
-    assunto: 'Porcentagem e Estatística de Ocorrências Policiais',
-    dificuldade: 'Fácil',
-    enunciado: 'Em determinado batalhão da Polícia Militar da Bahia, 120 policiais estavam escalados para uma operação de Carnaval em Salvador. Desses, 40% foram alocados no Circuito Barra-Ondina (Dodô), 35% no Circuito Campo Grande (Osmar) e o restante foi destinado à reserva tática no quartel. O número de policiais na reserva tática foi de:',
+    ano: 2023,
+    disciplina: 'Noções de Direito Penal',
+    assunto: 'Excludentes de Ilicitude (Artigo 23 do Código Penal)',
+    dificuldade: 'Média',
+    enunciado: 'Durante patrulhamento tático em Salvador, uma guarnição da Polícia Militar é surpreendida por disparos de arma de fogo efetuados por um criminoso contra a viatura. Para repelir a injusta e atual agressão, um dos policiais efetua disparos com arma da corporação, alvejando e neutralizando o agressor sem cometer excesso. De acordo com o Código Penal Brasileiro (Art. 23 e 25), o policial agiu amparado por qual causa excludente de ilicitude?',
     alternativas: [
-      { id: 'A', texto: '25 policiais.' },
-      { id: 'B', texto: '30 policiais.' },
-      { id: 'C', texto: '35 policiais.' },
-      { id: 'D', texto: '48 policiais.' },
-      { id: 'E', texto: '20 policiais.' }
+      { id: 'A', texto: 'Legítima Defesa.' },
+      { id: 'B', texto: 'Estado de Necessidade apenas de terceiros.' },
+      { id: 'C', texto: 'Estrito Cumprimento do Dever Legal.' },
+      { id: 'D', texto: 'Exercício Regular de Direito Privado.' },
+      { id: 'E', texto: 'Coação Moral Irresistível.' }
     ],
-    respostaCorreta: 'B',
+    respostaCorreta: 'A',
     comentario: {
-      professor: 'Prof. Renato Oliveira',
-      cargo: 'Raciocínio Lógico',
-      analiseGeral: 'Cálculo direto de porcentagem: Total = 100%. Circuito Dodô = 40%. Circuito Osmar = 35%. Soma = 40% + 35% = 75%. O restante para a reserva tática é 100% - 75% = 25%. Calculando 25% de 120: 120 / 4 = 30 policiais.',
+      professor: 'Cap. Dr. Marcos Valente',
+      cargo: 'Especialista em Direito Penal Militar e Segurança Pública',
+      analiseGeral: 'Artigo 25 do Código Penal (com a redação dada pelo Pacote Anticrime - Lei 13.964/19): "Entende-se em legítima defesa quem, usando moderadamente dos meios necessários, repele injusta agressão, atual ou iminente, a direito seu ou de outrem". O parágrafo único do art. 25 prevê expressamente a legítima defesa do agente de segurança pública que repele agressão ou risco de agressão a refém ou à sua própria vida.',
       justificativaAlternativas: {
-        A: 'Incorreta. 25 é a porcentagem (25%), não a quantidade de policiais.',
-        B: 'CORRETA. 25% de 120 policiais = 0,25 * 120 = 30 policiais!',
-        C: 'Incorreta. Erro aritmético.',
-        D: 'Incorreta. 48 policiais representam os 40% alocados na Barra-Ondina.',
-        E: 'Incorreta. Erro de cálculo.'
+        A: 'CORRETA. Repelir injusta agressão atual ou iminente com uso moderado dos meios é LEGÍTIMA DEFESA.',
+        B: 'Incorreta. O estado de necessidade pressupõe perigo atual sem agressão injusta humana.',
+        C: 'Incorreta. A resposta armada a tiro de criminoso é legítima defesa (o dever legal não impõe sofrer disparos).',
+        D: 'Incorreta. Trata-se de defesa perante agressão ilícita.',
+        E: 'Incorreta. Coação moral irresistível é causa excludente de culpabilidade.'
       },
-      bizuPMBA: 'Bizu de Porcentagem: 25% de qualquer valor é simplesmente DIVIDIR POR 4! 120 dividido por 4 = 30 policiais exatos.',
-      artigosCitados: ['Matemática Básica / Edital PMBA']
+      bizuPMBA: 'Bizu das Excludentes de Ilicitude (Art. 23 CP): "B-R-A-S-U-C-A": 1) Estado de Necessidade (perigo atual) | 2) Legítima Defesa (injusta agressão) | 3) Estrito Cumprimento do Dever Legal | 4) Exercício Regular de Direito.',
+      artigosCitados: ['Código Penal Brasileiro, Artigos 23 e 25 (Lei 13.964/2019)']
+    }
+  },
+  {
+    id: 'q-pen-2',
+    numero: 25,
+    banca: 'FCC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2020,
+    disciplina: 'Noções de Direito Penal',
+    assunto: 'Crimes Contra a Administração Pública - Corrupção Passiva vs Concussão',
+    dificuldade: 'Difícil',
+    enunciado: 'O Código Penal Brasileiro tipifica os crimes praticados por funcionário público contra a administração em geral. Assinale a alternativa que descreve a distinção elementar entre o crime de CONCUSSÃO (Art. 316) e o crime de CORRUPÇÃO PASSIVA (Art. 317):',
+    alternativas: [
+      { id: 'A', texto: 'Na concussão o funcionário público EXIGE vantagem indevida; na corrupção passiva ele SOLICITA, RECEBE ou ACEITA promessa de vantagem.' },
+      { id: 'B', texto: 'Na concussão o funcionário apropria-se de dinheiro público; na corrupção ele desvia em proveito alheio.' },
+      { id: 'C', texto: 'Concussão é crime praticado exclusivamente por particulares; corrupção passiva é praticada por militares.' },
+      { id: 'D', texto: 'Ambos os crimes exigem violência física ou grave ameaça de morte contra a vítima.' },
+      { id: 'E', texto: 'A concussão admite perdão judicial se a vantagem for de pequeno valor financeiro.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Cap. Dr. Marcos Valente',
+      cargo: 'Especialista em Direito Penal',
+      analiseGeral: 'Art. 316 CP (Concussão): "EXIGIR, para si ou para outrem, direta ou indiretamente, ainda que fora da função ou antes de assumi-la, mas em razão dela, vantagem indevida". Art. 317 CP (Corrupção Passiva): "SOLICITAR ou RECEBER, para si ou para outrem, direta ou indiretamente, ainda que fora da função ou antes de assumi-la, mas em razão dela, ou ACEITAR PROMESSA de tal vantagem".',
+      justificativaAlternativas: {
+        A: 'CORRETA. Concussão = EXIGIR (verbo forte/imposição do cargo). Corrupção Passiva = SOLICITAR, RECEBER ou ACEITAR promessa.',
+        B: 'Incorreta. Essa conduta descreve o Peculato (Art. 312 CP).',
+        C: 'Incorreta. Ambos são crimes funcionais próprios (praticados por funcionário público).',
+        D: 'Incorreta. A exigência na concussão decorre do temor da autoridade do cargo (metus publicae potestatis), não de violência física típica do roubo.',
+        E: 'Incorreta. Não há previsão de perdão judicial para a concussão.'
+      },
+      bizuPMBA: 'Bizu Infalível dos Crimes da Administração: 1) Concussão = EXIGIR (verbo com "X") | 2) Corrupção Passiva = SOLICITAR / RECEBER / ACEITAR | 3) Prevaricação = SATISFAZER interesse ou sentimento pessoal | 4) Peculato = APROPRIAR-SE / DESVIAR dinheiro ou bem público.',
+      artigosCitados: ['Código Penal Brasileiro, Artigos 316 e 317']
+    }
+  },
+  {
+    id: 'q-pen-3',
+    numero: 26,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado da Polícia Militar',
+    ano: 2023,
+    disciplina: 'Noções de Direito Penal',
+    assunto: 'Crimes Contra a Vida e o Patrimônio - Homicídio e Roubo Majorado',
+    dificuldade: 'Média',
+    enunciado: 'Acerca dos crimes contra a pessoa e contra o patrimônio tipificados no Código Penal Brasileiro, assinale a opção correta:',
+    alternativas: [
+      { id: 'A', texto: 'O crime de roubo consuma-se com a inversão da posse do bem mediante violência ou grave ameaça, ainda que por breve tempo e mesmo sem posse mansa ou pacífica da coisa.' },
+      { id: 'B', texto: 'O homicídio culposo admite perdão judicial apenas quando o réu for primário e confessar perante autoridade policial.' },
+      { id: 'C', texto: 'O furto noturno é considerado crime hediondo inafiançável pelo Código Penal.' },
+      { id: 'D', texto: 'A lesão corporal leve contra agente de segurança pública não enseja qualquer causa de aumento de pena.' },
+      { id: 'E', texto: 'O roubo praticado com emprego de simulacro de arma de fogo (arma de brinquedo) enseja a aplicação da majorante de uso de arma de fogo.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Cap. Dr. Marcos Valente',
+      cargo: 'Especialista em Direito Penal',
+      analiseGeral: 'Súmula 582 do STJ: "Consuma-se o crime de roubo com a inversão da posse do bem mediante emprego de violência ou grave ameaça, ainda que por breve espaço de tempo e de pronto seguido de perseguição do agente e recuperação da coisa roubada, sendo prescindível a posse mansa e pacífica ou desvigiada".',
+      justificativaAlternativas: {
+        A: 'CORRETA. Teoria da amotio/apprehensio consagrada na Súmula 582 do STJ.',
+        B: 'Incorreta. O perdão judicial no homicídio culposo cabe quando as consequências da infração atingirem o agente de forma tão grave que a sanção penal se torne desnecessária (Art. 121, § 5º CP).',
+        C: 'Incorreta. Furto noturno é causa de aumento (Art. 155, § 1º), não é hediondo.',
+        D: 'Incorreta. Há previsão de aumento ou qualificadora quando praticado contra agente de segurança pública no exercício da função (Art. 129, § 12 CP).',
+        E: 'Incorreta. A Súmula 174 do STJ foi cancelada; arma de brinquedo serve para caracterizar a grave ameaça, mas NÃO autoriza a causa de aumento de pena por uso de arma.'
+      },
+      bizuPMBA: 'Bizu do STJ (Súmula 582): Roubo e Furto NÃO exigem posse mansa ou pacífica! Basta a INVERSÃO DA POSSE da coisa, mesmo que o policial persiga e capture o criminoso em seguida.',
+      artigosCitados: ['Código Penal, Art. 157', 'Súmula 582 do STJ']
     }
   }
 ];
