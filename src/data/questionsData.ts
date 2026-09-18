@@ -1187,5 +1187,346 @@ export const QUESTOES_EXPANDIDAS_PMBA: Questao[] = [
       bizuPMBA: 'Bizu dos Crimes Funcionais: EXIGIR = CONCUSSÃO | SOLICITAR / RECEBER = CORRUPÇÃO PASSIVA | SENTIMENTO PESSOAL = PREVARICAÇÃO!',
       artigosCitados: ['Código Penal Brasileiro, Artigos 316, 317 e 319']
     }
+  },
+  {
+    id: 'penal-real-03',
+    numero: 35,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2023,
+    disciplina: 'Noções de Direito Penal',
+    assunto: 'Crimes contra a Pessoa - Homicídio Qualificado e Feminicídio (Art. 121, § 2º)',
+    dificuldade: 'Média',
+    enunciado: 'Nos termos do Código Penal Brasileiro (Art. 121, § 2º, VI e § 2º-A), considera-se feminicídio o homicídio praticado contra a mulher por razões da condição de sexo feminino. Há razões de condição de sexo feminino quando o crime envolve:',
+    alternativas: [
+      { id: 'A', texto: 'Violência doméstica e familiar, ou menosprezo ou discriminação à condição de mulher.' },
+      { id: 'B', texto: 'Exclusivamente disputas financeiras decorrentes de herança entre irmãos.' },
+      { id: 'C', texto: 'Qualquer discussão no trânsito em que a vítima seja do sexo feminino.' },
+      { id: 'D', texto: 'Apenas agressões ocorridas no ambiente de trabalho cometidas por superior hierárquico.' },
+      { id: 'E', texto: 'Crimes patrimoniais com resultado morte sem relação afetiva anterior.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Cap. PMBA Rogério Silva',
+      cargo: 'Especialista em Direito Penal',
+      analiseGeral: 'Art. 121, § 2º-A do CP: "Considera-se que há razões de condição de sexo feminino quando o crime envolve: I - violência doméstica e familiar; II - menosprezo ou discriminação à condição de mulher". O feminicídio é qualificadora de ordem objetiva.',
+      justificativaAlternativas: {
+        A: 'CORRETA. Definição legal expressa do Art. 121, § 2º-A do CP.',
+        B: 'Incorreta. Não se restringe a herança.',
+        C: 'Incorreta. Discussão genérica de trânsito não configura automaticamente feminicídio, salvo menosprezo à condição de mulher.',
+        D: 'Incorreta. Não é restrito ao ambiente de trabalho.',
+        E: 'Incorreta. Crime patrimonial com morte é latrocínio (Art. 157, § 3º).'
+      },
+      bizuPMBA: 'Bizu do Feminicídio: 2 hipóteses legais: 1) Violência doméstica/familiar OU 2) Menosprezo/discriminação à condição de mulher! É crime HEDIONDO!',
+      artigosCitados: ['Código Penal Brasileiro, Art. 121, § 2º, VI e § 2º-A']
+    }
+  },
+  {
+    id: 'penal-real-04',
+    numero: 36,
+    banca: 'FCC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2022,
+    disciplina: 'Noções de Direito Penal',
+    assunto: 'Estatuto do Desarmamento (Lei nº 10.826/2003) - Porte vs Posse Ilegal',
+    dificuldade: 'Média',
+    enunciado: 'Um indivíduo é abordado pela Polícia Militar transportando, no porta-luvas de seu veículo automotor em via pública, uma arma de fogo de uso permitido, municiada, sem autorização e em desacordo com determinação legal ou regulamentar. O agente cometeu o crime de:',
+    alternativas: [
+      { id: 'A', texto: 'Porte ilegal de arma de fogo de uso permitido (Art. 14 da Lei 10.826/2003).' },
+      { id: 'B', texto: 'Posse irregular de arma de fogo de uso permitido (Art. 12 da Lei 10.826/2003).' },
+      { id: 'C', texto: 'Mera infração administrativa de trânsito prevista no CTB.' },
+      { id: 'D', texto: 'Comércio ilegal de arma de fogo (Art. 17 da Lei 10.826/2003).' },
+      { id: 'E', texto: 'Disparo de arma de fogo em via pública (Art. 15 da Lei 10.826/2003).' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Maj. PMBA Carlos Eduardo',
+      cargo: 'Instrutor de Legislação Especial',
+      analiseGeral: 'Arma no interior de veículo em via pública configura PORTE ILEGAL (Art. 14 da Lei 10.826/2003). A POSSE (Art. 12) restringe-se ao interior da residência ou dependência desta, ou ainda no local de trabalho do qual seja titular ou responsável legal.',
+      justificativaAlternativas: {
+        A: 'CORRETA. Em via pública ou veículo = Porte Ilegal (Art. 14).',
+        B: 'Incorreta. Posse irregular (Art. 12) é exclusivamente no interior da casa ou local de trabalho.',
+        C: 'Incorreta. Trata-se de crime formal de perigo abstrato.',
+        D: 'Incorreta. Comércio ilegal exige atividade comercial/industrial.',
+        E: 'Incorreta. Não houve disparo.'
+      },
+      bizuPMBA: 'Bizu do Desarmamento: DENTRO DE CASA/TRABALHO = POSSE (Art. 12). FORA DE CASA / NO CARRO / NA RUA = PORTE (Art. 14)!',
+      artigosCitados: ['Lei Federal nº 10.826/2003, Artigos 12 e 14']
+    }
+  },
+  {
+    id: 'port-real-03',
+    numero: 37,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2023,
+    disciplina: 'Língua Portuguesa',
+    assunto: 'Pontuação - Emprego da Vírgula e Orações Adverbiais',
+    dificuldade: 'Média',
+    enunciado: 'Assinale a alternativa em que o emprego da vírgula está plenamente correto de acordo com a norma-padrão da Língua Portuguesa:',
+    alternativas: [
+      { id: 'A', texto: 'Quando a viatura chegou ao local da ocorrência, os suspeitos já haviam fugido.' },
+      { id: 'B', texto: 'Os policiais militares da Bahia, apreenderam grande quantidade de entorpecentes.' },
+      { id: 'C', texto: 'O oficial superior comunicou, que haveria reforço no policiamento do Pelourinho.' },
+      { id: 'D', texto: 'A população aplaudiu com entusiasmo, os novos soldados recém-formados.' },
+      { id: 'E', texto: 'O boletim foi encaminhado à delegacia, pelo escrivão de plantão.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Profa. Helena Prado',
+      cargo: 'Especialista em Língua Portuguesa',
+      analiseGeral: 'Em "Quando a viatura chegou ao local da ocorrência, os suspeitos já haviam fugido", a oração subordinada adverbial temporal antecipada exige o uso da vírgula.',
+      justificativaAlternativas: {
+        A: 'CORRETA. Oração adverbial antecipada separada por vírgula obrigatória.',
+        B: 'Incorreta. É proibido separar o sujeito ("Os policiais...") do predicado ("apreenderam...") por vírgula.',
+        C: 'Incorreta. É proibido separar o verbo transitivo direto de seu objeto direto (oração substantiva objetiva direta).',
+        D: 'Incorreta. Separa indevidamente o verbo de seu complemento.',
+        E: 'Incorreta. Separa indevidamente o agente da passiva.'
+      },
+      bizuPMBA: 'Bizu da Vírgula Proibida: NUNCA SEPARE SUJEITO DO VERBO, NEM VERBO DO SEU COMPLEMENTO (OBJETO)! Oração adverbial deslocada no início = VÍRGULA OBRIGATÓRIA!',
+      artigosCitados: ['Gramática Normativa - Sintaxe de Pontuação']
+    }
+  },
+  {
+    id: 'port-real-04',
+    numero: 38,
+    banca: 'FCC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2020,
+    disciplina: 'Língua Portuguesa',
+    assunto: 'Tipologia Textual e Redação Oficial',
+    dificuldade: 'Fácil',
+    enunciado: 'O Boletim de Ocorrência Policial (BOPM) é um documento oficial cuja finalidade primordial é relatar objetivamente fatos, indicando tempo, lugar, pessoas envolvidas e circunstâncias de um evento. O tipo textual predominante na elaboração do histórico de um BOPM é o:',
+    alternativas: [
+      { id: 'A', texto: 'Narrativo.' },
+      { id: 'B', texto: 'Dissertativo-argumentativo subjetivo.' },
+      { id: 'C', texto: 'Lírico-poético.' },
+      { id: 'D', texto: 'Injuntivo de propaganda.' },
+      { id: 'E', texto: 'Predominantemente ficcional.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Profa. Helena Prado',
+      cargo: 'Professora de Língua Portuguesa e Redação',
+      analiseGeral: 'O histórico de ocorrência policial relata uma sucessão temporal de ações reais no tempo e no espaço, caracterizando a tipologia textual NARRATIVA com linguagem impessoal, clara e concisa.',
+      justificativaAlternativas: {
+        A: 'CORRETA. Relato cronológico de fatos, personagens, tempo e espaço = Texto Narrativo.',
+        B: 'Incorreta. Documentos policiais evitam opiniões e juízos subjetivos de valor.',
+        C: 'Incorreta. Não possui função estética subjetiva/lírica.',
+        D: 'Incorreta. Texto injuntivo fornece instruções/ordens (ex: manuais, receitas).',
+        E: 'Incorreta. O documento trata estritamente da verdade real dos fatos.'
+      },
+      bizuPMBA: 'Bizu de Tipologia: Contar fatos no tempo com personagens e local = NARRATIVO! Defender tese com argumentos = DISSERTATIVO! Dar instruções = INJUNTIVO!',
+      artigosCitados: ['Língua Portuguesa - Tipologia e Gêneros Textuais']
+    }
+  },
+  {
+    id: 'geo-real-03',
+    numero: 39,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2023,
+    disciplina: 'Geografia da Bahia',
+    assunto: 'Região Metropolitana de Salvador (RMS) e Dinâmica Econômica',
+    dificuldade: 'Média',
+    enunciado: 'A Região Metropolitana de Salvador (RMS) concentra expressiva parcela do Produto Interno Bruto (PIB) e da população do estado da Bahia. Sobre os municípios que compõem a RMS e suas funções econômicas, assinale a proposição correta:',
+    alternativas: [
+      { id: 'A', texto: 'Camaçari abriga o Polo Industrial/Petroquímico, Candeias destaca-se no setor portuário e de refino, e Lauro de Freitas e Salvador concentram fortes atividades de comércio e serviços.' },
+      { id: 'B', texto: 'A RMS é composta exclusivamente por Salvador e Feira de Santana, sem outras cidades limítrofes.' },
+      { id: 'C', texto: 'A economia da RMS é baseada exclusivamente na extração vegetal de borracha e castanha.' },
+      { id: 'D', texto: 'A cidade de Ilhéus é a sede administrativa e maior polo fabril da Região Metropolitana de Salvador.' },
+      { id: 'E', texto: 'Não há integração de transporte metropolitano ou interdependência urbana entre as cidades da RMS.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Prof. Me. George Santana',
+      cargo: 'Geógrafo',
+      analiseGeral: 'A RMS é o polo mais urbanizado e dinâmico da Bahia: Camaçari (Polo Industrial e Petroquímico), Candeias (Petróleo/Porto), Simões Filho (Logística), Lauro de Freitas (Serviços/Residencial) e Salvador (Capital, Serviços, Turismo e Comércio). Feira de Santana não integra a RMS (forma sua própria Região Metropolitana).',
+      justificativaAlternativas: {
+        A: 'CORRETA. Descrição geográfica e econômica precisa dos municípios metropolitanos.',
+        B: 'Incorreta. Feira de Santana é sede da Região Metropolitana de Feira de Santana (RMFS).',
+        C: 'Incorreta. A RMS é altamente industrializada e terciária.',
+        D: 'Incorreta. Ilhéus fica no Sul da Bahia (Litoral Sul).',
+        E: 'Incorreta. Há intensa conurbação e migração pendular diária.'
+      },
+      bizuPMBA: 'Bizu da RMS: CAMAÇARI = Polo Petroquímico / Industrial! SALVADOR = Serviços e Turismo! LAURO DE FREITAS / SIMÕES FILHO = Conurbação e Logística!',
+      artigosCitados: ['Geografia da Bahia - Urbanização e Regiões Metropolitanas']
+    }
+  },
+  {
+    id: 'geo-real-04',
+    numero: 40,
+    banca: 'FCC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2020,
+    disciplina: 'Geografia da Bahia',
+    assunto: 'Climatologia da Bahia - O Semiárido e o Polígono das Secas',
+    dificuldade: 'Média',
+    enunciado: 'O clima semiárido abrange a maior parte da área territorial do estado da Bahia (Sertão baiano). Dentre suas características meteorológicas e hidrológicas marcantes, destacam-se:',
+    alternativas: [
+      { id: 'A', texto: 'Elevadas temperaturas médias anuais, baixos índices pluviométricos (geralmente inferiores a 800 mm/ano) com chuvas concentradas em poucos meses e rios temporários.' },
+      { id: 'B', texto: 'Chuvas bem distribuídas ao longo de todos os meses do ano e geadas frequentes no inverno.' },
+      { id: 'C', texto: 'Clima equatorial superúmido com pluviosidade superior a 3.000 mm anuais em toda a caatinga.' },
+      { id: 'D', texto: 'Invernos rigorosos com médias térmicas abaixo de zero grau nas planícies do São Francisco.' },
+      { id: 'E', texto: 'Ausência total de insolação e predomínio de nevoeiros densos o ano inteiro.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Prof. Me. George Santana',
+      cargo: 'Geógrafo',
+      analiseGeral: 'O clima semiárido baiano caracteriza-se pela escassez e irregularidade das chuvas, altas taxas de evapotranspiração, déficit hídrico e rios em sua maioria intermitentes (com exceção do perene Rio São Francisco).',
+      justificativaAlternativas: {
+        A: 'CORRETA. Características essenciais do semiárido sertanejo da Bahia.',
+        B: 'Incorreta. Chuvas bem distribuídas caracterizam o clima temperado ou subtropical úmido.',
+        C: 'Incorreta. Clima superúmido ocorre na Amazônia ou em trechos litorâneos.',
+        D: 'Incorreta. As temperaturas médias são elevadas o ano todo.',
+        E: 'Incorreta. O semiárido possui uma das maiores taxas de insolação e potencial solar do Brasil.'
+      },
+      bizuPMBA: 'Bizu do Clima Baiano: SEMIÁRIDO = Calor o ano todo + Pouca chuva (<800mm) + Rios temporários (exceto o São Francisco)! LITORAL = Tropical Úmido (Mata Atlântica)!',
+      artigosCitados: ['Geografia da Bahia - Climatologia e Recursos Hídricos']
+    }
+  },
+  {
+    id: 'adm-real-05',
+    numero: 41,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2023,
+    disciplina: 'Direito Administrativo',
+    assunto: 'Atos Administrativos - Requisitos de Validade (COFIFORM)',
+    dificuldade: 'Média',
+    enunciado: 'Para que um ato administrativo praticado por um agente público seja válido e produza regularmente seus efeitos no mundo jurídico, é necessária a presença de cinco elementos ou requisitos essenciais. São eles:',
+    alternativas: [
+      { id: 'A', texto: 'Competência, Finalidade, Forma, Motivo e Objeto.' },
+      { id: 'B', texto: 'Legalidade, Supremacia, Coercibilidade, Sigilo e Eficácia.' },
+      { id: 'C', texto: 'Hierarquia, Discricionariedade, Autoexecutoriedade, Tipicidade e Preclusão.' },
+      { id: 'D', texto: 'Sanção, Outorga, Delegação, Avocação e Desapropriação.' },
+      { id: 'E', texto: 'Presunção, Imperatividade, Exigibilidade, Razoabilidade e Publicidade.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Dr. Thiago Medeiros',
+      cargo: 'Procurador e Instrutor de Direito Administrativo',
+      analiseGeral: 'A Lei da Ação Popular (Lei 4.717/65, art. 2º) e a doutrina administrativa consolidam os 5 requisitos de validade do ato administrativo no célebre mnemônico CO-FI-FO-MO-OB (Competência, Finalidade, Forma, Motivo e Objeto).',
+      justificativaAlternativas: {
+        A: 'CORRETA. Mnemônico universal COFIFORM (Competência, Finalidade, Forma, Motivo e Objeto).',
+        B: 'Incorreta. Mistura princípios com atributos.',
+        C: 'Incorreta. Traz poderes e atributos.',
+        D: 'Incorreta. Traz institutos e modalidades de atos.',
+        E: 'Incorreta. Traz atributos do ato administrativo (PATI).'
+      },
+      bizuPMBA: 'Bizu dos Atos Administrativos: REQUISITOS (Elementos) = CO-FI-FO-MO-OB (Competência, Finalidade, Forma, Motivo, Objeto). ATRIBUTOS = P-A-T-I (Presunção, Autoexecutoriedade, Tipicidade, Imperatividade)!',
+      artigosCitados: ['Lei Federal nº 4.717/1965, Art. 2º', 'Doutrina de Direito Administrativo']
+    }
+  },
+  {
+    id: 'adm-real-06',
+    numero: 42,
+    banca: 'FCC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2022,
+    disciplina: 'Direito Administrativo',
+    assunto: 'Extinção dos Atos Administrativos - Anulação vs Revogação',
+    dificuldade: 'Média',
+    enunciado: 'A Administração Pública, com base no princípio da autotutela (Súmula 473 do STF), pode extinguir seus próprios atos administrativos. Sobre a ANULAÇÃO e a REVOGAÇÃO de atos administrativos, assinale a alternativa correta:',
+    alternativas: [
+      { id: 'A', texto: 'A anulação incide sobre atos ILEGAIS, produzindo efeitos retroativos (ex tunc), enquanto a revogação incide sobre atos legais por motivo de OPORTUNIDADE e CONVENIÊNCIA, produzindo efeitos prospectivos (ex nunc).' },
+      { id: 'B', texto: 'A revogação incide sobre atos ilegais com efeito retroativo (ex tunc), e a anulação incide sobre atos válidos.' },
+      { id: 'C', texto: 'O Poder Judiciário pode revogar atos administrativos do Poder Executivo quando considerá-los inoportunos.' },
+      { id: 'D', texto: 'Atos vinculados e atos consumados podem ser livremente revogados a qualquer tempo pela Administração.' },
+      { id: 'E', texto: 'A anulação de um ato ilegal só pode ser declarada pelo Poder Judiciário, sendo vedada a anulação de ofício pela própria Administração.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Dr. Thiago Medeiros',
+      cargo: 'Direito Administrativo',
+      analiseGeral: 'Súmula 473 do STF: "A administração pode anular seus próprios atos, quando eivados de vícios que os tornam ilegais, porque deles não se originam direitos; ou revogá-los, por motivo de conveniência ou oportunidade, respeitados os direitos adquiridos". Anulação = ato ilegal / efeito ex tunc. Revogação = ato legal / conveniência e oportunidade / efeito ex nunc.',
+      justificativaAlternativas: {
+        A: 'CORRETA. Distinção clássica entre anulação (ilegalidade / ex tunc) e revogação (mérito / ex nunc).',
+        B: 'Incorreta. Inverteu os conceitos.',
+        C: 'Incorreta. O Judiciário NUNCA revoga ato do Executivo (apenas anula atos ilegais).',
+        D: 'Incorreta. Atos vinculados, consumados e que geraram direito adquirido NÃO podem ser revogados.',
+        E: 'Incorreta. A Administração pode e deve anular de ofício seus próprios atos ilegais (Autotutela).'
+      },
+      bizuPMBA: 'Bizu Supremo: AnulAção = IlegAlidade -> Efeito ex Tunc (Toca para trás/Retroage). RevogaçãO = Oportunidade/MériTo -> Efeito ex Nunc (Não retroage)!',
+      artigosCitados: ['Súmula 473 do STF', 'Súmula 346 do STF', 'Lei nº 9.784/1999, Art. 53']
+    }
+  },
+  {
+    id: 'hist-real-05',
+    numero: 43,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2023,
+    disciplina: 'História da Bahia',
+    assunto: 'Fundação de Salvador (1549) e o Governo Geral de Tomé de Sousa',
+    dificuldade: 'Fácil',
+    enunciado: 'Em 1549, com a chegada do primeiro Governador-Geral do Brasil, Tomé de Sousa, foi fundada a cidade de Salvador da Bahia de Todos os Santos. O principal objetivo da Coroa Portuguesa ao criar o Governo-Geral e fixar a primeira capital do Brasil em Salvador foi:',
+    alternativas: [
+      { id: 'A', texto: 'Centralizar a administração colonial, socorrer as capitanias hereditárias em crise e garantir a defesa militar e o monopólio mercantil português.' },
+      { id: 'B', texto: 'Entregar a administração do litoral baiano aos invasores holandeses da Companhia das Índias Ocidentais.' },
+      { id: 'C', texto: 'Abolir imediatamente o cultivo de cana-de-açúcar e incentivar apenas a mineração de prata no Recôncavo.' },
+      { id: 'D', texto: 'Transferir a sede do Reino de Portugal para a América do Sul durante as invasões napoleônicas.' },
+      { id: 'E', texto: 'Instituir uma república federativa independente no Nordeste brasileiro.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Prof. Me. Rodrigo Bahia',
+      cargo: 'Historiador',
+      analiseGeral: 'Diante do fracasso da maioria das Capitanias Hereditárias, D. João III instituiu o Governo-Geral em 1549, enviando Tomé de Sousa para fundar Salvador como primeira capital e praça-forte militar estratégica do Brasil colônia.',
+      justificativaAlternativas: {
+        A: 'CORRETA. Salvador foi fundada como capital-fortaleza para centralizar e defender a colônia.',
+        B: 'Incorreta. As invasões holandesas ocorreram no século XVII (1624 em Salvador).',
+        C: 'Incorreta. A cana-de-açúcar no Recôncavo foi a base econômica colonial.',
+        D: 'Incorreta. A transferência da Família Real ocorreu séculos depois, em 1808.',
+        E: 'Incorreta. O objetivo era manter a colônia sob rígido controle régio português.'
+      },
+      bizuPMBA: 'Bizu da Capital: 1549 = Fundação de Salvador por Tomé de Sousa (1º Governador-Geral) -> 1ª Capital do Brasil até 1763!',
+      artigosCitados: ['História da Bahia - Período Colonial e Fundação de Salvador']
+    }
+  },
+  {
+    id: 'igual-real-05',
+    numero: 44,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2023,
+    disciplina: 'Promoção da Igualdade Racial e de Gênero',
+    assunto: 'Lei Federal nº 14.532/2023 - Tipificação da Injúria Racial como Crime de Racismo',
+    dificuldade: 'Média',
+    enunciado: 'Com a promulgação da Lei Federal nº 14.532/2023, o crime de injúria racial foi inserido formalmente na Lei nº 7.716/1989 (Lei de Crimes Resultantes de Preconceito de Raça ou de Cor). Em decorrência dessa alteração legislativa, a injúria motivada por raça, cor, etnia ou procedência nacional passou a ser:',
+    alternativas: [
+      { id: 'A', texto: 'Crime inafiançável e imprescritível, processado mediante ação penal pública incondicionada, punido com pena de reclusão.' },
+      { id: 'B', texto: 'Infração de menor potencial ofensivo, sujeita a transação penal e fiança delegacial.' },
+      { id: 'C', texto: 'Delito prescritível em 2 anos, que admite perdão judicial se o ofensor se retratar em redes sociais.' },
+      { id: 'D', texto: 'Crime processado exclusivamente mediante queixa-crime privada com advogado.' },
+      { id: 'E', texto: 'Mera contravenção penal punida com multa administrativa estadual.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Profa. Dra. Dandara Santos',
+      cargo: 'Especialista em Legislação Penal e Direitos Humanos',
+      analiseGeral: 'A Lei nº 14.532/2023 equiparou formalmente a injúria racial ao crime de racismo (Art. 2º-A da Lei 7.716/89). Por mandamento constitucional (Art. 5º, XLII da CF/88), a prática do racismo constitui crime INAFIANÇÁVEL e IMPRESCRITÍVEL, sujeito à pena de RECLUSÃO e de AÇÃO PÚBLICA INCONDICIONADA.',
+      justificativaAlternativas: {
+        A: 'CORRETA. Injúria racial agora é crime de racismo: inafiançável, imprescritível e ação pública incondicionada.',
+        B: 'Incorreta. É crime de elevada gravidade e não admite fiança policial.',
+        C: 'Incorreta. É absolutamente IMPRESCRITÍVEL.',
+        D: 'Incorreta. A ação penal é pública incondicionada (iniciada pelo Ministério Público).',
+        E: 'Incorreta. É crime punido com pena severa de reclusão de 2 a 5 anos.'
+      },
+      bizuPMBA: 'Bizu da Lei 14.532/2023: INJÚRIA RACIAL = RACISMO! Inafiançável + Imprescritível + Ação Pública Incondicionada + Reclusão!',
+      artigosCitados: ['Lei Federal nº 7.716/1989, Art. 2º-A', 'Lei Federal nº 14.532/2023', 'Art. 5º, XLII da CF/88']
+    }
   }
 ];
+

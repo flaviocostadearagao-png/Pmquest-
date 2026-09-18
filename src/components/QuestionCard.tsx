@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   CheckCircle2,
   XCircle,
@@ -14,10 +14,14 @@ import {
   HelpCircle,
   Flame,
   Eye,
-  EyeOff
+  EyeOff,
+  Clock,
+  Keyboard,
+  Zap,
+  ShieldAlert
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Questao, AlternativaId, RespostaUsuario } from '../types';
+import { Questao, AlternativaId, RespostaUsuario, ConfigAltaPerformance, FiltroVisualizacao } from '../types';
 import { useTheme } from '../context/ThemeContext';
 
 interface QuestionCardProps {
@@ -26,7 +30,7 @@ interface QuestionCardProps {
   currentIndex: number;
   onNavigate: (index: number) => void;
   historicoRespostas: Record<string, RespostaUsuario>;
-  onResponder: (questaoId: string, alternativa: AlternativaId) => void;
+  onResponder: (questaoId: string, alternativa: AlternativaId, tempoGasto?: number) => void;
   onResetarQuestao: (questaoId: string) => void;
   disciplinaFiltro: string;
   onSelectDisciplina: (disc: string) => void;
@@ -36,7 +40,12 @@ interface QuestionCardProps {
   onSelectBanca: (banca: string) => void;
   ocultarRespondidas?: boolean;
   onToggleOcultarRespondidas?: () => void;
+  filtroVisualizacao?: FiltroVisualizacao;
+  onSetFiltroVisualizacao?: (filtro: FiltroVisualizacao) => void;
   onAbrirGerador?: () => void;
+  configAltaPerformance?: ConfigAltaPerformance;
+  onTriggerPrefetch?: () => void;
+  isPrefetching?: boolean;
 }
 
 export const QuestionCard: React.FC<QuestionCardProps> = ({
@@ -55,15 +64,36 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   onSelectBanca,
   ocultarRespondidas = false,
   onToggleOcultarRespondidas,
+  filtroVisualizacao = 'todas',
+  onSetFiltroVisualizacao,
   onAbrirGerador,
+  configAltaPerformance = {
+    autoPrefetch: true,
+    atalhosTeclado: true,
+    cronometroRitmoAtivo: true,
+    tempoMaxPorQuestaoSegundos: 180,
+    modoMaratona: false,
+  },
+  onTriggerPrefetch,
+  isPrefetching = false,
 }) => {
   const { isDark } = useTheme();
   const [selectedAlternativa, setSelectedAlternativa] = useState<AlternativaId | null>(null);
   const [showComentario, setShowComentario] = useState<boolean>(false);
   const [showFiltros, setShowFiltros] = useState<boolean>(false);
+  const [tempoGasto, setTempoGasto] = useState<number>(0);
 
   // Current question
   const currentQuestao = questoes[currentIndex] || questoes[0];
+
+  // Timer for current question
+  useEffect(() => {
+    setTempoGasto(0);
+    const interval = setInterval(() => {
+      setTempoGasto((prev) => prev + 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [currentQuestao?.id]);
 
   // Reset selected alternative and comment status whenever current question changes
   useEffect(() => {
@@ -71,10 +101,88 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
     setShowComentario(false);
   }, [currentQuestao?.id]);
 
+  // Prefetch trigger when student reaches last 2 questions
+  useEffect(() => {
+    if (configAltaPerformance.autoPrefetch && onTriggerPrefetch) {
+      if (questoes.length > 0 && currentIndex >= questoes.length - 2) {
+        onTriggerPrefetch();
+      }
+    }
+  }, [currentIndex, questoes.length, configAltaPerformance.autoPrefetch, onTriggerPrefetch]);
+
   // Check if current question has been answered
   const statusResposta = currentQuestao ? historicoRespostas[currentQuestao.id] : undefined;
   const foiRespondida = !!statusResposta;
   const alternativaMarcada = statusResposta ? statusResposta.alternativaEscolhida : selectedAlternativa;
+
+  // Keyboard Shortcuts Handler
+  useEffect(() => {
+    if (!configAltaPerformance.atalhosTeclado) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't trigger if user is typing in an input or textarea
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes((e.target as HTMLElement)?.tagName)) {
+        return;
+      }
+
+      const key = e.key.toUpperCase();
+
+      // Alternative Selection (1-5 or A-E)
+      if (['A', 'B', 'C', 'D', 'E'].includes(key)) {
+        if (!foiRespondida) {
+          setSelectedAlternativa(key as AlternativaId);
+        }
+      } else if (['1', '2', '3', '4', '5'].includes(key)) {
+        if (!foiRespondida) {
+          const mapNum: Record<string, AlternativaId> = { '1': 'A', '2': 'B', '3': 'C', '4': 'D', '5': 'E' };
+          setSelectedAlternativa(mapNum[key]);
+        }
+      } else if (e.key === 'Enter') {
+        if (!foiRespondida && selectedAlternativa && currentQuestao) {
+          onResponder(currentQuestao.id, selectedAlternativa, tempoGasto);
+        } else if (foiRespondida && currentIndex < questoes.length - 1) {
+          onNavigate(currentIndex + 1);
+          setSelectedAlternativa(null);
+          setShowComentario(false);
+        }
+      } else if (e.code === 'Space') {
+        e.preventDefault();
+        setShowComentario((prev) => !prev);
+      } else if (e.key === 'ArrowRight' || key === 'N') {
+        if (currentIndex < questoes.length - 1) {
+          onNavigate(currentIndex + 1);
+          setSelectedAlternativa(null);
+          setShowComentario(false);
+        }
+      } else if (e.key === 'ArrowLeft' || key === 'P') {
+        if (currentIndex > 0) {
+          onNavigate(currentIndex - 1);
+          setSelectedAlternativa(null);
+          setShowComentario(false);
+        }
+      } else if (key === 'R') {
+        if (currentQuestao) {
+          onResetarQuestao(currentQuestao.id);
+          setSelectedAlternativa(null);
+          setShowComentario(false);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [
+    configAltaPerformance.atalhosTeclado,
+    foiRespondida,
+    selectedAlternativa,
+    currentQuestao,
+    currentIndex,
+    questoes.length,
+    onNavigate,
+    onResponder,
+    onResetarQuestao,
+    tempoGasto,
+  ]);
 
   // Questions in current filter (independent of hide answered toggle)
   const todasNoFiltro = todasQuestoes.filter((q) => {
@@ -122,7 +230,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
 
   const handleConfirmarResposta = () => {
     if (!selectedAlternativa || foiRespondida || !currentQuestao) return;
-    onResponder(currentQuestao.id, selectedAlternativa);
+    onResponder(currentQuestao.id, selectedAlternativa, tempoGasto);
   };
 
   const handleNext = () => {
@@ -146,6 +254,20 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
     onResetarQuestao(currentQuestao.id);
     setSelectedAlternativa(null);
     setShowComentario(false);
+  };
+
+  // Format time MM:SS
+  const formatTimer = (secs: number) => {
+    const m = Math.floor(secs / 60);
+    const s = secs % 60;
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  };
+
+  // Pace color calculation
+  const getPaceColor = (secs: number) => {
+    if (secs < 120) return isDark ? 'text-emerald-400 bg-emerald-950/60 border-emerald-800/40' : 'text-emerald-700 bg-emerald-50 border-emerald-200';
+    if (secs <= 180) return isDark ? 'text-amber-400 bg-amber-950/60 border-amber-800/40' : 'text-amber-700 bg-amber-50 border-amber-200';
+    return isDark ? 'text-rose-400 bg-rose-950/60 border-rose-800/40 animate-pulse' : 'text-rose-700 bg-rose-50 border-rose-200 animate-pulse';
   };
 
   if (!currentQuestao) {
@@ -272,13 +394,13 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
           </button>
         </div>
 
-        {/* Quick Action Toolbar: Ocultar Respondidas & Gerador com IA */}
-        <div className="flex items-center gap-2 mt-2.5 pt-2.5 border-t border-slate-800/40">
+        {/* Quick Action Toolbar: Ocultar Respondidas & Gerador com IA & Visualização */}
+        <div className="flex flex-wrap items-center gap-2 mt-2.5 pt-2.5 border-t border-slate-800/40">
           {onToggleOcultarRespondidas && (
             <button
               id="btn-toggle-ocultar-respondidas"
               onClick={onToggleOcultarRespondidas}
-              className={`flex-1 flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs transition-all cursor-pointer ${
+              className={`flex-1 min-w-[130px] flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs transition-all cursor-pointer ${
                 ocultarRespondidas
                   ? 'bg-amber-500 text-slate-950 border border-amber-400 font-bold shadow-sm shadow-amber-500/20'
                   : isDark
@@ -329,6 +451,13 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
               <Sparkles className="w-3.5 h-3.5 text-amber-500" />
               <span>+ Gerar IA</span>
             </button>
+          )}
+
+          {isPrefetching && (
+            <div className="flex items-center gap-1 text-[10px] font-bold text-amber-500 px-2 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 animate-pulse">
+              <Zap className="w-3 h-3 fill-amber-500" />
+              <span>IA Pré-carregando...</span>
+            </div>
           )}
         </div>
 
@@ -474,7 +603,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
             : 'bg-white border-slate-200'
         }`}
       >
-        {/* Card Header: Metadata Badges (QConcursos Style) */}
+        {/* Card Header: Metadata Badges (QConcursos Style) & Pace Timer */}
         <div
           className={`px-4 py-3 border-b transition-colors ${
             isDark
@@ -482,28 +611,55 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
               : 'bg-slate-50 border-slate-200'
           }`}
         >
-          <div className="flex flex-wrap items-center gap-1.5 mb-1.5">
-            <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold ${
-              isDark
-                ? 'bg-blue-900/60 text-blue-200 border border-blue-700/50'
-                : 'bg-blue-100 text-blue-900 border border-blue-200'
-            }`}>
-              {currentQuestao.banca}
-            </span>
-            <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold ${
-              isDark
-                ? 'bg-slate-800 text-slate-200 border border-slate-700'
-                : 'bg-slate-200 text-slate-800 border border-slate-300'
-            }`}>
-              {currentQuestao.orgao} • {currentQuestao.ano}
-            </span>
-            <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold ${
-              isDark
-                ? 'bg-amber-950/70 text-amber-300 border border-amber-800/40'
-                : 'bg-amber-50 text-amber-900 border border-amber-300'
-            }`}>
-              {currentQuestao.cargo}
-            </span>
+          <div className="flex flex-wrap items-center justify-between gap-1.5 mb-1.5">
+            <div className="flex flex-wrap items-center gap-1.5">
+              <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold ${
+                isDark
+                  ? 'bg-blue-900/60 text-blue-200 border border-blue-700/50'
+                  : 'bg-blue-100 text-blue-900 border border-blue-200'
+              }`}>
+                {currentQuestao.banca}
+              </span>
+              <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold ${
+                isDark
+                  ? 'bg-slate-800 text-slate-200 border border-slate-700'
+                  : 'bg-slate-200 text-slate-800 border border-slate-300'
+              }`}>
+                {currentQuestao.orgao} • {currentQuestao.ano}
+              </span>
+              <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold ${
+                isDark
+                  ? 'bg-amber-950/70 text-amber-300 border border-amber-800/40'
+                  : 'bg-amber-50 text-amber-900 border border-amber-300'
+              }`}>
+                {currentQuestao.cargo}
+              </span>
+            </div>
+
+            {/* High Performance Telemetry Badges */}
+            <div className="flex items-center gap-1.5">
+              {configAltaPerformance.cronometroRitmoAtivo && (
+                <div
+                  className={`flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-mono font-bold border transition-colors ${getPaceColor(
+                    tempoGasto
+                  )}`}
+                  title="Cronômetro individual da questão (Ritmo ideal de prova: até 3 minutos)"
+                >
+                  <Clock className="w-3 h-3" />
+                  <span>{formatTimer(tempoGasto)}</span>
+                </div>
+              )}
+
+              {configAltaPerformance.atalhosTeclado && (
+                <span
+                  className="hidden sm:inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-slate-800/50 text-slate-400 border border-slate-700/50"
+                  title="Atalhos: [A-E/1-5] Selecionar • [Enter] Confirmar • [Espaço] Bizu • [R] Refazer • [←/→] Navegar"
+                >
+                  <Keyboard className="w-2.5 h-2.5" />
+                  <span>Atalhos [A-E/Enter]</span>
+                </span>
+              )}
+            </div>
           </div>
 
           <div className="text-[11px] leading-tight">

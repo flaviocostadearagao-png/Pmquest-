@@ -55,6 +55,28 @@ export interface RespostaUsuario {
   alternativaEscolhida: AlternativaId;
   acertou: boolean;
   data: string;
+  tempoGastoSegundos?: number;
+}
+
+export type ModoEstudo = 'padrao' | 'maratona' | 'treino_cirurgico' | 'simulado_oficial' | 'caderno_erros';
+
+export type FiltroVisualizacao = 'todas' | 'nao_respondidas' | 'somente_erros' | 'somente_acertos';
+
+export interface MetaEstudo {
+  metaMensalQuestoes: number;
+  questoesResolvidasMes: number;
+  metaDiariaQuestoes: number;
+  streakDias: number;
+  ultimoDiaResolucao?: string;
+  tempoMedioSegundos?: number;
+}
+
+export interface ConfigAltaPerformance {
+  autoPrefetch: boolean;
+  atalhosTeclado: boolean;
+  cronometroRitmoAtivo: boolean;
+  tempoMaxPorQuestaoSegundos: number; // default 180 (3 min)
+  modoMaratona: boolean;
 }
 
 // --- Novos Tipos (Redação e Patente) ---

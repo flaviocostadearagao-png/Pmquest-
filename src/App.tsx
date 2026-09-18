@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Header } from './components/Header';
 import { BottomNav, ActiveTab } from './components/BottomNav';
@@ -9,18 +9,126 @@ import { HomeDashboard } from './components/HomeDashboard';
 import { GeradorQuestoesModal } from './components/GeradorQuestoesModal';
 import { RedacaoSection } from './components/RedacaoSection';
 import { QUESTOES_PMBA, TEORIA_PMBA } from './data/mockData';
-import { AlternativaId, RespostaUsuario, Questao } from './types';
+import {
+  AlternativaId,
+  RespostaUsuario,
+  Questao,
+  ConfigAltaPerformance,
+  MetaEstudo,
+  FiltroVisualizacao,
+  ModoEstudo,
+} from './types';
 import { useTheme } from './context/ThemeContext';
 import {
   loadUserDataFromFirestore,
   saveUserDataToFirestore,
   resetUserDataInFirestore,
 } from './lib/syncService';
+import { prefetchProximasQuestoes } from './lib/geminiQuestionService';
 
 const STORAGE_KEY_RESPOSTAS = 'simulado_pmba_respostas_v1';
 const STORAGE_KEY_TOPICOS = 'simulado_pmba_topicos_v1';
 const STORAGE_KEY_QUESTOES_GERADAS = 'simulado_pmba_questoes_geradas_v1';
 const STORAGE_KEY_OCULTAR_RESPONDIDAS = 'simulado_pmba_ocultar_respondidas_v1';
+const STORAGE_KEY_CONFIG_ALTA_PERF = 'simulado_pmba_config_alta_perf_v1';
+const STORAGE_KEY_METAS_ESTUDO = 'simulado_pmba_metas_estudo_v1';
+const STORAGE_KEY_FILTRO_VISUALIZACAO = 'simulado_pmba_filtro_visualizacao_v1';
+const STORAGE_KEY_HASHES_PROCESSADOS = 'simulado_pmba_hashes_processados_v1';
+
+/**
+ * Normaliza o texto de enunciados para indexação e cálculo de similaridade
+ */
+function normalizeEnunciado(text: string): string {
+  return (text || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^\w\s]/gi, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/**
+ * Gera um hash determinístico e identificador para um enunciado
+ */
+function generateEnunciadoHash(text: string): string {
+  const norm = normalizeEnunciado(text);
+  let hash = 5381;
+  for (let i = 0; i < norm.length; i++) {
+    hash = ((hash << 5) + hash) + norm.charCodeAt(i);
+    hash |= 0;
+  }
+  const prefix = norm.slice(0, 32).replace(/\s+/g, '_');
+  return `h_${Math.abs(hash)}_${prefix}`;
+}
+
+/**
+ * Calcula a similaridade textual (0.0 a 1.0) entre dois enunciados
+ * Combina Sørensen-Dice (trigramas de caracteres) e Jaccard de tokens de palavras
+ */
+function calculateEnunciadoSimilarity(str1: string, str2: string): number {
+  const s1 = normalizeEnunciado(str1);
+  const s2 = normalizeEnunciado(str2);
+
+  if (!s1 || !s2) return 0;
+  if (s1 === s2) return 1.0;
+
+  // Checagem de substring de tamanho proporcional
+  if (s1.includes(s2) || s2.includes(s1)) {
+    const minLen = Math.min(s1.length, s2.length);
+    const maxLen = Math.max(s1.length, s2.length);
+    const ratio = minLen / maxLen;
+    if (ratio >= 0.8) return ratio;
+  }
+
+  // 1. Coeficiente Sørensen-Dice baseado em trigramas de caracteres
+  let dice = 0;
+  if (s1.length >= 3 && s2.length >= 3) {
+    const getTrigrams = (str: string) => {
+      const trigrams = new Map<string, number>();
+      for (let i = 0; i <= str.length - 3; i++) {
+        const gram = str.substring(i, i + 3);
+        trigrams.set(gram, (trigrams.get(gram) || 0) + 1);
+      }
+      return trigrams;
+    };
+
+    const tri1 = getTrigrams(s1);
+    const tri2 = getTrigrams(s2);
+
+    let intersection = 0;
+    let total1 = 0;
+    for (const [gram, count] of tri1.entries()) {
+      total1 += count;
+      if (tri2.has(gram)) {
+        intersection += Math.min(count, tri2.get(gram)!);
+      }
+    }
+    let total2 = 0;
+    for (const count of tri2.values()) {
+      total2 += count;
+    }
+
+    if (total1 + total2 > 0) {
+      dice = (2 * intersection) / (total1 + total2);
+    }
+  }
+
+  // 2. Coeficiente Jaccard sobre tokens de palavras (> 2 caracteres)
+  let jaccard = 0;
+  const tokens1 = new Set(s1.split(' ').filter((t) => t.length > 2));
+  const tokens2 = new Set(s2.split(' ').filter((t) => t.length > 2));
+  if (tokens1.size > 0 && tokens2.size > 0) {
+    let tokenIntersection = 0;
+    tokens1.forEach((t) => {
+      if (tokens2.has(t)) tokenIntersection++;
+    });
+    const tokenUnion = new Set([...tokens1, ...tokens2]).size;
+    jaccard = tokenUnion > 0 ? tokenIntersection / tokenUnion : 0;
+  }
+
+  return Math.max(dice, jaccard);
+}
 
 export default function App() {
   const { isDark } = useTheme();
@@ -33,10 +141,60 @@ export default function App() {
   const [isMobileFrame, setIsMobileFrame] = useState<boolean>(true);
   const [cloudSyncStatus, setCloudSyncStatus] = useState<'synced' | 'syncing' | 'offline'>('syncing');
 
+  // High performance configuration state
+  const [configAltaPerformance, setConfigAltaPerformance] = useState<ConfigAltaPerformance>(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY_CONFIG_ALTA_PERF);
+      if (saved) return JSON.parse(saved);
+    } catch (err) {
+      console.warn('Erro ao carregar config alta performance:', err);
+    }
+    return {
+      prefetchAtivado: true,
+      tempoLimitePorQuestao: 120,
+      modoTurboAtivado: false,
+      audioFeedback: true,
+      avancarAutomaticoAposResponder: false,
+      ocultarComentariosAteResponder: true,
+    };
+  });
+
+  // Monthly study goals & high-volume tracking state
+  const [metaEstudo, setMetaEstudo] = useState<MetaEstudo>(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY_METAS_ESTUDO);
+      if (saved) return JSON.parse(saved);
+    } catch (err) {
+      console.warn('Erro ao carregar metas:', err);
+    }
+    return {
+      metaDiariaQuestoes: 50,
+      metaMensalQuestoes: 1500,
+      questoesFeitasHoje: 0,
+      questoesFeitasMes: 0,
+      taxaAcertoAlvo: 80,
+      streakDias: 1,
+      dataUltimoEstudo: new Date().toISOString().split('T')[0],
+    };
+  });
+
+  // Filter mode: todas, nao_respondidas, erros, acertos
+  const [filtroVisualizacao, setFiltroVisualizacao] = useState<FiltroVisualizacao>(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY_FILTRO_VISUALIZACAO);
+      if (saved && ['todas', 'nao_respondidas', 'erros', 'acertos'].includes(saved)) {
+        return saved as FiltroVisualizacao;
+      }
+    } catch {}
+    return 'todas';
+  });
+
   // AI Question Generator Modal states
   const [isGeradorOpen, setIsGeradorOpen] = useState<boolean>(false);
   const [geradorDisciplina, setGeradorDisciplina] = useState<string>('Direito Constitucional');
   const [geradorAssunto, setGeradorAssunto] = useState<string>('');
+  const [geradorModo, setGeradorModo] = useState<ModoEstudo>('padrao');
+  const [isPrefetching, setIsPrefetching] = useState<boolean>(false);
 
   // User toggle: Ocultar questões já respondidas
   const [ocultarRespondidas, setOcultarRespondidas] = useState<boolean>(() => {
@@ -46,6 +204,28 @@ export default function App() {
     } catch {
       return false;
     }
+  });
+
+  // Cache local de hashes de enunciados já processados para anti-duplicação (similaridade > 80%)
+  const [hashesProcessadosCache, setHashesProcessadosCache] = useState<Record<string, string>>(() => {
+    const seed: Record<string, string> = {};
+    QUESTOES_PMBA.forEach((q) => {
+      if (q.enunciado) {
+        const hash = generateEnunciadoHash(q.enunciado);
+        seed[hash] = normalizeEnunciado(q.enunciado);
+      }
+    });
+
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY_HASHES_PROCESSADOS);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        return { ...seed, ...parsed };
+      }
+    } catch (err) {
+      console.warn('Erro ao carregar cache de hashes:', err);
+    }
+    return seed;
   });
 
   // User AI-generated questions persisted locally and merged with base questions
@@ -95,6 +275,57 @@ export default function App() {
     }
     return Array.from(map.values());
   }, [questoesGeradas]);
+
+  // Recalculate dynamic daily and monthly counts based on historicoRespostas timestamps
+  const metaEstudoCalculada = useMemo<MetaEstudo>(() => {
+    const hojeStr = new Date().toISOString().split('T')[0];
+    const mesAtual = new Date().getMonth();
+    const anoAtual = new Date().getFullYear();
+
+    let feitasHoje = 0;
+    let feitasMes = 0;
+
+    (Object.values(historicoRespostas) as RespostaUsuario[]).forEach((r) => {
+      if (r?.data) {
+        const d = new Date(r.data);
+        const dStr = d.toISOString().split('T')[0];
+        if (dStr === hojeStr) feitasHoje++;
+        if (d.getMonth() === mesAtual && d.getFullYear() === anoAtual) feitasMes++;
+      } else {
+        feitasHoje++;
+        feitasMes++;
+      }
+    });
+
+    return {
+      ...metaEstudo,
+      questoesFeitasHoje: feitasHoje,
+      questoesFeitasMes: feitasMes,
+      dataUltimoEstudo: hojeStr,
+    };
+  }, [historicoRespostas, metaEstudo]);
+
+  // Aggregated errors for surgical training
+  const errosUsuario = useMemo(() => {
+    const mapaErros: Record<string, { disciplina: string; assunto: string; totalErros: number }> = {};
+
+    todasQuestoes.forEach((q) => {
+      const resp = historicoRespostas[q.id];
+      if (resp && !resp.acertou) {
+        const chave = `${q.disciplina}:::${q.assunto}`;
+        if (!mapaErros[chave]) {
+          mapaErros[chave] = {
+            disciplina: q.disciplina,
+            assunto: q.assunto,
+            totalErros: 0,
+          };
+        }
+        mapaErros[chave].totalErros += 1;
+      }
+    });
+
+    return Object.values(mapaErros).sort((a, b) => b.totalErros - a.totalErros);
+  }, [todasQuestoes, historicoRespostas]);
 
   // Track initial load from cloud to prevent overwriting with empty state
   const isCloudLoadedRef = useRef(false);
@@ -152,6 +383,10 @@ export default function App() {
       localStorage.setItem(STORAGE_KEY_TOPICOS, JSON.stringify(topicosLidos));
       localStorage.setItem(STORAGE_KEY_QUESTOES_GERADAS, JSON.stringify(questoesGeradas));
       localStorage.setItem(STORAGE_KEY_OCULTAR_RESPONDIDAS, String(ocultarRespondidas));
+      localStorage.setItem(STORAGE_KEY_CONFIG_ALTA_PERF, JSON.stringify(configAltaPerformance));
+      localStorage.setItem(STORAGE_KEY_METAS_ESTUDO, JSON.stringify(metaEstudo));
+      localStorage.setItem(STORAGE_KEY_FILTRO_VISUALIZACAO, filtroVisualizacao);
+      localStorage.setItem(STORAGE_KEY_HASHES_PROCESSADOS, JSON.stringify(hashesProcessadosCache));
     } catch (err) {
       console.warn('Erro ao salvar progresso no localStorage:', err);
     }
@@ -175,12 +410,12 @@ export default function App() {
     }, 1200);
 
     return () => clearTimeout(timer);
-  }, [historicoRespostas, topicosLidos, questoesGeradas, ocultarRespondidas]);
+  }, [historicoRespostas, topicosLidos, questoesGeradas, ocultarRespondidas, configAltaPerformance, metaEstudo, filtroVisualizacao, hashesProcessadosCache]);
 
   // Active question ID to keep the currently answered question visible until the user navigates
   const [questaoAtivaId, setQuestaoAtivaId] = useState<string | null>(null);
 
-  // Filtered questions respecting disciplina, assunto, banca, and "ocultarRespondidas"
+  // Filtered questions respecting disciplina, assunto, banca, and filtroVisualizacao
   const questoesFiltradas = useMemo(() => {
     const norm = (s: string) => (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
 
@@ -194,10 +429,23 @@ export default function App() {
         norm(q.banca) === norm(bancaFiltro);
       
       const isCurrentlyActive = questaoAtivaId !== null && q.id === questaoAtivaId;
-      const matchOcultar = ocultarRespondidas ? (!historicoRespostas[q.id] || isCurrentlyActive) : true;
-      return matchDisciplina && matchAssunto && matchBanca && matchOcultar;
+      const resp = historicoRespostas[q.id];
+
+      // Filtro por status visualização
+      let matchStatus = true;
+      if (filtroVisualizacao === 'nao_respondidas') {
+        matchStatus = !resp || isCurrentlyActive;
+      } else if (filtroVisualizacao === 'erros') {
+        matchStatus = (!!resp && !resp.acertou) || isCurrentlyActive;
+      } else if (filtroVisualizacao === 'acertos') {
+        matchStatus = (!!resp && resp.acertou) || isCurrentlyActive;
+      } else if (ocultarRespondidas) {
+        matchStatus = !resp || isCurrentlyActive;
+      }
+
+      return matchDisciplina && matchAssunto && matchBanca && matchStatus;
     });
-  }, [todasQuestoes, disciplinaFiltro, assuntoFiltro, bancaFiltro, ocultarRespondidas, historicoRespostas, questaoAtivaId]);
+  }, [todasQuestoes, disciplinaFiltro, assuntoFiltro, bancaFiltro, ocultarRespondidas, filtroVisualizacao, historicoRespostas, questaoAtivaId]);
 
   // Keep active question ID in sync with the current question
   useEffect(() => {
@@ -234,7 +482,7 @@ export default function App() {
   const totalRespondidas = Object.keys(historicoRespostas).length;
   const acertos = (Object.values(historicoRespostas) as RespostaUsuario[]).filter((r) => r.acertou).length;
 
-  const handleResponder = (questaoId: string, alternativa: AlternativaId) => {
+  const handleResponder = (questaoId: string, alternativa: AlternativaId, tempoGasto?: number) => {
     const questao = todasQuestoes.find((q) => q.id === questaoId);
     if (!questao) return;
 
@@ -255,6 +503,7 @@ export default function App() {
         alternativaEscolhida: (alternativaNormalizada as AlternativaId) || alternativa,
         acertou,
         data: new Date().toISOString(),
+        tempoGasto: typeof tempoGasto === 'number' ? tempoGasto : undefined,
       },
     }));
   };
@@ -280,6 +529,18 @@ export default function App() {
     setCurrentIndex(0);
     localStorage.removeItem(STORAGE_KEY_RESPOSTAS);
     localStorage.removeItem(STORAGE_KEY_TOPICOS);
+    localStorage.removeItem(STORAGE_KEY_HASHES_PROCESSADOS);
+
+    // Reseed hashes with official base questions
+    const seed: Record<string, string> = {};
+    QUESTOES_PMBA.forEach((q) => {
+      if (q.enunciado) {
+        const hash = generateEnunciadoHash(q.enunciado);
+        seed[hash] = normalizeEnunciado(q.enunciado);
+      }
+    });
+    setHashesProcessadosCache(seed);
+
     await resetUserDataInFirestore();
     setCloudSyncStatus('synced');
   };
@@ -308,12 +569,19 @@ export default function App() {
     setDisciplinaFiltro(match);
     setAssuntoFiltro('Todos os Assuntos');
     setBancaFiltro('Todas as Bancas');
+    setFiltroVisualizacao('todas');
     setCurrentIndex(0);
     setQuestaoAtivaId(null);
     setActiveTab('questoes');
   };
 
-  const handleAbrirGerador = (disciplina?: string, assunto?: string) => {
+  const handleAbrirGerador = (disciplina?: string, assunto?: string, modo?: ModoEstudo) => {
+    if (modo) {
+      setGeradorModo(modo);
+    } else {
+      setGeradorModo('padrao');
+    }
+
     if (disciplina) {
       setGeradorDisciplina(disciplina);
     } else {
@@ -330,17 +598,157 @@ export default function App() {
     setIsGeradorOpen(true);
   };
 
+  /**
+   * Valida questões candidatas geradas pela IA contra o cache de hashes e o histórico existente.
+   * Descarta imediatamente qualquer item que possua similaridade superior a 80% (0.80).
+   */
+  const filtrarQuestoesDuplicadasOuSemelhantes = useCallback((
+    candidatas: Questao[],
+    questoesExistentes: Questao[],
+    cacheHashes: Record<string, string>
+  ): { aceitas: Questao[]; novosHashes: Record<string, string>; totalDescartadas: number } => {
+    const aceitas: Questao[] = [];
+    const novosHashes: Record<string, string> = {};
+
+    // Pool de todos os enunciados já existentes normalizados
+    const enunciadosExistentesNormalizados: string[] = [
+      ...questoesExistentes.map((q) => normalizeEnunciado(q.enunciado)),
+      ...Object.values(cacheHashes),
+    ];
+
+    let totalDescartadas = 0;
+
+    for (const q of candidatas) {
+      if (!q.enunciado || q.enunciado.trim().length < 8) {
+        totalDescartadas++;
+        continue;
+      }
+
+      const normEnunciado = normalizeEnunciado(q.enunciado);
+      const hash = generateEnunciadoHash(q.enunciado);
+
+      // 1. Checagem direta de hash no cache e no lote aprovado
+      if (cacheHashes[hash] || novosHashes[hash]) {
+        totalDescartadas++;
+        continue;
+      }
+
+      // 2. Checagem estrita de similaridade > 80% (0.80) contra o histórico
+      let isDuplicadaOuSimilar = false;
+      for (const textoExistente of enunciadosExistentesNormalizados) {
+        const similaridade = calculateEnunciadoSimilarity(normEnunciado, textoExistente);
+        if (similaridade > 0.80) {
+          isDuplicadaOuSimilar = true;
+          break;
+        }
+      }
+
+      if (isDuplicadaOuSimilar) {
+        totalDescartadas++;
+        continue;
+      }
+
+      // Aprovada: questão inédita com similaridade <= 80%
+      aceitas.push(q);
+      novosHashes[hash] = normEnunciado;
+      enunciadosExistentesNormalizados.push(normEnunciado);
+    }
+
+    return { aceitas, novosHashes, totalDescartadas };
+  }, []);
+
   const handleNovasQuestoesGeradas = (novasQuestoes: Questao[], disciplinaGerada: string) => {
-    setQuestoesGeradas((prev) => {
-      const existingIds = new Set(prev.map((q) => q.id));
-      const filtered = novasQuestoes.filter((q) => !existingIds.has(q.id));
-      return [...filtered, ...prev];
-    });
+    const { aceitas, novosHashes, totalDescartadas } = filtrarQuestoesDuplicadasOuSemelhantes(
+      novasQuestoes,
+      todasQuestoes,
+      hashesProcessadosCache
+    );
+
+    if (totalDescartadas > 0) {
+      console.info(`[Anti-Duplicação IA] ${totalDescartadas} questão(ões) descartada(s) por similaridade > 80% com o histórico existente.`);
+    }
+
+    if (Object.keys(novosHashes).length > 0) {
+      setHashesProcessadosCache((prev) => ({
+        ...prev,
+        ...novosHashes,
+      }));
+    }
+
+    if (aceitas.length > 0) {
+      setQuestoesGeradas((prev) => {
+        const existingIds = new Set(prev.map((q) => q.id));
+        const filtered = aceitas.filter((q) => !existingIds.has(q.id));
+        return [...filtered, ...prev];
+      });
+    }
 
     setDisciplinaFiltro(disciplinaGerada);
     setAssuntoFiltro('Todos os Assuntos');
     setCurrentIndex(0);
     setActiveTab('questoes');
+  };
+
+  // Background Prefetching when running low on unseen questions
+  const handleTriggerPrefetch = useCallback(async () => {
+    if (isPrefetching || !configAltaPerformance.prefetchAtivado) return;
+    setIsPrefetching(true);
+    try {
+      const questoesUnicasAtuais = todasQuestoes.filter(q => q.disciplina === disciplinaFiltro);
+      const novas = await prefetchProximasQuestoes(disciplinaFiltro, assuntoFiltro, questoesUnicasAtuais);
+      if (novas.length > 0) {
+        const { aceitas, novosHashes } = filtrarQuestoesDuplicadasOuSemelhantes(
+          novas,
+          todasQuestoes,
+          hashesProcessadosCache
+        );
+
+        if (Object.keys(novosHashes).length > 0) {
+          setHashesProcessadosCache((prev) => ({
+            ...prev,
+            ...novosHashes,
+          }));
+        }
+
+        if (aceitas.length > 0) {
+          setQuestoesGeradas((prev) => {
+            const ids = new Set(prev.map((q) => q.id));
+            const toAdd = aceitas.filter((q) => !ids.has(q.id));
+            return [...toAdd, ...prev];
+          });
+        }
+      }
+    } catch (err) {
+      console.warn('Prefetch em segundo plano:', err);
+    } finally {
+      setIsPrefetching(false);
+    }
+  }, [disciplinaFiltro, assuntoFiltro, todasQuestoes, isPrefetching, configAltaPerformance.prefetchAtivado, hashesProcessadosCache, filtrarQuestoesDuplicadasOuSemelhantes]);
+
+  // High-performance quick launchers
+  const handleIniciarTreinoCirurgico = () => {
+    const principalErro = errosUsuario[0];
+    if (principalErro) {
+      handleAbrirGerador(principalErro.disciplina, principalErro.assunto, 'treino_cirurgico');
+    } else {
+      handleAbrirGerador(disciplinaFiltro, undefined, 'treino_cirurgico');
+    }
+  };
+
+  const handleIniciarSimuladoOficial = () => {
+    handleAbrirGerador('Direito Constitucional', undefined, 'simulado_oficial');
+  };
+
+  const handleIniciarMaratonaTurbo = () => {
+    handleAbrirGerador(disciplinaFiltro, assuntoFiltro !== 'Todos os Assuntos' ? assuntoFiltro : undefined, 'maratona');
+  };
+
+  const handleAtualizarMeta = (novasMetas: Partial<MetaEstudo>) => {
+    setMetaEstudo(prev => ({ ...prev, ...novasMetas }));
+  };
+
+  const handleAtualizarConfig = (novasConfigs: Partial<ConfigAltaPerformance>) => {
+    setConfigAltaPerformance(prev => ({ ...prev, ...novasConfigs }));
   };
 
   return (
@@ -386,12 +794,19 @@ export default function App() {
                   materias={TEORIA_PMBA}
                   historicoRespostas={historicoRespostas}
                   topicosLidos={topicosLidos}
+                  metaEstudo={metaEstudoCalculada}
+                  configAltaPerformance={configAltaPerformance}
+                  onAtualizarMeta={handleAtualizarMeta}
+                  onAtualizarConfig={handleAtualizarConfig}
+                  onIniciarTreinoCirurgico={handleIniciarTreinoCirurgico}
+                  onIniciarSimuladoOficial={handleIniciarSimuladoOficial}
+                  onIniciarMaratonaTurbo={handleIniciarMaratonaTurbo}
                   onIniciarQuestoes={() => setActiveTab('questoes')}
                   onEstudarTeoria={() => setActiveTab('teoria')}
                   onIrParaMateria={handleIrParaQuestoesDaMateria}
                   onResetarProgresso={handleResetarTudo}
                   cloudSyncStatus={cloudSyncStatus}
-                  onAbrirGerador={() => handleAbrirGerador()}
+                  onAbrirGerador={handleAbrirGerador}
                 />
               </motion.div>
             ) : activeTab === 'questoes' ? (
@@ -434,7 +849,16 @@ export default function App() {
                     setCurrentIndex(0);
                     setQuestaoAtivaId(null);
                   }}
+                  filtroVisualizacao={filtroVisualizacao}
+                  onSetFiltroVisualizacao={(f) => {
+                    setFiltroVisualizacao(f);
+                    setCurrentIndex(0);
+                    setQuestaoAtivaId(null);
+                  }}
                   onAbrirGerador={() => handleAbrirGerador()}
+                  configAltaPerformance={configAltaPerformance}
+                  onTriggerPrefetch={handleTriggerPrefetch}
+                  isPrefetching={isPrefetching}
                 />
               </motion.div>
             ) : activeTab === 'teoria' ? (
@@ -491,8 +915,11 @@ export default function App() {
         onClose={() => setIsGeradorOpen(false)}
         disciplinaInicial={geradorDisciplina}
         assuntoInicial={geradorAssunto}
+        modoInicial={geradorModo}
+        errosUsuario={errosUsuario}
         onQuestoesGeradas={handleNovasQuestoesGeradas}
       />
     </div>
   );
 }
+

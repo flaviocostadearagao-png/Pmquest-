@@ -16,23 +16,41 @@ import {
   FileCheck,
   Sun,
   Moon,
-  RefreshCw
+  RefreshCw,
+  Flame,
+  Activity
 } from 'lucide-react';
 import { motion } from 'motion/react';
-import { Questao, MateriaEdital, RespostaUsuario, PatenteFeedback } from '../types';
+import {
+  Questao,
+  MateriaEdital,
+  RespostaUsuario,
+  PatenteFeedback,
+  MetaEstudo,
+  ConfigAltaPerformance,
+  ModoEstudo
+} from '../types';
 import { useTheme } from '../context/ThemeContext';
+import { PainelAltaPerformance } from './PainelAltaPerformance';
 
 interface HomeDashboardProps {
   questoes: Questao[];
   materias: MateriaEdital[];
   historicoRespostas: Record<string, RespostaUsuario>;
   topicosLidos: Record<string, boolean>;
+  metaEstudo: MetaEstudo;
+  configAltaPerformance: ConfigAltaPerformance;
+  onAtualizarMeta: (novasMetas: Partial<MetaEstudo>) => void;
+  onAtualizarConfig: (novasConfigs: Partial<ConfigAltaPerformance>) => void;
+  onIniciarTreinoCirurgico: () => void;
+  onIniciarSimuladoOficial: () => void;
+  onIniciarMaratonaTurbo: () => void;
   onIniciarQuestoes: () => void;
   onEstudarTeoria: () => void;
   onIrParaMateria: (materiaNome: string) => void;
   onResetarProgresso: () => void;
   cloudSyncStatus: 'synced' | 'syncing' | 'offline';
-  onAbrirGerador?: () => void;
+  onAbrirGerador?: (disciplina?: string, assunto?: string, modo?: ModoEstudo) => void;
 }
 
 export const HomeDashboard: React.FC<HomeDashboardProps> = ({
@@ -40,6 +58,13 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
   materias,
   historicoRespostas,
   topicosLidos,
+  metaEstudo,
+  configAltaPerformance,
+  onAtualizarMeta,
+  onAtualizarConfig,
+  onIniciarTreinoCirurgico,
+  onIniciarSimuladoOficial,
+  onIniciarMaratonaTurbo,
   onIniciarQuestoes,
   onEstudarTeoria,
   onIrParaMateria,
@@ -125,10 +150,10 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
 
           <div>
             <h2 className="text-lg sm:text-xl font-extrabold text-white tracking-tight">
-              Central de Preparação Policial
+              Central de Alta Performance PMBA
             </h2>
             <p className="text-xs text-slate-300 leading-relaxed mt-0.5">
-              Banco ampliado com questões de bancas oficiais (FCC, IBFC, CESPE, VUNESP, FGV) e teoria esquematizada do concurso.
+              Gestão inteligente com IA para alto volume, treino cirúrgico de erros e simulados oficiais.
             </p>
           </div>
 
@@ -141,7 +166,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
               className="min-h-[48px] px-3 py-2 rounded-xl font-bold text-xs bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white flex items-center justify-center gap-2 border border-blue-400/50 shadow-md shadow-blue-950/60 cursor-pointer active:scale-95 transition-all"
             >
               <Zap className="w-4 h-4 text-amber-300" />
-              <span>Resolver Questões ({totalQuestoes})</span>
+              <span>Resolver ({totalQuestoes})</span>
             </button>
 
             <button
@@ -154,24 +179,6 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
               <span>Estudar Teoria</span>
             </button>
           </div>
-
-          {onAbrirGerador && (
-            <button
-              id="home-btn-gerador-ia"
-              type="button"
-              onClick={onAbrirGerador}
-              className="w-full py-2.5 px-3.5 rounded-xl font-bold text-xs bg-gradient-to-r from-amber-500/20 via-amber-500/30 to-amber-600/20 hover:from-amber-500/30 hover:to-amber-500/40 text-amber-300 flex items-center justify-between border border-amber-400/50 cursor-pointer active:scale-98 transition-all"
-            >
-              <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
-                <span className="text-left">
-                  <strong className="block text-white text-[11px]">Gerador de Questões Inéditas</strong>
-                  <span className="text-[10px] text-amber-200/80">Criar simulados por disciplina com IA</span>
-                </span>
-              </div>
-              <ArrowRight className="w-4 h-4 text-amber-400" />
-            </button>
-          )}
 
           {/* Cartão de Avaliação de Patente */}
           <div className="mt-4 pt-4 border-t border-blue-800/50">
@@ -218,6 +225,20 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
           </div>
         </div>
       </section>
+
+      {/* Painel de Gestão de Alta Performance & Metas Mensais */}
+      <PainelAltaPerformance
+        metaEstudo={metaEstudo}
+        configAltaPerformance={configAltaPerformance}
+        historicoRespostas={historicoRespostas}
+        todasQuestoes={questoes}
+        onAtualizarMeta={onAtualizarMeta}
+        onAtualizarConfig={onAtualizarConfig}
+        onIniciarTreinoCirurgico={onIniciarTreinoCirurgico}
+        onIniciarSimuladoOficial={onIniciarSimuladoOficial}
+        onIniciarMaratonaTurbo={onIniciarMaratonaTurbo}
+        onAbrirGeradorAvancado={(disc, ass, m) => onAbrirGerador && onAbrirGerador(disc, ass, m)}
+      />
 
       {/* Painel Principal de Métricas & Estatísticas */}
       <section

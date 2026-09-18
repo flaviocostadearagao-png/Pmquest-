@@ -10,10 +10,14 @@ import {
   BrainCircuit,
   Award,
   ChevronRight,
-  Flame
+  Flame,
+  Zap,
+  Target,
+  ShieldAlert,
+  Layers
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Questao } from '../types';
+import { Questao, ModoEstudo } from '../types';
 import { gerarQuestoesEdital } from '../lib/geminiQuestionService';
 import { useTheme } from '../context/ThemeContext';
 
@@ -22,6 +26,8 @@ interface GeradorQuestoesModalProps {
   onClose: () => void;
   disciplinaInicial?: string;
   assuntoInicial?: string;
+  modoInicial?: ModoEstudo;
+  errosUsuario?: Array<{ disciplina: string; assunto: string; totalErros: number }>;
   onQuestoesGeradas: (novasQuestoes: Questao[], disciplina: string) => void;
 }
 
@@ -92,10 +98,13 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
   onClose,
   disciplinaInicial,
   assuntoInicial,
+  modoInicial = 'padrao',
+  errosUsuario = [],
   onQuestoesGeradas,
 }) => {
   const { isDark } = useTheme();
 
+  const [modo, setModo] = useState<ModoEstudo>(modoInicial);
   const [disciplina, setDisciplina] = useState<string>(
     disciplinaInicial && DISCIPLINAS_EDITAL.includes(disciplinaInicial)
       ? disciplinaInicial
@@ -106,7 +115,7 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
       ? assuntoInicial
       : 'Geral (Todos os Assuntos)'
   );
-  const [quantidade, setQuantidade] = useState<number>(3);
+  const [quantidade, setQuantidade] = useState<number>(modoInicial === 'maratona' ? 5 : 3);
   const [dificuldade, setDificuldade] = useState<'Fácil' | 'Média' | 'Difícil'>('Média');
   const [banca, setBanca] = useState<string>('FCC / IBFC (Padrão PMBA)');
 
@@ -117,7 +126,21 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
 
   useEffect(() => {
     if (isOpen) {
-      if (disciplinaInicial && DISCIPLINAS_EDITAL.includes(disciplinaInicial)) {
+      if (modoInicial) {
+        setModo(modoInicial);
+        if (modoInicial === 'maratona') setQuantidade(5);
+        if (modoInicial === 'simulado_oficial') setQuantidade(8);
+        if (modoInicial === 'treino_cirurgico') {
+          setQuantidade(5);
+          setDificuldade('Difícil');
+          if (errosUsuario.length > 0) {
+            setDisciplina(errosUsuario[0].disciplina);
+            setAssunto(errosUsuario[0].assunto);
+          }
+        }
+      }
+
+      if (disciplinaInicial && DISCIPLINAS_EDITAL.includes(disciplinaInicial) && modoInicial !== 'treino_cirurgico') {
         setDisciplina(disciplinaInicial);
         if (assuntoInicial && assuntoInicial !== 'Todos os Assuntos') {
           setAssunto(assuntoInicial);
@@ -128,7 +151,7 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
       setQuestoesGeradasPreview(null);
       setErrorMessage(null);
     }
-  }, [isOpen, disciplinaInicial, assuntoInicial]);
+  }, [isOpen, disciplinaInicial, assuntoInicial, modoInicial, errosUsuario]);
 
   // When disciplina changes, reset suggested assunto
   const handleDisciplinaChange = (novaDisciplina: string) => {
@@ -144,12 +167,17 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
     setQuestoesGeradasPreview(null);
 
     try {
+      const discParaGerar = modo === 'simulado_oficial' ? 'Simulado Geral Oficial PMBA' : disciplina;
+      const assParaGerar = modo === 'simulado_oficial' ? 'Todas as Matérias do Edital' : (assunto.trim() || 'Edital PMBA');
+
       const response = await gerarQuestoesEdital({
-        disciplina,
-        assunto: assunto.trim() || 'Edital PMBA',
+        disciplina: discParaGerar,
+        assunto: assParaGerar,
         quantidade,
         dificuldade,
         banca,
+        modo: modo === 'caderno_erros' ? 'padrao' : modo,
+        errosRecentes: errosUsuario,
       });
 
       if (response && response.questoes && response.questoes.length > 0) {
@@ -168,7 +196,8 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
 
   const handleAdicionarAoSimulado = () => {
     if (!questoesGeradasPreview || questoesGeradasPreview.length === 0) return;
-    onQuestoesGeradas(questoesGeradasPreview, disciplina);
+    const discDestino = modo === 'simulado_oficial' ? questoesGeradasPreview[0]?.disciplina || disciplina : disciplina;
+    onQuestoesGeradas(questoesGeradasPreview, discDestino);
     onClose();
   };
 
@@ -198,13 +227,13 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <h3 className="text-sm font-bold leading-tight">Gerador de Questões com IA</h3>
-                <span className="text-[10px] uppercase font-extrabold bg-amber-500 text-slate-950 px-1.5 py-0.5 rounded-full">
-                  Edital PMBA
+                <h3 className="text-sm font-bold leading-tight">Gerador de Questões IA</h3>
+                <span className="text-[10px] uppercase font-extrabold bg-blue-600 text-white px-1.5 py-0.5 rounded-full">
+                  ALTO RENDIMENTO
                 </span>
               </div>
               <p className={`text-[11px] ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
-                Expanda seu banco com questões inéditas e fundamentadas
+                Inéditas, gabaritadas e calibradas com o edital PMBA
               </p>
             </div>
           </div>
@@ -221,6 +250,122 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
 
         {/* Modal Body */}
         <div className="p-4 overflow-y-auto space-y-4 flex-1">
+          {/* Study Mode Selector Tabs */}
+          <div className="space-y-1.5">
+            <label className={`text-[11px] font-bold uppercase tracking-wider block ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+              Modo de Treinamento
+            </label>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 text-xs font-bold">
+              <button
+                type="button"
+                onClick={() => {
+                  setModo('padrao');
+                  setQuantidade(3);
+                }}
+                className={`p-2 rounded-xl border flex flex-col items-center gap-1 text-center transition-all cursor-pointer ${
+                  modo === 'padrao'
+                    ? 'bg-blue-600 text-white border-blue-500 shadow-sm'
+                    : isDark
+                    ? 'bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200'
+                    : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200'
+                }`}
+              >
+                <Target className="w-4 h-4" />
+                <span className="text-[10px] leading-tight">Padrão</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setModo('maratona');
+                  setQuantidade(5);
+                }}
+                className={`p-2 rounded-xl border flex flex-col items-center gap-1 text-center transition-all cursor-pointer ${
+                  modo === 'maratona'
+                    ? 'bg-blue-600 text-white border-blue-500 shadow-sm'
+                    : isDark
+                    ? 'bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200'
+                    : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200'
+                }`}
+              >
+                <Flame className="w-4 h-4 text-amber-400" />
+                <span className="text-[10px] leading-tight">Maratona</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setModo('treino_cirurgico');
+                  setQuantidade(5);
+                  setDificuldade('Difícil');
+                  if (errosUsuario.length > 0) {
+                    setDisciplina(errosUsuario[0].disciplina);
+                    setAssunto(errosUsuario[0].assunto);
+                  }
+                }}
+                className={`p-2 rounded-xl border flex flex-col items-center gap-1 text-center transition-all cursor-pointer ${
+                  modo === 'treino_cirurgico'
+                    ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-sm'
+                    : isDark
+                    ? 'bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200'
+                    : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200'
+                }`}
+              >
+                <Zap className="w-4 h-4" />
+                <span className="text-[10px] leading-tight">Cirúrgico</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setModo('simulado_oficial');
+                  setQuantidade(8);
+                }}
+                className={`p-2 rounded-xl border flex flex-col items-center gap-1 text-center transition-all cursor-pointer ${
+                  modo === 'simulado_oficial'
+                    ? 'bg-indigo-600 text-white border-indigo-500 shadow-sm'
+                    : isDark
+                    ? 'bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200'
+                    : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200'
+                }`}
+              >
+                <Award className="w-4 h-4" />
+                <span className="text-[10px] leading-tight">Simulado</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Mode Explanatory Pill */}
+          {modo === 'treino_cirurgico' && (
+            <div className={`p-3 rounded-2xl border text-xs space-y-1.5 ${
+              isDark ? 'bg-amber-950/20 border-amber-900/40 text-amber-200' : 'bg-amber-50 border-amber-200 text-amber-900'
+            }`}>
+              <div className="flex items-center gap-1.5 font-bold">
+                <Zap className="w-3.5 h-3.5 text-amber-500" />
+                <span>Treino Cirúrgico IA Ativo</span>
+              </div>
+              <p className="text-[11px] leading-relaxed">
+                {errosUsuario.length > 0
+                  ? `A IA analisou seus erros recentes e focará nas suas maiores fraquezas (${errosUsuario[0].disciplina} - ${errosUsuario[0].assunto}).`
+                  : 'Geração com nível Difícil abordando pegadinhas recorrentes da banca para blindar sua pontuação.'}
+              </p>
+            </div>
+          )}
+
+          {modo === 'simulado_oficial' && (
+            <div className={`p-3 rounded-2xl border text-xs space-y-1 ${
+              isDark ? 'bg-indigo-950/20 border-indigo-900/40 text-indigo-200' : 'bg-indigo-50 border-indigo-200 text-indigo-900'
+            }`}>
+              <div className="flex items-center gap-1.5 font-bold">
+                <Award className="w-3.5 h-3.5 text-indigo-400" />
+                <span>Simulado Oficial PMBA Balanceado</span>
+              </div>
+              <p className="text-[11px] leading-relaxed">
+                A IA distribuirá as questões equilibradamente entre Constitucional, Direitos Humanos, História da Bahia, Penal e Português.
+              </p>
+            </div>
+          )}
+
           {questoesGeradasPreview ? (
             /* Result Preview Screen */
             <div className="space-y-4">
@@ -317,87 +462,90 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
           ) : (
             /* Form Configuration */
             <div className="space-y-3.5">
-              {/* Disciplina Selector */}
-              <div>
-                <label className={`text-[11px] font-bold uppercase tracking-wider block mb-1.5 ${
-                  isDark ? 'text-slate-300' : 'text-slate-700'
-                }`}>
-                  1. Disciplina do Edital
-                </label>
-                <select
-                  id="select-gerador-disciplina"
-                  value={disciplina}
-                  onChange={(e) => handleDisciplinaChange(e.target.value)}
-                  disabled={true}
-                  className={`w-full text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-amber-500 font-medium opacity-80 cursor-not-allowed ${
-                    isDark
-                      ? 'bg-slate-950 text-slate-200 border border-slate-700'
-                      : 'bg-slate-50 text-slate-900 border border-slate-300'
-                  }`}
-                >
-                  {DISCIPLINAS_EDITAL.map((d) => (
-                    <option key={d} value={d}>
-                      {d}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Quick Topic Chips */}
-              <div>
-                <label className={`text-[11px] font-bold uppercase tracking-wider block mb-1.5 ${
-                  isDark ? 'text-slate-300' : 'text-slate-700'
-                }`}>
-                  2. Tópicos Frequentes no Concurso PMBA
-                </label>
-                <div className="flex flex-wrap gap-1.5 mb-2">
-                  <button
-                    type="button"
-                    onClick={() => setAssunto('Geral (Todos os Assuntos)')}
-                    className={`text-[11px] text-left px-2.5 py-1.5 rounded-lg border transition-all cursor-pointer ${
-                      assunto === 'Geral (Todos os Assuntos)'
-                        ? 'bg-amber-500 text-slate-950 font-bold border-amber-400 shadow-sm'
-                        : isDark
-                        ? 'bg-slate-950/80 text-slate-300 border-slate-800 hover:border-slate-700'
-                        : 'bg-slate-100 text-slate-700 border-slate-200 hover:border-slate-300'
+              {/* Disciplina Selector (only if not full simulado) */}
+              {modo !== 'simulado_oficial' && (
+                <div>
+                  <label className={`text-[11px] font-bold uppercase tracking-wider block mb-1.5 ${
+                    isDark ? 'text-slate-300' : 'text-slate-700'
+                  }`}>
+                    1. Disciplina do Edital
+                  </label>
+                  <select
+                    id="select-gerador-disciplina"
+                    value={disciplina}
+                    onChange={(e) => handleDisciplinaChange(e.target.value)}
+                    className={`w-full text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-amber-500 font-medium cursor-pointer ${
+                      isDark
+                        ? 'bg-slate-950 text-slate-200 border border-slate-700'
+                        : 'bg-slate-50 text-slate-900 border border-slate-300'
                     }`}
                   >
-                    Geral (Todos os Assuntos)
-                  </button>
-                  {(SUGESTOES_ASSUNTOS[disciplina] || []).map((sugestao) => {
-                    const isSelected = assunto === sugestao;
-                    return (
-                      <button
-                        key={sugestao}
-                        type="button"
-                        onClick={() => setAssunto(sugestao)}
-                        className={`text-[11px] text-left px-2.5 py-1.5 rounded-lg border transition-all cursor-pointer ${
-                          isSelected
-                            ? 'bg-amber-500 text-slate-950 font-bold border-amber-400 shadow-sm'
-                            : isDark
-                            ? 'bg-slate-950/80 text-slate-300 border-slate-800 hover:border-slate-700'
-                            : 'bg-slate-100 text-slate-700 border-slate-200 hover:border-slate-300'
-                        }`}
-                      >
-                        {sugestao}
-                      </button>
-                    );
-                  })}
+                    {DISCIPLINAS_EDITAL.map((d) => (
+                      <option key={d} value={d}>
+                        {d}
+                      </option>
+                    ))}
+                  </select>
                 </div>
+              )}
 
-                {/* Custom Topic Input */}
-                <input
-                  type="text"
-                  value={assunto}
-                  onChange={(e) => setAssunto(e.target.value)}
-                  placeholder="Ou digite um assunto específico (ex: Art. 5º, XI da CF/88)"
-                  className={`w-full text-xs rounded-xl px-3 py-2 focus:outline-none focus:border-amber-500 ${
-                    isDark
-                      ? 'bg-slate-950 text-slate-200 border border-slate-700'
-                      : 'bg-slate-50 text-slate-900 border border-slate-300'
-                  }`}
-                />
-              </div>
+              {/* Quick Topic Chips (only if not full simulado) */}
+              {modo !== 'simulado_oficial' && (
+                <div>
+                  <label className={`text-[11px] font-bold uppercase tracking-wider block mb-1.5 ${
+                    isDark ? 'text-slate-300' : 'text-slate-700'
+                  }`}>
+                    2. Tópicos Frequentes no Concurso PMBA
+                  </label>
+                  <div className="flex flex-wrap gap-1.5 mb-2">
+                    <button
+                      type="button"
+                      onClick={() => setAssunto('Geral (Todos os Assuntos)')}
+                      className={`text-[11px] text-left px-2.5 py-1.5 rounded-lg border transition-all cursor-pointer ${
+                        assunto === 'Geral (Todos os Assuntos)'
+                          ? 'bg-amber-500 text-slate-950 font-bold border-amber-400 shadow-sm'
+                          : isDark
+                          ? 'bg-slate-950/80 text-slate-300 border-slate-800 hover:border-slate-700'
+                          : 'bg-slate-100 text-slate-700 border-slate-200 hover:border-slate-300'
+                      }`}
+                    >
+                      Geral (Todos os Assuntos)
+                    </button>
+                    {(SUGESTOES_ASSUNTOS[disciplina] || []).map((sugestao) => {
+                      const isSelected = assunto === sugestao;
+                      return (
+                        <button
+                          key={sugestao}
+                          type="button"
+                          onClick={() => setAssunto(sugestao)}
+                          className={`text-[11px] text-left px-2.5 py-1.5 rounded-lg border transition-all cursor-pointer ${
+                            isSelected
+                              ? 'bg-amber-500 text-slate-950 font-bold border-amber-400 shadow-sm'
+                              : isDark
+                              ? 'bg-slate-950/80 text-slate-300 border-slate-800 hover:border-slate-700'
+                              : 'bg-slate-100 text-slate-700 border-slate-200 hover:border-slate-300'
+                          }`}
+                        >
+                          {sugestao}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Custom Topic Input */}
+                  <input
+                    type="text"
+                    value={assunto}
+                    onChange={(e) => setAssunto(e.target.value)}
+                    placeholder="Ou digite um assunto específico (ex: Art. 5º, XI da CF/88)"
+                    className={`w-full text-xs rounded-xl px-3 py-2 focus:outline-none focus:border-amber-500 ${
+                      isDark
+                        ? 'bg-slate-950 text-slate-200 border border-slate-700'
+                        : 'bg-slate-50 text-slate-900 border border-slate-300'
+                    }`}
+                  />
+                </div>
+              )}
 
               {/* Quantidade e Dificuldade Row */}
               <div className="grid grid-cols-2 gap-2.5">
@@ -405,10 +553,10 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
                   <label className={`text-[11px] font-bold uppercase tracking-wider block mb-1.5 ${
                     isDark ? 'text-slate-300' : 'text-slate-700'
                   }`}>
-                    Quantidade
+                    Quantidade de Questões
                   </label>
                   <div className="flex gap-1">
-                    {[2, 3, 5].map((qtd) => (
+                    {[3, 5, 10].map((qtd) => (
                       <button
                         key={qtd}
                         type="button"
@@ -444,7 +592,7 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
                   >
                     <option value="Fácil">Fácil</option>
                     <option value="Média">Média (Padrão PMBA)</option>
-                    <option value="Difícil">Difícil</option>
+                    <option value="Difícil">Difícil (Pegadinhas da Banca)</option>
                   </select>
                 </div>
               </div>
@@ -471,8 +619,6 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
                   <option value="CESPE / Cebraspe">CESPE / Cebraspe (Múltipla Escolha)</option>
                   <option value="VUNESP">VUNESP</option>
                   <option value="AOCP">Instituto AOCP</option>
-                  <option value="FGV">Fundação Getulio Vargas (FGV)</option>
-                  <option value="UNEB">UNEB (Universidade do Estado da Bahia)</option>
                   <option value="Simulado Tático PMBA">Simulado Tático PMBA (Situações de Ronda)</option>
                 </select>
               </div>
@@ -501,12 +647,18 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
                   {isLoading ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin text-slate-950" />
-                      <span>Gerando {quantidade} questões com IA...</span>
+                      <span>Gerando {quantidade} questões com IA em alta performance...</span>
                     </>
                   ) : (
                     <>
                       <BrainCircuit className="w-4 h-4" />
-                      <span>Gerar {quantidade} Questões para {disciplina}</span>
+                      <span>
+                        {modo === 'simulado_oficial'
+                          ? `Gerar Simulado Completo PMBA (${quantidade} questões)`
+                          : modo === 'treino_cirurgico'
+                          ? `Gerar Treino Cirúrgico IA (${quantidade} questões)`
+                          : `Gerar ${quantidade} Questões para ${disciplina}`}
+                      </span>
                     </>
                   )}
                 </button>
@@ -518,3 +670,4 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
     </div>
   );
 };
+

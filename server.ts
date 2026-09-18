@@ -30,7 +30,9 @@ app.post('/api/gerar-questoes', async (req: Request, res: Response) => {
     assunto = 'Artigo 5º e 144 da CF/88',
     quantidade = 3,
     dificuldade = 'Média',
-    banca = 'IBFC / FCC (Padrão PMBA)'
+    banca = 'IBFC / FCC (Padrão PMBA)',
+    modo = 'padrao', // 'padrao' | 'maratona' | 'treino_cirurgico' | 'simulado_oficial'
+    errosRecentes = [] // array of { disciplina, assunto, totalErros }
   } = req.body || {};
 
   const numQuestoes = Math.min(Math.max(Number(quantidade) || 3, 1), 10);
@@ -44,16 +46,32 @@ app.post('/api/gerar-questoes', async (req: Request, res: Response) => {
 
   try {
     const seedAleatoria = Date.now() + Math.random().toString(36).substring(7);
-    const prompt = `Você é uma banca examinadora pedagógica de alto nível para o concurso de Soldado da Polícia Militar da Bahia (PMBA).
+    
+    let instrucaoModo = '';
+    if (modo === 'treino_cirurgico' && Array.isArray(errosRecentes) && errosRecentes.length > 0) {
+      const listaErros = errosRecentes.map(e => `- ${e.disciplina} -> ${e.assunto} (${e.totalErros} erros)`).join('\n');
+      instrucaoModo = `\n[MODO TREINO CIRÚRGICO DE ALTA PERFORMANCE]:\nO aluno errou frequentemente os seguintes tópicos:\n${listaErros}\nCrie questões focadas EXATAMENTE nas pegadinhas, exceções e minúcias desses pontos fracos para consolidação imediata da aprendizagem.`;
+    } else if (modo === 'maratona') {
+      instrucaoModo = `\n[MODO MARATONA DE ALTA VELOCIDADE]:\nQuestões dinâmicas, com enunciados objetivos e contextualizados com o cotidiano da Polícia Militar da Bahia. Comentários diretos e com Bizus PMBA memoráveis.`;
+    } else if (modo === 'simulado_oficial') {
+      instrucaoModo = `\n[MODO SIMULADO OFICIAL PMBA]:\nDistribua as questões entre diferentes matérias do edital da PMBA (Constitucional, Administrativo, Penal, Direitos Humanos, Igualdade Racial, História/Geografia da Bahia e Língua Portuguesa) simulando fielmente a prova real.`;
+    }
+
+    const prompt = `Você é o Coordenador Pedagógico e Examinador de Alta Performance para o concurso de Soldado da Polícia Militar da Bahia (PMBA).
 [SEED DE VARIABILIDADE: ${seedAleatoria}] - Use essa semente para gerar um ângulo completamente novo!
+${instrucaoModo}
 
 Gere exatamente ${numQuestoes} questões INÉDITAS, AUTÊNTICAS e EXCLUSIVAS de múltipla escolha no estilo da banca: ${banca}.
-ATENÇÃO: Mesmo que a banca escolhida não seja a padrão do concurso, as questões DEVEM ser estritamente baseadas e adaptadas aos tópicos do edital da PMBA (Lei nº 7.990/2001, Lei nº 13.201/2015, Decreto nº 14.224/2012, CF/88, etc).
+ATENÇÃO: Mesmo que a banca escolhida não seja a padrão do concurso, as questões DEVEM ser estritamente baseadas e adaptadas aos tópicos do edital da PMBA (Lei nº 7.990/2001, Lei nº 13.201/2015, Decreto nº 14.224/2012, CF/88, CP, etc).
 
-INSTRUÇÕES CRÍTICAS PARA EVITAR REPETIÇÃO:
-1. NUNCA gere questões parecidas com as mais óbvias ou comuns. Explore artigos escondidos, jurisprudências (quando aplicável ao assunto), ou situações práticas do dia a dia policial (casos hipotéticos de policiamento ostensivo, abordagens, hierarquia e disciplina).
-2. Para evitar repetições, garanta que CADA questão abordada nesta resposta teste um artigo, inciso ou conceito TOTALMENTE DIFERENTE dentro de "${assunto}". 
-3. Varie o formato das questões: faça algumas diretas (letra da lei), outras situacionais (fictícias envolvendo o Soldado PM João, etc), e outras de "V ou F" adaptadas para múltipla escolha.
+INSTRUÇÕES CRÍTICAS PARA ESTUDANTE DE ALTO RENDIMENTO (MILHARES DE QUESTÕES):
+1. NUNCA gere questões óbvias ou repetitivas. Explore artigos secundários, prazos, competências, exceções legais, jurisprudência do STF/STJ aplicada e situações práticas do policiamento ostensivo baiano.
+2. Cada questão DEVE abordar um ponto de lei, conceito ou regra TOTALMENTE DIFERENTE.
+3. Elabore comentários pedagógicos aprofundados com:
+   - Análise geral fundamentada;
+   - Justificativa individual para CADA uma das 5 alternativas (A, B, C, D, E);
+   - Bizu PMBA mnemônico prático para memorização rápida;
+   - Artigos de lei citados.
 
 Disciplina: ${disciplina}
 Assunto: ${assunto}
@@ -62,6 +80,8 @@ Dificuldade: ${dificuldade}
 Retorne ESTRITAMENTE um array JSON puro (sem markdown ou texto extra) onde cada elemento segue esta estrutura:
 [
   {
+    "disciplina": "${disciplina}",
+    "assunto": "${assunto}",
     "enunciado": "Texto da questão contextualizada com situação de serviço ou caso prático policial...",
     "alternativas": [
       { "id": "A", "texto": "..." },
@@ -88,9 +108,9 @@ Retorne ESTRITAMENTE um array JSON puro (sem markdown ou texto extra) onde cada 
   }
 ]`;
 
-    // Strict timeout promise (8.5s) to guarantee the server never hangs on external API delays
+    // Generous timeout promise (25s) to guarantee high-quality generation without dropping to fallback
     const timeoutPromise = new Promise<never>((_, reject) => {
-      setTimeout(() => reject(new Error('TIMEOUT_GEMINI_API')), 8500);
+      setTimeout(() => reject(new Error('TIMEOUT_GEMINI_API')), 25000);
     });
 
     const aiCall = ai.models.generateContent({
@@ -98,7 +118,7 @@ Retorne ESTRITAMENTE um array JSON puro (sem markdown ou texto extra) onde cada 
       contents: prompt,
       config: {
         responseMimeType: 'application/json',
-        temperature: 0.85
+        temperature: 0.95
       }
     });
 
@@ -252,7 +272,7 @@ Comando recebido: ${comando}`;
 
   try {
     const aiCall = ai.models.generateContent({
-      model: 'gemini-3.8-flash',
+      model: 'gemini-2.5-flash',
       contents: systemInstruction,
       config: {
         responseMimeType: 'application/json',
