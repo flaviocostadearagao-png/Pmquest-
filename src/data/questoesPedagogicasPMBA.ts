@@ -741,12 +741,116 @@ export const BANCO_PEDAGOGICO_COMPLETO_PMBA: Questao[] = [
       bizuPMBA: 'Bizu PMBA História da Bahia: Inconfidência Mineira = Elite letrada (sem abolir escravidão). Revolta dos Alfaiates (Bahia) = Popular, soldados e escravizados (queriam fim da escravidão)!',
       artigosCitados: ['História da Bahia - Movimentos Separatistas']
     }
+  },
+  {
+    id: 'ped-penal-02',
+    numero: 205,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2024,
+    disciplina: 'Direito Penal',
+    assunto: 'Exclusão de Ilicitude - Legítima Defesa (Art. 25 do CP)',
+    dificuldade: 'Média',
+    enunciado: 'Durante patrulhamento, um policial militar é surpreendido por um indivíduo que, armado com uma faca, avança rapidamente para desferir golpes letais contra ele. O policial repele a agressão injusta, atual e iminente, utilizando moderadamente os meios necessários para neutralizar a ameaça. Conforme o Código Penal brasileiro, o policial:',
+    alternativas: [
+      { id: 'A', texto: 'Incorre em crime de homicídio tentado, pois deveria ter efetuado disparo de advertência nas pernas.' },
+      { id: 'B', texto: 'Agiu em legítima defesa, causa de exclusão da ilicitude (antijuridicidade).' },
+      { id: 'C', texto: 'Cometeu excesso punível, respondendo por lesão corporal culposa.' },
+      { id: 'D', texto: 'Praticou crime de abuso de autoridade, visto que a reação policial deve ser sempre proporcional ao número de agressores.' },
+      { id: 'E', texto: 'Atuou amparado pelo estrito cumprimento de dever legal, mas sem excluir a culpabilidade.' }
+    ],
+    respostaCorreta: 'B',
+    comentario: {
+      professor: 'Cap. PMBA Fernando Rocha',
+      cargo: 'Direito Penal',
+      analiseGeral: 'A legítima defesa (Art. 25 do CP) exclui a ilicitude do fato quando alguém, usando moderadamente dos meios necessários, repele injusta agressão, atual ou iminente, a direito seu ou de outrem.',
+      justificativaAlternativas: {
+        A: 'Incorreta. O policial não tem obrigação legal de atirar nas pernas em agressão letal iminente.',
+        B: 'CORRETA. Preenchidos todos os requisitos da legítima defesa.',
+        C: 'Incorreta. Houve uso moderado dos meios necessários sem excesso.',
+        D: 'Incorreta. Abusos não se configuram na legítima defesa legítima e proporcional.',
+        E: 'Incorreta. A legítima defesa é excludente de ilicitude, não apenas de culpabilidade.'
+      },
+      bizuPMBA: 'Bizu PMBA: Agressão Injusta, Atual ou Iminente + Meios Necessários Usados Moderadamente = Legítima Defesa!',
+      artigosCitados: ['Código Penal, Arts. 23, II e 25']
+    }
+  },
+  {
+    id: 'ped-penal-03',
+    numero: 206,
+    banca: 'FCC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2024,
+    disciplina: 'Direito Penal',
+    assunto: 'Tentativa e Consumação (Art. 14, II do CP)',
+    dificuldade: 'Difícil',
+    enunciado: 'Um agente desfechar dois tiros de revólver contra seu desafeto, errando o alvo por inabilidade no manuseio da arma, momento em que a Polícia Militar intervém e prende o atirador em flagrante. Nos termos do Código Penal, o fato caracteriza:',
+    alternativas: [
+      { id: 'A', texto: 'Crime impossível por ineficácia absoluta do meio.' },
+      { id: 'B', texto: 'Tentativa perfeita ou crime falho.' },
+      { id: 'C', texto: 'Tentativa (crime tentado), pois a execução foi iniciada, mas não se consumou por circunstâncias alheias à vontade do agente.' },
+      { id: 'D', texto: 'Desistência voluntária, isentando o agente de pena.' },
+      { id: 'E', texto: 'Crime consumado de perigo comum.' }
+    ],
+    respostaCorreta: 'C',
+    comentario: {
+      professor: 'Dr. Criminalista Silva',
+      cargo: 'Direito Penal',
+      analiseGeral: 'Diz-se tentado o crime quando, iniciada a execução, não se consuma por circunstâncias alheias à vontade do agente (Art. 14, II, do CP).',
+      justificativaAlternativas: {
+        A: 'Incorreta. A arma era plenamente eficaz (munição real e funcionamento perfeito).',
+        B: 'Incorreta. Crime falho ocorre quando o agente esgota os meios de execução e o crime não se consuma.',
+        C: 'CORRETA. Definição legal exata de crime tentado.',
+        D: 'Incorreta. A interrupção não foi voluntária, mas decorreu da intervenção policial.',
+        E: 'Incorreta. O crime visado era homicídio, não crime de perigo comum.'
+      },
+      bizuPMBA: 'Bizu PMBA: Começou a executar e a polícia prendeu ou a vítima desviou = Tentativa (Art. 14, II)!',
+      artigosCitados: ['Código Penal, Art. 14, inciso II']
+    }
+  },
+  {
+    id: 'ped-penal-04',
+    numero: 207,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2024,
+    disciplina: 'Direito Penal',
+    assunto: 'Crimes contra o Patrimônio - Roubo vs Furto (Arts. 155 e 157 do CP)',
+    dificuldade: 'Média',
+    enunciado: 'Durante o patrulhamento ostensivo, uma guarnição da PMBA detém indivíduo que abordou pedestre na via pública empregando grave ameaça com simulação de arma de fogo sob a camisa, subtraindo seu telefone celular. O fato juridicamente configura:',
+    alternativas: [
+      { id: 'A', texto: 'Crime de furto qualificado pelo concurso de pessoas.' },
+      { id: 'B', texto: 'Crime de roubo simples (Art. 157, caput, do Código Penal).' },
+      { id: 'C', texto: 'Contravenção penal de vias de fato.' },
+      { id: 'D', texto: 'Crime de extorsão mediante sequestro relâmpago.' },
+      { id: 'E', texto: 'Apenas exercício arbitrário pelas próprias razões.' }
+    ],
+    respostaCorreta: 'B',
+    comentario: {
+      professor: 'Cap. PMBA Fernando Rocha',
+      cargo: 'Direito Penal',
+      analiseGeral: 'Subtrair coisa móvel alheia, para si ou para outrem, mediante grave ameaça ou violência a pessoa, é o tipo penal do roubo (Art. 157 do CP). A simulação de arma de fogo caracteriza a grave ameaça.',
+      justificativaAlternativas: {
+        A: 'Incorreta. Furto não envolve violência ou grave ameaça à pessoa.',
+        B: 'CORRETA. Emprego de grave ameaça para subtração caracteriza roubo.',
+        C: 'Incorreta. Houve subtração patrimonial com grave ameaça.',
+        D: 'Incorreta. Não houve privação de liberdade da vítima para exigir vantagem econômica.',
+        E: 'Incorreta. Crime patrimonial típico.'
+      },
+      bizuPMBA: 'Bizu PMBA: Subtração com violência ou grave ameaça (mesmo com simulacro) = ROUBO! Subtração sem violência = FURTO!',
+      artigosCitados: ['Código Penal, Art. 157']
+    }
   }
 ];
 
 // Helper to normalize discipline names
 function normalizeDisciplina(d: string): string {
   const s = d.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  if (s.includes('penal militar') || s.includes('militar')) return 'penalmilitar';
+  if (s.includes('penal')) return 'penal';
   if (s.includes('constitucional')) return 'constitucional';
   if (s.includes('igualdade') || s.includes('racial') || s.includes('genero') || s.includes('raca')) return 'igualdade';
   if (s.includes('historia')) return 'historia';
@@ -754,7 +858,6 @@ function normalizeDisciplina(d: string): string {
   if (s.includes('portugues') || s.includes('lingua')) return 'portugues';
   if (s.includes('humano')) return 'humanos';
   if (s.includes('geografia')) return 'geografia';
-  if (s.includes('penal')) return 'penal';
   return s.trim();
 }
 
@@ -806,11 +909,12 @@ export function gerarQuestoesPedagogicas(
   });
 
   const timestamp = Date.now();
-  const qtd = Math.min(Math.max(quantidade, 1), 10);
+  // CRITICAL: Only take up to pool.length distinct items to NEVER repeat the same question in a single batch
+  const maxAvailable = Math.min(quantidade, pool.length);
   const resultado: Questao[] = [];
 
-  for (let i = 0; i < qtd; i++) {
-    const base = pool[i % pool.length];
+  for (let i = 0; i < maxAvailable; i++) {
+    const base = pool[i];
     USED_QUESTION_IDS.add(base.id);
 
     const uniqueId = `q-ped-pmba-${timestamp}-${Math.random().toString(36).substring(2, 7)}-${i + 1}`;
