@@ -127,16 +127,16 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
   return (
     <div className="w-full max-w-md mx-auto space-y-4 pb-20">
       {/* Banner Principal de Boas-Vindas da PMBA */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0c2242] via-[#091b33] to-[#040c17] border border-blue-800/50 p-4 sm:p-5 shadow-xl text-white">
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-tactical-800 via-tactical-900 to-tactical-950 border border-tactical-700/50 p-4 sm:p-5 shadow-xl text-white">
         {/* Glow effect */}
-        <div className="absolute top-0 right-0 w-36 h-36 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
-        <div className="absolute -bottom-10 -left-10 w-36 h-36 bg-blue-600/15 rounded-full blur-2xl pointer-events-none" />
+        <div className="absolute top-0 right-0 w-36 h-36 bg-tactical-accent/10 rounded-full blur-2xl pointer-events-none" />
+        <div className="absolute -bottom-10 -left-10 w-36 h-36 bg-tactical-sand/15 rounded-full blur-2xl pointer-events-none" />
 
         <div className="relative z-10 space-y-3">
           {/* Badge Concurso & Theme Quick Indicator */}
           <div className="flex items-center justify-between gap-2">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-950/90 text-amber-400 border border-amber-500/40 text-[11px] font-extrabold uppercase tracking-wide">
-              <Shield className="w-3.5 h-3.5 fill-amber-400" />
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-tactical-950/90 text-tactical-accent border border-tactical-accent/40 text-[11px] font-extrabold uppercase tracking-wide">
+              <Shield className="w-3.5 h-3.5 fill-tactical-accent" />
               Edital Soldado PMBA
             </span>
 
@@ -145,10 +145,10 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
               <span
                 className={`w-2 h-2 rounded-full ${
                   cloudSyncStatus === 'synced'
-                    ? 'bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]'
+                    ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]'
                     : cloudSyncStatus === 'syncing'
-                    ? 'bg-amber-400 animate-ping'
-                    : 'bg-slate-400'
+                    ? 'bg-tactical-accent animate-ping'
+                    : 'bg-slate-500'
                 }`}
               />
               <span>
@@ -165,7 +165,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
             <h2 className="text-lg sm:text-xl font-extrabold text-white tracking-tight">
               Central de Alta Performance PMBA
             </h2>
-            <p className="text-xs text-slate-300 leading-relaxed mt-0.5">
+            <p className="text-xs text-slate-400 leading-relaxed mt-0.5">
               Gestão inteligente com IA para alto volume, treino cirúrgico de erros e simulados oficiais.
             </p>
           </div>
@@ -176,9 +176,9 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
               id="home-btn-iniciar-questoes"
               type="button"
               onClick={onIniciarQuestoes}
-              className="min-h-[48px] px-3 py-2 rounded-xl font-bold text-xs bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white flex items-center justify-center gap-2 border border-blue-400/50 shadow-md shadow-blue-950/60 cursor-pointer active:scale-95 transition-all"
+              className="min-h-[48px] px-3 py-2 rounded-xl font-bold text-xs bg-gradient-to-r from-tactical-700 to-tactical-800 hover:from-tactical-600 hover:to-tactical-700 text-white flex items-center justify-center gap-2 border border-tactical-500/30 shadow-md shadow-black/40 cursor-pointer active:scale-95 transition-all"
             >
-              <Zap className="w-4 h-4 text-amber-300" />
+              <Zap className="w-4 h-4 text-tactical-accent" />
               <span>Resolver ({totalQuestoes})</span>
             </button>
 
@@ -186,9 +186,9 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
               id="home-btn-iniciar-teoria"
               type="button"
               onClick={onEstudarTeoria}
-              className="min-h-[48px] px-3 py-2 rounded-xl font-bold text-xs bg-white/10 hover:bg-white/20 text-amber-300 flex items-center justify-center gap-2 border border-amber-500/40 cursor-pointer active:scale-95 transition-all"
+              className="min-h-[48px] px-3 py-2 rounded-xl font-bold text-xs bg-white/5 hover:bg-white/10 text-tactical-accent flex items-center justify-center gap-2 border border-tactical-accent/20 cursor-pointer active:scale-95 transition-all"
             >
-              <BookOpen className="w-4 h-4 text-amber-400" />
+              <BookOpen className="w-4 h-4 text-tactical-accent" />
               <span>Estudar Teoria</span>
             </button>
           </div>
@@ -199,9 +199,9 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
               id="home-btn-download-zip"
               href="/api/download-zip"
               download="simulado-pmba-projeto.zip"
-              className="w-full min-h-[42px] px-3 py-2 rounded-xl font-bold text-xs bg-gradient-to-r from-cyan-950/80 to-slate-900 text-cyan-300 hover:text-cyan-200 flex items-center justify-center gap-2 border border-cyan-500/40 cursor-pointer active:scale-95 transition-all"
+              className="w-full min-h-[42px] px-3 py-2 rounded-xl font-bold text-xs bg-gradient-to-r from-tactical-900 to-tactical-950 text-tactical-accent hover:text-white flex items-center justify-center gap-2 border border-tactical-700/40 cursor-pointer active:scale-95 transition-all"
             >
-              <Download className="w-4 h-4 text-cyan-400" />
+              <Download className="w-4 h-4 text-tactical-accent" />
               <span>Baixar Projeto Completo em ZIP (Mobile)</span>
             </a>
           </div>
@@ -212,14 +212,14 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
               id="home-btn-ia-o-que-estudar"
               type="button"
               onClick={() => setModalIaOQueEstudarAberto(true)}
-              className="w-full min-h-[48px] px-3.5 py-2.5 rounded-xl font-black text-xs bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 hover:from-amber-300 hover:to-yellow-300 text-slate-950 flex items-center justify-between border border-amber-200 shadow-lg shadow-amber-500/25 active:scale-[0.98] transition-all cursor-pointer group"
+              className="w-full min-h-[48px] px-3.5 py-2.5 rounded-xl font-black text-xs bg-gradient-to-r from-tactical-accent via-tactical-sand to-tactical-accent hover:brightness-110 text-slate-950 flex items-center justify-between border border-tactical-sand/50 shadow-lg shadow-black/25 active:scale-[0.98] transition-all cursor-pointer group"
             >
               <div className="flex items-center gap-2.5">
                 <div className="w-7 h-7 rounded-lg bg-slate-950/15 flex items-center justify-center text-slate-950 group-hover:scale-110 transition-transform">
                   <Sparkles className="w-4 h-4 fill-slate-950" />
                 </div>
                 <div className="text-left">
-                  <span className="block font-black text-[13px] tracking-tight text-slate-950">
+                  <span className="block font-black text-[13px] tracking-tight text-slate-950 uppercase">
                     IA, o que estudar?
                   </span>
                   <span className="block text-[10px] font-semibold text-slate-900/80 -mt-0.5">
@@ -237,18 +237,18 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
           </div>
 
           {/* Cartão de Avaliação de Patente */}
-          <div className="mt-4 pt-4 border-t border-blue-800/50">
+          <div className="mt-4 pt-4 border-t border-tactical-700/50">
             <div className="flex justify-between items-center mb-3">
               <div className="flex items-center gap-2">
-                <Award className="w-4 h-4 text-amber-400" />
-                <span className="text-xs font-bold uppercase tracking-wider text-amber-400">
+                <Award className="w-4 h-4 text-tactical-accent" />
+                <span className="text-xs font-bold uppercase tracking-wider text-tactical-accent">
                   Sua Patente: {patenteFeedback?.nova_patente || 'Civil (Em treinamento)'}
                 </span>
               </div>
               <button
                 onClick={avaliarPatente}
                 disabled={isEvaluatingRank}
-                className="text-[10px] flex items-center gap-1 bg-blue-900/50 hover:bg-blue-800/80 border border-blue-700/50 px-2.5 py-1 rounded-lg text-slate-200 transition-colors"
+                className="text-[10px] flex items-center gap-1 bg-tactical-800/50 hover:bg-tactical-800 border border-tactical-700/50 px-2.5 py-1 rounded-lg text-slate-300 transition-colors"
               >
                 {isEvaluatingRank ? (
                   <RefreshCw className="w-3 h-3 animate-spin" />

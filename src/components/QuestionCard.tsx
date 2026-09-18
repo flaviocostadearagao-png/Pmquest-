@@ -751,7 +751,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
         id={`card-questao-${currentQuestao.id}`}
         className={`rounded-2xl border shadow-xl overflow-hidden transition-colors ${
           isDark
-            ? 'bg-slate-900 border-slate-800'
+            ? 'bg-tactical-900 border-tactical-700/50'
             : 'bg-white border-slate-200'
         }`}
       >
@@ -759,7 +759,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
         <div
           className={`px-4 py-3 border-b transition-colors ${
             isDark
-              ? 'bg-[#0b1b36] border-slate-800/90'
+              ? 'bg-tactical-800 border-tactical-700/80'
               : 'bg-slate-50 border-slate-200'
           }`}
         >
@@ -767,21 +767,21 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
             <div className="flex flex-wrap items-center gap-1.5">
               <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold ${
                 isDark
-                  ? 'bg-blue-900/60 text-blue-200 border border-blue-700/50'
+                  ? 'bg-tactical-700/60 text-slate-200 border border-tactical-600/50'
                   : 'bg-blue-100 text-blue-900 border border-blue-200'
               }`}>
                 {currentQuestao.banca}
               </span>
               <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold ${
                 isDark
-                  ? 'bg-slate-800 text-slate-200 border border-slate-700'
+                  ? 'bg-tactical-950/50 text-slate-400 border border-tactical-700/50'
                   : 'bg-slate-200 text-slate-800 border border-slate-300'
               }`}>
                 {currentQuestao.orgao} • {currentQuestao.ano}
               </span>
               <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold ${
                 isDark
-                  ? 'bg-amber-950/70 text-amber-300 border border-amber-800/40'
+                  ? 'bg-tactical-accent/20 text-tactical-accent border border-tactical-accent/30'
                   : 'bg-amber-50 text-amber-900 border border-amber-300'
               }`}>
                 {currentQuestao.cargo}
@@ -815,9 +815,9 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
           </div>
 
           <div className="text-[11px] leading-tight">
-            <span className="font-bold text-amber-500">{currentQuestao.disciplina}</span>
+            <span className="font-bold text-tactical-accent uppercase tracking-wide">{currentQuestao.disciplina}</span>
             <span className={isDark ? 'text-slate-500 mx-1.5' : 'text-slate-400 mx-1.5'}>•</span>
-            <span className={isDark ? 'text-slate-400' : 'text-slate-600'}>{currentQuestao.assunto}</span>
+            <span className={isDark ? 'text-slate-500' : 'text-slate-600'}>{currentQuestao.assunto}</span>
           </div>
         </div>
 
@@ -848,17 +848,17 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
 
             // Visual state styling
             let containerClasses = isDark
-              ? 'border-slate-800 bg-slate-950/60 hover:bg-slate-800/40 text-slate-200'
+              ? 'border-tactical-700/50 bg-tactical-950/60 hover:bg-tactical-800/40 text-slate-200'
               : 'border-slate-200 bg-white hover:bg-blue-50/40 text-slate-800';
             let badgeClasses = isDark
-              ? 'bg-slate-800 text-slate-300 border-slate-700'
+              ? 'bg-tactical-800 text-slate-400 border-tactical-700'
               : 'bg-slate-100 text-slate-700 border-slate-300';
 
             if (!foiRespondida && isSelected) {
               containerClasses = isDark
-                ? 'border-blue-500 bg-blue-950/50 text-blue-100 ring-2 ring-blue-500/20'
-                : 'border-blue-600 bg-blue-50 text-blue-950 ring-2 ring-blue-500/20 font-medium';
-              badgeClasses = 'bg-blue-600 text-white border-blue-400';
+                ? 'border-tactical-accent bg-tactical-800/50 text-tactical-accent ring-2 ring-tactical-accent/20'
+                : 'border-tactical-700 bg-tactical-50 text-tactical-950 ring-2 ring-tactical-700/20 font-medium';
+              badgeClasses = 'bg-tactical-accent text-slate-950 border-tactical-accent';
             } else if (foiRespondida) {
               if (isCorrectAnswer) {
                 // Correct alternative highlighted in green always
