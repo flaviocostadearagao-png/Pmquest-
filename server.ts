@@ -150,7 +150,7 @@ Retorne ESTRITAMENTE um array JSON puro (sem markdown ou texto extra fora dos co
     });
 
     const aiCall = ai.models.generateContent({
-      model: 'gemini-2.5-flash',
+      model: 'gemini-flash-lite-latest',
       contents: prompt,
       config: {
         responseMimeType: 'application/json',

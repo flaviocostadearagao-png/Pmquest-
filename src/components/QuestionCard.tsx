@@ -312,14 +312,34 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
                 </button>
               )}
               {onAbrirGerador && (
-                <button
-                  id="btn-gerar-mais-vazio"
-                  onClick={onAbrirGerador}
-                  className="w-full py-2.5 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-blue-600/25 transition-transform active:scale-98"
-                >
-                  <Sparkles className="w-4 h-4 text-amber-300" />
-                  <span>Gerar Mais Questões com IA</span>
-                </button>
+                <div className="space-y-2">
+                  <p className="text-[11px] font-bold text-amber-500 uppercase tracking-wide">
+                    Gerar Nova Bateria com IA:
+                  </p>
+                  <div className="grid grid-cols-3 gap-1.5">
+                    <button
+                      onClick={() => onAbrirGerador()}
+                      className="py-2 px-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-[11px] flex flex-col items-center justify-center gap-0.5 cursor-pointer shadow-md"
+                    >
+                      <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                      <span>10 Inéditas</span>
+                    </button>
+                    <button
+                      onClick={() => onAbrirGerador()}
+                      className="py-2 px-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-[11px] flex flex-col items-center justify-center gap-0.5 cursor-pointer shadow-md"
+                    >
+                      <Sparkles className="w-3.5 h-3.5 text-slate-950" />
+                      <span>15 Inéditas</span>
+                    </button>
+                    <button
+                      onClick={() => onAbrirGerador()}
+                      className="py-2 px-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-[11px] flex flex-col items-center justify-center gap-0.5 cursor-pointer shadow-md"
+                    >
+                      <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                      <span>20 Inéditas</span>
+                    </button>
+                  </div>
+                </div>
               )}
               <button
                 onClick={() => {
@@ -346,13 +366,34 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
         <p className="font-semibold mb-2">Nenhuma questão encontrada para este filtro.</p>
         <div className="flex flex-col gap-2 max-w-xs mx-auto mt-4">
           {onAbrirGerador && (
-            <button
-              onClick={onAbrirGerador}
-              className="py-2.5 px-4 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs flex items-center justify-center gap-2 cursor-pointer shadow-md"
-            >
-              <Sparkles className="w-4 h-4" />
-              <span>Gerar Questões para este Filtro</span>
-            </button>
+            <div className="space-y-2">
+              <p className="text-[11px] font-bold text-amber-500 uppercase tracking-wide">
+                Gerar Nova Bateria com IA:
+              </p>
+              <div className="grid grid-cols-3 gap-1.5">
+                <button
+                  onClick={() => onAbrirGerador()}
+                  className="py-2 px-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl text-[11px] flex flex-col items-center justify-center gap-0.5 cursor-pointer shadow-md"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                  <span>10 Inéditas</span>
+                </button>
+                <button
+                  onClick={() => onAbrirGerador()}
+                  className="py-2 px-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-[11px] flex flex-col items-center justify-center gap-0.5 cursor-pointer shadow-md"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-slate-950" />
+                  <span>15 Inéditas</span>
+                </button>
+                <button
+                  onClick={() => onAbrirGerador()}
+                  className="py-2 px-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-[11px] flex flex-col items-center justify-center gap-0.5 cursor-pointer shadow-md"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                  <span>20 Inéditas</span>
+                </button>
+              </div>
+            </div>
           )}
           <button
             onClick={() => {

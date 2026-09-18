@@ -581,7 +581,7 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
                     Quantidade de Questões
                   </label>
                   <div className="flex gap-1">
-                    {[3, 5, 10, 15].map((qtd) => (
+                    {[5, 10, 15, 20].map((qtd) => (
                       <button
                         key={qtd}
                         type="button"
