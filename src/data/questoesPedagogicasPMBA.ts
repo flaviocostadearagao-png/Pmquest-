@@ -2,40 +2,602 @@ import { Questao, AlternativaId } from '../types';
 
 export const BANCO_PEDAGOGICO_COMPLETO_PMBA: Questao[] = [
   // =========================================================================
+  // NOÇÕES DE DIREITO PENAL
+  // =========================================================================
+  {
+    id: 'ped-penal-v2-01',
+    numero: 201,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2024,
+    disciplina: 'Noções de Direito Penal',
+    assunto: 'Exclusão de Ilicitude - Legítima Defesa',
+    dificuldade: 'Média',
+    enunciado: 'Um policial militar, durante uma abordagem, é atacado por um indivíduo com uma faca. Para repelir a agressão injusta e iminente, o policial utiliza moderadamente sua arma de fogo, disparando contra o agressor. De acordo com o Código Penal, a conduta do policial está amparada pela:',
+    alternativas: [
+      { id: 'A', texto: 'Legítima defesa.' },
+      { id: 'B', texto: 'Estrito cumprimento do dever legal.' },
+      { id: 'C', texto: 'Exercício regular de direito.' },
+      { id: 'D', texto: 'Estado de necessidade.' },
+      { id: 'E', texto: 'Coação moral irresistível.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Cap. PMBA André Luis',
+      cargo: 'Especialista em Direito Penal Militar e Comum',
+      analiseGeral: 'A legítima defesa (Art. 25 do CP) ocorre quando alguém, usando moderadamente dos meios necessários, repele agressão injusta, atual ou iminente, a direito seu ou de outrem.',
+      justificativaAlternativas: {
+        A: 'CORRETA. O uso de força para repelir agressão injusta e iminente é legítima defesa.',
+        B: 'Incorreta. O estrito cumprimento do dever legal ocorre quando o agente cumpre uma obrigação imposta pela lei (ex: prender em flagrante), sem que haja necessariamente uma agressão em curso.',
+        C: 'Incorreta. Exercício regular de direito refere-se a condutas permitidas pelo ordenamento (ex: esportes de contato).',
+        D: 'Incorreta. O estado de necessidade exige perigo atual não provocado pelo agente, para salvar direito próprio ou alheio, sem que haja uma agressão humana injusta.',
+        E: 'Incorreta. É causa de exclusão da culpabilidade, não da ilicitude.'
+      },
+      bizuPMBA: 'Bizu PMBA: Agressão Humana Injusta = Legítima Defesa! Perigo de Coisa/Animal (sem dono) = Estado de Necessidade!',
+      artigosCitados: ['Código Penal, Art. 25']
+    }
+  },
+  {
+    id: 'ped-penal-v2-02',
+    numero: 202,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2024,
+    disciplina: 'Noções de Direito Penal',
+    assunto: 'Crimes contra o Patrimônio - Roubo',
+    dificuldade: 'Fácil',
+    enunciado: 'Subtrair coisa móvel alheia, para si ou para outrem, mediante grave ameaça ou violência a pessoa, ou depois de havê-la, por qualquer meio, reduzido à impossibilidade de resistência, configura o crime de:',
+    alternativas: [
+      { id: 'A', texto: 'Furto qualificado.' },
+      { id: 'B', texto: 'Roubo.' },
+      { id: 'C', texto: 'Extorsão.' },
+      { id: 'D', texto: 'Apropriação indébita.' },
+      { id: 'E', texto: 'Estelionato.' }
+    ],
+    respostaCorreta: 'B',
+    comentario: {
+      professor: 'Ten. PMBA Joana Dark',
+      cargo: 'Bacharel em Direito',
+      analiseGeral: 'Definição clássica do crime de roubo prevista no Art. 157 do Código Penal.',
+      justificativaAlternativas: {
+        A: 'Incorreta. O furto não envolve violência ou grave ameaça.',
+        B: 'CORRETA. Definição literal do Art. 157 do CP.',
+        C: 'Incorreta. Na extorsão, a participação da vítima é necessária para o agente obter a vantagem.',
+        D: 'Incorreta. Na apropriação, o agente já tem a posse lícita do bem e decide não devolver.',
+        E: 'Incorreta. O estelionato envolve fraude ou ardil, não violência.'
+      },
+      bizuPMBA: 'Bizu PMBA: Violência ou Grave Ameaça = ROUBO! Subtração na "surdina" = FURTO!',
+      artigosCitados: ['Código Penal, Art. 157']
+    }
+  },
+  {
+    id: 'ped-penal-v2-03',
+    numero: 203,
+    banca: 'FCC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2024,
+    disciplina: 'Noções de Direito Penal',
+    assunto: 'Crimes contra a Administração Pública - Peculato',
+    dificuldade: 'Média',
+    enunciado: 'O policial militar que, em razão do cargo, tem a posse de um tablet da corporação e dele se apropria, utilizando-o como se fosse seu, comete o crime de:',
+    alternativas: [
+      { id: 'A', texto: 'Corrupção passiva.' },
+      { id: 'B', texto: 'Peculato-apropriação.' },
+      { id: 'C', texto: 'Prevaricação.' },
+      { id: 'D', texto: 'Concussão.' },
+      { id: 'E', texto: 'Condescendência criminosa.' }
+    ],
+    respostaCorreta: 'B',
+    comentario: {
+      professor: 'Cap. PMBA André Luis',
+      cargo: 'Direito Penal',
+      analiseGeral: 'O Art. 312 do CP define o peculato como a apropriação de dinheiro, valor ou qualquer outro bem móvel, público ou particular, de que o funcionário tem a posse em razão do cargo.',
+      justificativaAlternativas: {
+        A: 'Incorreta. Corrupção passiva envolve solicitar ou receber vantagem indevida.',
+        B: 'CORRETA. O agente tem a posse lícita e se apropria do bem público.',
+        C: 'Incorreta. Prevaricação é retardar ou deixar de praticar ato de ofício por interesse pessoal.',
+        D: 'Incorreta. Concussão é EXIGIR vantagem indevida.',
+        E: 'Incorreta. Condescendência criminosa é deixar de responsabilizar subordinado por indulgência.'
+      },
+      bizuPMBA: 'Bizu PMBA: EXIGIR = Concussão! SOLICITAR/RECEBER = Corrupção Passiva! APROPRIAR-SE = Peculato!',
+      artigosCitados: ['Código Penal, Art. 312']
+    }
+  },
+  {
+    id: 'ped-penal-v2-04',
+    numero: 204,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2024,
+    disciplina: 'Noções de Direito Penal',
+    assunto: 'Crimes contra a Vida - Homicídio',
+    dificuldade: 'Difícil',
+    enunciado: 'No crime de homicídio, a qualificadora do "motivo fútil" (Art. 121, § 2º, II do CP) caracteriza-se por:',
+    alternativas: [
+      { id: 'A', texto: 'O emprego de veneno, fogo ou explosivo.' },
+      { id: 'B', texto: 'O cometimento mediante paga ou promessa de recompensa.' },
+      { id: 'C', texto: 'A insignificância ou desproporção entre o motivo e o resultado morte.' },
+      { id: 'D', texto: 'A utilização de recurso que dificulte a defesa da vítima.' },
+      { id: 'E', texto: 'A intenção de assegurar a execução de outro crime.' }
+    ],
+    respostaCorreta: 'C',
+    comentario: {
+      professor: 'Maj. PMBA Silva',
+      cargo: 'Instrutor de Direito Penal',
+      analiseGeral: 'O motivo fútil é aquele insignificante, banal, que demonstra uma desproporção extrema entre a causa e o crime.',
+      justificativaAlternativas: {
+        A: 'Incorreta. Refere-se a meios cruéis (inciso III).',
+        B: 'Incorreta. Refere-se a motivo torpe (inciso I).',
+        C: 'CORRETA. Definição doutrinária de futilidade.',
+        D: 'Incorreta. Refere-se ao inciso IV.',
+        E: 'Incorreta. Refere-se à conexão teleológica (inciso V).'
+      },
+      bizuPMBA: 'Bizu PMBA: Fútil = Banal/Insignificante! Torpe = Ignóbil/Repugnante!',
+      artigosCitados: ['Código Penal, Art. 121, § 2º']
+    }
+  },
+  {
+    id: 'ped-penal-v2-05',
+    numero: 205,
+    banca: 'FCC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2024,
+    disciplina: 'Noções de Direito Penal',
+    assunto: 'Teoria do Crime - Tentativa',
+    dificuldade: 'Média',
+    enunciado: 'Diz-se o crime tentado quando, iniciada a execução, não se consuma por:',
+    alternativas: [
+      { id: 'A', texto: 'Vontade própria do agente.' },
+      { id: 'B', texto: 'Circunstâncias alheias à vontade do agente.' },
+      { id: 'C', texto: 'Arrependimento eficaz do autor.' },
+      { id: 'D', texto: 'Desistência voluntária após o início dos atos.' },
+      { id: 'E', texto: 'Inexistência de objeto material do crime.' }
+    ],
+    respostaCorreta: 'B',
+    comentario: {
+      professor: 'Ten. PMBA Joana Dark',
+      cargo: 'Direito Penal',
+      analiseGeral: 'O Art. 14, II do CP define a tentativa quando a consumação é impedida por fatores externos ao querer do agente.',
+      justificativaAlternativas: {
+        A: 'Incorreta. Se for por vontade do agente, pode ser desistência voluntária.',
+        B: 'CORRETA. Redação literal do Art. 14, II do CP.',
+        C: 'Incorreta. No arrependimento eficaz, o agente termina a execução mas evita o resultado.',
+        D: 'Incorreta. A desistência voluntária exclui a tentativa típica (ponte de ouro).',
+        E: 'Incorreta. Caracterizaria crime impossível (Art. 17).'
+      },
+      bizuPMBA: 'Bizu PMBA: Tentativa = Eu quero mas não consigo! Desistência/Arrependimento = Eu consigo mas não quero!',
+      artigosCitados: ['Código Penal, Art. 14']
+    }
+  },
+  // =========================================================================
   // DIREITO CONSTITUCIONAL
   // =========================================================================
   {
-    id: 'ped-const-01',
-    numero: 101,
+    id: 'ped-const-05',
+    numero: 105,
     banca: 'IBFC',
     orgao: 'PM-BA',
     cargo: 'Soldado PM',
     ano: 2024,
     disciplina: 'Direito Constitucional',
-    assunto: 'Art. 5º, XI da CF/88 - Inviolabilidade do Domicílio',
-    dificuldade: 'Média',
-    enunciado: 'Durante patrulhamento de rotina às 23h, uma guarnição da PMBA escuta gritos de socorro vindos do interior de uma residência com fumaça densa saindo pelas janelas. Com base no Art. 5º, XI da CF/88, assinale a conduta constitucionalmente permitida:',
+    assunto: 'Art. 5º - Direitos Individuais e Coletivos',
+    dificuldade: 'Fácil',
+    enunciado: 'De acordo com a Constituição Federal, a prática do racismo constitui crime:',
     alternativas: [
-      { id: 'A', texto: 'A entrada na residência é permitida imediatamente, mesmo à noite e sem consentimento do morador, para prestar socorro.' },
-      { id: 'B', texto: 'A entrada só é permitida se houver prévio mandado judicial expedido pelo juiz de plantão.' },
-      { id: 'C', texto: 'Os policiais devem aguardar o amanhecer do dia para adentrar ao imóvel.' },
-      { id: 'D', texto: 'A inviolabilidade do domicílio é absoluta, sendo proibida a entrada sem expressa autorização do proprietário.' },
-      { id: 'E', texto: 'A entrada é vedada a policiais militares, sendo ato privativo do Corpo de Bombeiros.' }
+      { id: 'A', texto: 'Afiançável e prescritível.' },
+      { id: 'B', texto: 'Inafiançável e imprescritível, sujeito à pena de reclusão.' },
+      { id: 'C', texto: 'Inafiançável e prescritível em 5 anos.' },
+      { id: 'D', texto: 'Suscetível de graça ou anistia.' },
+      { id: 'E', texto: 'Punível apenas com multa e prestação de serviços.' }
+    ],
+    respostaCorreta: 'B',
+    comentario: {
+      professor: 'Cap. PMBA Fernando Rocha',
+      cargo: 'Direito Constitucional',
+      analiseGeral: 'O Art. 5º, XLII da CF estabelece a gravidade do racismo como imprescritível e inafiançável.',
+      justificativaAlternativas: {
+        A: 'Incorreta. É inafiançável e imprescritível.',
+        B: 'CORRETA. Texto expresso do inciso XLII.',
+        C: 'Incorreta. É imprescritível.',
+        D: 'Incorreta. Graça e anistia são vedadas para crimes hediondos/TTT.',
+        E: 'Incorreta. Sujeito à reclusão.'
+      },
+      bizuPMBA: 'Bizu PMBA: RA-CISM-O = Imprescritível e Inafiançável! (R de Reclusão!)',
+      artigosCitados: ['CF/88, Art. 5º, XLII']
+    }
+  },
+  {
+    id: 'ped-const-06',
+    numero: 106,
+    banca: 'FCC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2024,
+    disciplina: 'Direito Constitucional',
+    assunto: 'Direitos Políticos - Condições de Elegibilidade',
+    dificuldade: 'Média',
+    enunciado: 'Para o cargo de Soldado da Polícia Militar, considerando as regras gerais de direitos políticos, a idade mínima para elegibilidade em cargos eletivos de Deputado Estadual ou Federal é de:',
+    alternativas: [
+      { id: 'A', texto: '18 anos.' },
+      { id: 'B', texto: '21 anos.' },
+      { id: 'C', texto: '30 anos.' },
+      { id: 'D', texto: '35 anos.' },
+      { id: 'E', texto: '25 anos.' }
+    ],
+    respostaCorreta: 'B',
+    comentario: {
+      professor: 'Dra. Camila Meireles',
+      cargo: 'Professora de Direito',
+      analiseGeral: 'As idades mínimas para cargos eletivos estão no Art. 14, § 3º, VI da CF.',
+      justificativaAlternativas: {
+        A: 'Incorreta. 18 anos é para Vereador.',
+        B: 'CORRETA. 21 anos para Deputados, Prefeitos e Juiz de Paz.',
+        C: 'Incorreta. 30 anos para Governador.',
+        D: 'Incorreta. 35 anos para Presidente e Senador.',
+        E: 'Incorreta. Não existe previsão de 25 anos na CF.'
+      },
+      bizuPMBA: 'Bizu PMBA: 35 (PR/SEN), 30 (GOV), 21 (DEP/PREF), 18 (VER)!',
+      artigosCitados: ['CF/88, Art. 14, § 3º']
+    }
+  },
+  // =========================================================================
+  // HISTÓRIA DA BAHIA
+  // =========================================================================
+  {
+    id: 'ped-hist-04',
+    numero: 304,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2024,
+    disciplina: 'História da Bahia',
+    assunto: 'Independência da Bahia (2 de Julho)',
+    dificuldade: 'Média',
+    enunciado: 'O processo de Independência da Bahia, que culminou no dia 2 de julho de 1823, teve como uma de suas principais batalhas a de Pirajá. Quem foi a heroína que se destacou na defesa do território baiano lutando nas tropas do Exército Libertador?',
+    alternativas: [
+      { id: 'A', texto: 'Maria Quitéria.' },
+      { id: 'B', texto: 'Joana Angélica.' },
+      { id: 'C', texto: 'Maria Felipa.' },
+      { id: 'D', texto: 'Anita Garibaldi.' },
+      { id: 'E', texto: 'Dandara dos Palmares.' }
     ],
     respostaCorreta: 'A',
     comentario: {
-      professor: 'Cap. PMBA Fernando Rocha',
-      cargo: 'Especialista em Direito Constitucional',
-      analiseGeral: 'O Art. 5º, XI da CF/88 estabelece que a casa é asilo inviolável, mas admite entrada sem consentimento a QUALQUER HORA em caso de flagrante delito, desastre ou para PRESTAR SOCORRO.',
+      professor: 'Cap. PMBA André Luis',
+      cargo: 'História Militar da Bahia',
+      analiseGeral: 'Maria Quitéria de Jesus é reconhecida como a heroína da independência, tendo se disfarçado de homem para lutar.',
       justificativaAlternativas: {
-        A: 'CORRETA. Prestar socorro autoriza a entrada dia ou noite.',
-        B: 'Incorreta. Prestar socorro independe de ordem judicial.',
-        C: 'Incorreta. O socorro deve ser imediato.',
-        D: 'Incorreta. A garantia não é absoluta.',
-        E: 'Incorreta. Qualquer autoridade ou cidadão pode prestar socorro.'
+        A: 'CORRETA. Maria Quitéria lutou no Batalhão dos Voluntários do Príncipe.',
+        B: 'Incorreta. Joana Angélica foi a mártir que morreu defendendo o Convento da Lapa.',
+        C: 'Incorreta. Maria Felipa liderou grupos de marisqueiras em Itaparica contra os portugueses.',
+        D: 'Incorreta. Anita Garibaldi lutou na Revolução Farroupilha.',
+        E: 'Incorreta. Dandara lutou no Quilombo dos Palmares (Alagoas).'
       },
-      bizuPMBA: 'Bizu PMBA: Flagrante, Desastre e Prestar Socorro = Dia ou Noite! Mandado judicial = SOMENTE durante o dia!',
-      artigosCitados: ['CF/88, Art. 5º, inciso XI']
+      bizuPMBA: 'Bizu PMBA: Maria QUITÉRIA (Soldado Medeiros) - A Combatente! Joana ANGÉLICA - A Mártir! Maria FELIPA - A Estrategista de Itaparica!',
+      artigosCitados: ['História da Bahia - Lutas pela Independência']
+    }
+  },
+  {
+    id: 'ped-hist-05',
+    numero: 305,
+    banca: 'FCC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2024,
+    disciplina: 'História da Bahia',
+    assunto: 'Revolta dos Malês (1835)',
+    dificuldade: 'Difícil',
+    enunciado: 'A Revolta dos Malês, ocorrida em Salvador em 1835, foi um levante de escravizados que se diferenciava de outros movimentos da época principalmente por:',
+    alternativas: [
+      { id: 'A', texto: 'Sua fundamentação religiosa islâmica e alto grau de alfabetização dos revoltosos.' },
+      { id: 'B', texto: 'Ter sido liderada por grandes fazendeiros do Recôncavo Baiano.' },
+      { id: 'C', texto: 'Defender a manutenção da monarquia sob controle português.' },
+      { id: 'D', texto: 'Ocorrer de forma pacífica através de petições ao imperador.' },
+      { id: 'E', texto: 'Ser um movimento exclusivo de mulheres negras alforriadas.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Prof. Marcelo Bahia',
+      cargo: 'Especialista em História do Brasil',
+      analiseGeral: 'Os "Malês" eram negros de origem iorubá e hauçá, seguidores do Islã, que sabiam ler e escrever em árabe, o que facilitou a comunicação sigilosa.',
+      justificativaAlternativas: {
+        A: 'CORRETA. O islamismo e a alfabetização em árabe eram marcas centrais.',
+        B: 'Incorreta. Foi um levante de escravizados e libertos.',
+        C: 'Incorreta. Eles queriam o fim da escravidão e o controle do território.',
+        D: 'Incorreta. Foi um confronto armado violento nas ruas de Salvador.',
+        E: 'Incorreta. A maioria dos combatentes eram homens.'
+      },
+      bizuPMBA: 'Bizu PMBA: Malê = Muçulmano! Salvador, 1835. Alfabetização em Árabe!',
+      artigosCitados: ['Revoltas Regenciais na Bahia']
+    }
+  },
+  // =========================================================================
+  // GEOGRAFIA DA BAHIA
+  // =========================================================================
+  {
+    id: 'ped-geo-03',
+    numero: 403,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2024,
+    disciplina: 'Geografia da Bahia',
+    assunto: 'Climas e Biomas da Bahia',
+    dificuldade: 'Média',
+    enunciado: 'A maior parte do território baiano está inserida no "Polígono das Secas", caracterizado pelo clima semiárido. Qual o bioma predominante nessa região?',
+    alternativas: [
+      { id: 'A', texto: 'Mata Atlântica.' },
+      { id: 'B', texto: 'Caatinga.' },
+      { id: 'C', texto: 'Cerrado.' },
+      { id: 'D', texto: 'Manguezal.' },
+      { id: 'E', texto: 'Pampas.' }
+    ],
+    respostaCorreta: 'B',
+    comentario: {
+      professor: 'Prof. Ricardo Geog',
+      cargo: 'Especialista em Geografia Regional',
+      analiseGeral: 'A Caatinga é o bioma exclusivo do Brasil e domina o semiárido baiano, apresentando vegetação xerófila (adaptada à seca).',
+      justificativaAlternativas: {
+        A: 'Incorreta. A Mata Atlântica fica na faixa litorânea.',
+        B: 'CORRETA. Bioma típico do semiárido baiano.',
+        C: 'Incorreta. O Cerrado predomina no Oeste Baiano.',
+        D: 'Incorreta. O manguezal é bioma de transição costeira.',
+        E: 'Incorreta. Pampas são típicos do Rio Grande do Sul.'
+      },
+      bizuPMBA: 'Bizu PMBA: Seca + Semiárido + Bahia = CAATINGA!',
+      artigosCitados: ['Geografia da Bahia - Clima e Vegetação']
+    }
+  },
+  {
+    id: 'ped-geo-04',
+    numero: 404,
+    banca: 'FCC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2024,
+    disciplina: 'Geografia da Bahia',
+    assunto: 'Urbanização e RMS',
+    dificuldade: 'Fácil',
+    enunciado: 'A Região Metropolitana de Salvador (RMS) é o principal polo econômico e populacional do estado. Qual cidade abaixo NÃO faz parte da RMS?',
+    alternativas: [
+      { id: 'A', texto: 'Lauro de Freitas.' },
+      { id: 'B', texto: 'Camaçari.' },
+      { id: 'C', texto: 'Feira de Santana.' },
+      { id: 'D', texto: 'Simões Filho.' },
+      { id: 'E', texto: 'Candeias.' }
+    ],
+    respostaCorreta: 'C',
+    comentario: {
+      professor: 'Prof. Ricardo Geog',
+      cargo: 'Geografia Urbana',
+      analiseGeral: 'Feira de Santana é a segunda maior cidade da Bahia, mas possui sua própria Região Metropolitana e não integra a RMS.',
+      justificativaAlternativas: {
+        A: 'Incorreta. Lauro de Freitas integra a RMS.',
+        B: 'Incorreta. Camaçari integra a RMS (Polo Industrial).',
+        C: 'CORRETA. Feira de Santana é o "Portal do Sertão", fora da RMS.',
+        D: 'Incorreta. Simões Filho integra a RMS.',
+        E: 'Incorreta. Candeias integra a RMS.'
+      },
+      bizuPMBA: 'Bizu PMBA: Feira de Santana = RM de Feira de Santana! Não confunda com RMS!',
+      artigosCitados: ['Divisão Regional da Bahia - IBGE']
+    }
+  },
+  // =========================================================================
+  // DIREITO ADMINISTRATIVO
+  // =========================================================================
+  {
+    id: 'ped-adm-04',
+    numero: 504,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2024,
+    disciplina: 'Direito Administrativo',
+    assunto: 'Atos Administrativos - Atributos',
+    dificuldade: 'Média',
+    enunciado: 'O atributo do ato administrativo que permite à Administração Pública executar suas decisões diretamente, sem necessidade de prévia autorização judicial, é a:',
+    alternativas: [
+      { id: 'A', texto: 'Presunção de legitimidade.' },
+      { id: 'B', texto: 'Imperatividade.' },
+      { id: 'C', texto: 'Autoexecutoriedade.' },
+      { id: 'D', texto: 'Tipicidade.' },
+      { id: 'E', texto: 'Discricionariedade.' }
+    ],
+    respostaCorreta: 'C',
+    comentario: {
+      professor: 'Ten. PMBA Joana Dark',
+      cargo: 'Direito Administrativo',
+      analiseGeral: 'A autoexecutoriedade permite que a administração coloque em prática seus atos sem socorrer-se do Judiciário (ex: guinchar veículo parado irregularmente).',
+      justificativaAlternativas: {
+        A: 'Incorreta. Refere-se à presunção de que o ato é legal até prova em contrário.',
+        B: 'Incorreta. É a imposição da vontade do Estado ao particular.',
+        C: 'CORRETA. Atributo da execução direta.',
+        D: 'Incorreta. Significa que o ato deve estar previsto em lei.',
+        E: 'Incorreta. É a margem de escolha dada pela lei ao administrador.'
+      },
+      bizuPMBA: 'Bizu PMBA: Auto-EX-ecução = Sem JUIZ! Atos urgentes ou previstos em lei!',
+      artigosCitados: ['Doutrina de Direito Administrativo']
+    }
+  },
+  {
+    id: 'ped-adm-05',
+    numero: 505,
+    banca: 'FCC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2024,
+    disciplina: 'Direito Administrativo',
+    assunto: 'Poderes da Administração - Poder de Polícia',
+    dificuldade: 'Difícil',
+    enunciado: 'O Poder de Polícia, atividade típica da Polícia Militar em sua vertente administrativa e ostensiva, fundamenta-se no princípio da:',
+    alternativas: [
+      { id: 'A', texto: 'Autotutela administrativa.' },
+      { id: 'B', texto: 'Supremacia do interesse público sobre o privado.' },
+      { id: 'C', texto: 'Indisponibilidade do interesse público.' },
+      { id: 'D', texto: 'Continuidade dos serviços públicos.' },
+      { id: 'E', texto: 'Hierarquia e disciplina militar.' }
+    ],
+    respostaCorreta: 'B',
+    comentario: {
+      professor: 'Maj. PMBA Carlos Eduardo',
+      cargo: 'Direito Administrativo Militar',
+      analiseGeral: 'O Poder de Polícia é a restrição a direitos e liberdades individuais em favor do bem comum, baseando-se na supremacia do interesse público.',
+      justificativaAlternativas: {
+        A: 'Incorreta. Autotutela é o poder de rever os próprios atos.',
+        B: 'CORRETA. Base de sustentação do Poder de Polícia.',
+        C: 'Incorreta. Refere-se à impossibilidade de o gestor abrir mão do interesse público.',
+        D: 'Incorreta. Refere-se ao serviço público que não pode parar.',
+        E: 'Incorreta. São princípios estruturantes da PM, mas não a base do Poder de Polícia Administrativo.'
+      },
+      bizuPMBA: 'Bizu PMBA: Poder de POLÍCIA = Limitar o indivíduo para proteger o COLETIVO!',
+      artigosCitados: ['CTN, Art. 78 (Definição de Poder de Polícia)']
+    }
+  },
+  // =========================================================================
+  // PROMOÇÃO DA IGUALDADE RACIAL E DE GÊNERO
+  // =========================================================================
+  {
+    id: 'ped-igual-04',
+    numero: 604,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2024,
+    disciplina: 'Promoção da Igualdade Racial e de Gênero',
+    assunto: 'Estatuto da Igualdade Racial (Lei 12.288/2010)',
+    dificuldade: 'Média',
+    enunciado: 'Segundo a Lei 12.288/2010 (Estatuto da Igualdade Racial), as políticas de ação afirmativa destinam-se a:',
+    alternativas: [
+      { id: 'A', texto: 'Privilegiar grupos específicos por tempo indeterminado.' },
+      { id: 'B', texto: 'Corrigir desigualdades históricas e garantir a igualdade de oportunidades.' },
+      { id: 'C', texto: 'Isentar cidadãos negros do pagamento de impostos estaduais.' },
+      { id: 'D', texto: 'Promover a segregação racial em espaços públicos.' },
+      { id: 'E', texto: 'Garantir cargos vitalícios para minorias em empresas privadas.' }
+    ],
+    respostaCorreta: 'B',
+    comentario: {
+      professor: 'Ten. PMBA Luana',
+      cargo: 'Especialista em Direitos Humanos',
+      analiseGeral: 'Ações afirmativas são medidas temporárias adotadas pelo Estado e iniciativa privada para reduzir o abismo social e racial.',
+      justificativaAlternativas: {
+        A: 'Incorreta. São medidas temporárias até que a igualdade seja atingida.',
+        B: 'CORRETA. Finalidade central do Estatuto.',
+        C: 'Incorreta. Não há previsão de isenção tributária dessa natureza.',
+        D: 'Incorreta. O objetivo é a integração, não a segregação.',
+        E: 'Incorreta. Visa o acesso, não a vitaliciedade.'
+      },
+      bizuPMBA: 'Bizu PMBA: Ação Afirmativa = Discriminação POSITIVA para equilibrar o jogo!',
+      artigosCitados: ['Lei 12.288/2010, Art. 4º']
+    }
+  },
+  {
+    id: 'ped-igual-05',
+    numero: 605,
+    banca: 'FCC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2024,
+    disciplina: 'Promoção da Igualdade Racial e de Gênero',
+    assunto: 'Lei Maria da Penha (Lei 11.340/2006)',
+    dificuldade: 'Média',
+    enunciado: 'Nos termos da Lei Maria da Penha, verificada a existência de risco atual ou iminente à vida ou à integridade física da mulher em situação de violência doméstica e familiar, o agressor será imediatamente afastado do lar pelo delegado de polícia quando:',
+    alternativas: [
+      { id: 'A', texto: 'O município não for sede de comarca.' },
+      { id: 'B', texto: 'Houver autorização prévia por escrito da vítima.' },
+      { id: 'C', texto: 'O agressor for reincidente em crimes de trânsito.' },
+      { id: 'D', texto: 'Sempre que houver flagrante delito, independente da cidade.' },
+      { id: 'E', texto: 'A vítima tiver mais de 60 anos.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Ten. PMBA Luana',
+      cargo: 'Gênero e Segurança Pública',
+      analiseGeral: 'Inovação da Lei 13.827/2019 que alterou a Lei Maria da Penha (Art. 12-C). Se não for sede de comarca, o delegado afasta; se não houver delegado, o policial (inclusive PM) pode afastar.',
+      justificativaAlternativas: {
+        A: 'CORRETA. Regra de competência subsidiária para agilizar a proteção.',
+        B: 'Incorreta. Independe de autorização, é medida de urgência.',
+        C: 'Incorreta. Crimes de trânsito não interferem nessa regra específica.',
+        D: 'Incorreta. A regra do afastamento imediato por autoridade não judicial é para locais sem juiz de pronto acesso.',
+        E: 'Incorreta. Idade não é o critério para essa competência.'
+      },
+      bizuPMBA: 'Bizu PMBA: Sem JUIZ na cidade -> DELEGADO afasta! Sem DELEGADO -> POLICIAL (VOCÊ) afasta! (Art. 12-C)',
+      artigosCitados: ['Lei 11.340/06, Art. 12-C']
+    }
+  },
+  // =========================================================================
+  // LÍNGUA PORTUGUESA
+  // =========================================================================
+  {
+    id: 'ped-port-04',
+    numero: 704,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2024,
+    disciplina: 'Língua Portuguesa',
+    assunto: 'Crase',
+    dificuldade: 'Média',
+    enunciado: 'Assinale a alternativa em que o acento indicativo de crase foi empregado CORRETAMENTE:',
+    alternativas: [
+      { id: 'A', texto: 'A equipe de perícia chegou à cena do crime após o isolamento.' },
+      { id: 'B', texto: 'O policial entregou o relatório à todos os superiores.' },
+      { id: 'C', texto: 'Comparecemos à uma ocorrência de furto no centro.' },
+      { id: 'D', texto: 'A viatura seguiu à pé por entre as vielas.' },
+      { id: 'E', texto: 'Iremos à Salvador participar do curso de formação.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Prof. Gramática PMBA',
+      cargo: 'Língua Portuguesa',
+      analiseGeral: 'Crase é a fusão da preposição "a" com o artigo "a". "Chegou a (prep) + a (art) cena".',
+      justificativaAlternativas: {
+        A: 'CORRETA. Verbo chegar rege preposição "a" e "cena" admite artigo.',
+        B: 'Incorreta. Não há crase antes de palavra masculina (todos).',
+        C: 'Incorreta. Não há crase antes de artigo indefinido (uma).',
+        D: 'Incorreta. Não há crase antes de palavra masculina (pé).',
+        E: 'Incorreta. Salvador não admite artigo (Vou a Salvador, Volto de Salvador).'
+      },
+      bizuPMBA: 'Bizu PMBA: Vou a, volto DA -> Crase há! Vou a, volto DE -> Crase pra quê?',
+      artigosCitados: ['Gramática Normativa - Regência e Crase']
+    }
+  },
+  {
+    id: 'ped-port-05',
+    numero: 705,
+    banca: 'FCC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2024,
+    disciplina: 'Língua Portuguesa',
+    assunto: 'Concordância Verbal',
+    dificuldade: 'Média',
+    enunciado: 'Assinale a frase que apresenta CONCORDÂNCIA VERBAL de acordo com a norma-padrão:',
+    alternativas: [
+      { id: 'A', texto: 'Faziam dez anos que o policial não visitava sua cidade natal.' },
+      { id: 'B', texto: 'Houveram muitos incidentes durante a manifestação na praça.' },
+      { id: 'C', texto: 'Devem existir soluções melhores para a segurança pública.' },
+      { id: 'D', texto: 'Fomos nós que prendeu os suspeitos em flagrante.' },
+      { id: 'E', texto: 'A maioria dos policiais compareceram ao evento beneficente.' }
+    ],
+    respostaCorreta: 'C',
+    comentario: {
+      professor: 'Prof. Gramática PMBA',
+      cargo: 'Língua Portuguesa',
+      analiseGeral: 'Regras de verbos impessoais e concordância de coletivos.',
+      justificativaAlternativas: {
+        A: 'Incorreta. Verbo "fazer" indicando tempo é impessoal: Faria dez anos.',
+        B: 'Incorreta. Verbo "haver" no sentido de existir é impessoal: Houve muitos incidentes.',
+        C: 'CORRETA. O verbo "existir" não é impessoal, concorda com "soluções". Na locução, o auxiliar "devem" acompanha.',
+        D: 'Incorreta. Fomos nós que prendemos (concorda com nós).',
+        E: 'Incorreta / Aceitável. "A maioria dos" admite concordância lógica ou gramatical, mas em provas de concurso, a regra de "devem existir" é mais técnica e inquestionável.'
+      },
+      bizuPMBA: 'Bizu PMBA: HAVER (sentido existir) e FAZER (tempo) = Fica no SINGULAR!',
+      artigosCitados: ['Gramática Normativa - Concordância Verbal']
     }
   },
   {
@@ -641,13 +1203,13 @@ export const BANCO_PEDAGOGICO_COMPLETO_PMBA: Questao[] = [
     }
   },
   {
-    id: 'ped-penal-01',
+    id: 'ped-penal-legacy-01',
     numero: 202,
     banca: 'FCC',
     orgao: 'PM-BA',
     cargo: 'Soldado PM',
     ano: 2024,
-    disciplina: 'Direito Penal',
+    disciplina: 'Noções de Direito Penal',
     assunto: 'Crimes contra a Administração Pública - Peculato (Art. 312 do CP)',
     dificuldade: 'Difícil',
     enunciado: 'Um policial militar lotado no setor de patrimônio de um batalhão desvia em proveito próprio uma pistola calibre .40 pertencente à reserva de armamento da unidade, da qual tinha a posse em razão do cargo. O fato configura crime de:',
@@ -743,13 +1305,13 @@ export const BANCO_PEDAGOGICO_COMPLETO_PMBA: Questao[] = [
     }
   },
   {
-    id: 'ped-penal-02',
+    id: 'ped-penal-legacy-02',
     numero: 205,
     banca: 'IBFC',
     orgao: 'PM-BA',
     cargo: 'Soldado PM',
     ano: 2024,
-    disciplina: 'Direito Penal',
+    disciplina: 'Noções de Direito Penal',
     assunto: 'Exclusão de Ilicitude - Legítima Defesa (Art. 25 do CP)',
     dificuldade: 'Média',
     enunciado: 'Durante patrulhamento, um policial militar é surpreendido por um indivíduo que, armado com uma faca, avança rapidamente para desferir golpes letais contra ele. O policial repele a agressão injusta, atual e iminente, utilizando moderadamente os meios necessários para neutralizar a ameaça. Conforme o Código Penal brasileiro, o policial:',
@@ -777,13 +1339,13 @@ export const BANCO_PEDAGOGICO_COMPLETO_PMBA: Questao[] = [
     }
   },
   {
-    id: 'ped-penal-03',
+    id: 'ped-penal-legacy-03',
     numero: 206,
     banca: 'FCC',
     orgao: 'PM-BA',
     cargo: 'Soldado PM',
     ano: 2024,
-    disciplina: 'Direito Penal',
+    disciplina: 'Noções de Direito Penal',
     assunto: 'Tentativa e Consumação (Art. 14, II do CP)',
     dificuldade: 'Difícil',
     enunciado: 'Um agente desfechar dois tiros de revólver contra seu desafeto, errando o alvo por inabilidade no manuseio da arma, momento em que a Polícia Militar intervém e prende o atirador em flagrante. Nos termos do Código Penal, o fato caracteriza:',
@@ -811,13 +1373,13 @@ export const BANCO_PEDAGOGICO_COMPLETO_PMBA: Questao[] = [
     }
   },
   {
-    id: 'ped-penal-04',
+    id: 'ped-penal-legacy-04',
     numero: 207,
     banca: 'IBFC',
     orgao: 'PM-BA',
     cargo: 'Soldado PM',
     ano: 2024,
-    disciplina: 'Direito Penal',
+    disciplina: 'Noções de Direito Penal',
     assunto: 'Crimes contra o Patrimônio - Roubo vs Furto (Arts. 155 e 157 do CP)',
     dificuldade: 'Média',
     enunciado: 'Durante o patrulhamento ostensivo, uma guarnição da PMBA detém indivíduo que abordou pedestre na via pública empregando grave ameaça com simulação de arma de fogo sob a camisa, subtraindo seu telefone celular. O fato juridicamente configura:',
@@ -861,8 +1423,8 @@ function normalizeDisciplina(d: string): string {
   return s.trim();
 }
 
-// Track served questions in session to guarantee constant rotation
-const USED_QUESTION_IDS = new Set<string>();
+  // Track served questions in session to guarantee constant rotation
+const SESSION_USED_IDS = new Set<string>();
 
 export function gerarQuestoesPedagogicas(
   disciplina: string,
@@ -894,17 +1456,17 @@ export function gerarQuestoesPedagogicas(
     }
   }
 
-  // Shuffle candidates
+  // Shuffle candidates using a seed if needed, but here we just shuffle
   const pool = [...candidatos];
   for (let i = pool.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [pool[i], pool[j]] = [pool[j], pool[i]];
   }
 
-  // Sort unseen questions first
+  // Prioritize questions not used in THIS session
   pool.sort((a, b) => {
-    const aUsed = USED_QUESTION_IDS.has(a.id) ? 1 : 0;
-    const bUsed = USED_QUESTION_IDS.has(b.id) ? 1 : 0;
+    const aUsed = SESSION_USED_IDS.has(a.id) ? 1 : 0;
+    const bUsed = SESSION_USED_IDS.has(b.id) ? 1 : 0;
     return aUsed - bUsed;
   });
 
@@ -915,18 +1477,18 @@ export function gerarQuestoesPedagogicas(
 
   for (let i = 0; i < maxAvailable; i++) {
     const base = pool[i];
-    USED_QUESTION_IDS.add(base.id);
+    SESSION_USED_IDS.add(base.id);
 
-    const uniqueId = `q-ped-pmba-${timestamp}-${Math.random().toString(36).substring(2, 7)}-${i + 1}`;
-    const bancaNome = banca.includes('IBFC') ? 'IBFC' : banca.includes('FCC') ? 'FCC' : 'CESPE / Cebraspe';
+    const bancaNome = banca.includes('IBFC') ? 'IBFC' : banca.includes('FCC') ? 'FCC' : 'IBFC/FCC';
 
     resultado.push({
       ...base,
-      id: uniqueId,
-      numero: (timestamp % 8000) + 2000 + i,
+      // CRITICAL FIX: Preserve original ID so student progress is tracked correctly
+      id: base.id, 
+      numero: base.numero || (timestamp % 8000) + 2000 + i,
       banca: bancaNome,
       dificuldade: (dificuldade as any) || base.dificuldade || 'Média',
-      ano: 2024 + (i % 2),
+      ano: base.ano || 2024,
       alternativas: base.alternativas.map((alt) => ({ ...alt })),
     });
   }

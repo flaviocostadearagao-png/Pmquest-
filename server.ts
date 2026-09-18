@@ -1,6 +1,8 @@
 import 'dotenv/config';
 import express, { Request, Response } from 'express';
 import path from 'path';
+import fs from 'fs';
+import AdmZip from 'adm-zip';
 import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI } from '@google/genai';
 import { gerarQuestoesPedagogicas } from './src/data/questoesPedagogicasPMBA';
@@ -182,14 +184,22 @@ Retorne ESTRITAMENTE um array JSON puro (sem markdown ou texto extra fora dos co
     // Rigorous deduplication (Jaccard similarity check on word tokens with 20% max threshold)
     const SIMILARITY_THRESHOLD = 0.20; // 20% max allowed similarity
 
-    const getTokens = (str: string) => new Set(
-      String(str || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9 ]/g, '').split(/\s+/).filter(w => w.length > 3)
-    );
+    const getTokens = (str: string) => {
+      const normalized = String(str || '').toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9 ]/g, ' ');
+      
+      return new Set(
+        normalized.split(/\s+/).filter(w => w.length >= 3) // words of 3+ chars
+      );
+    };
+
     const existingTokenSets = (enunciadosExistentes || []).filter(Boolean).map((e: any) => getTokens(String(e)));
 
     const isTooSimilar = (newText: string, currentAcceptedSets: Set<string>[]) => {
       const newTokens = getTokens(newText);
-      if (newTokens.size < 4) return false;
+      if (newTokens.size < 3) return false;
       const allSetsToCompare = [...existingTokenSets, ...currentAcceptedSets];
       for (const oldTokens of allSetsToCompare) {
         let intersection = 0;
@@ -211,29 +221,31 @@ Retorne ESTRITAMENTE um array JSON puro (sem markdown ou texto extra fora dos co
     for (const q of rawList) {
       if (acceptedRawList.length >= numQuestoes) break;
       const text = q?.enunciado || '';
-      if (!text || text.trim().length < 10) continue;
+      if (!text || text.trim().length < 15) continue; // ignore too short ones
 
       if (!isTooSimilar(text, acceptedTokenSets)) {
-        acceptedRawList.push(q);
+        acceptedRawList.push({ ...q, _isAI: true }); // mark as AI
         acceptedTokenSets.push(getTokens(text));
       }
     }
 
-    // If AI generation yielded fewer unique items than requested due to similarity filter,
-    // supplement with distinct questions from the verified pedagogical bank to complete the batch
+    // Supplement if needed
     if (acceptedRawList.length < numQuestoes) {
       const needed = numQuestoes - acceptedRawList.length;
-      const suplemento = gerarQuestoesPedagogicas(disciplina, assunto, needed * 2, dificuldade, banca);
+      const suplemento = gerarQuestoesPedagogicas(disciplina, assunto, needed * 3, dificuldade, banca);
       for (const sup of suplemento) {
         if (acceptedRawList.length >= numQuestoes) break;
         if (!isTooSimilar(sup.enunciado, acceptedTokenSets)) {
           acceptedRawList.push({
+            id: sup.id, // Preserve original ID!
             disciplina: sup.disciplina,
             assunto: sup.assunto,
             enunciado: sup.enunciado,
             alternativas: sup.alternativas,
             respostaCorreta: sup.respostaCorreta,
-            comentario: sup.comentario
+            comentario: sup.comentario,
+            banca: sup.banca,
+            _isAI: false // mark as bank
           });
           acceptedTokenSets.push(getTokens(sup.enunciado));
         }
@@ -256,16 +268,24 @@ Retorne ESTRITAMENTE um array JSON puro (sem markdown ou texto extra fora dos co
           })
         : [];
 
+      // Logic for ID: Use existing if from bank, generate if from AI
+      let finalId = q.id;
+      if (q._isAI || !finalId) {
+        // Generate stable ID for AI questions based on enunciado prefix and timestamp
+        const prefix = String(q.enunciado || '').slice(0, 20).replace(/\W/g, '_').toLowerCase();
+        finalId = `q-ia-${timestamp}-${prefix}-${idx}`;
+      }
+
       return {
-        id: `q-ia-live-${timestamp}-${idx + 1}-${Math.random().toString(36).substring(2, 6)}`,
-        numero: (timestamp % 9000) + 1000 + idx,
-        banca: banca === 'FCC / IBFC (Padrão PMBA)' ? 'IBFC/FCC (PMBA)' : banca,
+        id: finalId,
+        numero: q.numero || (timestamp % 9000) + 1000 + idx,
+        banca: q.banca || (banca === 'FCC / IBFC (Padrão PMBA)' ? 'IBFC/FCC (PMBA)' : banca),
         orgao: 'PM-BA',
         cargo: 'Soldado da Polícia Militar da Bahia',
-        ano: 2026,
+        ano: q.ano || 2026,
         disciplina: canonicalizeDisciplina(q.disciplina || disciplina),
         assunto: q.assunto || (assunto !== 'Todos os Assuntos' ? assunto : 'Tópicos do Edital PMBA'),
-        dificuldade: (dificuldade as any) || 'Média',
+        dificuldade: (dificuldade as any) || q.dificuldade || 'Média',
         enunciado: String(q.enunciado || '').trim(),
         alternativas: alternativasLimpa,
         respostaCorreta: cleanResp,
@@ -494,6 +514,46 @@ Retorne ESTRITAMENTE em formato JSON com as chaves:
       bizuDeOuro: dicaBase || 'Atenção aos detalhes literais da lei exigidos pelas bancas da PMBA.',
       origem: 'ia_local'
     });
+  }
+});
+
+// Direct ZIP Download endpoint (Mobile & Desktop friendly)
+app.get('/api/download-zip', (req: Request, res: Response) => {
+  try {
+    const zip = new AdmZip();
+    const rootDir = process.cwd();
+
+    const addFolderRecursively = (dirPath: string, zipPrefix = '') => {
+      const items = fs.readdirSync(dirPath, { withFileTypes: true });
+      for (const item of items) {
+        if (
+          item.name === 'node_modules' ||
+          item.name === 'dist' ||
+          item.name === '.git' ||
+          item.name.endsWith('.zip')
+        ) {
+          continue;
+        }
+
+        const fullPath = path.join(dirPath, item.name);
+        if (item.isDirectory()) {
+          const nextPrefix = zipPrefix ? `${zipPrefix}/${item.name}` : item.name;
+          addFolderRecursively(fullPath, nextPrefix);
+        } else if (item.isFile()) {
+          zip.addLocalFile(fullPath, zipPrefix);
+        }
+      }
+    };
+
+    addFolderRecursively(rootDir);
+
+    const zipBuffer = zip.toBuffer();
+    res.setHeader('Content-Type', 'application/zip');
+    res.setHeader('Content-Disposition', 'attachment; filename="simulado-pmba-projeto.zip"');
+    return res.send(zipBuffer);
+  } catch (err: any) {
+    console.error('Erro na rota download-zip:', err);
+    return res.status(500).json({ error: 'Falha ao compactar projeto', details: err?.message });
   }
 });
 
