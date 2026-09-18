@@ -46,6 +46,11 @@ app.post('/api/gerar-questoes', async (req: Request, res: Response) => {
 
   try {
     const seedAleatoria = Date.now() + Math.random().toString(36).substring(7);
+    const isMisto =
+      disciplina.toLowerCase().includes('todas') ||
+      disciplina.toLowerCase().includes('misto') ||
+      modo === 'misto_aleatorio' ||
+      modo === 'simulado_oficial';
     
     let instrucaoModo = '';
     if (modo === 'treino_cirurgico' && Array.isArray(errosRecentes) && errosRecentes.length > 0) {
@@ -53,8 +58,18 @@ app.post('/api/gerar-questoes', async (req: Request, res: Response) => {
       instrucaoModo = `\n[MODO TREINO CIRÚRGICO DE ALTA PERFORMANCE]:\nO aluno errou frequentemente os seguintes tópicos:\n${listaErros}\nCrie questões focadas EXATAMENTE nas pegadinhas, exceções e minúcias desses pontos fracos para consolidação imediata da aprendizagem.`;
     } else if (modo === 'maratona') {
       instrucaoModo = `\n[MODO MARATONA DE ALTA VELOCIDADE]:\nQuestões dinâmicas, com enunciados objetivos e contextualizados com o cotidiano da Polícia Militar da Bahia. Comentários diretos e com Bizus PMBA memoráveis.`;
-    } else if (modo === 'simulado_oficial') {
-      instrucaoModo = `\n[MODO SIMULADO OFICIAL PMBA]:\nDistribua as questões entre diferentes matérias do edital da PMBA (Constitucional, Administrativo, Penal, Direitos Humanos, Igualdade Racial, História/Geografia da Bahia e Língua Portuguesa) simulando fielmente a prova real.`;
+    } else if (isMisto) {
+      instrucaoModo = `\n[MODO SIMULADO GERAL MISTO / TODAS AS MATÉRIAS DA PMBA]:\nDistribua as ${numQuestoes} questões de forma balanceada e aleatória entre as diversas disciplinas do edital da PMBA:
+- Direito Constitucional
+- Noções de Direito Penal
+- Direito Administrativo
+- Direitos Humanos
+- Promoção da Igualdade Racial e de Gênero
+- História da Bahia
+- Geografia da Bahia
+- Língua Portuguesa
+
+IMPORTANTE: No campo "disciplina" de CADA objeto JSON, especifique a matéria exata referente à questão gerada (ex: "Direito Constitucional", "Noções de Direito Penal", etc.) e no campo "assunto" o tópico específico abordado.`;
     }
 
     const prompt = `Você é o Coordenador Pedagógico e Examinador de Alta Performance para o concurso de Soldado da Polícia Militar da Bahia (PMBA).
@@ -73,15 +88,14 @@ INSTRUÇÕES CRÍTICAS PARA ESTUDANTE DE ALTO RENDIMENTO (MILHARES DE QUESTÕES)
    - Bizu PMBA mnemônico prático para memorização rápida;
    - Artigos de lei citados.
 
-Disciplina: ${disciplina}
-Assunto: ${assunto}
+${isMisto ? 'Modo: Simulado Geral com Todas as Matérias Juntas (Misto Aleatório)' : `Disciplina: ${disciplina}\nAssunto: ${assunto}`}
 Dificuldade: ${dificuldade}
 
 Retorne ESTRITAMENTE um array JSON puro (sem markdown ou texto extra) onde cada elemento segue esta estrutura:
 [
   {
-    "disciplina": "${disciplina}",
-    "assunto": "${assunto}",
+    "disciplina": "${isMisto ? 'Nome exato da Disciplina do Edital' : disciplina}",
+    "assunto": "${isMisto ? 'Tópico Específico do Edital' : assunto}",
     "enunciado": "Texto da questão contextualizada com situação de serviço ou caso prático policial...",
     "alternativas": [
       { "id": "A", "texto": "..." },
@@ -93,7 +107,7 @@ Retorne ESTRITAMENTE um array JSON puro (sem markdown ou texto extra) onde cada 
     "respostaCorreta": "B",
     "comentario": {
       "professor": "Oficial Instrutor PMBA",
-      "cargo": "Especialista em ${disciplina}",
+      "cargo": "Especialista na Matéria",
       "analiseGeral": "Fundamentação legal clara da resposta.",
       "justificativaAlternativas": {
         "A": "Explicação do erro",
@@ -103,7 +117,7 @@ Retorne ESTRITAMENTE um array JSON puro (sem markdown ou texto extra) onde cada 
         "E": "Explicação do erro"
       },
       "bizuPMBA": "Dica prática para memorizar e não cair em pegadinha no concurso PMBA.",
-      "artigosCitados": ["Edital PMBA - ${disciplina}"]
+      "artigosCitados": ["Edital PMBA - Legislação Pertinente"]
     }
   }
 ]`;

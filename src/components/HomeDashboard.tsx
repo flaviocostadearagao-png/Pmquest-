@@ -18,7 +18,9 @@ import {
   Moon,
   RefreshCw,
   Flame,
-  Activity
+  Activity,
+  Shuffle,
+  Dices
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import {
@@ -32,6 +34,7 @@ import {
 } from '../types';
 import { useTheme } from '../context/ThemeContext';
 import { PainelAltaPerformance } from './PainelAltaPerformance';
+import { BarraCoberturaEdital } from './BarraCoberturaEdital';
 
 interface HomeDashboardProps {
   questoes: Questao[];
@@ -51,6 +54,8 @@ interface HomeDashboardProps {
   onResetarProgresso: () => void;
   cloudSyncStatus: 'synced' | 'syncing' | 'offline';
   onAbrirGerador?: (disciplina?: string, assunto?: string, modo?: ModoEstudo) => void;
+  onTreinarAssunto?: (disciplina: string, assunto: string) => void;
+  onAbrirMatrizCompleta?: () => void;
 }
 
 export const HomeDashboard: React.FC<HomeDashboardProps> = ({
@@ -71,6 +76,8 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
   onResetarProgresso,
   cloudSyncStatus,
   onAbrirGerador,
+  onTreinarAssunto,
+  onAbrirMatrizCompleta,
 }) => {
   const { isDark, toggleTheme } = useTheme();
   const [patenteFeedback, setPatenteFeedback] = useState<PatenteFeedback | null>(null);
@@ -225,6 +232,16 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
           </div>
         </div>
       </section>
+
+      {/* Barra de Cobertura do Edital PMBA (Bater o Edital) */}
+      <BarraCoberturaEdital
+        questoes={questoes}
+        historicoRespostas={historicoRespostas}
+        topicosLidos={topicosLidos}
+        onTreinarAssunto={onTreinarAssunto}
+        onEstudarTeoria={onEstudarTeoria}
+        onAbrirMatrizCompleta={onAbrirMatrizCompleta}
+      />
 
       {/* Painel de Gestão de Alta Performance & Metas Mensais */}
       <PainelAltaPerformance
@@ -418,6 +435,41 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
         </div>
 
         <div className="space-y-2">
+          {/* Todas as Matérias Misto Aleatório Action */}
+          <div
+            onClick={() => onIrParaMateria('Todas as Matérias (Misto Aleatório)')}
+            className={`p-3 rounded-xl transition-all cursor-pointer flex items-center justify-between gap-3 active:scale-[0.99] border ${
+              isDark
+                ? 'bg-gradient-to-r from-purple-950/50 via-slate-900 to-[#08172c] hover:bg-[#0d223f] border-purple-800/40 text-purple-200'
+                : 'bg-gradient-to-r from-purple-50 via-white to-blue-50 hover:bg-purple-100/50 border-purple-200 text-purple-900'
+            }`}
+          >
+            <div className="truncate">
+              <div className="flex items-center gap-1.5">
+                <Shuffle className="w-3.5 h-3.5 text-purple-400 shrink-0" />
+                <h4 className="text-xs font-bold truncate">
+                  🎲 Todas as Matérias (Misto Aleatório)
+                </h4>
+                <span className="text-[8px] px-1 py-0.2 rounded bg-purple-600 text-white font-extrabold shrink-0">
+                  Simulado Geral
+                </span>
+              </div>
+              <p className={`text-[10px] mt-0.5 ${isDark ? 'text-purple-300/80' : 'text-purple-700/80'}`}>
+                {totalQuestoes} questões sorteadas aleatoriamente do edital completo
+              </p>
+            </div>
+
+            <div className="text-right shrink-0">
+              <span className="font-mono font-bold text-xs text-purple-400">
+                {respondidas}/{totalQuestoes}
+              </span>
+              <div className="text-[10px] flex items-center justify-end gap-1 text-purple-400 font-semibold">
+                <span>Treinar Misto</span>
+                <ArrowRight className="w-2.5 h-2.5" />
+              </div>
+            </div>
+          </div>
+
           {materias.map((materia) => {
             const questoesDaMateria = questoes.filter((q) => {
               const qd = q.disciplina.toLowerCase();

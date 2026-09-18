@@ -32,6 +32,7 @@ interface GeradorQuestoesModalProps {
 }
 
 const DISCIPLINAS_EDITAL = [
+  'Todas as Matérias (Misto PMBA)',
   'Direito Constitucional',
   'Promoção da Igualdade Racial e de Gênero',
   'História da Bahia',
@@ -43,6 +44,12 @@ const DISCIPLINAS_EDITAL = [
 ];
 
 const SUGESTOES_ASSUNTOS: Record<string, string[]> = {
+  'Todas as Matérias (Misto PMBA)': [
+    'Simulado Geral Aleatório (Edital Completo PMBA)',
+    'Direito & Legislação Aplicada PMBA',
+    'Conhecimentos Gerais & Específicos Misto',
+    'Maratona de Revisão Geral',
+  ],
   'Direito Constitucional': [
     'Art. 5º da CF/88 (Inviolabilidade de Domicílio e Remédios)',
     'Art. 144 da CF/88 (Segurança Pública e Atribuições da PM)',
@@ -196,7 +203,15 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
 
   const handleAdicionarAoSimulado = () => {
     if (!questoesGeradasPreview || questoesGeradasPreview.length === 0) return;
-    const discDestino = modo === 'simulado_oficial' ? questoesGeradasPreview[0]?.disciplina || disciplina : disciplina;
+    const isTodas =
+      disciplina.toLowerCase().includes('todas') ||
+      disciplina.toLowerCase().includes('misto') ||
+      modo === 'simulado_oficial' ||
+      modo === 'misto_aleatorio';
+    
+    const discDestino = isTodas
+      ? 'Todas as Matérias (Misto Aleatório)'
+      : disciplina;
     onQuestoesGeradas(questoesGeradasPreview, discDestino);
     onClose();
   };

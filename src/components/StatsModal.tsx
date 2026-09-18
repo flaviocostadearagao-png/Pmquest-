@@ -1,8 +1,9 @@
-import React from 'react';
-import { Award, CheckCircle2, XCircle, RotateCcw, Target, ShieldCheck } from 'lucide-react';
-import { motion } from 'motion/react';
+import React, { useState } from 'react';
+import { Award, CheckCircle2, XCircle, RotateCcw, Target, ShieldCheck, BarChart2, PieChart } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import { RespostaUsuario, Questao } from '../types';
 import { useTheme } from '../context/ThemeContext';
+import { GraficoDesempenhoDisciplinas } from './GraficoDesempenhoDisciplinas';
 
 interface StatsModalProps {
   isOpen: boolean;
@@ -10,6 +11,7 @@ interface StatsModalProps {
   historicoRespostas: Record<string, RespostaUsuario>;
   todasQuestoes: Questao[];
   onResetarTudo: () => void;
+  onIrParaMateria?: (disciplinaNome: string) => void;
 }
 
 export const StatsModal: React.FC<StatsModalProps> = ({
@@ -17,9 +19,12 @@ export const StatsModal: React.FC<StatsModalProps> = ({
   onClose,
   historicoRespostas,
   todasQuestoes,
-  onResetarTudo
+  onResetarTudo,
+  onIrParaMateria,
 }) => {
   const { isDark } = useTheme();
+  const [tabAtiva, setTabAtiva] = useState<'grafico' | 'resumo'>('grafico');
+
   if (!isOpen) return null;
 
   const totalRespondidas = Object.keys(historicoRespostas).length;
@@ -27,140 +32,159 @@ export const StatsModal: React.FC<StatsModalProps> = ({
   const erros = totalRespondidas - acertos;
   const taxaAcerto = totalRespondidas > 0 ? Math.round((acertos / totalRespondidas) * 100) : 0;
 
-  // Por disciplina
-  const questoesPorDisciplina: Record<string, { total: number; acertos: number }> = {};
-  todasQuestoes.forEach((q) => {
-    if (!questoesPorDisciplina[q.disciplina]) {
-      questoesPorDisciplina[q.disciplina] = { total: 0, acertos: 0 };
-    }
-    const resp = historicoRespostas[q.id];
-    if (resp) {
-      questoesPorDisciplina[q.disciplina].total += 1;
-      if (resp.acertou) {
-        questoesPorDisciplina[q.disciplina].acertos += 1;
-      }
-    }
-  });
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm">
       <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
+        initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
-        className={`border rounded-3xl w-full max-w-sm overflow-hidden shadow-2xl space-y-4 p-5 transition-colors ${
+        exit={{ scale: 0.95, opacity: 0 }}
+        className={`border rounded-3xl w-full max-w-md max-h-[92vh] flex flex-col overflow-hidden shadow-2xl transition-colors ${
           isDark
             ? 'bg-slate-900 border-slate-800 text-slate-100'
             : 'bg-white border-slate-200 text-slate-800'
         }`}
       >
         {/* Header */}
-        <div className={`flex items-center justify-between pb-3 border-b ${
-          isDark ? 'border-slate-800' : 'border-slate-200'
+        <div className={`p-4 border-b flex items-center justify-between shrink-0 ${
+          isDark ? 'bg-[#08172c] border-slate-800' : 'bg-slate-50 border-slate-200'
         }`}>
-          <div className="flex items-center gap-2">
-            <div className={`w-8 h-8 rounded-lg border flex items-center justify-center text-amber-500 ${
+          <div className="flex items-center gap-2.5">
+            <div className={`w-8 h-8 rounded-xl border flex items-center justify-center text-amber-500 shrink-0 ${
               isDark ? 'bg-blue-950 border-blue-800' : 'bg-blue-50 border-blue-200'
             }`}>
               <Award className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-sm font-bold leading-tight">Desempenho no Simulado</h3>
-              <p className={`text-[10px] ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Soldado PMBA 2026</p>
+              <h3 className="text-sm font-bold leading-tight">Painel de Estatísticas</h3>
+              <p className={`text-[10px] ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Simulado Soldado PMBA 2026</p>
             </div>
           </div>
+
           <button
             onClick={onClose}
-            className={`w-7 h-7 rounded-full flex items-center justify-center text-xs cursor-pointer ${
-              isDark ? 'bg-slate-800 text-slate-400 hover:text-slate-200' : 'bg-slate-100 text-slate-500 hover:text-slate-700'
+            className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold cursor-pointer ${
+              isDark ? 'bg-slate-800 text-slate-400 hover:text-slate-200' : 'bg-slate-200 text-slate-600 hover:text-slate-800'
             }`}
           >
             ✕
           </button>
         </div>
 
-        {/* Big Percentage Badge */}
-        <div className={`p-4 rounded-2xl border text-center space-y-1 ${
-          isDark
-            ? 'bg-gradient-to-b from-[#081b36] to-slate-950 border-slate-800'
-            : 'bg-gradient-to-b from-blue-50 to-slate-50 border-blue-100'
+        {/* Tab Switcher (Gráfico por Disciplina vs Resumo Geral) */}
+        <div className={`p-2 border-b flex gap-1 shrink-0 ${
+          isDark ? 'bg-slate-950/60 border-slate-800' : 'bg-slate-100 border-slate-200'
         }`}>
-          <span className={`text-[11px] font-bold uppercase tracking-wider block ${
-            isDark ? 'text-slate-400' : 'text-slate-500'
-          }`}>
-            Aproveitamento Geral
-          </span>
-          <div className="text-4xl font-black text-amber-500 font-mono tracking-tight">
-            {totalRespondidas > 0 ? `${taxaAcerto}%` : '0%'}
-          </div>
-          <p className={`text-xs ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
-            {taxaAcerto >= 70
-              ? '🎯 Nível de Aprovação! Mantenha o ritmo.'
-              : totalRespondidas > 0
-              ? '📖 Revise a teoria dos pontos com erro.'
-              : 'Comece a resolver para registrar seu aproveitamento.'}
-          </p>
+          <button
+            type="button"
+            onClick={() => setTabAtiva('grafico')}
+            className={`flex-1 py-1.5 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+              tabAtiva === 'grafico'
+                ? isDark
+                  ? 'bg-amber-500 text-slate-950 shadow-sm font-black'
+                  : 'bg-white text-blue-900 shadow-sm border border-slate-200'
+                : isDark
+                ? 'text-slate-400 hover:text-slate-200'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <BarChart2 className="w-3.5 h-3.5" />
+            <span>Gráfico por Matéria</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setTabAtiva('resumo')}
+            className={`flex-1 py-1.5 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+              tabAtiva === 'resumo'
+                ? isDark
+                  ? 'bg-amber-500 text-slate-950 shadow-sm font-black'
+                  : 'bg-white text-blue-900 shadow-sm border border-slate-200'
+                : isDark
+                ? 'text-slate-400 hover:text-slate-200'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <PieChart className="w-3.5 h-3.5" />
+            <span>Resumo Geral</span>
+          </button>
         </div>
 
-        {/* Metrics Grid */}
-        <div className="grid grid-cols-3 gap-2 text-center text-xs">
-          <div className={`p-2.5 rounded-xl border ${
-            isDark ? 'bg-slate-950/60 border-slate-800' : 'bg-slate-50 border-slate-200'
-          }`}>
-            <span className={`text-[10px] block mb-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Respondidas</span>
-            <span className={`text-base font-bold ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>{totalRespondidas}</span>
-          </div>
-          <div className={`p-2.5 rounded-xl border ${
-            isDark ? 'bg-emerald-950/40 border-emerald-800/40' : 'bg-emerald-50 border-emerald-200'
-          }`}>
-            <span className="text-[10px] text-emerald-600 block mb-0.5 font-medium">Acertos</span>
-            <span className="text-base font-bold text-emerald-600">{acertos}</span>
-          </div>
-          <div className={`p-2.5 rounded-xl border ${
-            isDark ? 'bg-rose-950/40 border-rose-800/40' : 'bg-rose-50 border-rose-200'
-          }`}>
-            <span className="text-[10px] text-rose-600 block mb-0.5 font-medium">Erros</span>
-            <span className="text-base font-bold text-rose-600">{erros}</span>
-          </div>
-        </div>
+        {/* Scrollable Content */}
+        <div className="p-4 overflow-y-auto space-y-4 flex-1">
+          {tabAtiva === 'grafico' ? (
+            <GraficoDesempenhoDisciplinas
+              historicoRespostas={historicoRespostas}
+              todasQuestoes={todasQuestoes}
+              onIrParaMateria={(disc) => {
+                onClose();
+                if (onIrParaMateria) onIrParaMateria(disc);
+              }}
+            />
+          ) : (
+            <div className="space-y-4">
+              {/* Big Percentage Badge */}
+              <div className={`p-4 rounded-2xl border text-center space-y-1 ${
+                isDark
+                  ? 'bg-gradient-to-b from-[#081b36] to-slate-950 border-slate-800'
+                  : 'bg-gradient-to-b from-blue-50 to-slate-50 border-blue-100'
+              }`}>
+                <span className={`text-[11px] font-bold uppercase tracking-wider block ${
+                  isDark ? 'text-slate-400' : 'text-slate-500'
+                }`}>
+                  Aproveitamento Geral
+                </span>
+                <div className="text-4xl font-black text-amber-500 font-mono tracking-tight">
+                  {totalRespondidas > 0 ? `${taxaAcerto}%` : '0%'}
+                </div>
+                <p className={`text-xs ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+                  {taxaAcerto >= 70
+                    ? '🎯 Nível de Aprovação! Mantenha o ritmo.'
+                    : totalRespondidas > 0
+                    ? '📖 Revise a teoria dos pontos com erro.'
+                    : 'Comece a resolver para registrar seu aproveitamento.'}
+                </p>
+              </div>
 
-        {/* Disciplinas breakdown */}
-        <div className="space-y-2 pt-1">
-          <span className={`text-[11px] font-bold uppercase tracking-wider block ${
-            isDark ? 'text-slate-400' : 'text-slate-500'
-          }`}>
-            Por Disciplina Respondida:
-          </span>
-          <div className="max-h-36 overflow-y-auto space-y-1.5 pr-1">
-            {Object.entries(questoesPorDisciplina).filter(([_, d]) => d.total > 0).length === 0 ? (
-              <p className={`text-[11px] italic text-center py-2 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                Nenhuma questão respondida ainda.
-              </p>
-            ) : (
-              Object.entries(questoesPorDisciplina)
-                .filter(([_, d]) => d.total > 0)
-                .map(([nome, data]) => {
-                  const perc = Math.round((data.acertos / data.total) * 100);
-                  return (
-                    <div
-                      key={nome}
-                      className={`p-2 rounded-lg border flex items-center justify-between text-[11px] ${
-                        isDark ? 'bg-slate-950/40 border-slate-800' : 'bg-slate-50 border-slate-200'
-                      }`}
-                    >
-                      <span className={`truncate pr-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{nome}</span>
-                      <span className="font-mono font-bold text-amber-500 shrink-0">
-                        {data.acertos}/{data.total} ({perc}%)
-                      </span>
-                    </div>
-                  );
-                })
-            )}
-          </div>
+              {/* Metrics Grid */}
+              <div className="grid grid-cols-3 gap-2 text-center text-xs">
+                <div className={`p-2.5 rounded-xl border ${
+                  isDark ? 'bg-slate-950/60 border-slate-800' : 'bg-slate-50 border-slate-200'
+                }`}>
+                  <span className={`text-[10px] block mb-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Respondidas</span>
+                  <span className={`text-base font-bold ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>{totalRespondidas}</span>
+                </div>
+                <div className={`p-2.5 rounded-xl border ${
+                  isDark ? 'bg-emerald-950/40 border-emerald-800/40' : 'bg-emerald-50 border-emerald-200'
+                }`}>
+                  <span className="text-[10px] text-emerald-600 block mb-0.5 font-medium">Acertos</span>
+                  <span className="text-base font-bold text-emerald-600">{acertos}</span>
+                </div>
+                <div className={`p-2.5 rounded-xl border ${
+                  isDark ? 'bg-rose-950/40 border-rose-800/40' : 'bg-rose-50 border-rose-200'
+                }`}>
+                  <span className="text-[10px] text-rose-600 block mb-0.5 font-medium">Erros</span>
+                  <span className="text-base font-bold text-rose-600">{erros}</span>
+                </div>
+              </div>
+
+              {/* Dica Pedagógica */}
+              <div className={`p-3 rounded-xl border text-xs space-y-1 ${
+                isDark ? 'bg-blue-950/30 border-blue-900/40 text-blue-200' : 'bg-blue-50 border-blue-200 text-blue-900'
+              }`}>
+                <div className="flex items-center gap-1.5 font-bold">
+                  <Target className="w-3.5 h-3.5 text-amber-500" />
+                  <span>Dica de Estudo Estratégico</span>
+                </div>
+                <p className="text-[11px] leading-relaxed opacity-90">
+                  Foque primeiro nas matérias com menos de 70% de acertos para garantir a pontuação mínima exigida pela banca examinadora da PMBA.
+                </p>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Footer Actions */}
-        <div className={`pt-2 border-t flex gap-2 ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
+        <div className={`p-3 border-t flex gap-2 shrink-0 ${isDark ? 'border-slate-800 bg-[#08172c]' : 'border-slate-200 bg-slate-50'}`}>
           <button
             onClick={() => {
               if (window.confirm('Deseja reiniciar todas as respostas do simulado?')) {
@@ -189,4 +213,5 @@ export const StatsModal: React.FC<StatsModalProps> = ({
     </div>
   );
 };
+
 

@@ -18,7 +18,9 @@ import {
   Clock,
   Keyboard,
   Zap,
-  ShieldAlert
+  ShieldAlert,
+  Shuffle,
+  Dices
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Questao, AlternativaId, RespostaUsuario, ConfigAltaPerformance, FiltroVisualizacao } from '../types';
@@ -46,6 +48,8 @@ interface QuestionCardProps {
   configAltaPerformance?: ConfigAltaPerformance;
   onTriggerPrefetch?: () => void;
   isPrefetching?: boolean;
+  onEmbaralhar?: () => void;
+  isModoAleatorio?: boolean;
 }
 
 export const QuestionCard: React.FC<QuestionCardProps> = ({
@@ -76,6 +80,8 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   },
   onTriggerPrefetch,
   isPrefetching = false,
+  onEmbaralhar,
+  isModoAleatorio,
 }) => {
   const { isDark } = useTheme();
   const [selectedAlternativa, setSelectedAlternativa] = useState<AlternativaId | null>(null);
@@ -184,9 +190,15 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
     tempoGasto,
   ]);
 
+  const isTodasMaterias =
+    disciplinaFiltro === 'Todas as Matérias (Misto Aleatório)' ||
+    disciplinaFiltro === 'Todas as Matérias' ||
+    disciplinaFiltro.toLowerCase().includes('todas') ||
+    disciplinaFiltro.toLowerCase().includes('misto');
+
   // Questions in current filter (independent of hide answered toggle)
   const todasNoFiltro = todasQuestoes.filter((q) => {
-    const matchDisc = q.disciplina.toLowerCase() === disciplinaFiltro.toLowerCase();
+    const matchDisc = isTodasMaterias || q.disciplina.toLowerCase() === disciplinaFiltro.toLowerCase();
     const matchAss = assuntoFiltro === 'Todos os Assuntos' || q.assunto.toLowerCase() === assuntoFiltro.toLowerCase();
     const matchBan = bancaFiltro === 'Todas as Bancas' || q.banca.toLowerCase() === bancaFiltro.toLowerCase();
     return matchDisc && matchAss && matchBan;
@@ -200,13 +212,14 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
     ...Array.from(
       new Set(
         todasQuestoes
-          .filter((q) => q.disciplina === disciplinaFiltro)
+          .filter((q) => isTodasMaterias || q.disciplina === disciplinaFiltro)
           .map((q) => q.assunto)
       )
     )
   ];
 
   const DISCIPLINAS_EDITAL = [
+    'Todas as Matérias (Misto Aleatório)',
     'Direito Constitucional',
     'Promoção da Igualdade Racial e de Gênero',
     'História da Bahia',
@@ -369,32 +382,61 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
       >
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 overflow-hidden">
-            <Filter className="w-4 h-4 text-amber-500 shrink-0" />
+            {isTodasMaterias ? (
+              <Dices className="w-4 h-4 text-amber-500 shrink-0 animate-spin-slow" />
+            ) : (
+              <Filter className="w-4 h-4 text-amber-500 shrink-0" />
+            )}
             <div className="truncate">
               <span className={`text-[11px] font-bold uppercase tracking-wider block ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                Matéria em Estudo
+                {isTodasMaterias ? 'Modo Simulado Geral' : 'Matéria em Estudo'}
               </span>
-              <span className={`text-xs font-semibold truncate block ${isDark ? 'text-slate-200' : 'text-slate-900'}`}>
-                {disciplinaFiltro}
-              </span>
+              <div className="flex items-center gap-1.5 truncate">
+                <span className={`text-xs font-semibold truncate block ${isDark ? 'text-slate-200' : 'text-slate-900'}`}>
+                  {disciplinaFiltro}
+                </span>
+                {isTodasMaterias && (
+                  <span className="text-[10px] px-1.5 py-0.2 rounded-full font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30">
+                    🎲 Misto
+                  </span>
+                )}
+              </div>
             </div>
           </div>
 
-          <button
-            id="toggle-filter-dropdown-btn"
-            onClick={() => setShowFiltros(!showFiltros)}
-            className={`flex items-center gap-1 text-xs font-semibold px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer ${
-              isDark
-                ? 'bg-blue-950 text-blue-300 border border-blue-800 hover:bg-blue-900'
-                : 'bg-blue-50 text-blue-900 border border-blue-200 hover:bg-blue-100'
-            }`}
-          >
-            <span>Filtrar</span>
-            <ChevronRight className={`w-3.5 h-3.5 transition-transform ${showFiltros ? 'rotate-90' : ''}`} />
-          </button>
+          <div className="flex items-center gap-1.5 shrink-0">
+            {onEmbaralhar && (
+              <button
+                id="btn-embaralhar-questoes"
+                onClick={onEmbaralhar}
+                className={`flex items-center gap-1 text-xs font-semibold px-2 py-1.5 rounded-lg transition-all cursor-pointer ${
+                  isDark
+                    ? 'bg-amber-950/40 text-amber-300 border border-amber-800/60 hover:bg-amber-900/60'
+                    : 'bg-amber-50 text-amber-900 border border-amber-200 hover:bg-amber-100'
+                }`}
+                title="Embaralhar ordem das questões aleatoriamente"
+              >
+                <Shuffle className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Embaralhar</span>
+              </button>
+            )}
+
+            <button
+              id="toggle-filter-dropdown-btn"
+              onClick={() => setShowFiltros(!showFiltros)}
+              className={`flex items-center gap-1 text-xs font-semibold px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer ${
+                isDark
+                  ? 'bg-blue-950 text-blue-300 border border-blue-800 hover:bg-blue-900'
+                  : 'bg-blue-50 text-blue-900 border border-blue-200 hover:bg-blue-100'
+              }`}
+            >
+              <span>Filtrar</span>
+              <ChevronRight className={`w-3.5 h-3.5 transition-transform ${showFiltros ? 'rotate-90' : ''}`} />
+            </button>
+          </div>
         </div>
 
-        {/* Quick Action Toolbar: Ocultar Respondidas & Gerador com IA & Visualização */}
+        {/* Question-Only Action Toolbar: Ocultar Respondidas, Visualização e Modo Misto */}
         <div className="flex flex-wrap items-center gap-2 mt-2.5 pt-2.5 border-t border-slate-800/40">
           {onToggleOcultarRespondidas && (
             <button
@@ -437,31 +479,46 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
             </button>
           )}
 
-          {onAbrirGerador && (
+          {/* Quick toggle to Todas as Matérias if not active */}
+          {!isTodasMaterias ? (
             <button
-              id="btn-card-abrir-gerador"
-              onClick={onAbrirGerador}
-              className={`flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer shrink-0 ${
+              id="btn-quick-todas-materias"
+              onClick={() => {
+                onSelectDisciplina('Todas as Matérias (Misto Aleatório)');
+                onSelectAssunto('Todos os Assuntos');
+                onSelectBanca('Todas as Bancas');
+                if (onEmbaralhar) onEmbaralhar();
+              }}
+              className={`flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer shrink-0 ${
                 isDark
-                  ? 'bg-blue-950/80 text-amber-400 border border-blue-800 hover:bg-blue-900'
-                  : 'bg-amber-50 text-amber-900 border border-amber-300 hover:bg-amber-100'
+                  ? 'bg-purple-950/60 text-purple-300 border border-purple-800/60 hover:bg-purple-900/60'
+                  : 'bg-purple-50 text-purple-900 border border-purple-200 hover:bg-purple-100'
               }`}
-              title="Gerar questões inéditas com IA para esta disciplina"
+              title="Resolver questões de todas as matérias do edital misturadas aleatoriamente"
             >
-              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-              <span>+ Gerar IA</span>
+              <Shuffle className="w-3.5 h-3.5 text-purple-400" />
+              <span>🎲 Todas as Matérias</span>
             </button>
-          )}
-
-          {isPrefetching && (
-            <div className="flex items-center gap-1 text-[10px] font-bold text-amber-500 px-2 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 animate-pulse">
-              <Zap className="w-3 h-3 fill-amber-500" />
-              <span>IA Pré-carregando...</span>
-            </div>
+          ) : (
+            onEmbaralhar && (
+              <button
+                id="btn-quick-reembaralhar"
+                onClick={onEmbaralhar}
+                className={`flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer shrink-0 ${
+                  isDark
+                    ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30'
+                    : 'bg-amber-100 text-amber-900 border border-amber-300 hover:bg-amber-200'
+                }`}
+                title="Sortear nova ordem aleatória das questões"
+              >
+                <Shuffle className="w-3.5 h-3.5 text-amber-400" />
+                <span>Reembaralhar</span>
+              </button>
+            )
           )}
         </div>
 
-        {/* Collapsible Filter Selectors */}
+        {/* Collapsible Question Filter Selectors */}
         <AnimatePresence>
           {showFiltros && (
             <motion.div
@@ -472,6 +529,62 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
                 isDark ? 'border-slate-800/80' : 'border-slate-200'
               }`}
             >
+              {/* Question Status Filter Tabs (Todas, Não Respondidas, Erros, Acertos) */}
+              {onSetFiltroVisualizacao && (
+                <div>
+                  <label className={`text-[11px] block mb-1 font-medium ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                    Filtro de Status das Questões
+                  </label>
+                  <div className="grid grid-cols-4 gap-1">
+                    {[
+                      { id: 'todas', label: 'Todas' },
+                      { id: 'nao_respondidas', label: 'Pendentes' },
+                      { id: 'erros', label: 'Erros' },
+                      { id: 'acertos', label: 'Acertos' },
+                    ].map((tab) => (
+                      <button
+                        key={tab.id}
+                        type="button"
+                        onClick={() => onSetFiltroVisualizacao(tab.id as FiltroVisualizacao)}
+                        className={`py-1.5 px-1 rounded-lg text-xs font-semibold transition-all cursor-pointer text-center truncate ${
+                          filtroVisualizacao === tab.id
+                            ? 'bg-amber-500 text-slate-950 font-extrabold shadow-sm'
+                            : isDark
+                            ? 'bg-slate-950 text-slate-300 hover:bg-slate-800 border border-slate-800'
+                            : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-300'
+                        }`}
+                      >
+                        {tab.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {/* Mixed Mode Quick Banner */}
+              {isTodasMaterias && (
+                <div className={`p-2.5 rounded-xl border text-xs flex items-center justify-between gap-2 ${
+                  isDark
+                    ? 'bg-purple-950/30 border-purple-900/50 text-purple-200'
+                    : 'bg-purple-50 border-purple-200 text-purple-900'
+                }`}>
+                  <div className="flex items-center gap-2">
+                    <Shuffle className="w-4 h-4 text-purple-400 shrink-0" />
+                    <div>
+                      <p className="font-bold text-[11px]">Modo Misto Aleatório Ativo</p>
+                      <p className="text-[10px] opacity-80">Questões de todas as matérias do edital PMBA juntas e misturadas.</p>
+                    </div>
+                  </div>
+                  {onEmbaralhar && (
+                    <button
+                      onClick={onEmbaralhar}
+                      className="px-2 py-1 rounded-lg bg-purple-600 text-white font-bold text-[10px] shrink-0 hover:bg-purple-500 cursor-pointer"
+                    >
+                      Embaralhar
+                    </button>
+                  )}
+                </div>
+              )}
+
               <div>
                 <label className={`text-[11px] block mb-1 font-medium ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
                   Mudar Matéria em Estudo
@@ -492,7 +605,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
                 >
                   {DISCIPLINAS_EDITAL.map((d) => (
                     <option key={d} value={d}>
-                      {d}
+                      {d === 'Todas as Matérias (Misto Aleatório)' ? '🎲 Todas as Matérias (Misto Aleatório)' : d}
                     </option>
                   ))}
                 </select>

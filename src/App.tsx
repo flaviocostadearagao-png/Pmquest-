@@ -8,6 +8,9 @@ import { StatsModal } from './components/StatsModal';
 import { HomeDashboard } from './components/HomeDashboard';
 import { GeradorQuestoesModal } from './components/GeradorQuestoesModal';
 import { RedacaoSection } from './components/RedacaoSection';
+import { SidebarModes } from './components/SidebarModes';
+import { ThreeDotsMenu } from './components/ThreeDotsMenu';
+import { CoberturaEditalModal } from './components/CoberturaEditalModal';
 import { QUESTOES_PMBA, TEORIA_PMBA } from './data/mockData';
 import {
   AlternativaId,
@@ -195,6 +198,12 @@ export default function App() {
   const [geradorAssunto, setGeradorAssunto] = useState<string>('');
   const [geradorModo, setGeradorModo] = useState<ModoEstudo>('padrao');
   const [isPrefetching, setIsPrefetching] = useState<boolean>(false);
+
+  // Sidebar Modes and Three-Dots Menu state
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+  const [isThreeDotsOpen, setIsThreeDotsOpen] = useState<boolean>(false);
+  const [isCoberturaEditalOpen, setIsCoberturaEditalOpen] = useState<boolean>(false);
+  const [theoryModoInicial, setTheoryModoInicial] = useState<'edital' | 'flashcards'>('edital');
 
   // User toggle: Ocultar questões já respondidas
   const [ocultarRespondidas, setOcultarRespondidas] = useState<boolean>(() => {
@@ -414,13 +423,26 @@ export default function App() {
 
   // Active question ID to keep the currently answered question visible until the user navigates
   const [questaoAtivaId, setQuestaoAtivaId] = useState<string | null>(null);
+  const [shuffleSeed, setShuffleSeed] = useState<number>(0);
+
+  const handleEmbaralharQuestoes = useCallback(() => {
+    setShuffleSeed(Date.now());
+    setCurrentIndex(0);
+    setQuestaoAtivaId(null);
+  }, []);
 
   // Filtered questions respecting disciplina, assunto, banca, and filtroVisualizacao
   const questoesFiltradas = useMemo(() => {
     const norm = (s: string) => (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
 
-    return todasQuestoes.filter((q) => {
-      const matchDisciplina = norm(q.disciplina) === norm(disciplinaFiltro);
+    const isTodasMaterias =
+      disciplinaFiltro === 'Todas as Matérias (Misto Aleatório)' ||
+      disciplinaFiltro === 'Todas as Matérias' ||
+      disciplinaFiltro.toLowerCase().includes('todas') ||
+      disciplinaFiltro.toLowerCase().includes('misto');
+
+    const filtradas = todasQuestoes.filter((q) => {
+      const matchDisciplina = isTodasMaterias || norm(q.disciplina) === norm(disciplinaFiltro);
       const matchAssunto =
         assuntoFiltro === 'Todos os Assuntos' ||
         norm(q.assunto) === norm(assuntoFiltro);
@@ -445,7 +467,20 @@ export default function App() {
 
       return matchDisciplina && matchAssunto && matchBanca && matchStatus;
     });
-  }, [todasQuestoes, disciplinaFiltro, assuntoFiltro, bancaFiltro, ocultarRespondidas, filtroVisualizacao, historicoRespostas, questaoAtivaId]);
+
+    if (shuffleSeed > 0) {
+      const arr = [...filtradas];
+      let s = shuffleSeed;
+      for (let i = arr.length - 1; i > 0; i--) {
+        s = (s * 9301 + 49297) % 233280;
+        const j = Math.floor((s / 233280) * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    return filtradas;
+  }, [todasQuestoes, disciplinaFiltro, assuntoFiltro, bancaFiltro, ocultarRespondidas, filtroVisualizacao, historicoRespostas, questaoAtivaId, shuffleSeed]);
 
   // Keep active question ID in sync with the current question
   useEffect(() => {
@@ -481,6 +516,7 @@ export default function App() {
   // Calculate stats
   const totalRespondidas = Object.keys(historicoRespostas).length;
   const acertos = (Object.values(historicoRespostas) as RespostaUsuario[]).filter((r) => r.acertou).length;
+  const taxaAcerto = totalRespondidas > 0 ? Math.round((acertos / totalRespondidas) * 100) : 0;
 
   const handleResponder = (questaoId: string, alternativa: AlternativaId, tempoGasto?: number) => {
     const questao = todasQuestoes.find((q) => q.id === questaoId);
@@ -557,7 +593,8 @@ export default function App() {
   const handleIrParaQuestoesDaMateria = (disciplinaNome: string) => {
     let match = 'Direito Constitucional';
     const lower = disciplinaNome.toLowerCase();
-    if (lower.includes('constitucional')) match = 'Direito Constitucional';
+    if (lower.includes('todas') || lower.includes('misto') || lower.includes('aleat')) match = 'Todas as Matérias (Misto Aleatório)';
+    else if (lower.includes('constitucional')) match = 'Direito Constitucional';
     else if (lower.includes('igualdade') || lower.includes('raça')) match = 'Promoção da Igualdade Racial e de Gênero';
     else if (lower.includes('história')) match = 'História da Bahia';
     else if (lower.includes('portuguesa') || lower.includes('português')) match = 'Língua Portuguesa';
@@ -572,6 +609,9 @@ export default function App() {
     setFiltroVisualizacao('todas');
     setCurrentIndex(0);
     setQuestaoAtivaId(null);
+    if (lower.includes('aleat') || lower.includes('misto') || lower.includes('todas')) {
+      handleEmbaralharQuestoes();
+    }
     setActiveTab('questoes');
   };
 
@@ -751,6 +791,101 @@ export default function App() {
     setConfigAltaPerformance(prev => ({ ...prev, ...novasConfigs }));
   };
 
+  // Handler para treinar diretamente um assunto específico do Edital
+  const handleTreinarAssuntoEdital = (disciplina: string, assunto: string) => {
+    setDisciplinaFiltro(disciplina);
+    setAssuntoFiltro(assunto);
+    setBancaFiltro('Todas as Bancas');
+    setFiltroVisualizacao('todas');
+    setCurrentIndex(0);
+    setQuestaoAtivaId(null);
+    setActiveTab('questoes');
+  };
+
+  // Sidebar Modes selector handler
+  const handleSelectSidebarModo = (modoId: string, extraParam?: string) => {
+    switch (modoId) {
+      case 'simulado_misto':
+        setDisciplinaFiltro('Todas as Matérias (Misto Aleatório)');
+        setAssuntoFiltro('Todos os Assuntos');
+        setBancaFiltro('Todas as Bancas');
+        handleEmbaralharQuestoes();
+        setActiveTab('questoes');
+        break;
+      case 'treino_cirurgico':
+        handleIniciarTreinoCirurgico();
+        break;
+      case 'maratona_turbo':
+        handleIniciarMaratonaTurbo();
+        break;
+      case 'simulado_oficial':
+        handleIniciarSimuladoOficial();
+        break;
+      case 'caderno_erros':
+        setFiltroVisualizacao('erros');
+        setActiveTab('questoes');
+        break;
+      case 'cobertura_edital':
+        setIsCoberturaEditalOpen(true);
+        break;
+      case 'flashcards':
+        setTheoryModoInicial('flashcards');
+        setActiveTab('teoria');
+        break;
+      case 'teoria':
+        setTheoryModoInicial('edital');
+        setActiveTab('teoria');
+        break;
+      case 'redacao':
+        setActiveTab('redacao');
+        break;
+      case 'gerador_ia':
+        handleAbrirGerador();
+        break;
+      case 'estatisticas':
+        setIsStatsOpen(true);
+        break;
+      case 'materia_especifica':
+        if (extraParam) {
+          handleIrParaQuestoesDaMateria(extraParam);
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
+  // Three-dots menu actions handler
+  const handleSelectThreeDotsAction = (actionId: string) => {
+    switch (actionId) {
+      case 'cobertura_edital':
+        setIsCoberturaEditalOpen(true);
+        break;
+      case 'flashcards':
+        setTheoryModoInicial('flashcards');
+        setActiveTab('teoria');
+        break;
+      case 'teoria':
+        setTheoryModoInicial('edital');
+        setActiveTab('teoria');
+        break;
+      case 'redacao':
+        setActiveTab('redacao');
+        break;
+      case 'estatisticas':
+        setIsStatsOpen(true);
+        break;
+      case 'gerador_ia':
+        handleAbrirGerador();
+        break;
+      case 'resetar_simulado':
+        handleResetarTudo();
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <div className={`min-h-screen flex flex-col items-center justify-start antialiased selection:bg-amber-500 selection:text-slate-950 transition-colors duration-200 ${
       isDark ? 'bg-slate-950 text-slate-100' : 'bg-slate-200 text-slate-900'
@@ -776,6 +911,8 @@ export default function App() {
           onToggleFrame={() => setIsMobileFrame(!isMobileFrame)}
           cloudSyncStatus={cloudSyncStatus}
           onOpenGerador={() => handleAbrirGerador()}
+          onOpenSidebar={() => setIsSidebarOpen(true)}
+          onOpenThreeDots={() => setIsThreeDotsOpen(true)}
         />
 
         {/* Dynamic Main Body with smooth tab transitions */}
@@ -807,6 +944,8 @@ export default function App() {
                   onResetarProgresso={handleResetarTudo}
                   cloudSyncStatus={cloudSyncStatus}
                   onAbrirGerador={handleAbrirGerador}
+                  onTreinarAssunto={handleTreinarAssuntoEdital}
+                  onAbrirMatrizCompleta={() => setIsCoberturaEditalOpen(true)}
                 />
               </motion.div>
             ) : activeTab === 'questoes' ? (
@@ -859,6 +998,7 @@ export default function App() {
                   configAltaPerformance={configAltaPerformance}
                   onTriggerPrefetch={handleTriggerPrefetch}
                   isPrefetching={isPrefetching}
+                  onEmbaralhar={handleEmbaralharQuestoes}
                 />
               </motion.div>
             ) : activeTab === 'teoria' ? (
@@ -875,6 +1015,7 @@ export default function App() {
                   topicosLidos={topicosLidos}
                   onToggleLido={handleToggleTopicoLido}
                   onAbrirGerador={handleAbrirGerador}
+                  initialModoExibicao={theoryModoInicial}
                 />
               </motion.div>
             ) : (
@@ -900,6 +1041,24 @@ export default function App() {
         />
       </div>
 
+      {/* Sidebar with All Modes */}
+      <SidebarModes
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+        onSelectModo={handleSelectSidebarModo}
+        totalRespondidas={totalRespondidas}
+        taxaAcerto={taxaAcerto}
+        materias={TEORIA_PMBA}
+        errosCount={errosUsuario.length}
+      />
+
+      {/* Three Dots ("...") Options Menu */}
+      <ThreeDotsMenu
+        isOpen={isThreeDotsOpen}
+        onClose={() => setIsThreeDotsOpen(false)}
+        onSelectAction={handleSelectThreeDotsAction}
+      />
+
       {/* Stats Modal */}
       <StatsModal
         isOpen={isStatsOpen}
@@ -907,6 +1066,22 @@ export default function App() {
         historicoRespostas={historicoRespostas}
         todasQuestoes={todasQuestoes}
         onResetarTudo={handleResetarTudo}
+        onIrParaMateria={handleIrParaQuestoesDaMateria}
+      />
+
+      {/* Cobertura do Edital (Bater o Edital) Modal */}
+      <CoberturaEditalModal
+        isOpen={isCoberturaEditalOpen}
+        onClose={() => setIsCoberturaEditalOpen(false)}
+        questoes={todasQuestoes}
+        historicoRespostas={historicoRespostas}
+        topicosLidos={topicosLidos}
+        onTreinarAssunto={handleTreinarAssuntoEdital}
+        onEstudarTeoria={(disc) => {
+          setIsCoberturaEditalOpen(false);
+          setTheoryModoInicial('edital');
+          setActiveTab('teoria');
+        }}
       />
 
       {/* AI Question Generator Modal */}

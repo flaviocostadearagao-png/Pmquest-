@@ -18,28 +18,131 @@ export const TEORIA_PMBA: MateriaEdital[] = [
         tempoLeituraMin: 5,
         resumoIntro: 'O artigo 5º é o coração do Direito Constitucional no concurso da PMBA. Todos são iguais perante a lei, sem distinção de qualquer natureza, garantindo-se aos brasileiros e aos estrangeiros residentes no País a inviolabilidade do direito à vida, à liberdade, à igualdade, à segurança e à propriedade.',
         pontosImportantes: [
-          'Inviolabilidade de domicílio (XI): Casa como asilo inviolável. Exceções sem ordem judicial (a qualquer hora do dia ou da noite): Flagrante delito, desastre ou prestar socorro. Com ordem judicial: Somente durante o dia.',
+          'Inviolabilidade de domicílio (XI): A casa é asilo inviolável do indivíduo. Exceções sem ordem judicial (a qualquer hora do dia ou da noite): Flagrante delito, desastre ou para prestar socorro. Com ordem judicial: SOMENTE DURANTE O DIA.',
           'Prisão legal (LXI): Ninguém será preso senão em flagrante delito ou por ordem escrita e fundamentada de autoridade judiciária competente, salvo nos casos de transgressão militar ou crime propriamente militar, definidos em lei.',
-          'Habeas Corpus (LXVIII): Protege a liberdade de locomoção contra ilegalidade ou abuso de poder. É gratuito e não exige advogado!',
-          'Mandado de Segurança (LXIX): Protege direito líquido e certo não amparado por HC ou HD.',
-          'Habeas Data (LXXII): Assegura o conhecimento ou retificação de informações relativas à pessoa do impetrante em registros governamentais. Também é gratuito.'
+          'Habeas Corpus (LXVIII): Conceder-se-á para proteger a liberdade de locomoção ameaçada ou violada por ilegalidade ou abuso de poder. É gratuito e NÃO exige advogado!',
+          'Mandado de Segurança (LXIX): Protege direito líquido e certo não amparado por Habeas Corpus ou Habeas Data.',
+          'Habeas Data (LXXII): Assegura o conhecimento ou retificação de informações relativas à pessoa do impetrante em bancos de dados de entidades governamentais. É gratuito.'
         ],
-        dicaDeProva: 'A FCC adora trocar as hipóteses de entrada em domicílio. Lembre-se: ordem de Juiz NUNCA permite entrar à noite sem consentimento do morador! Se cair "mandado judicial à noite", a questão está FALSA!',
+        dicaDeProva: 'A FCC adora trocar as hipóteses de entrada em domicílio. Lembre-se: ordem de Juiz NUNCA permite entrar à noite sem consentimento do morador! Se a questão falar "mandado judicial à noite", a alternativa está FALSA!',
         legislacaoOuReferencia: 'CF/88, Art. 5º, incisos XI, LXI, LXVIII, LXIX e LXXII.'
       },
       {
         id: 'tc-2',
-        titulo: 'Art. 144 da CF/88: Da Segurança Pública e o Papel da Polícia Militar',
+        titulo: 'Art. 144 da CF/88: Da Segurança Pública e Atribuições da Polícia Militar',
         tempoLeituraMin: 4,
         resumoIntro: 'A segurança pública, dever do Estado, direito e responsabilidade de todos, é exercida para a preservação da ordem pública e da incolumidade das pessoas e do patrimônio.',
         pontosImportantes: [
-          'Órgãos da Segurança Pública (Art. 144): PF, PRF, PFF, Polícias Civis, Polícias Militares e Corpos de Bombeiros Militares, e Polícias Penais (federal, estaduais e distrital).',
+          'Órgãos da Segurança Pública (Art. 144): Polícia Federal, Polícia Rodoviária Federal, Polícia Ferroviária Federal, Polícias Civis, Polícias Militares e Corpos de Bombeiros Militares, e Polícias Penais (federal, estaduais e distrital).',
           'Missão Constitucional da PM (Art. 144, § 5º): Cabe à Polícia Militar a polícia ostensiva e a preservação da ordem pública.',
           'Forças Auxiliares: As Polícias Militares e Corpos de Bombeiros Militares são forças auxiliares e reserva do Exército Brasileiro e subordinam-se aos Governadores de Estado.',
-          'Guarda Municipal (§ 8º): Municípios poderão constituir guardas municipais destinadas à proteção de seus bens, serviços e instalações (não são forças militares).'
+          'Guardas Municipais (§ 8º): Municípios poderão constituir guardas municipais destinadas à proteção de seus bens, serviços e instalações (não exercem polícia ostensiva de competência militar).'
         ],
-        dicaDeProva: 'Cuidado! A Polícia Militar NÃO faz polícia judiciária comum (que cabe à Polícia Civil e Federal). A PM faz Polícia Ostensiva e Preservação da Ordem Pública! Atenção com pegadinhas de bancas invertendo essas atribuições.',
+        dicaDeProva: 'Cuidado! A Polícia Militar NÃO exerce atribuições de polícia judiciária comum (que cabe à Polícia Civil e Federal). A PM faz Polícia Ostensiva e Preservação da Ordem Pública! Cuidado com pegadinhas invertendo essas funções.',
         legislacaoOuReferencia: 'CF/88, Artigo 144, § 5º e § 6º.'
+      }
+    ]
+  },
+  {
+    id: 'mat-penal',
+    nome: 'Noções de Direito Penal',
+    icone: 'Gavel',
+    totalQuestoesEdital: '06 Questões no Edital',
+    relevancia: 'Muito Alta',
+    descricao: 'Aplicação da lei penal, crimes contra a pessoa, patrimônio, legítima defesa e disposições do Código Penal.',
+    topicos: [
+      {
+        id: 'tpen-1',
+        titulo: 'Excludentes de Ilicitude e Legítima Defesa no Código Penal',
+        tempoLeituraMin: 5,
+        resumoIntro: 'As causas excludentes de ilicitude (Art. 23 do CP) retiram a contrariedade da conduta com o ordenamento jurídico, fazendo com que o fato típico não seja considerado crime.',
+        pontosImportantes: [
+          'Causas Gerais de Exclusão (Art. 23): Estado de necessidade, Legítima defesa, Estrito cumprimento de dever legal e Exercício regular de direito.',
+          'Legítima Defesa (Art. 25): Entende-se em legítima defesa quem, usando moderadamente dos meios necessários, repele injusta agressão, atual ou iminente, a direito seu ou de outrem.',
+          'Agente de Segurança Pública (Pacote Anticrime): Considera-se em legítima defesa o agente que repele agressão ou risco de agressão a vítima mantida refém.',
+          'Excesso Punível (Art. 23, parágrafo único): O agente, em qualquer das hipóteses, responderá pelo excesso doloso ou culposo.'
+        ],
+        dicaDeProva: 'Grave a distinção: no Estado de Necessidade há conflito entre dois bens jurídicos legítimos (perigo atual involuntário). Na Legítima Defesa há agressão INJUSTA humana (atual ou iminente).',
+        legislacaoOuReferencia: 'Código Penal Brasileiro, Arts. 23 a 25.'
+      },
+      {
+        id: 'tpen-2',
+        titulo: 'Crimes Contra o Patrimônio: Furto, Roubo e Extorsão',
+        tempoLeituraMin: 5,
+        resumoIntro: 'Diferenciação precisa das modalidades de subtração e violência contra a posse e propriedade no Direito Penal.',
+        pontosImportantes: [
+          'Furto (Art. 155): Subtrair, para si ou para outrem, coisa alheia móvel (SEM violência ou grave ameaça à pessoa).',
+          'Roubo (Art. 157): Subtrair coisa móvel alheia, para si ou para outrem, MEDIANTE grave ameaça ou violência à pessoa, ou depois de havê-la reduzido à impossibilidade de resistência.',
+          'Roubo Impróprio (§ 1º): A violência ou grave ameaça é empregada LOGO DEPOIS da subtração da coisa para assegurar a impunidade do crime ou a detenção do bem.',
+          'Extorsão (Art. 158): Constranger alguém, mediante violência ou grave ameaça, com o intuito de obter indevida vantagem econômica, a FAZER, tolerar que se faça ou deixar de fazer alguma coisa.'
+        ],
+        dicaDeProva: 'No roubo, o criminoso subtrai a coisa diretamente. Na extorsão, a vítima precisa colaborar ativamente (ex: digitar a senha do PIX sob ameaça). Se a vítima for indispensável para a entrega da vantagem, é extorsão!',
+        legislacaoOuReferencia: 'Código Penal Brasileiro, Arts. 155, 157 e 158.'
+      }
+    ]
+  },
+  {
+    id: 'mat-admin',
+    nome: 'Direito Administrativo',
+    icone: 'ShieldAlert',
+    totalQuestoesEdital: '08 Questões no Edital',
+    relevancia: 'Muito Alta',
+    descricao: 'Princípios do Art. 37 da CF/88 (LIMPE), Regime Jurídico e o Estatuto dos Policiais Militares da Bahia (Lei Estadual nº 7.990/2001).',
+    topicos: [
+      {
+        id: 'ta-1',
+        titulo: 'Estatuto dos PMs da Bahia (Lei Estadual nº 7.990/2001): Hierarquia e Disciplina',
+        tempoLeituraMin: 5,
+        resumoIntro: 'O Estatuto regula o ingresso, as situações funcionais, direitos, deveres, prerrogativas e regime disciplinar dos militares estaduais da Bahia.',
+        pontosImportantes: [
+          'Hierarquia Militar: Ordenação da autoridade em níveis diferentes, dentro da estrutura das Forças Militares do Estado.',
+          'Disciplina Militar: Rigorosa observância e o acatamento integral das leis, regulamentos, normas e disposições.',
+          'Círculos Hierárquicos: Âmbitos de convivência entre policiais militares da mesma categoria destinados a desenvolver o espírito de camaradagem.',
+          'Comandante Geral da PMBA: Oficial da ativa do último posto do Quadro de Oficiais Policiais Militares (QOPM), de livre escolha e nomeação pelo Governador do Estado.',
+          'Uso do Uniforme: Prerrogativa privativa dos policiais militares em serviço ativo ou em solenidades autorizadas para inativos.'
+        ],
+        dicaDeProva: 'Grave para o Estatuto: Quem nomeia o Comandante Geral da PMBA? O Governador do Estado. A hierarquia e a disciplina são as bases institucionais permanentes da corporação militar!',
+        legislacaoOuReferencia: 'Lei Estadual da Bahia nº 7.990/2001, Arts. 1º a 20.'
+      },
+      {
+        id: 'ta-2',
+        titulo: 'Princípios Expressos da Administração Pública (LIMPE - Art. 37 CF/88)',
+        tempoLeituraMin: 4,
+        resumoIntro: 'A administração pública direta e indireta de qualquer dos Poderes da União, dos Estados, do DF e dos Municípios obedecerá aos princípios de legalidade, impessoalidade, moralidade, publicidade e eficiência.',
+        pontosImportantes: [
+          'Legalidade: O administrador público só pode fazer o que a lei expressamente autoriza (diferente do particular, que pode fazer tudo que a lei não proíbe).',
+          'Impessoalidade: Veda o favorecimento pessoal e a autopromoção de agentes em obras ou programas públicos.',
+          'Moralidade: Exige probidade, boa-fé e lealdade institucional.',
+          'Publicidade: Regra geral de transparência dos atos administrativos (salvo segurança pública ou intimidade).',
+          'Eficiência: Busca pelo melhor resultado com o menor custo e maior presteza.'
+        ],
+        dicaDeProva: 'Mnemônico LIMPE: Legalidade, Impessoalidade, Moralidade, Publicidade e Eficiência. O princípio da Eficiência foi acrescentado pela Emenda Constitucional nº 19/1998.',
+        legislacaoOuReferencia: 'CF/88, Artigo 37, caput.'
+      }
+    ]
+  },
+  {
+    id: 'mat-dh',
+    nome: 'Direitos Humanos',
+    icone: 'Globe2',
+    totalQuestoesEdital: '05 Questões no Edital',
+    relevancia: 'Alta',
+    descricao: 'Declaração Universal dos Direitos Humanos (1948) e Convenção Americana sobre Direitos Humanos (Pacto de San José da Costa Rica).',
+    topicos: [
+      {
+        id: 'tdh-1',
+        titulo: 'DUDH (1948) e Princípios Internacionais de Segurança Pública',
+        tempoLeituraMin: 5,
+        resumoIntro: 'Aprovada pela Resolução 217 A (III) da Assembleia Geral da ONU em 10 de dezembro de 1948, em Paris, como marco basilar dos direitos fundamentais pós-Segunda Guerra Mundial.',
+        pontosImportantes: [
+          'Artigo 1º: Todos os seres humanos nascem livres e iguais em dignidade e em direitos. Dotados de razão e consciência, devem agir uns para com os outros em espírito de fraternidade.',
+          'Artigo 3º: Todo indivíduo tem direito à vida, à liberdade e à segurança pessoal.',
+          'Artigo 5º: Ninguém será submetido a tortura, nem a tratamento ou castigo cruel, desumano ou degradante (norma absoluta de jus cogens).',
+          'Artigo 9º: Ninguém será arbitrariamente preso, detido ou exilado.',
+          'Artigo 11: Toda pessoa acusada de ato delituoso tem direito a ser presumida inocente até que a culpabilidade tenha sido provada perante a lei.'
+        ],
+        dicaDeProva: 'A DUDH é uma Resolução da Assembleia Geral da ONU com força principiológica basilar universal. A proibição da tortura NÃO admite qualquer exceção (nem mesmo em estado de defesa, sítio ou guerra)!',
+        legislacaoOuReferencia: 'DUDH de 1948 / Pacto de San José (Decreto 678/1992).'
       }
     ]
   },
@@ -55,30 +158,29 @@ export const TEORIA_PMBA: MateriaEdital[] = [
         id: 'ti-1',
         titulo: 'Lei Federal nº 12.288/2010: Estatuto da Igualdade Racial',
         tempoLeituraMin: 6,
-        resumoIntro: 'Destinado a garantir à população negra a efetivação da igualdade de oportunidades, a defesa dos direitos étnicos individuais, coletivos e difusos e o combate à discriminação e demais formas de intolerância étnica.',
+        resumoIntro: 'Destinado a garantir à população negra a efetivação da igualdade de oportunidades, a defesa dos direitos étnicos individuais, coletivos e difusos e o combate à discriminação e intolerância.',
         pontosImportantes: [
-          'População negra: O conjunto de pessoas que se autodeclaram pretas e pardas, conforme o quesito cor ou raça usado pelo IBGE, ou que adotam autodefinição análoga.',
-          'Políticas públicas: Ações, iniciativas e programas adotados pelo Estado no cumprimento das suas atribuições institucionais.',
-          'Ações Afirmativas: Programas e medidas especiais adotados pelo Estado e na iniciativa privada para a correção das desigualdades raciais e para a promoção da igualdade de oportunidades. NÃO são consideradas discriminação!',
-          'Direito à saúde: Atenção especial e tratamento específico às doenças com maior prevalência na população negra (ex: anemia falciforme).',
+          'População negra: O conjunto de pessoas que se autodeclaram pretas e pardas, conforme o quesito cor ou raça usado pelo IBGE.',
+          'Ações Afirmativas: Programas e medidas especiais adotados pelo Estado e iniciativa privada para reparação das desigualdades raciais e promoção de oportunidades (NÃO configuram discriminação).',
+          'Direito à saúde: Tratamento específico às doenças com maior prevalência na população negra (ex: anemia falciforme).',
           'Liberdade de crença e culto: Garantida a proteção e a inviolabilidade dos locais de culto de matriz africana (terreiros).'
         ],
-        dicaDeProva: 'Cai sempre: Quem compõe a "população negra" segundo a lei? Resposta: PRETAS + PARDAS (critério do IBGE). Jamais marque alternativas que excluam os pardos.',
+        dicaDeProva: 'Cai sempre: Quem compõe a "população negra" segundo a lei? Resposta: PRETAS + PARDAS (critério do IBGE). Jamais marque alternativas que excluam os pardos!',
         legislacaoOuReferencia: 'Lei Federal nº 12.288/2010, Art. 1º ao 8º.'
       },
       {
         id: 'ti-2',
         titulo: 'Lei Maria da Penha (Lei nº 11.340/2006) e Formas de Violência',
         tempoLeituraMin: 5,
-        resumoIntro: 'Cria mecanismos para coibir e prevenir a violência doméstica e familiar contra a mulher, nos termos do § 8º do art. 226 da Constituição Federal.',
+        resumoIntro: 'Mecanismos para coibir e prevenir a violência doméstica e familiar contra a mulher, nos termos do § 8º do art. 226 da Constituição Federal.',
         pontosImportantes: [
           'Cinco formas de violência doméstica contra a mulher (Art. 7º): Física, Psicológica, Sexual, Patrimonial e Moral.',
           'Violência Patrimonial: Subtração, retenção, destruição de objetos, instrumentos de trabalho, documentos pessoais e bens.',
           'Violência Moral: Conduta que configure calúnia, difamação ou injúria.',
           'Atuação Policial: O policial militar deve adotar providências imediatas para proteger a vítima, encaminhá-la a atendimento médico, garantir o afastamento do agressor do lar e conduzi-lo em flagrante.',
-          'Vedação: É proibida a aplicação de penas de cesta básica ou outras de prestação pecuniária nos crimes praticados com violência doméstica.'
+          'Vedação: É proibida a aplicação de penas de cesta básica ou outras de prestação pecuniária nos crimes de violência doméstica.'
         ],
-        dicaDeProva: 'Grave as 5 formas de violência: FÍSICA, PSICOLÓGICA, SEXUAL, PATRIMONIAL e MORAL. A destruição de documentos e objetos é violência PATRIMONIAL. A injúria e calúnia são violência MORAL.',
+        dicaDeProva: 'Grave as 5 formas de violência: FÍSICA, PSICOLÓGICA, SEXUAL, PATRIMONIAL e MORAL. A destruição de documentos e instrumentos de trabalho é violência PATRIMONIAL. A injúria e difamação são violência MORAL.',
         legislacaoOuReferencia: 'Lei Federal nº 11.340/2006, Artigo 7º.'
       }
     ]
@@ -110,86 +212,13 @@ export const TEORIA_PMBA: MateriaEdital[] = [
         id: 'th-2',
         titulo: 'Revolta dos Búzios (1798) e Revolta dos Malês (1835)',
         tempoLeituraMin: 5,
-        resumoIntro: 'Dois grandes movimentos populares e emancipatórios de Salvador de imenso destaque histórico.',
+        resumoIntro: 'Dois grandes movimentos populares e emancipatórios de Salvador de imenso destaque na historiografia baiana.',
         pontosImportantes: [
           'Revolta dos Búzios (Conjuração Baiana / Alfaiates - 1798): Caráter popular, republicano, abolicionista e de igualdade racial. Lideranças: Lucas Dantas, Manuel Faustino, Luís Gonzaga das Virgens e João de Deus.',
           'Revolta dos Malês (1835): Ocorrida na noite de 24 para 25 de janeiro de 1835 durante o mês sagrado do Ramadã. Liderada por negros islamizados (malês/nagôs) alfabetizados em árabe em plena capital baiana.'
         ],
-        dicaDeProva: 'Diferença-chave de prova: Búzios (1798) queria proclamação de República e fim da escravidão (influência da Revolução Francesa). Já Malês (1835) foi liderada por muçulmanos letrados em Salvador contra o cativeiro e opressão religiosa.',
+        dicaDeProva: 'Diferença-chave de prova: Búzios (1798) queria proclamação de República e fim da escravidão (influência da Revolução Francesa). Já Malês (1835) foi liderada por muçulmanos letrados em Salvador contra o cativeiro e a opressão religiosa.',
         legislacaoOuReferencia: 'Historiografia Baiana - Luís Henrique Dias Tavares.'
-      }
-    ]
-  },
-  {
-    id: 'mat-admin',
-    nome: 'Direito Administrativo & Estatuto PMBA',
-    icone: 'ShieldAlert',
-    totalQuestoesEdital: '08 Questões no Edital',
-    relevancia: 'Muito Alta',
-    descricao: 'Princípios do Art. 37 da CF/88 (LIMPE), Regime Jurídico e o Estatuto dos Policiais Militares da Bahia (Lei Estadual nº 7.990/2001).',
-    topicos: [
-      {
-        id: 'ta-1',
-        titulo: 'Estatuto dos PMs da Bahia (Lei Estadual nº 7.990/2001): Hierarquia e Disciplina',
-        tempoLeituraMin: 5,
-        resumoIntro: 'O Estatuto regula o ingresso, as situações funcionais, direitos, deveres, prerrogativas e regime disciplinar dos militares estaduais da Bahia.',
-        pontosImportantes: [
-          'Hierarquia Militar: É a ordenação da autoridade em níveis diferentes, dentro da estrutura das Forças Militares do Estado.',
-          'Disciplina Militar: É a rigorosa observância e o acatamento integral das leis, regulamentos, normas e disposições.',
-          'Círculos Hierárquicos: Âmbitos de convivência entre policiais militares da mesma categoria destinados a desenvolver o espírito de camaradagem.',
-          'Comandante Geral: Oficial da ativa do último posto do Quadro de Oficiais Policiais Militares (QOPM), de livre escolha e nomeação pelo Governador do Estado.',
-          'Uso do Uniforme: Prerrogativa privativa dos policiais militares em serviço ativo ou em solenidades autorizadas para inativos.'
-        ],
-        dicaDeProva: 'Grave para o Estatuto: Quem nomeia o Comandante Geral da PMBA? O Governador do Estado. A hierarquia e disciplina são as bases institucionais permanentes!',
-        legislacaoOuReferencia: 'Lei Estadual da Bahia nº 7.990, de 27 de dezembro de 2001.'
-      }
-    ]
-  },
-  {
-    id: 'mat-port',
-    nome: 'Língua Portuguesa',
-    icone: 'BookOpen',
-    totalQuestoesEdital: '10 Questões no Edital',
-    relevancia: 'Muito Alta',
-    descricao: 'Interpretação de textos, crase, concordância verbal e nominal, regência e pontuação (padrão FCC/IBFC).',
-    topicos: [
-      {
-        id: 'tp-1',
-        titulo: 'Regras de Ouro da Crase para a Prova da PMBA',
-        tempoLeituraMin: 4,
-        resumoIntro: 'A crase é a fusão da preposição "a" com o artigo definido feminino "a(s)" ou com os pronomes aquele(s), aquela(s), aquilo.',
-        pontosImportantes: [
-          'Nunca ocorre crase: Diante de palavras masculinas, diante de verbos, diante da maioria dos pronomes (ele, você, quem, ninguém), e quando o "a" está no singular diante de palavra no plural.',
-          'Crase obrigatória: Locuções prepositivas, conjuntivas e adverbiais femininas (à noite, às pressas, à medida que, à proporção que).',
-          'Crase facultativa (Mnemônico ATÉ A MINHA MARIA): Diante de nomes próprios femininos, diante de pronomes possessivos femininos no singular (a minha, a sua), e após a preposição "até".'
-        ],
-        dicaDeProva: 'Substitua a palavra feminina por uma masculina. Se virar "AO", TEM CRASE! Ex: "Fui à feira" -> "Fui ao mercado" (tem crase!). Se virar apenas "O", não tem crase: "Conheço a cidade" -> "Conheço o país".',
-        legislacaoOuReferencia: 'Gramática Normativa e Padrão FCC.'
-      }
-    ]
-  },
-  {
-    id: 'mat-dh',
-    nome: 'Direitos Humanos',
-    icone: 'Globe2',
-    totalQuestoesEdital: '05 Questões no Edital',
-    relevancia: 'Alta',
-    descricao: 'Declaração Universal dos Direitos Humanos (1948) e Convenção Americana sobre Direitos Humanos (Pacto de San José da Costa Rica).',
-    topicos: [
-      {
-        id: 'tdh-1',
-        titulo: 'DUDH (1948) e Princípios Internacionais de Segurança Pública',
-        tempoLeituraMin: 5,
-        resumoIntro: 'Aprovada pela Resolução 217 A (III) da Assembleia Geral da ONU em 10 de dezembro de 1948, em Paris, como marco de reconstrução pós-Segunda Guerra Mundial.',
-        pontosImportantes: [
-          'Artigo 1º: Todos os seres humanos nascem livres e iguais em dignidade e em direitos. Dotados de razão e de consciência, devem agir uns para com os outros em espírito de fraternidade.',
-          'Artigo 3º: Todo indivíduo tem direito à vida, à liberdade e à segurança pessoal.',
-          'Artigo 5º: Ninguém será submetido a tortura, nem a tratamento ou castigo cruel, desumano ou degradante (norma cogente absoluta).',
-          'Artigo 9º: Ninguém será arbitrariamente preso, detido ou exilado.',
-          'Artigo 11: Toda pessoa acusada de um ato delituoso tem o direito de ser presumida inocente até que a sua culpabilidade tenha sido provada perante a lei.'
-        ],
-        dicaDeProva: 'A DUDH é uma Resolução da ONU e possui força moral e principiológica basilar. A proibição de tortura e tratamento degradante NÃO admite qualquer tipo de exceção, nem mesmo em estado de sítio ou guerra!',
-        legislacaoOuReferencia: 'DUDH de 1948 / Pacto de San José (Decreto 678/1992).'
       }
     ]
   },
@@ -217,25 +246,38 @@ export const TEORIA_PMBA: MateriaEdital[] = [
     ]
   },
   {
-    id: 'mat-penal',
-    nome: 'Direito Penal & Penal Militar',
-    icone: 'Gavel',
-    totalQuestoesEdital: '06 Questões no Edital',
-    relevancia: 'Alta',
-    descricao: 'Aplicação da lei penal, crimes contra a pessoa, crimes contra o patrimônio e noções de crimes militares (CPM).',
+    id: 'mat-port',
+    nome: 'Língua Portuguesa',
+    icone: 'BookOpen',
+    totalQuestoesEdital: '10 Questões no Edital',
+    relevancia: 'Muito Alta',
+    descricao: 'Interpretação de textos, crase, concordância verbal e nominal, regência e pontuação (padrão FCC/IBFC).',
     topicos: [
       {
-        id: 'tpen-1',
-        titulo: 'Crimes Contra a Pessoa e Excludentes de Ilicitude',
-        tempoLeituraMin: 5,
-        resumoIntro: 'Noções fundamentais do Código Penal aplicáveis à conduta e atuação ostensiva do policial militar.',
+        id: 'tp-1',
+        titulo: 'Regras de Ouro da Crase para a Prova da PMBA',
+        tempoLeituraMin: 4,
+        resumoIntro: 'A crase é a fusão da preposição "a" com o artigo definido feminino "a(s)" ou com os pronomes aquele(s), aquela(s), aquilo.',
         pontosImportantes: [
-          'Excludentes de Ilicitude (Art. 23 do CP): Estado de necessidade, Legítima defesa, Estrito cumprimento de dever legal e Exercício regular de direito.',
-          'Legítima Defesa (Art. 25 do CP): Quem, usando moderadamente dos meios necessários, repele injusta agressão, atual ou iminente, a direito seu ou de outrem.',
-          'Pacote Anticrime e Policiais: Considera-se também em legítima defesa o agente de segurança pública que repele agressão ou risco de agressão a vítima mantida refém durante a prática de crimes.'
+          'Nunca ocorre crase: Diante de palavras masculinas, diante de verbos, diante da maioria dos pronomes (ele, você, quem, ninguém), e quando o "a" está no singular diante de palavra no plural.',
+          'Crase obrigatória: Locuções prepositivas, conjuntivas e adverbiais femininas (à noite, às pressas, à medida que, à proporção que).',
+          'Crase facultativa (Mnemônico ATÉ A MINHA MARIA): Diante de nomes próprios femininos, diante de pronomes possessivos femininos no singular (a minha, a sua), e após a preposição "até".'
         ],
-        dicaDeProva: 'O excesso punível: Não há crime quando o militar atua em estrito cumprimento do dever legal ou legítima defesa, MAS responderá pelo excesso doloso ou culposo!',
-        legislacaoOuReferencia: 'Código Penal Brasileiro, Arts. 23 a 25.'
+        dicaDeProva: 'Substitua a palavra feminina por uma masculina. Se virar "AO", TEM CRASE! Ex: "Fui à feira" -> "Fui ao mercado" (tem crase!). Se virar apenas "O", não tem crase: "Conheço a cidade" -> "Conheço o país".',
+        legislacaoOuReferencia: 'Gramática Normativa e Padrão FCC.'
+      },
+      {
+        id: 'tp-2',
+        titulo: 'Concordância Verbal: Verbo Haver e Fazer Impessoais',
+        tempoLeituraMin: 4,
+        resumoIntro: 'Regras de concordância com orações sem sujeito que mais derrubam candidatos em concursos policiais.',
+        pontosImportantes: [
+          'Haver no sentido de existir ou ocorrer: É impessoal e fica SEMPRE na 3ª pessoa do singular (ex: "Havia muitos policiais", NUNCA "Haviam muitos policiais").',
+          'Haver e Fazer indicando tempo decorrido: São impessoais e não flexionam no plural (ex: "Faz dez anos que estudo", "Há dois meses ocorreu o fato").',
+          'Locuções com verbo impessoal: O verbo auxiliar também fica no singular (ex: "Deve haver soluções", NUNCA "Devem haver soluções").'
+        ],
+        dicaDeProva: 'O verbo EXISTIR tem sujeito e concorda normalmente ("Existiam dúvidas"). O verbo HAVER (no sentido de existir) NÃO tem plural ("Havia dúvidas"). Pegadinha clássica da FCC!',
+        legislacaoOuReferencia: 'Sintaxe de Concordância - Gramática da Língua Portuguesa.'
       }
     ]
   },

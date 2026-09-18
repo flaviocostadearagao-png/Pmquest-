@@ -58,7 +58,7 @@ export interface RespostaUsuario {
   tempoGastoSegundos?: number;
 }
 
-export type ModoEstudo = 'padrao' | 'maratona' | 'treino_cirurgico' | 'simulado_oficial' | 'caderno_erros';
+export type ModoEstudo = 'padrao' | 'maratona' | 'treino_cirurgico' | 'simulado_oficial' | 'caderno_erros' | 'misto_aleatorio';
 
 export type FiltroVisualizacao = 'todas' | 'nao_respondidas' | 'somente_erros' | 'somente_acertos';
 
