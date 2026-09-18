@@ -464,7 +464,11 @@ export default function App() {
         matchStatus = !resp;
       }
 
-      return matchDisciplina && matchAssunto && matchBanca && matchStatus;
+      // CRITICAL FIX: Keep the currently active question in the list even if it was just answered
+      // This allows the user to see the explanation before it vanishes due to the filter
+      const isActive = q.id === questaoAtivaId;
+
+      return matchDisciplina && matchAssunto && matchBanca && (matchStatus || isActive);
     });
 
     if (shuffleSeed > 0) {
@@ -1096,8 +1100,8 @@ export default function App() {
                 <CadernoIASection
                   questoesGeradas={questoesGeradas}
                   historicoRespostas={historicoRespostas}
-                  onResponderQuestao={(qId, altId, acertou) => {
-                    handleResponder(qId, altId, acertou);
+                  onResponderQuestao={(qId, altId) => {
+                    handleResponder(qId, altId);
                   }}
                   onAbrirGerador={handleAbrirGerador}
                   onRemoverQuestaoIA={handleRemoverQuestaoIA}

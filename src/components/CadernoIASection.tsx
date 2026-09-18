@@ -21,7 +21,7 @@ import { useTheme } from '../context/ThemeContext';
 interface CadernoIASectionProps {
   questoesGeradas: Questao[];
   historicoRespostas: Record<string, RespostaUsuario>;
-  onResponderQuestao: (questaoId: string, alternativaId: any, acertou: boolean) => void;
+  onResponderQuestao: (questaoId: string, alternativaId: any) => void;
   onAbrirGerador: () => void;
   onRemoverQuestaoIA: (id: string) => void;
   onLimparTodasQuestoesIA: () => void;
@@ -67,10 +67,10 @@ export const CadernoIASection: React.FC<CadernoIASectionProps> = ({
     return questoesGeradas.filter(q => historicoRespostas[q.id]?.acertou).length;
   }, [questoesGeradas, historicoRespostas]);
 
-  const handleSelecionarAlternativa = (questaoId: string, altId: string, correta: boolean) => {
+  const handleSelecionarAlternativa = (questaoId: string, altId: string) => {
     setRespostasAtuais(prev => ({ ...prev, [questaoId]: altId }));
     setMostrarExplicacao(prev => ({ ...prev, [questaoId]: true }));
-    onResponderQuestao(questaoId, altId, correta);
+    onResponderQuestao(questaoId, altId);
   };
 
   return (
@@ -315,7 +315,7 @@ export const CadernoIASection: React.FC<CadernoIASectionProps> = ({
                       <button
                         key={alt.id}
                         disabled={resolvida}
-                        onClick={() => handleSelecionarAlternativa(q.id, alt.id, isCorrect)}
+                        onClick={() => handleSelecionarAlternativa(q.id, alt.id)}
                         className={`w-full text-left p-3.5 rounded-2xl border text-xs md:text-sm flex items-start gap-3 transition-all cursor-pointer ${btnStyle}`}
                       >
                         <span className={`w-6 h-6 rounded-lg font-bold flex items-center justify-center shrink-0 ${
