@@ -605,6 +605,142 @@ export const BANCO_PEDAGOGICO_COMPLETO_PMBA: Questao[] = [
       bizuPMBA: 'Bizu das Regiões Econômicas da Bahia: OESTE (Barreiras/LEM) = Agronegócio/Soja/Cerrado! CAMAÇARI = Polo Petroquímico/Indústria! ILHÉUS/ITABUNA = Cacau! JUAZEIRO = Fruticultura Irrigada!',
       artigosCitados: ['Geografia da Bahia - Espaço Agrário e Economia']
     }
+  },
+  {
+    id: 'ped-estatuto-01',
+    numero: 201,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2024,
+    disciplina: 'Direito Administrativo',
+    assunto: 'Estatuto dos Policiais Militares da BA (Lei nº 7.990/2001) - Hierarquia e Disciplina',
+    dificuldade: 'Média',
+    enunciado: 'Nos termos da Lei estadual nº 7.990/2001 (Estatuto dos Policiais Militares da Bahia), a hierarquia e a disciplina são a base institucional da Polícia Militar. Sobre os conceitos legais, assinale a alternativa correta:',
+    alternativas: [
+      { id: 'A', texto: 'A hierarquia policial militar é a ordenação da autoridade em níveis diferentes, sendo a disciplina o rigoroso cumprimento do dever.' },
+      { id: 'B', texto: 'A disciplina militar restringe-se exclusivamente ao horário de expediente nos quartéis.' },
+      { id: 'C', texto: 'O soldado PM possui prerrogativa de hierarquia superior a qualquer oficial subalterno.' },
+      { id: 'D', texto: 'A subordinação ao superior hierárquico é facultativa em missões de folga.' },
+      { id: 'E', texto: 'A hierarquia militar exclui o respeito mútuo, baseando-se unicamente na imposição de força.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Major PMBA Carlos Eduardo',
+      cargo: 'Direito Administrativo Militar',
+      analiseGeral: 'A Lei nº 7.990/2001 (Estatuto dos PMs da BA) define nitidamente que a hierarquia é a ordenação da autoridade em níveis diferentes e a disciplina é a observância consciente das leis e regulamentos.',
+      justificativaAlternativas: {
+        A: 'CORRETA. Definição legal exata do Estatuto da PMBA.',
+        B: 'Incorreta. A disciplina e o pundonor policial-militar acompanham o militar em todo lugar.',
+        C: 'Incorreta. Soldado é posto inicial da praça, abaixo de cabos, sargentos e oficiais.',
+        D: 'Incorreta. O PM em folga continua sujeito às normas disciplinares e ao dever funcional.',
+        E: 'Incorreta. O respeito mútuo é obrigatório em todos os graus hierárquicos.'
+      },
+      bizuPMBA: 'Bizu PMBA: Hierarquia = Escada de graus e postos! Disciplina = Cumprimento estrito do dever e leis!',
+      artigosCitados: ['Lei Estadual nº 7.990/2001 (Estatuto dos PMs da BA), Arts. 11 a 15']
+    }
+  },
+  {
+    id: 'ped-penal-01',
+    numero: 202,
+    banca: 'FCC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2024,
+    disciplina: 'Direito Penal',
+    assunto: 'Crimes contra a Administração Pública - Peculato (Art. 312 do CP)',
+    dificuldade: 'Difícil',
+    enunciado: 'Um policial militar lotado no setor de patrimônio de um batalhão desvia em proveito próprio uma pistola calibre .40 pertencente à reserva de armamento da unidade, da qual tinha a posse em razão do cargo. O fato configura crime de:',
+    alternativas: [
+      { id: 'A', texto: 'Peculato-apropriação (Art. 312, caput, 1ª parte do Código Penal).' },
+      { id: 'B', texto: 'Concussão (Art. 316 do Código Penal).' },
+      { id: 'C', texto: 'Furto qualificado pelo abuso de confiança.' },
+      { id: 'D', texto: 'Prevaricação (Art. 319 do Código Penal).' },
+      { id: 'E', texto: 'Corrupção passiva (Art. 317 do Código Penal).' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Cap. PMBA Fernando Rocha',
+      cargo: 'Direito Penal',
+      analiseGeral: 'O funcionário público (policial militar) que tem a posse do bem em razão do cargo e o subtrai ou desvia em proveito próprio comete o crime de peculato-apropriação (Art. 312 do CP).',
+      justificativaAlternativas: {
+        A: 'CORRETA. Subtrair ou desviar dinheiro, valor ou bem móvel público de que tem a posse em razão do cargo caracteriza peculato.',
+        B: 'Incorreta. Concussão exige exigir vantagem indevida.',
+        C: 'Incorreta. O militar detém a posse legítima em razão do cargo, afastando o furto comum.',
+        D: 'Incorreta. Prevaricação é retardar ou deixar de praticar ato de ofício por sentimento pessoal.',
+        E: 'Incorreta. Corrupção passiva exige solicitar ou receber vantagem para praticar ato funcional.'
+      },
+      bizuPMBA: 'Bizu PMBA: Tem a posse e desvia/apropria = Peculato! Se o terceiro subtrai com facilidade do funcionário = Peculato-culposo ou estelionato!',
+      artigosCitados: ['Código Penal, Art. 312']
+    }
+  },
+  {
+    id: 'ped-port-01',
+    numero: 203,
+    banca: 'IBFC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2024,
+    disciplina: 'Língua Portuguesa',
+    assunto: 'Crase e Regência Verbal',
+    dificuldade: 'Média',
+    enunciado: 'Assinale a alternativa em que o emprego do acento indicativo de crase está em estrita conformidade com a norma-padrão da língua portuguesa:',
+    alternativas: [
+      { id: 'A', texto: 'A guarnição policial dirigiu-se à viatura descaracterizada para iniciar o patrulhamento noturno.' },
+      { id: 'B', texto: 'O comandante entregou o memorando à todos os oficiais presentes no quartel.' },
+      { id: 'C', texto: 'Os policiais militares compareceram à uma solenidade cívico-militar no 18º BPM.' },
+      { id: 'D', texto: 'Frente à situação de perigo iminente, o soldado agiu com firmeza técnica.' },
+      { id: 'E', texto: 'A patrulha chegou a Salvador no final da tarde, após o turno de serviço.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Prof.ª Maria Clara',
+      cargo: 'Língua Portuguesa',
+      analiseGeral: 'O verbo dirigir-se rege a preposição "a" e o substantivo feminino "viatura" aceita o artigo "a", ocorrendo a crase obrigatória (à viatura).',
+      justificativaAlternativas: {
+        A: 'CORRETA. Quem dirige-se, dirige-se a (preposição) + a viatura (artigo) = à viatura.',
+        B: 'Incorreta. Não se usa crase antes de pronome indefinido (todos).',
+        C: 'Incorreta. Não se usa crase antes de artigo indefinido (uma).',
+        D: 'Incorreta. Locuções prepositivas formadas por palavra feminina exigem crase (frente a frente não tem crase antes de substantivo sem artigo, mas "frente à" pede análise contextuada. Aqui "Frente a" antes de artigo subentendido, porém o correto é sem crase ou crase opcional antes de pronomes demonstrativos femininos, contudo antes de substantivo comum sem determinante não há crase).',
+        E: 'Incorreta. Antes de nomes de cidades que não admitem artigo feminino não há crase ("chegou a Salvador").'
+      },
+      bizuPMBA: 'Bizu de Português: Substitua a palavra feminina por masculina ("ao quartel"). Se virou "ao", tem crase ("à"). Se virou "a", crase para quê?',
+      artigosCitados: ['Gramática Normativa - Emprego da Crase']
+    }
+  },
+  {
+    id: 'ped-hist-01',
+    numero: 204,
+    banca: 'FCC',
+    orgao: 'PM-BA',
+    cargo: 'Soldado PM',
+    ano: 2024,
+    disciplina: 'História da Bahia',
+    assunto: 'Revolta dos Alfaiates (Conjuntura Baiana de 1798)',
+    dificuldade: 'Difícil',
+    enunciado: 'Diferentemente da Inconfidência Mineira (1789), a Conjuntura Baiana ou Revolta dos Alfaiates (1798) caracterizou-se por forte participação popular, incluindo negros livres, escravizados, alfaiates e soldados, tendo entre seus ideais principais:',
+    alternativas: [
+      { id: 'A', texto: 'A proclamação de uma República democrática, o fim da escravidão e a abertura dos portos às nações amigas.' },
+      { id: 'B', texto: 'A manutenção da monarquia absolutista e a preservação do monopólio comercial português.' },
+      { id: 'C', texto: 'A aliança direta com a Coroa espanhola para expulsar os comerciantes ingleses de Salvador.' },
+      { id: 'D', texto: 'O retorno imediato da família real portuguesa para a cidade de Salvador.' },
+      { id: 'E', texto: 'A criação de um regime teocrático controlado pelas ordens religiosas da Bahia colonial.' }
+    ],
+    respostaCorreta: 'A',
+    comentario: {
+      professor: 'Prof. Historian Carlos',
+      cargo: 'História da Bahia',
+      analiseGeral: 'A Revolta dos Alfaiates (1798) teve cunho popular e separatista, defendendo a República Baiana, o fim da escravidão, aumento de soldos para a tropa e igualdade racial.',
+      justificativaAlternativas: {
+        A: 'CORRETA. Ideais iluministas, república, fim da escravidão e igualdade.',
+        B: 'Incorreta. O movimento era anti-metropolitano e republicano.',
+        C: 'Incorreta. Não houve aliança com a Espanha.',
+        D: 'Incorreta. A família real só veio em 1808.',
+        E: 'Incorreta. O movimento era laico e inspirado na Revolução Francesa.'
+      },
+      bizuPMBA: 'Bizu PMBA História da Bahia: Inconfidência Mineira = Elite letrada (sem abolir escravidão). Revolta dos Alfaiates (Bahia) = Popular, soldados e escravizados (queriam fim da escravidão)!',
+      artigosCitados: ['História da Bahia - Movimentos Separatistas']
+    }
   }
 ];
 

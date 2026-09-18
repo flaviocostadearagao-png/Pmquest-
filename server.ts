@@ -179,7 +179,33 @@ Retorne ESTRITAMENTE um array JSON puro (sem markdown ou texto extra fora dos co
     const rawList = Array.isArray(rawData) ? rawData : [rawData];
     const timestamp = Date.now();
 
-    const questoes = rawList.map((q: any, idx: number) => {
+    // Rigorous deduplication (Jaccard similarity check on word tokens)
+    const getTokens = (str: string) => new Set(
+      String(str || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9 ]/g, '').split(/\s+/).filter(w => w.length > 3)
+    );
+    const existingTokenSets = (enunciadosExistentes || []).filter(Boolean).map((e: any) => getTokens(String(e)));
+
+    const isTooSimilar = (newText: string) => {
+      const newTokens = getTokens(newText);
+      if (newTokens.size < 4) return false;
+      for (const oldTokens of existingTokenSets) {
+        let intersection = 0;
+        for (const t of newTokens) {
+          if (oldTokens.has(t)) intersection++;
+        }
+        const union = newTokens.size + oldTokens.size - intersection;
+        const jaccard = union > 0 ? intersection / union : 0;
+        if (jaccard > 0.42) {
+          return true; // Reject if similarity > 42%
+        }
+      }
+      return false;
+    };
+
+    const filteredRawList = rawList.filter((q: any) => !isTooSimilar(q?.enunciado));
+    const listToProcess = filteredRawList.length > 0 ? filteredRawList : rawList;
+
+    const questoes = listToProcess.map((q: any, idx: number) => {
       const rawResp = (q.respostaCorreta || 'A').toString().trim().toUpperCase();
       const cleanResp = (rawResp.match(/[A-E]/)?.[0] || 'A') as 'A' | 'B' | 'C' | 'D' | 'E';
 

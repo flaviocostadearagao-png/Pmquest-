@@ -8,6 +8,7 @@ import { StatsModal } from './components/StatsModal';
 import { HomeDashboard } from './components/HomeDashboard';
 import { GeradorQuestoesModal } from './components/GeradorQuestoesModal';
 import { RedacaoSection } from './components/RedacaoSection';
+import { CadernoIASection } from './components/CadernoIASection';
 import { SidebarModes } from './components/SidebarModes';
 import { ThreeDotsMenu } from './components/ThreeDotsMenu';
 import { CoberturaEditalModal } from './components/CoberturaEditalModal';
@@ -687,6 +688,16 @@ export default function App() {
     return { aceitas, novosHashes, totalDescartadas };
   }, []);
 
+  const handleRemoverQuestaoIA = (id: string) => {
+    setQuestoesGeradas((prev) => prev.filter((q) => q.id !== id));
+  };
+
+  const handleLimparTodasQuestoesIA = () => {
+    if (window.confirm('Tem certeza que deseja limpar todas as questões geradas por IA do seu caderno?')) {
+      setQuestoesGeradas([]);
+    }
+  };
+
   const handleNovasQuestoesGeradas = (novasQuestoes: Questao[], disciplinaGerada: string) => {
     if (!novasQuestoes || novasQuestoes.length === 0) return;
 
@@ -1065,7 +1076,7 @@ export default function App() {
                   historicoRespostas={historicoRespostas}
                 />
               </motion.div>
-            ) : (
+            ) : activeTab === 'redacao' ? (
               <motion.div
                 key="tab-redacao"
                 initial={{ opacity: 0, x: 10 }}
@@ -1074,6 +1085,25 @@ export default function App() {
                 transition={{ duration: 0.2 }}
               >
                 <RedacaoSection />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="tab-caderno-ia"
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
+                transition={{ duration: 0.2 }}
+              >
+                <CadernoIASection
+                  questoesGeradas={questoesGeradas}
+                  historicoRespostas={historicoRespostas}
+                  onResponderQuestao={(qId, altId, acertou) => {
+                    handleResponder(qId, altId, acertou);
+                  }}
+                  onAbrirGerador={handleAbrirGerador}
+                  onRemoverQuestaoIA={handleRemoverQuestaoIA}
+                  onLimparTodasQuestoesIA={handleLimparTodasQuestoesIA}
+                />
               </motion.div>
             )}
           </AnimatePresence>
@@ -1085,6 +1115,7 @@ export default function App() {
           onTabChange={setActiveTab}
           questoesCount={todasQuestoes.length}
           questoesRespondidas={totalRespondidas}
+          questoesAICount={questoesGeradas.length}
         />
       </div>
 
