@@ -4,6 +4,7 @@ import path from 'path';
 import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI } from '@google/genai';
 import { gerarQuestoesPedagogicas } from './src/data/questoesPedagogicasPMBA';
+import { canonicalizeDisciplina } from './src/utils/disciplinaUtils';
 
 const app = express();
 const PORT = 3000;
@@ -32,10 +33,11 @@ app.post('/api/gerar-questoes', async (req: Request, res: Response) => {
     dificuldade = 'Média',
     banca = 'IBFC / FCC (Padrão PMBA)',
     modo = 'padrao', // 'padrao' | 'maratona' | 'treino_cirurgico' | 'simulado_oficial'
-    errosRecentes = [] // array of { disciplina, assunto, totalErros }
+    errosRecentes = [], // array of { disciplina, assunto, totalErros }
+    enunciadosExistentes = [] // array of existing question strings to avoid duplicates
   } = req.body || {};
 
-  const numQuestoes = Math.min(Math.max(Number(quantidade) || 3, 1), 10);
+  const numQuestoes = Math.min(Math.max(Number(quantidade) || 3, 1), 15);
   const ai = getAI();
 
   // If no Gemini API key configured, instantly serve the verified pedagogical bank
@@ -72,16 +74,35 @@ app.post('/api/gerar-questoes', async (req: Request, res: Response) => {
 IMPORTANTE: No campo "disciplina" de CADA objeto JSON, especifique a matéria exata referente à questão gerada (ex: "Direito Constitucional", "Noções de Direito Penal", etc.) e no campo "assunto" o tópico específico abordado.`;
     }
 
+    // Exemplos de enunciados a evitar para impedir repetições ou questões semelhantes
+    let filtroDuplicadas = '';
+    if (Array.isArray(enunciadosExistentes) && enunciadosExistentes.length > 0) {
+      const amostraEnunciados = enunciadosExistentes
+        .filter(Boolean)
+        .slice(0, 30)
+        .map((en: string, idx: number) => `${idx + 1}. "${String(en).substring(0, 110)}..."`)
+        .join('\n');
+      filtroDuplicadas = `\n[REGRAS ANTI-DUPLICAÇÃO E INEDITISMO ABSOLUTO]:
+Não gere NENHUMA questão com fatos, enredos, pegadinhas ou estruturas idênticas ou muito parecidas com as seguintes questões já cadastradas no banco:
+${amostraEnunciados}
+Cada uma das ${numQuestoes} questões geradas DEVE ser 100% inédita, trazendo casos práticos novos, artigos ou parágrafos ainda não explorados e alternativas bem construídas.`;
+    }
+
     const prompt = `Você é o Coordenador Pedagógico e Examinador de Alta Performance para o concurso de Soldado da Polícia Militar da Bahia (PMBA).
-[SEED DE VARIABILIDADE: ${seedAleatoria}] - Use essa semente para gerar um ângulo completamente novo!
+[SEED DE VARIABILIDADE: ${seedAleatoria}] - Use essa semente para gerar um ângulo completamente novo e criativo!
 ${instrucaoModo}
+${filtroDuplicadas}
 
-Gere exatamente ${numQuestoes} questões INÉDITAS, AUTÊNTICAS e EXCLUSIVAS de múltipla escolha no estilo da banca: ${banca}.
-ATENÇÃO: Mesmo que a banca escolhida não seja a padrão do concurso, as questões DEVEM ser estritamente baseadas e adaptadas aos tópicos do edital da PMBA (Lei nº 7.990/2001, Lei nº 13.201/2015, Decreto nº 14.224/2012, CF/88, CP, etc).
+Gere exatamente ${numQuestoes} questões INÉDITAS, AUTÊNTICAS e EXCLUSIVAS de múltipla escolha com 5 alternativas (A, B, C, D, E).
+ESTILO DA BANCA E PERFIL EXIGIDO:
+- Banca informada: ${banca}
+- DIRETRIZ FUNDAMENTAL: A elaboração NÃO precisa se restringir unicamente ao estilo estrito de FCC ou IBFC caso outra banca ou estilo seja selecionado, MAS as questões DEVEM estar OBRIGATORIAMENTE calibradas com o nível de complexidade, rigor jurídico e padrão real de cobrança do concurso de Soldado da PMBA.
+- Base legal e temática da PMBA: Estatuto dos Policiais Militares da Bahia (Lei nº 7.990/2001), Lei Estadual nº 13.201/2015, Decreto nº 14.224/2012, CF/88 (especialmente Arts. 5º e 144), Código Penal (Crimes contra a Pessoa, Patrimônio, Administração Pública, Ilicitude e Culpa), Direitos Humanos e Realidade Baiana (História e Geografia da Bahia).
+- CONTEXTUALIZAÇÃO OPERACIONAL E POLICIAL: Enuncie situações reais de serviço policial militar (guarnições ostensivas, abordagens, mandado judicial vs flagrante delito à noite, crimes em flagrante, preservação de cena de crime, cadeia de custódia, rádio patrulha, CICOM, etc.).
 
-INSTRUÇÕES CRÍTICAS PARA ESTUDANTE DE ALTO RENDIMENTO (MILHARES DE QUESTÕES):
-1. NUNCA gere questões óbvias ou repetitivas. Explore artigos secundários, prazos, competências, exceções legais, jurisprudência do STF/STJ aplicada e situações práticas do policiamento ostensivo baiano.
-2. Cada questão DEVE abordar um ponto de lei, conceito ou regra TOTALMENTE DIFERENTE.
+INSTRUÇÕES CRÍTICAS PARA ESTUDANTE DE ALTO RENDIMENTO:
+1. SEM REPETIÇÕES: NUNCA gere questões óbvias, simplórias ou repetitivas entre si. Cada questão deve abordar um artigo, nuance, prazo ou caso prático independente.
+2. Cada questão DEVE ter alternativas verossímeis, com distratores inteligentes que testam a real interpretação do candidato.
 3. Elabore comentários pedagógicos aprofundados com:
    - Análise geral fundamentada;
    - Justificativa individual para CADA uma das 5 alternativas (A, B, C, D, E);
@@ -91,7 +112,7 @@ INSTRUÇÕES CRÍTICAS PARA ESTUDANTE DE ALTO RENDIMENTO (MILHARES DE QUESTÕES)
 ${isMisto ? 'Modo: Simulado Geral com Todas as Matérias Juntas (Misto Aleatório)' : `Disciplina: ${disciplina}\nAssunto: ${assunto}`}
 Dificuldade: ${dificuldade}
 
-Retorne ESTRITAMENTE um array JSON puro (sem markdown ou texto extra) onde cada elemento segue esta estrutura:
+Retorne ESTRITAMENTE um array JSON puro (sem markdown ou texto extra fora dos colchetes) onde cada elemento segue esta estrutura:
 [
   {
     "disciplina": "${isMisto ? 'Nome exato da Disciplina do Edital' : disciplina}",
@@ -110,11 +131,11 @@ Retorne ESTRITAMENTE um array JSON puro (sem markdown ou texto extra) onde cada 
       "cargo": "Especialista na Matéria",
       "analiseGeral": "Fundamentação legal clara da resposta.",
       "justificativaAlternativas": {
-        "A": "Explicação do erro",
+        "A": "Explicação do erro da alternativa A",
         "B": "CORRETA. Justificativa com base na lei ou edital",
-        "C": "Explicação do erro",
-        "D": "Explicação do erro",
-        "E": "Explicação do erro"
+        "C": "Explicação do erro da alternativa C",
+        "D": "Explicação do erro da alternativa D",
+        "E": "Explicação do erro da alternativa E"
       },
       "bizuPMBA": "Dica prática para memorizar e não cair em pegadinha no concurso PMBA.",
       "artigosCitados": ["Edital PMBA - Legislação Pertinente"]
@@ -122,9 +143,10 @@ Retorne ESTRITAMENTE um array JSON puro (sem markdown ou texto extra) onde cada 
   }
 ]`;
 
-    // Generous timeout promise (25s) to guarantee high-quality generation without dropping to fallback
+    // Dynamic timeout according to requested questions volume
+    const timeoutMs = Math.max(30000, numQuestoes * 2500);
     const timeoutPromise = new Promise<never>((_, reject) => {
-      setTimeout(() => reject(new Error('TIMEOUT_GEMINI_API')), 25000);
+      setTimeout(() => reject(new Error('TIMEOUT_GEMINI_API')), timeoutMs);
     });
 
     const aiCall = ai.models.generateContent({
@@ -143,8 +165,16 @@ Retorne ESTRITAMENTE um array JSON puro (sem markdown ou texto extra) onde cada 
       throw new Error('Resposta vazia da API');
     }
 
-    // Clean any accidental markdown wrap
-    const cleanedText = text.replace(/^```json\s*/i, '').replace(/\s*```$/i, '').trim();
+    // Safely extract JSON array even if model introduces extra wrapping
+    let cleanedText = text.trim();
+    const firstBracket = cleanedText.indexOf('[');
+    const lastBracket = cleanedText.lastIndexOf(']');
+    if (firstBracket !== -1 && lastBracket !== -1 && lastBracket > firstBracket) {
+      cleanedText = cleanedText.substring(firstBracket, lastBracket + 1);
+    } else {
+      cleanedText = cleanedText.replace(/^```json\s*/i, '').replace(/\s*```$/i, '').trim();
+    }
+
     const rawData = JSON.parse(cleanedText);
     const rawList = Array.isArray(rawData) ? rawData : [rawData];
     const timestamp = Date.now();
@@ -166,13 +196,13 @@ Retorne ESTRITAMENTE um array JSON puro (sem markdown ou texto extra) onde cada 
         : [];
 
       return {
-        id: `q-ia-live-${timestamp}-${idx + 1}`,
+        id: `q-ia-live-${timestamp}-${idx + 1}-${Math.random().toString(36).substring(2, 6)}`,
         numero: (timestamp % 9000) + 1000 + idx,
         banca: banca === 'FCC / IBFC (Padrão PMBA)' ? 'IBFC/FCC (PMBA)' : banca,
         orgao: 'PM-BA',
         cargo: 'Soldado da Polícia Militar da Bahia',
         ano: 2026,
-        disciplina: q.disciplina || disciplina,
+        disciplina: canonicalizeDisciplina(q.disciplina || disciplina),
         assunto: q.assunto || (assunto !== 'Todos os Assuntos' ? assunto : 'Tópicos do Edital PMBA'),
         dificuldade: (dificuldade as any) || 'Média',
         enunciado: String(q.enunciado || '').trim(),
@@ -312,6 +342,97 @@ Comando recebido: ${comando}`;
   } catch (error: any) {
     console.error('Erro no agente PMBA:', error);
     return res.status(500).json({ error: error?.message || 'Erro ao processar comando do agente.' });
+  }
+});
+
+// Endpoint: POST /api/ia-o-que-estudar
+app.post('/api/ia-o-que-estudar', async (req: Request, res: Response) => {
+  const {
+    totalRespondidas = 0,
+    totalAcertos = 0,
+    totalErros = 0,
+    taxaGeral = 0,
+    disciplinaAlvo = 'Direito Constitucional',
+    topicoIdAlvo = 'tc-1',
+    topicoTituloAlvo = 'Art. 5º da CF/88',
+    errosNoTema = 0,
+    taxaAcertoNoTema = 0,
+    dicaBase = ''
+  } = req.body || {};
+
+  const ai = getAI();
+  if (!ai) {
+    return res.json({
+      diagnosticoPedagogico: `Com base no seu histórico recente (${totalErros} erros registrados), sua maior oportunidade de ganho de pontuação na PMBA é reforçar "${disciplinaAlvo}" (especialmente "${topicoTituloAlvo}"). Dominar este tópico aumentará sua segurança nas próximas questões.`,
+      planoAcao: [
+        `1. Revise a teoria tática de "${topicoTituloAlvo}"`,
+        '2. Memorize os mnemônicos e exceções das bancas FCC/IBFC',
+        '3. Resolva de 3 a 5 questões exclusivas deste tema para fixação imediata'
+      ],
+      bizuDeOuro: dicaBase || 'Atenção aos detalhes literais da lei exigidos pelas bancas da PMBA.',
+      origem: 'ia_local'
+    });
+  }
+
+  try {
+    const prompt = `Você é o Coordenador Pedagógico e Comandante Militar Especialista no Concurso de Soldado da Polícia Militar da Bahia (PMBA).
+O candidato está estudando no simulado oficial e pediu orientação clicando em "IA, o que estudar?".
+Dados do histórico do candidato:
+- Total de questões feitas: ${totalRespondidas}
+- Total de erros gerais: ${totalErros}
+- Taxa geral de acertos: ${taxaGeral}%
+- Tema prioritário ou com maior índice de erros identificado: "${topicoTituloAlvo}" (${disciplinaAlvo})
+- Erros específicos nesse tema: ${errosNoTema}
+- Aproveitamento no tema: ${taxaAcertoNoTema}%
+- Dica de prova base: "${dicaBase}"
+
+Gere uma orientação cirúrgica em tom motivador militar baiano, firme e didático (sem jargões vazios, focando nas pegadinhas clássicas da FCC/IBFC).
+Retorne ESTRITAMENTE em formato JSON com as chaves:
+{
+  "diagnosticoPedagogico": "Explicação direta (2 a 3 frases) apontando por que este ponto é o calcanhar de aquiles do aluno e sua relevância para a nota de corte da PMBA.",
+  "planoAcao": [
+    "1. [Ação de leitura]",
+    "2. [Ação de memorização com bizu]",
+    "3. [Ação de treino prático de questões]"
+  ],
+  "bizuDeOuro": "A pegadinha clássica da banca que o candidato não pode mais cair (ex: flagrante à noite x mandado judicial de dia, etc.)"
+}`;
+
+    const aiCall = ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: prompt,
+      config: {
+        responseMimeType: 'application/json',
+        temperature: 0.3
+      }
+    });
+
+    const timeoutPromise = new Promise<never>((_, reject) => {
+      setTimeout(() => reject(new Error('TIMEOUT_GEMINI_API')), 10000);
+    });
+
+    const response = await Promise.race([aiCall, timeoutPromise]);
+    const text = response.text;
+    if (!text) throw new Error('Resposta vazia');
+
+    const cleaned = text.replace(/^```json\s*/i, '').replace(/\s*```$/i, '').trim();
+    const parsed = JSON.parse(cleaned);
+    return res.json({
+      ...parsed,
+      origem: 'ia_remota'
+    });
+  } catch (error: any) {
+    console.warn('Erro ao consultar Gemini para o que estudar:', error?.message || error);
+    return res.json({
+      diagnosticoPedagogico: `Com base no seu histórico recente (${totalErros} erros registrados), sua maior oportunidade de ganho de pontuação na PMBA é reforçar "${disciplinaAlvo}" (especialmente "${topicoTituloAlvo}"). Dominar este tópico aumentará sua segurança nas próximas questões.`,
+      planoAcao: [
+        `1. Revise a teoria tática de "${topicoTituloAlvo}"`,
+        '2. Memorize os mnemônicos e exceções das bancas FCC/IBFC',
+        '3. Resolva de 3 a 5 questões exclusivas deste tema para fixação imediata'
+      ],
+      bizuDeOuro: dicaBase || 'Atenção aos detalhes literais da lei exigidos pelas bancas da PMBA.',
+      origem: 'ia_local'
+    });
   }
 });
 

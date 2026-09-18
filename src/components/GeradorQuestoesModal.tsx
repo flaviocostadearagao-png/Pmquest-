@@ -14,12 +14,14 @@ import {
   Zap,
   Target,
   ShieldAlert,
-  Layers
+  Layers,
+  ShieldCheck
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Questao, ModoEstudo } from '../types';
 import { gerarQuestoesEdital } from '../lib/geminiQuestionService';
 import { useTheme } from '../context/ThemeContext';
+import { canonicalizeDisciplina } from '../utils/disciplinaUtils';
 
 interface GeradorQuestoesModalProps {
   isOpen: boolean;
@@ -28,6 +30,7 @@ interface GeradorQuestoesModalProps {
   assuntoInicial?: string;
   modoInicial?: ModoEstudo;
   errosUsuario?: Array<{ disciplina: string; assunto: string; totalErros: number }>;
+  questoesExistentes?: Questao[];
   onQuestoesGeradas: (novasQuestoes: Questao[], disciplina: string) => void;
 }
 
@@ -107,6 +110,7 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
   assuntoInicial,
   modoInicial = 'padrao',
   errosUsuario = [],
+  questoesExistentes = [],
   onQuestoesGeradas,
 }) => {
   const { isDark } = useTheme();
@@ -177,6 +181,11 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
       const discParaGerar = modo === 'simulado_oficial' ? 'Simulado Geral Oficial PMBA' : disciplina;
       const assParaGerar = modo === 'simulado_oficial' ? 'Todas as Matérias do Edital' : (assunto.trim() || 'Edital PMBA');
 
+      const enunciadosParaEvitar = questoesExistentes
+        .map((q) => q.enunciado)
+        .filter(Boolean)
+        .slice(0, 50);
+
       const response = await gerarQuestoesEdital({
         disciplina: discParaGerar,
         assunto: assParaGerar,
@@ -185,6 +194,7 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
         banca,
         modo: modo === 'caderno_erros' ? 'padrao' : modo,
         errosRecentes: errosUsuario,
+        enunciadosExistentes: enunciadosParaEvitar,
       });
 
       if (response && response.questoes && response.questoes.length > 0) {
@@ -211,7 +221,7 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
     
     const discDestino = isTodas
       ? 'Todas as Matérias (Misto Aleatório)'
-      : disciplina;
+      : canonicalizeDisciplina(disciplina);
     onQuestoesGeradas(questoesGeradasPreview, discDestino);
     onClose();
   };
@@ -571,7 +581,7 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
                     Quantidade de Questões
                   </label>
                   <div className="flex gap-1">
-                    {[3, 5, 10].map((qtd) => (
+                    {[3, 5, 10, 15].map((qtd) => (
                       <button
                         key={qtd}
                         type="button"
@@ -588,6 +598,11 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
                       </button>
                     ))}
                   </div>
+                  {quantidade === 15 && (
+                    <p className="text-[10px] text-amber-500 font-bold mt-1">
+                      Meta Completa: 15 questões para cravar o tópico como visto!
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -636,6 +651,12 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
                   <option value="AOCP">Instituto AOCP</option>
                   <option value="Simulado Tático PMBA">Simulado Tático PMBA (Situações de Ronda)</option>
                 </select>
+                <p className={`text-[10px] mt-1.5 flex items-center gap-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                  <span>
+                    Todas as bancas são rigorosamente adaptadas ao perfil, exigência e matérias da PMBA, com garantia anti-duplicações.
+                  </span>
+                </p>
               </div>
 
               {/* Error Display */}

@@ -33,6 +33,7 @@ interface CoberturaEditalModalProps {
   topicosLidos: Record<string, boolean>;
   onTreinarAssunto: (disciplina: string, assunto: string) => void;
   onEstudarTeoria?: (disciplina?: string) => void;
+  onAbrirGerador?: (disciplina?: string, assunto?: string, modo?: any) => void;
 }
 
 export const CoberturaEditalModal: React.FC<CoberturaEditalModalProps> = ({
@@ -42,7 +43,8 @@ export const CoberturaEditalModal: React.FC<CoberturaEditalModalProps> = ({
   historicoRespostas,
   topicosLidos,
   onTreinarAssunto,
-  onEstudarTeoria
+  onEstudarTeoria,
+  onAbrirGerador
 }) => {
   const { isDark } = useTheme();
   const [busca, setBusca] = useState('');
@@ -165,7 +167,7 @@ export const CoberturaEditalModal: React.FC<CoberturaEditalModalProps> = ({
             <div className="text-[11px] flex items-center gap-1.5 text-slate-600 dark:text-slate-300 bg-amber-500/10 dark:bg-amber-500/5 p-2 rounded-xl border border-amber-500/20">
               <Sparkles className="w-3.5 h-3.5 text-amber-500 shrink-0" />
               <span>
-                <strong>Regra:</strong> Acerte no mínimo <strong>2 questões</strong> com aproveitamento <strong>≥ 70%</strong> para cravar o assunto como batido.
+                <strong>Regra PMBA:</strong> Para ser considerado <strong>"Visto e Batido"</strong>, cada tópico exige no mínimo <strong>15 questões corretas</strong>.
               </span>
             </div>
           </div>
@@ -331,19 +333,53 @@ export const CoberturaEditalModal: React.FC<CoberturaEditalModalProps> = ({
                       <p className={`text-[11px] ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
                         {item.motivo}
                       </p>
+
+                      {/* Progresso de 15 Acertos */}
+                      <div className="space-y-1 pt-1">
+                        <div className="flex items-center justify-between text-[10px] text-slate-400">
+                          <span>Progresso da meta (15 acertos)</span>
+                          <span className="font-mono font-bold text-amber-500">
+                            {item.acertos}/15 ({Math.min(100, Math.round((item.acertos / 15) * 100))}%)
+                          </span>
+                        </div>
+                        <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                          <div
+                            className={`h-full rounded-full transition-all duration-300 ${
+                              item.acertos >= 15 ? 'bg-emerald-500' : 'bg-amber-500'
+                            }`}
+                            style={{ width: `${Math.min(100, Math.round((item.acertos / 15) * 100))}%` }}
+                          />
+                        </div>
+                      </div>
                     </div>
 
-                    <button
-                      type="button"
-                      onClick={() => {
-                        onClose();
-                        onTreinarAssunto(item.disciplina, item.assunto);
-                      }}
-                      className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-extrabold text-xs flex items-center gap-1 shadow-md shadow-amber-500/20 shrink-0 cursor-pointer active:scale-95 transition-all"
-                    >
-                      <Zap className="w-3.5 h-3.5 fill-slate-950" />
-                      <span>Praticar</span>
-                    </button>
+                    <div className="flex flex-col sm:flex-row items-center gap-1.5 shrink-0">
+                      {item.status !== 'dominado' && onAbrirGerador && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            onClose();
+                            onAbrirGerador(item.disciplina, item.assunto, 'padrao');
+                          }}
+                          className="px-2.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs flex items-center gap-1 shadow-xs cursor-pointer active:scale-95 transition-all"
+                          title="Gerar questões inéditas da PMBA com a IA para este tópico"
+                        >
+                          <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                          <span>IA ({item.faltamParaVisto > 0 ? `+${item.faltamParaVisto}` : '15'})</span>
+                        </button>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          onClose();
+                          onTreinarAssunto(item.disciplina, item.assunto);
+                        }}
+                        className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-extrabold text-xs flex items-center gap-1 shadow-md shadow-amber-500/20 shrink-0 cursor-pointer active:scale-95 transition-all"
+                      >
+                        <Zap className="w-3.5 h-3.5 fill-slate-950" />
+                        <span>Praticar</span>
+                      </button>
+                    </div>
                   </div>
 
                   {/* Detalhes de Desempenho do Aluno no Assunto */}

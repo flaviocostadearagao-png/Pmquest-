@@ -5,7 +5,7 @@ export interface AssuntoEditalDetalhado {
   disciplina: string;
   assunto: string;
   subtopicos?: string[];
-  metaAcertosRequerida: number; // default 2
+  metaAcertosRequerida: number; // default 15
   taxaMinimaRequerida: number;  // default 70%
   // Computed properties
   totalQuestoesBanco: number;
@@ -17,6 +17,7 @@ export interface AssuntoEditalDetalhado {
   statusLabel: string;
   motivo: string;
   teoriaLida: boolean;
+  faltamParaVisto: number;
 }
 
 export interface DisciplinaCoberturaResumo {
@@ -351,16 +352,15 @@ function questaoCorrespondeAoTopico(
  * Função principal para calcular a cobertura completa do Edital PMBA
  * com base no histórico de respostas e teoria do aluno.
  *
- * REGRA PEDAGÓGICA DE DOMÍNIO:
- * - O assunto é considerado "Dominado / Batido" se o aluno tiver:
- *   >= 2 acertos E taxa de acerto >= 70% nas questões daquele tópico
- *   (ou >= 1 acerto se o banco contiver apenas 1 questão daquele tópico).
+ * REGRA OFICIAL PMBA:
+ * - Cada tópico para ser considerado "Visto / Batido / Dominado" DEVE ter
+ *   no mínimo 15 questões corretas sobre ele (metaAcertosPadrao = 15).
  */
 export function calcularCoberturaEdital(
   todasQuestoes: Questao[],
   historicoRespostas: Record<string, RespostaUsuario>,
   topicosLidos: Record<string, boolean> = {},
-  metaAcertosPadrao: number = 2,
+  metaAcertosPadrao: number = 15,
   taxaMinimaPadrao: number = 70
 ): EditalCoverageData {
   const catalogo = CATALOGO_EDITAL_PMBA;
@@ -389,33 +389,26 @@ export function calcularCoberturaEdital(
       return tNorm.includes(item.id) || itemNorm.includes(tNorm);
     });
 
-    // Critério de Domínio / Cobertura
-    // Se o banco tiver apenas 1 questão, basta 1 acerto. Se tiver 2+, requer metaAcertosPadrao (ex: 2).
-    const metaEfetiva = totalQuestoesBanco === 1 ? 1 : metaAcertosPadrao;
+    // Critério Oficial PMBA: no mínimo 15 questões corretas
+    const metaEfetiva = metaAcertosPadrao; // 15
+    const faltamParaVisto = Math.max(0, metaEfetiva - acertos);
 
     let status: 'dominado' | 'em_progresso' | 'pendente' = 'pendente';
     let statusLabel = 'Não Iniciado';
-    let motivo = `Pendente: resolva ${metaEfetiva} questões com ≥${taxaMinimaPadrao}% de acerto para bater este assunto`;
+    let motivo = `Pendente: acerte no mínimo ${metaEfetiva} questões sobre este tema para considerá-lo visto (${acertos}/${metaEfetiva} acertos)`;
 
-    if (respondidas > 0) {
-      if (acertos >= metaEfetiva && taxaAcerto >= taxaMinimaPadrao) {
-        status = 'dominado';
-        statusLabel = 'Batido / Dominado';
-        motivo = `Meta batida: ${acertos}/${respondidas} acertos (${taxaAcerto}% de precisão)`;
-      } else {
-        status = 'em_progresso';
-        statusLabel = 'Em Progresso';
-        const faltam = Math.max(1, metaEfetiva - acertos);
-        if (taxaAcerto < taxaMinimaPadrao && acertos > 0) {
-          motivo = `Em progresso: ${acertos} acerto(s), taxa de ${taxaAcerto}%. Necessário elevar para ≥${taxaMinimaPadrao}%`;
-        } else {
-          motivo = `Em progresso: ${acertos}/${respondidas} acerto(s). Falta(m) ${faltam} acerto(s) para bater`;
-        }
-      }
+    if (acertos >= metaEfetiva) {
+      status = 'dominado';
+      statusLabel = 'Visto & Dominado (15+ acertos)';
+      motivo = `Tópico visto! ${acertos}/${metaEfetiva} questões acertadas com ${taxaAcerto}% de precisão`;
+    } else if (acertos > 0 || respondidas > 0) {
+      status = 'em_progresso';
+      statusLabel = 'Em Progresso';
+      motivo = `Em progresso: ${acertos}/${metaEfetiva} acertos. Faltam ${faltamParaVisto} acerto(s) para considerar visto.`;
     } else if (teoriaLida) {
       status = 'em_progresso';
       statusLabel = 'Teoria Lida';
-      motivo = 'Teoria estudada! Agora resolva questões para cravar o domínio';
+      motivo = `Teoria lida! Faltam ${metaEfetiva} acertos em questões para considerar o tópico visto.`;
     }
 
     return {
@@ -432,7 +425,8 @@ export function calcularCoberturaEdital(
       status,
       statusLabel,
       motivo,
-      teoriaLida
+      teoriaLida,
+      faltamParaVisto
     };
   });
 
@@ -511,7 +505,7 @@ export function calcularCoberturaEdital(
     mensagemMotivacional = 'Cada questão certa eleva sua cobertura do edital. Rumo ao topo!';
   }
 
-  const regraDominioTexto = `Regra de Proficiência: Mínimo de ${metaAcertosPadrao} acertos com taxa de acerto ≥ ${taxaMinimaPadrao}% por assunto para ser considerado "Batido / Dominado" no edital.`;
+  const regraDominioTexto = `Regra Oficial PMBA: Cada tópico do edital requer no mínimo ${metaAcertosPadrao} questões corretas para ser considerado "Visto / Dominado".`;
 
   return {
     totalAssuntosEdital,

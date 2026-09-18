@@ -28,6 +28,7 @@ import {
   resetUserDataInFirestore,
 } from './lib/syncService';
 import { prefetchProximasQuestoes } from './lib/geminiQuestionService';
+import { canonicalizeDisciplina, isTodasMateriasFilter } from './utils/disciplinaUtils';
 
 const STORAGE_KEY_RESPOSTAS = 'simulado_pmba_respostas_v1';
 const STORAGE_KEY_TOPICOS = 'simulado_pmba_topicos_v1';
@@ -204,6 +205,7 @@ export default function App() {
   const [isThreeDotsOpen, setIsThreeDotsOpen] = useState<boolean>(false);
   const [isCoberturaEditalOpen, setIsCoberturaEditalOpen] = useState<boolean>(false);
   const [theoryModoInicial, setTheoryModoInicial] = useState<'edital' | 'flashcards'>('edital');
+  const [topicoTeoriaSelecionado, setTopicoTeoriaSelecionado] = useState<{ materiaId?: string; topicoId?: string } | null>(null);
 
   // User toggle: Ocultar questões já respondidas
   const [ocultarRespondidas, setOcultarRespondidas] = useState<boolean>(() => {
@@ -267,19 +269,19 @@ export default function App() {
     }
   });
 
-  // Combined pool: original questions + AI-generated questions with strict deduplication
+  // Combined pool: newly generated questions first, then base PMBA questions
   const todasQuestoes = useMemo(() => {
     const map = new Map<string, Questao>();
-    for (const q of QUESTOES_PMBA) {
-      const key = (q.enunciado || '').trim();
-      if (!map.has(key)) {
-        map.set(key, q);
+    // Prioritize user AI-generated questions so they are at the top and never masked
+    for (const q of questoesGeradas) {
+      if (q && q.id) {
+        map.set(q.id, q);
       }
     }
-    for (const q of questoesGeradas) {
-      const key = (q.enunciado || '').trim();
-      if (!map.has(key)) {
-        map.set(key, q);
+    // Then add base questions if not already present
+    for (const q of QUESTOES_PMBA) {
+      if (q && q.id && !map.has(q.id)) {
+        map.set(q.id, q);
       }
     }
     return Array.from(map.values());
@@ -435,14 +437,11 @@ export default function App() {
   const questoesFiltradas = useMemo(() => {
     const norm = (s: string) => (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
 
-    const isTodasMaterias =
-      disciplinaFiltro === 'Todas as Matérias (Misto Aleatório)' ||
-      disciplinaFiltro === 'Todas as Matérias' ||
-      disciplinaFiltro.toLowerCase().includes('todas') ||
-      disciplinaFiltro.toLowerCase().includes('misto');
+    const isTodasMaterias = isTodasMateriasFilter(disciplinaFiltro);
+    const targetCanon = canonicalizeDisciplina(disciplinaFiltro);
 
     const filtradas = todasQuestoes.filter((q) => {
-      const matchDisciplina = isTodasMaterias || norm(q.disciplina) === norm(disciplinaFiltro);
+      const matchDisciplina = isTodasMaterias || canonicalizeDisciplina(q.disciplina) === targetCanon;
       const matchAssunto =
         assuntoFiltro === 'Todos os Assuntos' ||
         norm(q.assunto) === norm(assuntoFiltro);
@@ -591,17 +590,8 @@ export default function App() {
 
   // Switch from theory or home directly to questions of that subject
   const handleIrParaQuestoesDaMateria = (disciplinaNome: string) => {
-    let match = 'Direito Constitucional';
-    const lower = disciplinaNome.toLowerCase();
-    if (lower.includes('todas') || lower.includes('misto') || lower.includes('aleat')) match = 'Todas as Matérias (Misto Aleatório)';
-    else if (lower.includes('constitucional')) match = 'Direito Constitucional';
-    else if (lower.includes('igualdade') || lower.includes('raça')) match = 'Promoção da Igualdade Racial e de Gênero';
-    else if (lower.includes('história')) match = 'História da Bahia';
-    else if (lower.includes('portuguesa') || lower.includes('português')) match = 'Língua Portuguesa';
-    else if (lower.includes('administrativo')) match = 'Direito Administrativo';
-    else if (lower.includes('humanos')) match = 'Direitos Humanos';
-    else if (lower.includes('geografia')) match = 'Geografia da Bahia';
-    else if (lower.includes('penal')) match = 'Noções de Direito Penal';
+    const match = canonicalizeDisciplina(disciplinaNome);
+    const lower = (disciplinaNome || '').toLowerCase();
 
     setDisciplinaFiltro(match);
     setAssuntoFiltro('Todos os Assuntos');
@@ -698,33 +688,79 @@ export default function App() {
   }, []);
 
   const handleNovasQuestoesGeradas = (novasQuestoes: Questao[], disciplinaGerada: string) => {
-    const { aceitas, novosHashes, totalDescartadas } = filtrarQuestoesDuplicadasOuSemelhantes(
-      novasQuestoes,
+    if (!novasQuestoes || novasQuestoes.length === 0) return;
+
+    const discDestino = canonicalizeDisciplina(disciplinaGerada);
+    const timestamp = Date.now();
+
+    // Prepare fresh questions with unique IDs, clean canonical fields and strict validation
+    const preparedNovas: Questao[] = novasQuestoes
+      .filter((q) => q && q.enunciado && q.alternativas && q.alternativas.length >= 2)
+      .map((q, idx) => {
+        // Guaranteed unique fresh ID ensuring it has no prior answer history
+        const uniqueId = `q-ia-user-${timestamp}-${idx + 1}-${Math.random().toString(36).substring(2, 7)}`;
+        const qDisc = canonicalizeDisciplina(q.disciplina || discDestino);
+
+        return {
+          ...q,
+          id: uniqueId,
+          disciplina: discDestino === 'Todas as Matérias (Misto Aleatório)' ? qDisc : discDestino,
+          banca: q.banca || 'IBFC/FCC (PMBA)',
+          ano: q.ano || 2026,
+          dificuldade: q.dificuldade || 'Média',
+        };
+      });
+
+    if (preparedNovas.length === 0) return;
+
+    // Filter duplicates and near-identical questions (>80% similarity or same hash)
+    const { aceitas, novosHashes } = filtrarQuestoesDuplicadasOuSemelhantes(
+      preparedNovas,
       todasQuestoes,
       hashesProcessadosCache
     );
 
-    if (totalDescartadas > 0) {
-      console.info(`[Anti-Duplicação IA] ${totalDescartadas} questão(ões) descartada(s) por similaridade > 80% com o histórico existente.`);
-    }
+    const questoesFinais = aceitas.length > 0 ? aceitas : preparedNovas;
 
-    if (Object.keys(novosHashes).length > 0) {
-      setHashesProcessadosCache((prev) => ({
-        ...prev,
-        ...novosHashes,
-      }));
-    }
-
-    if (aceitas.length > 0) {
-      setQuestoesGeradas((prev) => {
-        const existingIds = new Set(prev.map((q) => q.id));
-        const filtered = aceitas.filter((q) => !existingIds.has(q.id));
-        return [...filtered, ...prev];
+    // Make sure historicoRespostas has NO recorded answer for these new IDs
+    setHistoricoRespostas((prev) => {
+      let changed = false;
+      const copy = { ...prev };
+      questoesFinais.forEach((q) => {
+        if (copy[q.id]) {
+          delete copy[q.id];
+          changed = true;
+        }
       });
-    }
+      return changed ? copy : prev;
+    });
 
-    setDisciplinaFiltro(disciplinaGerada);
+    // Update hashes cache with the approved questions
+    const hashesParaAtualizar: Record<string, string> = { ...novosHashes };
+    questoesFinais.forEach((q) => {
+      if (q.enunciado) {
+        const hash = generateEnunciadoHash(q.enunciado);
+        hashesParaAtualizar[hash] = normalizeEnunciado(q.enunciado);
+      }
+    });
+    setHashesProcessadosCache((prev) => ({
+      ...prev,
+      ...hashesParaAtualizar,
+    }));
+
+    // Prepend new questions to questoesGeradas so they immediately appear first
+    setQuestoesGeradas((prev) => {
+      const existingIds = new Set(prev.map((q) => q.id));
+      const toAdd = questoesFinais.filter((q) => !existingIds.has(q.id));
+      return [...toAdd, ...prev];
+    });
+
+    // Reset filters that could hide or exclude the new questions
+    setDisciplinaFiltro(discDestino);
     setAssuntoFiltro('Todos os Assuntos');
+    setBancaFiltro('Todas as Bancas');
+    setFiltroVisualizacao('todas');
+    setQuestaoAtivaId(questoesFinais[0].id);
     setCurrentIndex(0);
     setActiveTab('questoes');
   };
@@ -800,6 +836,13 @@ export default function App() {
     setCurrentIndex(0);
     setQuestaoAtivaId(null);
     setActiveTab('questoes');
+  };
+
+  // Handler para abrir tópico específico na Teoria (via IA, o que estudar?)
+  const handleAbrirTopicoTeoria = (materiaId: string, topicoId: string) => {
+    setTopicoTeoriaSelecionado({ materiaId, topicoId });
+    setTheoryModoInicial('edital');
+    setActiveTab('teoria');
   };
 
   // Sidebar Modes selector handler
@@ -946,6 +989,7 @@ export default function App() {
                   onAbrirGerador={handleAbrirGerador}
                   onTreinarAssunto={handleTreinarAssuntoEdital}
                   onAbrirMatrizCompleta={() => setIsCoberturaEditalOpen(true)}
+                  onAbrirTopicoTeoria={handleAbrirTopicoTeoria}
                 />
               </motion.div>
             ) : activeTab === 'questoes' ? (
@@ -1016,6 +1060,9 @@ export default function App() {
                   onToggleLido={handleToggleTopicoLido}
                   onAbrirGerador={handleAbrirGerador}
                   initialModoExibicao={theoryModoInicial}
+                  topicoInicialSelecionado={topicoTeoriaSelecionado}
+                  questoes={todasQuestoes}
+                  historicoRespostas={historicoRespostas}
                 />
               </motion.div>
             ) : (
@@ -1082,6 +1129,7 @@ export default function App() {
           setTheoryModoInicial('edital');
           setActiveTab('teoria');
         }}
+        onAbrirGerador={handleAbrirGerador}
       />
 
       {/* AI Question Generator Modal */}
@@ -1092,6 +1140,7 @@ export default function App() {
         assuntoInicial={geradorAssunto}
         modoInicial={geradorModo}
         errosUsuario={errosUsuario}
+        questoesExistentes={todasQuestoes}
         onQuestoesGeradas={handleNovasQuestoesGeradas}
       />
     </div>

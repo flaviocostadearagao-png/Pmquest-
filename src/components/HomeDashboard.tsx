@@ -35,6 +35,7 @@ import {
 import { useTheme } from '../context/ThemeContext';
 import { PainelAltaPerformance } from './PainelAltaPerformance';
 import { BarraCoberturaEdital } from './BarraCoberturaEdital';
+import { IaOQueEstudarModal } from './IaOQueEstudarModal';
 
 interface HomeDashboardProps {
   questoes: Questao[];
@@ -56,6 +57,7 @@ interface HomeDashboardProps {
   onAbrirGerador?: (disciplina?: string, assunto?: string, modo?: ModoEstudo) => void;
   onTreinarAssunto?: (disciplina: string, assunto: string) => void;
   onAbrirMatrizCompleta?: () => void;
+  onAbrirTopicoTeoria?: (materiaId: string, topicoId: string) => void;
 }
 
 export const HomeDashboard: React.FC<HomeDashboardProps> = ({
@@ -78,10 +80,12 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
   onAbrirGerador,
   onTreinarAssunto,
   onAbrirMatrizCompleta,
+  onAbrirTopicoTeoria,
 }) => {
   const { isDark, toggleTheme } = useTheme();
   const [patenteFeedback, setPatenteFeedback] = useState<PatenteFeedback | null>(null);
   const [isEvaluatingRank, setIsEvaluatingRank] = useState(false);
+  const [modalIaOQueEstudarAberto, setModalIaOQueEstudarAberto] = useState(false);
 
   const totalQuestoes = questoes.length;
   const respondidas = Object.keys(historicoRespostas).length;
@@ -187,6 +191,36 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
             </button>
           </div>
 
+          {/* Botão Oficial Solicitado: 'IA, o que estudar?' */}
+          <div className="pt-2">
+            <button
+              id="home-btn-ia-o-que-estudar"
+              type="button"
+              onClick={() => setModalIaOQueEstudarAberto(true)}
+              className="w-full min-h-[48px] px-3.5 py-2.5 rounded-xl font-black text-xs bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 hover:from-amber-300 hover:to-yellow-300 text-slate-950 flex items-center justify-between border border-amber-200 shadow-lg shadow-amber-500/25 active:scale-[0.98] transition-all cursor-pointer group"
+            >
+              <div className="flex items-center gap-2.5">
+                <div className="w-7 h-7 rounded-lg bg-slate-950/15 flex items-center justify-center text-slate-950 group-hover:scale-110 transition-transform">
+                  <Sparkles className="w-4 h-4 fill-slate-950" />
+                </div>
+                <div className="text-left">
+                  <span className="block font-black text-[13px] tracking-tight text-slate-950">
+                    IA, o que estudar?
+                  </span>
+                  <span className="block text-[10px] font-semibold text-slate-900/80 -mt-0.5">
+                    {erros > 0
+                      ? `Diagnóstico de ${erros} erro(s) • Sugestão de reforço teórico`
+                      : 'Orientação tática personalizada para seu edital'}
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-center gap-1 text-[11px] font-black bg-slate-950/10 px-2.5 py-1 rounded-lg">
+                <span>Analisar</span>
+                <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+              </div>
+            </button>
+          </div>
+
           {/* Cartão de Avaliação de Patente */}
           <div className="mt-4 pt-4 border-t border-blue-800/50">
             <div className="flex justify-between items-center mb-3">
@@ -241,6 +275,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
         onTreinarAssunto={onTreinarAssunto}
         onEstudarTeoria={onEstudarTeoria}
         onAbrirMatrizCompleta={onAbrirMatrizCompleta}
+        onAbrirGerador={onAbrirGerador}
       />
 
       {/* Painel de Gestão de Alta Performance & Metas Mensais */}
@@ -570,6 +605,35 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
           <span>Reiniciar Progresso Salvo</span>
         </button>
       </div>
+
+      {/* Modal Inteligente: IA, o que estudar? */}
+      <IaOQueEstudarModal
+        isOpen={modalIaOQueEstudarAberto}
+        onClose={() => setModalIaOQueEstudarAberto(false)}
+        questoes={questoes}
+        historicoRespostas={historicoRespostas}
+        materias={materias}
+        topicosLidos={topicosLidos}
+        onIrParaTopicoTeoria={(materiaId, topicoId) => {
+          if (onAbrirTopicoTeoria) {
+            onAbrirTopicoTeoria(materiaId, topicoId);
+          } else {
+            onEstudarTeoria();
+          }
+        }}
+        onTreinarQuestoesAssunto={(disciplina, assunto) => {
+          if (onTreinarAssunto) {
+            onTreinarAssunto(disciplina, assunto);
+          } else {
+            onIrParaMateria(disciplina);
+          }
+        }}
+        onAbrirGeradorQuestoes={(disciplina, assunto, modo) => {
+          if (onAbrirGerador) {
+            onAbrirGerador(disciplina, assunto, modo);
+          }
+        }}
+      />
     </div>
   );
 };

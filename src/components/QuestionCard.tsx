@@ -25,6 +25,7 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { Questao, AlternativaId, RespostaUsuario, ConfigAltaPerformance, FiltroVisualizacao } from '../types';
 import { useTheme } from '../context/ThemeContext';
+import { canonicalizeDisciplina, isTodasMateriasFilter } from '../utils/disciplinaUtils';
 
 interface QuestionCardProps {
   questoes: Questao[];
@@ -190,17 +191,14 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
     tempoGasto,
   ]);
 
-  const isTodasMaterias =
-    disciplinaFiltro === 'Todas as Matérias (Misto Aleatório)' ||
-    disciplinaFiltro === 'Todas as Matérias' ||
-    disciplinaFiltro.toLowerCase().includes('todas') ||
-    disciplinaFiltro.toLowerCase().includes('misto');
+  const isTodasMaterias = isTodasMateriasFilter(disciplinaFiltro);
+  const targetCanon = canonicalizeDisciplina(disciplinaFiltro);
 
   // Questions in current filter (independent of hide answered toggle)
   const todasNoFiltro = todasQuestoes.filter((q) => {
-    const matchDisc = isTodasMaterias || q.disciplina.toLowerCase() === disciplinaFiltro.toLowerCase();
-    const matchAss = assuntoFiltro === 'Todos os Assuntos' || q.assunto.toLowerCase() === assuntoFiltro.toLowerCase();
-    const matchBan = bancaFiltro === 'Todas as Bancas' || q.banca.toLowerCase() === bancaFiltro.toLowerCase();
+    const matchDisc = isTodasMaterias || canonicalizeDisciplina(q.disciplina) === targetCanon;
+    const matchAss = assuntoFiltro === 'Todos os Assuntos' || q.assunto.toLowerCase().trim() === assuntoFiltro.toLowerCase().trim();
+    const matchBan = bancaFiltro === 'Todas as Bancas' || q.banca.toLowerCase().trim() === bancaFiltro.toLowerCase().trim();
     return matchDisc && matchAss && matchBan;
   });
   const respondidasNoFiltro = todasNoFiltro.filter((q) => !!historicoRespostas[q.id]).length;
@@ -212,7 +210,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
     ...Array.from(
       new Set(
         todasQuestoes
-          .filter((q) => isTodasMaterias || q.disciplina === disciplinaFiltro)
+          .filter((q) => isTodasMaterias || canonicalizeDisciplina(q.disciplina) === targetCanon)
           .map((q) => q.assunto)
       )
     )

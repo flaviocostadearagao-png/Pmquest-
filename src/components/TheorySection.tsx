@@ -23,10 +23,11 @@ import {
   Copy,
   Check,
   Calculator,
-  Flame
+  Flame,
+  ShieldCheck
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { MateriaEdital, TopicoTeoria } from '../types';
+import { MateriaEdital, TopicoTeoria, Questao, RespostaUsuario } from '../types';
 import { useTheme } from '../context/ThemeContext';
 
 interface TheorySectionProps {
@@ -36,6 +37,9 @@ interface TheorySectionProps {
   onToggleLido: (topicoId: string) => void;
   onAbrirGerador?: (disciplina?: string, assunto?: string) => void;
   initialModoExibicao?: 'edital' | 'flashcards';
+  topicoInicialSelecionado?: { materiaId?: string; topicoId?: string } | null;
+  questoes?: Questao[];
+  historicoRespostas?: Record<string, RespostaUsuario>;
 }
 
 // Icon helper
@@ -115,6 +119,9 @@ export const TheorySection: React.FC<TheorySectionProps> = ({
   onToggleLido,
   onAbrirGerador,
   initialModoExibicao = 'edital',
+  topicoInicialSelecionado = null,
+  questoes = [],
+  historicoRespostas = {},
 }) => {
   const { isDark } = useTheme();
   const [selectedMateriaFiltro, setSelectedMateriaFiltro] = useState<string>('todas');
@@ -130,11 +137,51 @@ export const TheorySection: React.FC<TheorySectionProps> = ({
   const [copiedBizu, setCopiedBizu] = useState(false);
   const [tamanhoFonte, setTamanhoFonte] = useState<'normal' | 'grande'>('normal');
 
+  // Calcula acertos para um tópico específico (Regra: 15 acertos para ser considerado visto)
+  const getAcertosDoTopico = (topicoTitulo: string, materiaNome: string): number => {
+    if (!questoes || questoes.length === 0 || !historicoRespostas) return 0;
+    const tNorm = topicoTitulo.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const mNorm = materiaNome.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+    return questoes.reduce((acc, q) => {
+      const qDisc = (q.disciplina || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      const qAssunto = (q.assunto || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      const qEnun = (q.enunciado || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+      const pertenceMateria = qDisc.includes(mNorm) || mNorm.includes(qDisc);
+      const pertenceAssunto = qAssunto.includes(tNorm) || tNorm.includes(qAssunto) || qEnun.includes(tNorm);
+
+      if (pertenceMateria && pertenceAssunto) {
+        const resp = historicoRespostas[q.id];
+        if (resp && resp.acertou) {
+          return acc + 1;
+        }
+      }
+      return acc;
+    }, 0);
+  };
+
   useEffect(() => {
     if (initialModoExibicao) {
       setModoExibicao(initialModoExibicao);
     }
   }, [initialModoExibicao]);
+
+  // Se receber um tópico inicial para abrir (ex: via IA, o que estudar?)
+  useEffect(() => {
+    if (topicoInicialSelecionado?.topicoId) {
+      for (const m of materias) {
+        const topicoEncontrado = m.topicos.find((t) => t.id === topicoInicialSelecionado.topicoId);
+        if (topicoEncontrado) {
+          setSelectedMateriaFiltro('todas');
+          setExpandedMateriaId(m.id);
+          setSelectedTopico({ materia: m, topico: topicoEncontrado });
+          setModoExibicao('edital');
+          break;
+        }
+      }
+    }
+  }, [topicoInicialSelecionado, materias]);
 
   const toggleMateria = (id: string) => {
     setExpandedMateriaId((prev) => (prev === id ? null : id));
@@ -527,6 +574,11 @@ export const TheorySection: React.FC<TheorySectionProps> = ({
                         <div className="space-y-2">
                           {materia.topicos.map((topico) => {
                             const isLido = topicosLidos[topico.id];
+                            const acertosTopico = getAcertosDoTopico(topico.titulo, materia.nome);
+                            const meta15 = 15;
+                            const isVisto15 = acertosTopico >= meta15;
+                            const faltamPara15 = Math.max(0, meta15 - acertosTopico);
+
                             return (
                               <div
                                 key={topico.id}
@@ -556,9 +608,23 @@ export const TheorySection: React.FC<TheorySectionProps> = ({
                                       <CheckCircle className="w-4 h-4" />
                                     </button>
                                     <div>
-                                      <h4 className={`text-xs font-bold leading-snug ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>
-                                        {topico.titulo}
-                                      </h4>
+                                      <div className="flex items-center gap-1.5 flex-wrap">
+                                        <h4 className={`text-xs font-bold leading-snug ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>
+                                          {topico.titulo}
+                                        </h4>
+                                        <span className={`text-[10px] px-1.5 py-0.2 rounded font-bold border flex items-center gap-0.5 ${
+                                          isVisto15
+                                            ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30'
+                                            : acertosTopico > 0
+                                            ? 'bg-amber-500/10 text-amber-500 border-amber-500/30'
+                                            : isDark
+                                            ? 'bg-slate-800 text-slate-400 border-slate-700'
+                                            : 'bg-slate-100 text-slate-500 border-slate-200'
+                                        }`}>
+                                          <ShieldCheck className="w-3 h-3 text-emerald-500" />
+                                          {isVisto15 ? 'Visto (15/15 acertos)' : `${acertosTopico}/15 acertos (Faltam ${faltamPara15})`}
+                                        </span>
+                                      </div>
                                       <div
                                         className={`flex items-center gap-2 mt-1 text-[10px] font-medium ${
                                           isDark ? 'text-slate-400' : 'text-slate-500'
@@ -569,7 +635,7 @@ export const TheorySection: React.FC<TheorySectionProps> = ({
                                           {topico.tempoLeituraMin} min de leitura
                                         </span>
                                         <span>•</span>
-                                        <span className="text-blue-600 font-semibold">Teoria Tática</span>
+                                        <span className="text-blue-600 font-semibold">Teoria Tática PMBA</span>
                                       </div>
                                     </div>
                                   </div>
@@ -599,15 +665,15 @@ export const TheorySection: React.FC<TheorySectionProps> = ({
                                       <button
                                         type="button"
                                         onClick={() => onAbrirGerador(materia.nome, topico.titulo)}
-                                        className={`text-[11px] font-bold flex items-center gap-1 py-1 px-2 rounded-lg border cursor-pointer ${
+                                        className={`text-[11px] font-bold flex items-center gap-1 py-1 px-2.5 rounded-lg border cursor-pointer ${
                                           isDark
                                             ? 'text-amber-400 bg-amber-950/40 border-amber-500/30 hover:bg-amber-950/70'
                                             : 'text-amber-900 bg-amber-100 border-amber-300 hover:bg-amber-200'
                                         }`}
-                                        title="Gerar questões inéditas com IA sobre este tópico"
+                                        title={`Gerar questões inéditas com IA sobre este tópico (Faltam ${faltamPara15} para bater a meta)`}
                                       >
                                         <Sparkles className="w-3 h-3 text-amber-500" />
-                                        <span>+ IA</span>
+                                        <span>+ IA ({faltamPara15 > 0 ? `+${faltamPara15}` : '15'})</span>
                                       </button>
                                     )}
 
@@ -795,6 +861,49 @@ export const TheorySection: React.FC<TheorySectionProps> = ({
                     {selectedTopico.topico.legislacaoOuReferencia}
                   </span>
                 </div>
+
+                {/* Banner de Meta Oficial PMBA: 15 Questões Corretas */}
+                {(() => {
+                  const acertosTopico = getAcertosDoTopico(selectedTopico.topico.titulo, selectedTopico.materia.nome);
+                  const isVisto = acertosTopico >= 15;
+                  const faltam = Math.max(0, 15 - acertosTopico);
+
+                  return (
+                    <div
+                      className={`p-3.5 rounded-xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 ${
+                        isDark ? 'bg-slate-900 border-slate-800' : 'bg-slate-100 border-slate-300'
+                      }`}
+                    >
+                      <div className="space-y-0.5">
+                        <div className="flex items-center gap-1.5 text-xs font-bold text-slate-800 dark:text-slate-100">
+                          <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                          <span>Critério de Fixação PMBA: Mínimo 15 Acertos</span>
+                        </div>
+                        <p className="text-[11px] text-slate-600 dark:text-slate-400">
+                          {isVisto
+                            ? `✓ Parabéns! Tópico considerado visto e dominado com ${acertosTopico}/15 acertos.`
+                            : `Você possui ${acertosTopico}/15 questões corretas sobre este assunto. Faltam ${faltam} acertos para cravar como visto.`}
+                        </p>
+                      </div>
+
+                      {onAbrirGerador && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const mat = selectedTopico.materia.nome;
+                            const top = selectedTopico.topico.titulo;
+                            setSelectedTopico(null);
+                            onAbrirGerador(mat, top);
+                          }}
+                          className="w-full sm:w-auto text-xs font-bold py-2 px-3 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 flex items-center justify-center gap-1.5 shrink-0 cursor-pointer shadow-sm"
+                        >
+                          <Sparkles className="w-3.5 h-3.5" />
+                          <span>Gerar Questões com IA ({faltam > 0 ? `+${faltam}` : '15'})</span>
+                        </button>
+                      )}
+                    </div>
+                  );
+                })()}
               </div>
 
               {/* Modal Footer Controls */}

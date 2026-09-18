@@ -9,6 +9,7 @@ export interface GerarQuestoesParams {
   banca?: string;
   modo?: 'padrao' | 'maratona' | 'treino_cirurgico' | 'simulado_oficial';
   errosRecentes?: Array<{ disciplina: string; assunto: string; totalErros: number }>;
+  enunciadosExistentes?: string[];
 }
 
 export interface GerarQuestoesResponse {
@@ -21,8 +22,10 @@ export interface GerarQuestoesResponse {
 export async function gerarQuestoesEdital(
   params: GerarQuestoesParams
 ): Promise<GerarQuestoesResponse> {
+  const qtd = params.quantidade || 3;
+  const timeoutMs = Math.max(35000, qtd * 2800);
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 30000);
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
 
   try {
     const response = await fetch('/api/gerar-questoes', {
@@ -34,11 +37,12 @@ export async function gerarQuestoesEdital(
       body: JSON.stringify({
         disciplina: params.disciplina,
         assunto: params.assunto || 'Todos os Assuntos do Edital',
-        quantidade: params.quantidade || 3,
+        quantidade: qtd,
         dificuldade: params.dificuldade || 'Média',
         banca: params.banca || 'FCC / IBFC (Padrão PMBA)',
         modo: params.modo || 'padrao',
         errosRecentes: params.errosRecentes || [],
+        enunciadosExistentes: params.enunciadosExistentes || [],
       }),
     });
 

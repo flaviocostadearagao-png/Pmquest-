@@ -34,6 +34,7 @@ interface BarraCoberturaEditalProps {
   onTreinarAssunto?: (disciplina: string, assunto: string) => void;
   onEstudarTeoria?: (disciplina?: string) => void;
   onAbrirMatrizCompleta?: () => void;
+  onAbrirGerador?: (disciplina?: string, assunto?: string, modo?: any) => void;
 }
 
 export const BarraCoberturaEdital: React.FC<BarraCoberturaEditalProps> = ({
@@ -42,7 +43,8 @@ export const BarraCoberturaEdital: React.FC<BarraCoberturaEditalProps> = ({
   topicosLidos,
   onTreinarAssunto,
   onEstudarTeoria,
-  onAbrirMatrizCompleta
+  onAbrirMatrizCompleta,
+  onAbrirGerador
 }) => {
   const { isDark } = useTheme();
   const [expandido, setExpandido] = useState(false);
@@ -66,7 +68,7 @@ export const BarraCoberturaEdital: React.FC<BarraCoberturaEditalProps> = ({
         return (
           <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-[10px] font-bold">
             <CheckCircle2 className="w-3 h-3 text-emerald-500" />
-            Batido
+            Visto (15/15)
           </span>
         );
       case 'em_progresso':
@@ -172,7 +174,7 @@ export const BarraCoberturaEdital: React.FC<BarraCoberturaEditalProps> = ({
         <Sparkles className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
         <div className="space-y-0.5">
           <p className="font-semibold leading-tight">
-            <strong className="text-amber-500">Critério de Domínio:</strong> Acerte no mínimo <strong>2 questões</strong> com precisão de <strong>≥70%</strong> para bater cada assunto no edital.
+            <strong className="text-amber-500">Regra de Domínio PMBA:</strong> Para ser considerado <strong>"Visto e Batido"</strong>, cada tópico exige no mínimo <strong>15 questões corretas</strong>.
           </p>
         </div>
       </div>
@@ -395,11 +397,29 @@ export const BarraCoberturaEdital: React.FC<BarraCoberturaEditalProps> = ({
                               <div className="shrink-0">{getStatusBadge(ass.status)}</div>
                             </div>
 
+                            {/* Progresso de 15 Acertos */}
+                            <div className="space-y-1">
+                              <div className="flex items-center justify-between text-[10px] text-slate-400">
+                                <span>Meta do Tópico (15 acertos)</span>
+                                <span className="font-mono font-bold text-amber-500">
+                                  {ass.acertos}/15 ({Math.min(100, Math.round((ass.acertos / 15) * 100))}%)
+                                </span>
+                              </div>
+                              <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                                <div
+                                  className={`h-full rounded-full transition-all duration-300 ${
+                                    ass.acertos >= 15 ? 'bg-emerald-500' : 'bg-amber-500'
+                                  }`}
+                                  style={{ width: `${Math.min(100, Math.round((ass.acertos / 15) * 100))}%` }}
+                                />
+                              </div>
+                            </div>
+
                             {/* Estatísticas do Tópico & Botões de Ação */}
                             <div className="flex items-center justify-between gap-2 pt-1 border-t border-slate-700/20 dark:border-slate-800/60 text-[10px]">
-                              <div className="flex items-center gap-2 font-mono">
+                              <div className="flex items-center gap-1.5 font-mono flex-wrap">
                                 <span className={ass.acertos > 0 ? 'text-emerald-500 font-bold' : isDark ? 'text-slate-500' : 'text-slate-400'}>
-                                  {ass.acertos} acerto(s)
+                                  {ass.acertos}/15 certas
                                 </span>
                                 <span className="text-slate-500">•</span>
                                 <span className={ass.erros > 0 ? 'text-rose-400' : isDark ? 'text-slate-500' : 'text-slate-400'}>
@@ -412,6 +432,17 @@ export const BarraCoberturaEdital: React.FC<BarraCoberturaEditalProps> = ({
                               </div>
 
                               <div className="flex items-center gap-1.5 shrink-0">
+                                {ass.status !== 'dominado' && onAbrirGerador && (
+                                  <button
+                                    type="button"
+                                    onClick={() => onAbrirGerador(ass.disciplina, ass.assunto, 'padrao')}
+                                    className="px-2 py-1 rounded bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-[10px] flex items-center gap-1 shadow-xs cursor-pointer active:scale-95 transition-all"
+                                    title="Gerar questões inéditas da PMBA com a IA para este tópico"
+                                  >
+                                    <Sparkles className="w-3 h-3 text-amber-300" />
+                                    <span>IA ({ass.faltamParaVisto > 0 ? `+${ass.faltamParaVisto}` : '15'})</span>
+                                  </button>
+                                )}
                                 {onTreinarAssunto && (
                                   <button
                                     type="button"
