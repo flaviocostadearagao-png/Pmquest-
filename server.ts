@@ -179,33 +179,68 @@ Retorne ESTRITAMENTE um array JSON puro (sem markdown ou texto extra fora dos co
     const rawList = Array.isArray(rawData) ? rawData : [rawData];
     const timestamp = Date.now();
 
-    // Rigorous deduplication (Jaccard similarity check on word tokens)
+    // Rigorous deduplication (Jaccard similarity check on word tokens with 20% max threshold)
+    const SIMILARITY_THRESHOLD = 0.20; // 20% max allowed similarity
+
     const getTokens = (str: string) => new Set(
       String(str || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9 ]/g, '').split(/\s+/).filter(w => w.length > 3)
     );
     const existingTokenSets = (enunciadosExistentes || []).filter(Boolean).map((e: any) => getTokens(String(e)));
 
-    const isTooSimilar = (newText: string) => {
+    const isTooSimilar = (newText: string, currentAcceptedSets: Set<string>[]) => {
       const newTokens = getTokens(newText);
       if (newTokens.size < 4) return false;
-      for (const oldTokens of existingTokenSets) {
+      const allSetsToCompare = [...existingTokenSets, ...currentAcceptedSets];
+      for (const oldTokens of allSetsToCompare) {
         let intersection = 0;
         for (const t of newTokens) {
           if (oldTokens.has(t)) intersection++;
         }
         const union = newTokens.size + oldTokens.size - intersection;
         const jaccard = union > 0 ? intersection / union : 0;
-        if (jaccard > 0.42) {
-          return true; // Reject if similarity > 42%
+        if (jaccard > SIMILARITY_THRESHOLD) {
+          return true; // Reject if similarity exceeds 20%
         }
       }
       return false;
     };
 
-    const filteredRawList = rawList.filter((q: any) => !isTooSimilar(q?.enunciado));
-    const listToProcess = filteredRawList.length > 0 ? filteredRawList : rawList;
+    const acceptedRawList: any[] = [];
+    const acceptedTokenSets: Set<string>[] = [];
 
-    const questoes = listToProcess.map((q: any, idx: number) => {
+    for (const q of rawList) {
+      if (acceptedRawList.length >= numQuestoes) break;
+      const text = q?.enunciado || '';
+      if (!text || text.trim().length < 10) continue;
+
+      if (!isTooSimilar(text, acceptedTokenSets)) {
+        acceptedRawList.push(q);
+        acceptedTokenSets.push(getTokens(text));
+      }
+    }
+
+    // If AI generation yielded fewer unique items than requested due to similarity filter,
+    // supplement with distinct questions from the verified pedagogical bank to complete the batch
+    if (acceptedRawList.length < numQuestoes) {
+      const needed = numQuestoes - acceptedRawList.length;
+      const suplemento = gerarQuestoesPedagogicas(disciplina, assunto, needed * 2, dificuldade, banca);
+      for (const sup of suplemento) {
+        if (acceptedRawList.length >= numQuestoes) break;
+        if (!isTooSimilar(sup.enunciado, acceptedTokenSets)) {
+          acceptedRawList.push({
+            disciplina: sup.disciplina,
+            assunto: sup.assunto,
+            enunciado: sup.enunciado,
+            alternativas: sup.alternativas,
+            respostaCorreta: sup.respostaCorreta,
+            comentario: sup.comentario
+          });
+          acceptedTokenSets.push(getTokens(sup.enunciado));
+        }
+      }
+    }
+
+    const questoes = acceptedRawList.slice(0, numQuestoes).map((q: any, idx: number) => {
       const rawResp = (q.respostaCorreta || 'A').toString().trim().toUpperCase();
       const cleanResp = (rawResp.match(/[A-E]/)?.[0] || 'A') as 'A' | 'B' | 'C' | 'D' | 'E';
 

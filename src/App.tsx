@@ -208,13 +208,13 @@ export default function App() {
   const [theoryModoInicial, setTheoryModoInicial] = useState<'edital' | 'flashcards'>('edital');
   const [topicoTeoriaSelecionado, setTopicoTeoriaSelecionado] = useState<{ materiaId?: string; topicoId?: string } | null>(null);
 
-  // User toggle: Ocultar questões já respondidas
+  // User toggle: Ocultar questões já respondidas (padrão: ativado)
   const [ocultarRespondidas, setOcultarRespondidas] = useState<boolean>(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY_OCULTAR_RESPONDIDAS);
-      return saved === 'true';
+      return saved !== null ? saved === 'true' : true;
     } catch {
-      return false;
+      return true;
     }
   });
 
@@ -450,19 +450,18 @@ export default function App() {
         bancaFiltro === 'Todas as Bancas' ||
         norm(q.banca) === norm(bancaFiltro);
       
-      const isCurrentlyActive = questaoAtivaId !== null && q.id === questaoAtivaId;
       const resp = historicoRespostas[q.id];
 
       // Filtro por status visualização
       let matchStatus = true;
       if (filtroVisualizacao === 'nao_respondidas') {
-        matchStatus = !resp || isCurrentlyActive;
+        matchStatus = !resp;
       } else if (filtroVisualizacao === 'erros') {
-        matchStatus = (!!resp && !resp.acertou) || isCurrentlyActive;
+        matchStatus = !!resp && !resp.acertou;
       } else if (filtroVisualizacao === 'acertos') {
-        matchStatus = (!!resp && resp.acertou) || isCurrentlyActive;
+        matchStatus = !!resp && resp.acertou;
       } else if (ocultarRespondidas) {
-        matchStatus = !resp || isCurrentlyActive;
+        matchStatus = !resp;
       }
 
       return matchDisciplina && matchAssunto && matchBanca && matchStatus;
@@ -664,11 +663,11 @@ export default function App() {
         continue;
       }
 
-      // 2. Checagem estrita de similaridade > 80% (0.80) contra o histórico
+      // 2. Checagem estrita de similaridade > 20% (0.20) contra o histórico
       let isDuplicadaOuSimilar = false;
       for (const textoExistente of enunciadosExistentesNormalizados) {
         const similaridade = calculateEnunciadoSimilarity(normEnunciado, textoExistente);
-        if (similaridade > 0.80) {
+        if (similaridade > 0.20) {
           isDuplicadaOuSimilar = true;
           break;
         }
