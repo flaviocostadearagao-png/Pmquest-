@@ -5,12 +5,17 @@
 export const DISCIPLINAS_PMBA_OFICIAIS = [
   'Direito Constitucional',
   'Noções de Direito Penal',
+  'Noções de Direito Penal Militar',
+  'Noções de Direito Processual Penal',
   'Direito Administrativo',
   'Direitos Humanos',
   'Promoção da Igualdade Racial e de Gênero',
   'História da Bahia',
   'Geografia da Bahia',
   'Língua Portuguesa',
+  'Raciocínio Lógico',
+  'Informática',
+  'Atualidades',
 ] as const;
 
 export function canonicalizeDisciplina(raw?: string): string {
@@ -33,6 +38,12 @@ export function canonicalizeDisciplina(raw?: string): string {
   if (s.includes('constitucional')) {
     return 'Direito Constitucional';
   }
+  if (s.includes('processual penal')) {
+    return 'Noções de Direito Processual Penal';
+  }
+  if (s.includes('penal militar')) {
+    return 'Noções de Direito Penal Militar';
+  }
   if (s.includes('penal')) {
     return 'Noções de Direito Penal';
   }
@@ -53,6 +64,15 @@ export function canonicalizeDisciplina(raw?: string): string {
   }
   if (s.includes('portugues') || s.includes('lingua')) {
     return 'Língua Portuguesa';
+  }
+  if (s.includes('raciocinio') || s.includes('logica') || s.includes('matematica')) {
+    return 'Raciocínio Lógico';
+  }
+  if (s.includes('informatica')) {
+    return 'Informática';
+  }
+  if (s.includes('atualidade')) {
+    return 'Atualidades';
   }
   return raw?.trim() || 'Direito Constitucional';
 }

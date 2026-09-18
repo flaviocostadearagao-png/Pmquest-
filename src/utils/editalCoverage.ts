@@ -269,30 +269,86 @@ export const CATALOGO_EDITAL_PMBA: Array<{
     aliases: ['Regência', 'Pontuação', 'Uso da Vírgula']
   },
 
-  // 9. RACIOCÍNIO LÓGICO & MATEMÁTICA
+  // 9. RACIOCÍNIO LÓGICO
   {
     id: 'rlm-01',
-    disciplina: 'Raciocínio Lógico & Matemática',
+    disciplina: 'Raciocínio Lógico',
     assunto: 'Lógica Proposicional: Conectivos, Negação do Se... Então (Regra do MANÉ)',
     aliases: ['Lógica Proposicional', 'Negação da Condicional', 'Tabela Verdade', 'Conectivos']
   },
   {
     id: 'rlm-02',
-    disciplina: 'Raciocínio Lógico & Matemática',
+    disciplina: 'Raciocínio Lógico',
     assunto: 'Equivalências Lógicas e Leis de De Morgan',
     aliases: ['Equivalências Lógicas', 'De Morgan', 'Contrapositiva']
   },
   {
     id: 'rlm-03',
-    disciplina: 'Raciocínio Lógico & Matemática',
+    disciplina: 'Raciocínio Lógico',
     assunto: 'Porcentagem, Razão, Proporção e Regra de Três',
     aliases: ['Porcentagem', 'Razão e Proporção', 'Regra de Três']
   },
   {
     id: 'rlm-04',
-    disciplina: 'Raciocínio Lógico & Matemática',
+    disciplina: 'Raciocínio Lógico',
     assunto: 'Análise Combinatória e Noções de Probabilidade',
     aliases: ['Análise Combinatória', 'Probabilidade', 'Arranjo e Combinação']
+  },
+
+  // 10. NOÇÕES DE DIREITO PENAL MILITAR
+  {
+    id: 'penm-01',
+    disciplina: 'Noções de Direito Penal Militar',
+    assunto: 'Crimes Militares em Tempo de Paz (Art. 9º do CPM)',
+    aliases: ['Art. 9º CPM', 'Crime Militar']
+  },
+  {
+    id: 'penm-02',
+    disciplina: 'Noções de Direito Penal Militar',
+    assunto: 'Crimes Contra a Autoridade ou Disciplina Militar (Motim, Revolta, Insubordinação)',
+    aliases: ['Motim', 'Revolta', 'Insubordinação', 'Deserção']
+  },
+  {
+    id: 'penm-03',
+    disciplina: 'Noções de Direito Penal Militar',
+    assunto: 'Crimes Contra o Dever Militar: Abandono de Posto e Dormir em Serviço',
+    aliases: ['Abandono de Posto', 'Dormir em Serviço']
+  },
+
+  // 11. NOÇÕES DE DIREITO PROCESSUAL PENAL
+  {
+    id: 'procp-01',
+    disciplina: 'Noções de Direito Processual Penal',
+    assunto: 'Inquérito Policial: Conceito, Características e Prazos',
+    aliases: ['Inquérito Policial', 'IP']
+  },
+  {
+    id: 'procp-02',
+    disciplina: 'Noções de Direito Processual Penal',
+    assunto: 'Prisão em Flagrante: Modalidades e Procedimentos (Art. 301 a 310 CPP)',
+    aliases: ['Prisão em Flagrante', 'Flagrante']
+  },
+
+  // 12. INFORMÁTICA
+  {
+    id: 'inf-01',
+    disciplina: 'Informática',
+    assunto: 'Segurança da Informação: Vírus, Worms, Cavalos de Troia e Backup',
+    aliases: ['Segurança da Informação', 'Malware', 'Backup']
+  },
+  {
+    id: 'inf-02',
+    disciplina: 'Informática',
+    assunto: 'Conceitos de Internet, Navegadores e Computação em Nuvem',
+    aliases: ['Internet', 'Browsers', 'Nuvem']
+  },
+
+  // 13. ATUALIDADES
+  {
+    id: 'atu-01',
+    disciplina: 'Atualidades',
+    assunto: 'Geopolítica Mundial, Conflitos e Meio Ambiente',
+    aliases: ['Geopolítica', 'Conflitos', 'Meio Ambiente']
   }
 ];
 

@@ -64,14 +64,19 @@ app.post('/api/gerar-questoes', async (req: Request, res: Response) => {
       instrucaoModo = `\n[MODO MARATONA DE ALTA VELOCIDADE]:\nQuestões dinâmicas, com enunciados objetivos e contextualizados com o cotidiano da Polícia Militar da Bahia. Comentários diretos e com Bizus PMBA memoráveis.`;
     } else if (isMisto) {
       instrucaoModo = `\n[MODO SIMULADO GERAL MISTO / TODAS AS MATÉRIAS DA PMBA]:\nDistribua as ${numQuestoes} questões de forma balanceada e aleatória entre as diversas disciplinas do edital da PMBA:
+- Língua Portuguesa
+- Raciocínio Lógico
+- História da Bahia
+- Geografia da Bahia
+- Atualidades
+- Informática
 - Direito Constitucional
 - Noções de Direito Penal
+- Noções de Direito Processual Penal
 - Direito Administrativo
 - Direitos Humanos
 - Promoção da Igualdade Racial e de Gênero
-- História da Bahia
-- Geografia da Bahia
-- Língua Portuguesa
+- Noções de Direito Penal Militar
 
 IMPORTANTE: No campo "disciplina" de CADA objeto JSON, especifique a matéria exata referente à questão gerada (ex: "Direito Constitucional", "Noções de Direito Penal", etc.) e no campo "assunto" o tópico específico abordado.`;
     }
@@ -99,7 +104,7 @@ Gere exatamente ${numQuestoes} questões INÉDITAS, AUTÊNTICAS e EXCLUSIVAS de 
 ESTILO DA BANCA E PERFIL EXIGIDO:
 - Banca informada: ${banca}
 - DIRETRIZ FUNDAMENTAL: A elaboração NÃO precisa se restringir unicamente ao estilo estrito de FCC ou IBFC caso outra banca ou estilo seja selecionado, MAS as questões DEVEM estar OBRIGATORIAMENTE calibradas com o nível de complexidade, rigor jurídico e padrão real de cobrança do concurso de Soldado da PMBA.
-- Base legal e temática da PMBA: Estatuto dos Policiais Militares da Bahia (Lei nº 7.990/2001), Lei Estadual nº 13.201/2015, Decreto nº 14.224/2012, CF/88 (especialmente Arts. 5º e 144), Código Penal (Crimes contra a Pessoa, Patrimônio, Administração Pública, Ilicitude e Culpa), Direitos Humanos e Realidade Baiana (História e Geografia da Bahia).
+- Base legal e temática da PMBA: Estatuto dos Policiais Militares da Bahia (Lei nº 7.990/2001), Lei Estadual nº 13.201/2015, Decreto nº 14.224/2012, CF/88 (especialmente Arts. 5º e 144), Código Penal, Código de Processo Penal, Código Penal Militar, Direitos Humanos, Raciocínio Lógico (padrão PMBA), Informática (segurança e nuvem), Atualidades e Realidade Baiana (História e Geografia da Bahia).
 - CONTEXTUALIZAÇÃO OPERACIONAL E POLICIAL: Enuncie situações reais de serviço policial militar (guarnições ostensivas, abordagens, mandado judicial vs flagrante delito à noite, crimes em flagrante, preservação de cena de crime, cadeia de custódia, rádio patrulha, CICOM, etc.).
 
 INSTRUÇÕES CRÍTICAS PARA ESTUDANTE DE ALTO RENDIMENTO:

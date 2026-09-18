@@ -283,7 +283,7 @@ export const TEORIA_PMBA: MateriaEdital[] = [
   },
   {
     id: 'mat-rlm',
-    nome: 'Raciocínio Lógico & Matemática',
+    nome: 'Raciocínio Lógico',
     icone: 'Calculator',
     totalQuestoesEdital: '06 Questões no Edital',
     relevancia: 'Alta',
@@ -302,6 +302,99 @@ export const TEORIA_PMBA: MateriaEdital[] = [
         ],
         dicaDeProva: 'Cuidado: NUNCA negue "Se P então Q" com outro "Se não P então não Q"! Use a regra do MANÉ: mantém a 1ª E nega a 2ª!',
         legislacaoOuReferencia: 'Lógica Matemática / Edital Soldado PMBA'
+      }
+    ]
+  },
+  {
+    id: 'mat-penal-militar',
+    nome: 'Noções de Direito Penal Militar',
+    icone: 'Sword',
+    totalQuestoesEdital: '05 Questões no Edital',
+    relevancia: 'Alta',
+    descricao: 'Crimes militares em tempo de paz, abandono de posto, dormir em serviço e crimes contra a administração militar.',
+    topicos: [
+      {
+        id: 'tpm-1',
+        titulo: 'Crimes em Espécie: Abandono de Posto e Dormir em Serviço',
+        tempoLeituraMin: 5,
+        resumoIntro: 'Estudo dos tipos penais específicos do Código Penal Militar que protegem o dever e o serviço militar.',
+        pontosImportantes: [
+          'Abandono de Posto (Art. 195 CPM): Abandonar, sem ordem superior, o posto ou lugar de serviço que lhe tenha sido designado, ou o serviço que lhe cumpria, antes de terminá-lo.',
+          'Dormir em Serviço (Art. 203 CPM): Dormir o militar, quando em serviço, como sentinela, vigia, de plantão às máquinas, em posto de sentinela, ou em qualquer serviço de natureza semelhante.',
+          'Deserção: Ausência do militar sem licença por mais de 8 dias.'
+        ],
+        dicaDeProva: 'O Abandono de Posto é crime de perigo abstrato e se consuma no momento em que o militar se afasta do local, independentemente de ocorrer algum prejuízo!',
+        legislacaoOuReferencia: 'Código Penal Militar (CPM).'
+      }
+    ]
+  },
+  {
+    id: 'mat-proc-penal',
+    nome: 'Noções de Direito Processual Penal',
+    icone: 'Files',
+    totalQuestoesEdital: '05 Questões no Edital',
+    relevancia: 'Média',
+    descricao: 'Inquérito Policial, Prisão em Flagrante e disposições do Código de Processo Penal.',
+    topicos: [
+      {
+        id: 'tpp-1',
+        titulo: 'Inquérito Policial e Prisão em Flagrante',
+        tempoLeituraMin: 5,
+        resumoIntro: 'Fase pré-processual e as modalidades de prisão cautelar mais comuns na atividade policial.',
+        pontosImportantes: [
+          'Inquérito Policial (IP): Procedimento administrativo, inquisitivo e sigiloso destinado a apurar a autoria e a materialidade da infração penal.',
+          'Prisão em Flagrante (Art. 302 CPP): Considera-se em flagrante delito quem: está cometendo a infração; acaba de cometê-la; é perseguido logo após; é encontrado logo depois com instrumentos do crime.',
+          'Audiência de Custódia: Deve ocorrer em até 24 horas após a prisão.'
+        ],
+        dicaDeProva: 'O Inquérito Policial é DISPENSÁVEL para o oferecimento da denúncia se o Ministério Público já possuir elementos suficientes!',
+        legislacaoOuReferencia: 'Código de Processo Penal (CPP).'
+      }
+    ]
+  },
+  {
+    id: 'mat-informatica',
+    nome: 'Informática',
+    icone: 'Laptop',
+    totalQuestoesEdital: '05 Questões no Edital',
+    relevancia: 'Média',
+    descricao: 'Sistemas operacionais (Windows/Linux), Pacote Office, Internet e Segurança da Informação.',
+    topicos: [
+      {
+        id: 'tinf-1',
+        titulo: 'Segurança da Informação e Malwares',
+        tempoLeituraMin: 5,
+        resumoIntro: 'Conceitos fundamentais de proteção de dados e as principais ameaças virtuais.',
+        pontosImportantes: [
+          'Confidencialidade, Integridade e Disponibilidade (CID): Os três pilares da segurança.',
+          'Vírus vs. Worm: Vírus precisa de um hospedeiro/execução. Worm se autorreplica pela rede.',
+          'Phishing: Técnica de engenharia social para roubar dados através de sites ou e-mails falsos.',
+          'Firewall: Barreira de proteção que controla o tráfego de rede.'
+        ],
+        dicaDeProva: 'O Backup é a principal medida de recuperação de dados. Lembre-se da regra 3-2-1: 3 cópias, 2 mídias diferentes, 1 fora do local.',
+        legislacaoOuReferencia: 'Segurança da Informação / FCC-IBFC.'
+      }
+    ]
+  },
+  {
+    id: 'mat-atualidades',
+    nome: 'Atualidades',
+    icone: 'Newspaper',
+    totalQuestoesEdital: '05 Questões no Edital',
+    relevancia: 'Média',
+    descricao: 'Fatos políticos, econômicos, sociais e culturais relevantes ocorridos no Brasil e no mundo.',
+    topicos: [
+      {
+        id: 'tatu-1',
+        titulo: 'Meio Ambiente e Geopolítica Mundial',
+        tempoLeituraMin: 5,
+        resumoIntro: 'Temas contemporâneos que impactam a sociedade global e nacional.',
+        pontosImportantes: [
+          'Mudanças Climáticas e Acordo de Paris.',
+          'Conflitos internacionais e blocos econômicos.',
+          'Desenvolvimento Sustentável e a Agenda 2030 da ONU.'
+        ],
+        dicaDeProva: 'Fique atento aos eventos ocorridos nos últimos 12 meses antes do edital, especialmente envolvendo a Bahia e o Brasil.',
+        legislacaoOuReferencia: 'Atualidades / Jornalismo e Portais Oficiais.'
       }
     ]
   }

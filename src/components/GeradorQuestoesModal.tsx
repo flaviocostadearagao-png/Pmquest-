@@ -36,14 +36,19 @@ interface GeradorQuestoesModalProps {
 
 const DISCIPLINAS_EDITAL = [
   'Todas as Matérias (Misto PMBA)',
-  'Direito Constitucional',
-  'Promoção da Igualdade Racial e de Gênero',
-  'História da Bahia',
-  'Direitos Humanos',
-  'Direito Administrativo',
   'Língua Portuguesa',
+  'Raciocínio Lógico',
+  'História da Bahia',
   'Geografia da Bahia',
+  'Atualidades',
+  'Informática',
+  'Direito Constitucional',
+  'Direito Administrativo',
   'Noções de Direito Penal',
+  'Noções de Direito Processual Penal',
+  'Noções de Direito Penal Militar',
+  'Direitos Humanos',
+  'Promoção da Igualdade Racial e de Gênero',
 ];
 
 const SUGESTOES_ASSUNTOS: Record<string, string[]> = {
@@ -100,6 +105,36 @@ const SUGESTOES_ASSUNTOS: Record<string, string[]> = {
     'Crimes contra o Patrimônio (Furto, Roubo e Extorsão)',
     'Causas Excludentes de Ilicitude (Legítima Defesa e Estrito Cumprimento)',
     'Estatuto do Desarmamento (Lei 10.826/2003)',
+  ],
+  'Noções de Direito Penal Militar': [
+    'Crimes militares em tempo de paz e em tempo de guerra',
+    'Abandono de posto e dormir em serviço',
+    'Deserção e insubordinação',
+    'Crimes contra a autoridade ou disciplina militar',
+  ],
+  'Noções de Direito Processual Penal': [
+    'Inquérito Policial (IP) e suas características',
+    'Prisão em Flagrante e Prisão Preventiva',
+    'Audiência de Custódia e Direitos do Preso',
+    'Busca e Apreensão e Provas no Processo Penal',
+  ],
+  'Raciocínio Lógico': [
+    'Lógica Proposicional e Conectivos (E, OU, SE...ENTÃO)',
+    'Tabelas-Verdade e Equivalências Lógicas',
+    'Negações de Proposições Compostas (Leis de De Morgan)',
+    'Problemas de Lógica, Conjuntos e Probabilidade',
+  ],
+  'Informática': [
+    'Segurança da Informação (Vírus, Worms, Phishing)',
+    'Sistemas Operacionais Windows e Linux',
+    'Suíte Office (Word, Excel) e LibreOffice',
+    'Navegação na Internet e Computação em Nuvem',
+  ],
+  'Atualidades': [
+    'Meio Ambiente e Desenvolvimento Sustentável',
+    'Geopolítica Mundial e Conflitos Contemporâneos',
+    'Economia Brasileira e Fatos Políticos Recentes',
+    'Sociedade e Cultura na Bahia e no Brasil',
   ],
 };
 
