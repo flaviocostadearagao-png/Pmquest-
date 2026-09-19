@@ -1,4 +1,5 @@
 import { Questao, AlternativaId } from '../types';
+import { embaralharAlternativas } from '../utils/shuffleUtils';
 
 export const BANCO_PEDAGOGICO_COMPLETO_PMBA: Questao[] = [
   // =========================================================================
@@ -1481,16 +1482,17 @@ export function gerarQuestoesPedagogicas(
 
     const bancaNome = banca.includes('IBFC') ? 'IBFC' : banca.includes('FCC') ? 'FCC' : 'IBFC/FCC';
 
-    resultado.push({
+    const questaoFinal = {
       ...base,
-      // CRITICAL FIX: Preserve original ID so student progress is tracked correctly
       id: base.id, 
       numero: base.numero || (timestamp % 8000) + 2000 + i,
       banca: bancaNome,
       dificuldade: (dificuldade as any) || base.dificuldade || 'Média',
       ano: base.ano || 2024,
       alternativas: base.alternativas.map((alt) => ({ ...alt })),
-    });
+    };
+
+    resultado.push(embaralharAlternativas(questaoFinal));
   }
 
   return resultado;

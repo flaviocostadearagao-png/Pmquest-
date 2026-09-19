@@ -6,6 +6,7 @@ import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI } from '@google/genai';
 import { gerarQuestoesPedagogicas } from './src/data/questoesPedagogicasPMBA';
 import { canonicalizeDisciplina } from './src/utils/disciplinaUtils';
+import { embaralharAlternativas } from './src/utils/shuffleUtils';
 
 const app = express();
 const PORT = 3000;
@@ -114,6 +115,7 @@ INSTRUÇÕES CRÍTICAS PARA ESTUDANTE DE ALTO RENDIMENTO:
    - Justificativa individual para CADA uma das 5 alternativas (A, B, C, D, E);
    - Bizu PMBA mnemônico prático para memorização rápida;
    - Artigos de lei citados.
+4. DISTRIBUIÇÃO DE GABARITO: Alterne a resposta correta entre as letras A, B, C, D e E de forma equilibrada em cada lote de questões, evitando repetir a mesma letra seguidamente ou concentrar em "A".
 
 ${isMisto ? 'Modo: Simulado Geral com Todas as Matérias Juntas (Misto Aleatório)' : `Disciplina: ${disciplina}\nAssunto: ${assunto}`}
 Dificuldade: ${dificuldade}
@@ -280,7 +282,7 @@ Retorne ESTRITAMENTE um array JSON puro (sem markdown ou texto extra fora dos co
         finalId = `q-ia-${timestamp}-${prefix}-${idx}`;
       }
 
-      return {
+      const questaoBase = {
         id: finalId,
         numero: q.numero || (timestamp % 9000) + 1000 + idx,
         banca: q.banca || (banca === 'FCC / IBFC (Padrão PMBA)' ? 'IBFC/FCC (PMBA)' : banca),
@@ -306,6 +308,9 @@ Retorne ESTRITAMENTE um array JSON puro (sem markdown ou texto extra fora dos co
             : [`Edital PMBA - ${disciplina}`]
         }
       };
+
+      // Shuffling alternatives here for AI and mixed questions as well
+      return embaralharAlternativas(questaoBase);
     });
 
     if (questoes.length > 0 && questoes[0].alternativas?.length >= 2) {
