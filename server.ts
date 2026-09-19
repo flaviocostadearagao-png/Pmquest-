@@ -2,7 +2,6 @@ import 'dotenv/config';
 import express, { Request, Response } from 'express';
 import path from 'path';
 import fs from 'fs';
-import AdmZip from 'adm-zip';
 import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI } from '@google/genai';
 import { gerarQuestoesPedagogicas } from './src/data/questoesPedagogicasPMBA';
@@ -519,46 +518,6 @@ Retorne ESTRITAMENTE em formato JSON com as chaves:
       bizuDeOuro: dicaBase || 'Atenção aos detalhes literais da lei exigidos pelas bancas da PMBA.',
       origem: 'ia_local'
     });
-  }
-});
-
-// Direct ZIP Download endpoint (Mobile & Desktop friendly)
-app.get('/api/download-zip', (req: Request, res: Response) => {
-  try {
-    const zip = new AdmZip();
-    const rootDir = process.cwd();
-
-    const addFolderRecursively = (dirPath: string, zipPrefix = '') => {
-      const items = fs.readdirSync(dirPath, { withFileTypes: true });
-      for (const item of items) {
-        if (
-          item.name === 'node_modules' ||
-          item.name === 'dist' ||
-          item.name === '.git' ||
-          item.name.endsWith('.zip')
-        ) {
-          continue;
-        }
-
-        const fullPath = path.join(dirPath, item.name);
-        if (item.isDirectory()) {
-          const nextPrefix = zipPrefix ? `${zipPrefix}/${item.name}` : item.name;
-          addFolderRecursively(fullPath, nextPrefix);
-        } else if (item.isFile()) {
-          zip.addLocalFile(fullPath, zipPrefix);
-        }
-      }
-    };
-
-    addFolderRecursively(rootDir);
-
-    const zipBuffer = zip.toBuffer();
-    res.setHeader('Content-Type', 'application/zip');
-    res.setHeader('Content-Disposition', 'attachment; filename="simulado-pmba-projeto.zip"');
-    return res.send(zipBuffer);
-  } catch (err: any) {
-    console.error('Erro na rota download-zip:', err);
-    return res.status(500).json({ error: 'Falha ao compactar projeto', details: err?.message });
   }
 });
 

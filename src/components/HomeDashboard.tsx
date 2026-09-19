@@ -20,8 +20,7 @@ import {
   Flame,
   Activity,
   Shuffle,
-  Dices,
-  Download
+  Dices
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import {
@@ -191,19 +190,6 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
               <BookOpen className="w-4 h-4 text-amber-400" />
               <span>Estudar Teoria</span>
             </button>
-          </div>
-
-          {/* Quick ZIP Download Link for Mobile Devices */}
-          <div className="pt-1">
-            <a
-              id="home-btn-download-zip"
-              href="/api/download-zip"
-              download="simulado-pmba-projeto.zip"
-              className="w-full min-h-[42px] px-3 py-2 rounded-xl font-bold text-xs bg-gradient-to-r from-cyan-950/80 to-slate-900 text-cyan-300 hover:text-cyan-200 flex items-center justify-center gap-2 border border-cyan-500/40 cursor-pointer active:scale-95 transition-all"
-            >
-              <Download className="w-4 h-4 text-cyan-400" />
-              <span>Baixar Projeto Completo em ZIP (Mobile)</span>
-            </a>
           </div>
 
           {/* Botão Oficial Solicitado: 'IA, o que estudar?' */}
