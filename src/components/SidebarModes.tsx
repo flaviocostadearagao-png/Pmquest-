@@ -68,18 +68,18 @@ export const SidebarModes: React.FC<SidebarModesProps> = ({
             transition={{ type: 'spring', damping: 26, stiffness: 240 }}
             className={`relative w-[320px] max-w-[85vw] h-full flex flex-col z-10 shadow-2xl overflow-hidden border-r ${
               isDark
-                ? 'bg-tactical-950 border-tactical-700/50 text-slate-100'
+                ? 'bg-slate-950 border-slate-800 text-slate-100'
                 : 'bg-white border-slate-200 text-slate-900'
             }`}
           >
             {/* Header da Barra Lateral */}
             <div
               className={`p-4 border-b flex items-center justify-between shrink-0 ${
-                isDark ? 'bg-tactical-900 border-tactical-700/50' : 'bg-tactical-800 text-white'
+                isDark ? 'bg-slate-900 border-slate-800/80' : 'bg-blue-900 text-white'
               }`}
             >
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-tactical-accent/20 border border-tactical-accent/40 flex items-center justify-center text-tactical-accent font-bold">
+                <div className="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 font-bold">
                   <Compass className="w-5 h-5" />
                 </div>
                 <div>
@@ -109,17 +109,17 @@ export const SidebarModes: React.FC<SidebarModesProps> = ({
             {/* User Mini Performance Summary */}
             <div
               className={`px-4 py-2.5 border-b text-xs flex items-center justify-between ${
-                isDark ? 'bg-tactical-950/60 border-tactical-800/80' : 'bg-slate-50 border-slate-200'
+                isDark ? 'bg-slate-950/60 border-slate-800/80' : 'bg-slate-50 border-slate-200'
               }`}
             >
               <div className="flex items-center gap-1.5">
-                <Shield className="w-3.5 h-3.5 text-tactical-accent" />
+                <Shield className="w-3.5 h-3.5 text-amber-500" />
                 <span className="font-semibold text-[11px]">Soldado PMBA</span>
               </div>
               <div className="flex items-center gap-2 text-[11px] font-mono">
                 <span>{totalRespondidas} resolvidas</span>
                 <span className="text-slate-500">•</span>
-                <span className={taxaAcerto >= 70 ? 'text-emerald-500 font-bold' : 'text-tactical-accent font-bold'}>
+                <span className={taxaAcerto >= 70 ? 'text-emerald-500 font-bold' : 'text-amber-500 font-bold'}>
                   {taxaAcerto}% acertos
                 </span>
               </div>
@@ -393,22 +393,22 @@ export const SidebarModes: React.FC<SidebarModesProps> = ({
                   onClick={() => handleAction('gerador_ia')}
                   className={`w-full p-2.5 rounded-xl border flex items-center justify-between text-left transition-all cursor-pointer group ${
                     isDark
-                      ? 'bg-gradient-to-r from-tactical-900 to-tactical-950 border-tactical-700/80 hover:border-tactical-accent'
-                      : 'bg-gradient-to-r from-tactical-50 to-tactical-100 border-tactical-200 hover:border-tactical-400'
+                      ? 'bg-gradient-to-r from-blue-950/60 to-slate-900 border-blue-800/40 hover:border-amber-500/50'
+                      : 'bg-gradient-to-r from-blue-50 to-white border-blue-200 hover:border-blue-400'
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-lg bg-tactical-accent text-slate-950 font-black flex items-center justify-center shrink-0">
+                    <div className="w-8 h-8 rounded-lg bg-amber-500 text-slate-950 font-black flex items-center justify-center shrink-0">
                       <Sparkles className="w-4 h-4" />
                     </div>
                     <div>
-                      <span className="font-bold text-xs text-tactical-accent">Gerador Inédito com IA</span>
+                      <span className="font-bold text-xs text-amber-500">Gerador Inédito com IA</span>
                       <p className={`text-[10px] leading-tight ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
                         Criar novas questões de qualquer matéria
                       </p>
                     </div>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-tactical-accent shrink-0" />
+                  <ChevronRight className="w-4 h-4 text-amber-500 shrink-0" />
                 </button>
               </div>
 
@@ -445,13 +445,13 @@ export const SidebarModes: React.FC<SidebarModesProps> = ({
             {/* Footer com versão e atalho de estatísticas */}
             <div
               className={`p-3 border-t flex items-center justify-between ${
-                isDark ? 'bg-tactical-900 border-tactical-700/50' : 'bg-slate-50 border-slate-200'
+                isDark ? 'bg-slate-950 border-slate-800/60' : 'bg-slate-50 border-slate-200'
               }`}
             >
               <button
                 type="button"
                 onClick={() => handleAction('estatisticas')}
-                className="flex items-center gap-1.5 text-xs font-bold text-tactical-accent hover:text-tactical-accent/80 cursor-pointer"
+                className="flex items-center gap-1.5 text-xs font-bold text-amber-500 hover:text-amber-400 cursor-pointer"
               >
                 <BarChart3 className="w-4 h-4" />
                 <span>Ver Estatísticas Completas</span>

@@ -32,8 +32,8 @@ export const Header: React.FC<HeaderProps> = ({
     <header
       className={`sticky top-0 z-30 px-3 sm:px-4 py-2.5 transition-colors duration-200 ${
         isDark
-          ? 'bg-tactical-900/95 backdrop-blur-md border-b border-tactical-700/50 text-slate-100'
-          : 'bg-tactical-800 text-white border-b border-tactical-900 shadow-md'
+          ? 'bg-[#071326]/95 backdrop-blur-md border-b border-slate-800/80 text-slate-100'
+          : 'bg-gradient-to-r from-[#091f3d] via-[#0d2a52] to-[#081930] text-white border-b border-blue-950 shadow-md'
       }`}
     >
       <div className="flex items-center justify-between gap-2">
@@ -43,21 +43,21 @@ export const Header: React.FC<HeaderProps> = ({
             id="header-sidebar-toggle-btn"
             type="button"
             onClick={onOpenSidebar}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-tactical-accent/20 hover:bg-tactical-accent/30 active:scale-95 border border-tactical-accent/40 text-tactical-accent text-xs font-bold transition-all cursor-pointer shadow-sm"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 active:scale-95 border border-amber-400/40 text-amber-300 text-xs font-bold transition-all cursor-pointer shadow-sm"
             title="Abrir Barra Lateral com Todos os Modos"
             aria-label="Abrir Modos de Estudo"
           >
-            <Menu className="w-4 h-4 text-tactical-accent" />
-            <span className="font-extrabold tracking-wide uppercase">Modos</span>
+            <Menu className="w-4 h-4 text-amber-400" />
+            <span className="font-extrabold tracking-wide">Modos</span>
           </button>
 
           <div className="hidden xs:flex items-center gap-2">
-            <div className="relative flex items-center justify-center w-7 h-7 rounded-lg bg-gradient-to-br from-tactical-800 via-tactical-900 to-tactical-950 border border-tactical-accent/50 shadow-sm shrink-0">
-              <Shield className="w-4 h-4 text-tactical-accent" />
+            <div className="relative flex items-center justify-center w-7 h-7 rounded-lg bg-gradient-to-br from-blue-900 via-blue-950 to-slate-950 border border-amber-500/50 shadow-sm shrink-0">
+              <Shield className="w-4 h-4 text-amber-400" />
             </div>
             <div>
               <div className="flex items-center gap-1">
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-tactical-accent/80 font-sans">
+                <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-400 font-sans">
                   PMBA 2026
                 </span>
               </div>
@@ -71,13 +71,13 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             id="header-stats-btn"
             onClick={onOpenStats}
-            className="flex items-center gap-1.5 px-2 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 active:scale-95 border border-white/10 text-white transition-all text-xs font-medium cursor-pointer"
+            className="flex items-center gap-1.5 px-2 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 border border-white/15 text-white transition-all text-xs font-medium cursor-pointer"
             title="Ver Desempenho e Estatísticas"
           >
-            <BarChart3 className="w-3.5 h-3.5 text-tactical-accent" />
+            <BarChart3 className="w-3.5 h-3.5 text-amber-400" />
             <span className="font-semibold text-white">{totalRespondidas}</span>
-            <span className="text-white/20">|</span>
-            <span className={totalRespondidas > 0 ? (taxaAcerto >= 70 ? 'text-emerald-500/90 font-bold' : 'text-tactical-accent font-bold') : 'text-white/40'}>
+            <span className="text-white/40">|</span>
+            <span className={totalRespondidas > 0 ? (taxaAcerto >= 70 ? 'text-emerald-400 font-bold' : 'text-amber-400 font-bold') : 'text-white/60'}>
               {totalRespondidas > 0 ? `${taxaAcerto}%` : '0%'}
             </span>
           </button>
@@ -101,11 +101,11 @@ export const Header: React.FC<HeaderProps> = ({
             id="header-three-dots-btn"
             type="button"
             onClick={onOpenThreeDots}
-            className="flex items-center justify-center w-8 h-8 rounded-xl bg-white/5 hover:bg-white/10 active:scale-95 border border-white/10 text-tactical-accent transition-all cursor-pointer shadow-sm"
+            className="flex items-center justify-center w-8 h-8 rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 border border-white/20 text-amber-300 transition-all cursor-pointer shadow-sm"
             title="Mais Opções (Flashcards, Teoria, Redação, etc.)"
             aria-label="Mais Opções"
           >
-            <MoreVertical className="w-4 h-4 text-tactical-accent" />
+            <MoreVertical className="w-4 h-4 text-amber-300" />
           </button>
         </div>
       </div>

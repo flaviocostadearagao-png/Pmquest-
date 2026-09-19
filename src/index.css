@@ -1,32 +1,24 @@
 @import "tailwindcss";
 
 @theme {
-  --color-tactical-950: #0f120f;
-  --color-tactical-900: #161a16;
-  --color-tactical-800: #1f261f;
-  --color-tactical-700: #2a332a;
-  --color-tactical-600: #364236;
-  --color-tactical-500: #465446;
-  --color-tactical-accent: #8e947d;
-  --color-tactical-sand: #b8af94;
+  --color-brand-950: #020617;
+  --color-brand-900: #0f172a;
+  --color-brand-800: #1e293b;
+  --color-brand-700: #334155;
+  --color-brand-accent: #f59e0b; /* Amber */
 }
 
 @layer base {
   body {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     -webkit-tap-highlight-color: transparent;
-    @apply bg-tactical-950 text-slate-300;
+    @apply bg-slate-950 text-slate-300;
   }
 }
 
-/* Discreet Camouflage Texture Effect */
-.bg-camouflage {
-  background-color: #161a16;
-  background-image: 
-    radial-gradient(circle at 20% 30%, rgba(42, 51, 42, 0.4) 0%, transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(31, 38, 31, 0.4) 0%, transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(42, 51, 42, 0.2) 0%, transparent 60%);
-  background-attachment: fixed;
+/* Glassmorphism effects */
+.glass-panel {
+  @apply backdrop-blur-md bg-white/10 border border-white/10;
 }
 
 /* Custom scrollbar for mobile sleekness */

@@ -271,24 +271,24 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
         exit={{ scale: 0.92, opacity: 0 }}
         className={`w-full max-w-md rounded-3xl overflow-hidden shadow-2xl border flex flex-col max-h-[92vh] transition-colors ${
           isDark
-            ? 'bg-tactical-900 border-tactical-700/50 text-slate-100'
+            ? 'bg-slate-900 border-slate-800 text-slate-100'
             : 'bg-white border-slate-200 text-slate-900'
         }`}
       >
         {/* Modal Header */}
         <div
           className={`p-4 border-b flex items-center justify-between ${
-            isDark ? 'border-tactical-700/50 bg-tactical-950' : 'border-slate-200 bg-blue-50/70'
+            isDark ? 'border-slate-800/80 bg-[#0b1b36]' : 'border-slate-200 bg-blue-50/70'
           }`}
         >
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-tactical-accent to-tactical-sand flex items-center justify-center text-slate-950 shadow-md shadow-tactical-accent/30 shrink-0">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-slate-950 shadow-md shadow-amber-500/30 shrink-0">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-1.5">
                 <h3 className="text-sm font-bold leading-tight uppercase tracking-tight">Gerador de Questões IA</h3>
-                <span className="text-[10px] uppercase font-extrabold bg-tactical-700 text-white px-1.5 py-0.5 rounded-full">
+                <span className="text-[10px] uppercase font-extrabold bg-blue-600 text-white px-1.5 py-0.5 rounded-full">
                   ALTO RENDIMENTO
                 </span>
               </div>
@@ -324,9 +324,9 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
                 }}
                 className={`p-2 rounded-xl border flex flex-col items-center gap-1 text-center transition-all cursor-pointer ${
                   modo === 'padrao'
-                    ? 'bg-tactical-700 text-white border-tactical-600 shadow-sm'
+                    ? 'bg-blue-600 text-white border-blue-500 shadow-sm'
                     : isDark
-                    ? 'bg-tactical-950 border-tactical-700/50 text-slate-400 hover:text-slate-200'
+                    ? 'bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200'
                     : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200'
                 }`}
               >
@@ -342,13 +342,13 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
                 }}
                 className={`p-2 rounded-xl border flex flex-col items-center gap-1 text-center transition-all cursor-pointer ${
                   modo === 'maratona'
-                    ? 'bg-tactical-700 text-white border-tactical-600 shadow-sm'
+                    ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-sm'
                     : isDark
-                    ? 'bg-tactical-950 border-tactical-700/50 text-slate-400 hover:text-slate-200'
+                    ? 'bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200'
                     : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200'
                 }`}
               >
-                <Flame className="w-4 h-4 text-tactical-accent" />
+                <Flame className="w-4 h-4" />
                 <span className="text-[10px] leading-tight">Maratona</span>
               </button>
 
@@ -365,9 +365,9 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
                 }}
                 className={`p-2 rounded-xl border flex flex-col items-center gap-1 text-center transition-all cursor-pointer ${
                   modo === 'treino_cirurgico'
-                    ? 'bg-tactical-accent text-slate-950 border-tactical-sand shadow-sm'
+                    ? 'bg-rose-600 text-white border-rose-500 shadow-sm'
                     : isDark
-                    ? 'bg-tactical-950 border-tactical-700/50 text-slate-400 hover:text-slate-200'
+                    ? 'bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200'
                     : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200'
                 }`}
               >
@@ -383,9 +383,9 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
                 }}
                 className={`p-2 rounded-xl border flex flex-col items-center gap-1 text-center transition-all cursor-pointer ${
                   modo === 'simulado_oficial'
-                    ? 'bg-tactical-800 text-white border-tactical-700 shadow-sm'
+                    ? 'bg-slate-800 text-white border-slate-700 shadow-sm'
                     : isDark
-                    ? 'bg-tactical-950 border-tactical-700/50 text-slate-400 hover:text-slate-200'
+                    ? 'bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200'
                     : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200'
                 }`}
               >
@@ -398,10 +398,10 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
           {/* Mode Explanatory Pill */}
           {modo === 'treino_cirurgico' && (
             <div className={`p-3 rounded-2xl border text-xs space-y-1.5 ${
-              isDark ? 'bg-tactical-accent/10 border-tactical-accent/30 text-tactical-accent' : 'bg-amber-50 border-amber-200 text-amber-900'
+              isDark ? 'bg-rose-950/20 border-rose-900/40 text-rose-200' : 'bg-rose-50 border-rose-200 text-rose-900'
             }`}>
               <div className="flex items-center gap-1.5 font-bold">
-                <Zap className="w-3.5 h-3.5 text-tactical-accent" />
+                <Zap className="w-3.5 h-3.5 text-rose-400" />
                 <span>Treino Cirúrgico IA Ativo</span>
               </div>
               <p className="text-[11px] leading-relaxed">
@@ -442,8 +442,8 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
                 <div className="flex items-center justify-center gap-2 mb-1">
                   <span className={`inline-flex items-center gap-1 text-[10px] uppercase font-bold px-2 py-0.5 rounded-full ${
                     fonteGeracao === 'gemini_ai'
-                      ? 'bg-tactical-accent/20 text-tactical-accent border border-tactical-accent/40'
-                      : 'bg-tactical-700/20 text-slate-300 border border-tactical-700/40'
+                      ? 'bg-amber-500/20 text-amber-500 border border-amber-500/40'
+                      : 'bg-slate-700/20 text-slate-300 border border-slate-700/40'
                   }`}>
                     {fonteGeracao === 'gemini_ai' ? (
                       <>
@@ -501,9 +501,9 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
                 <button
                   id="btn-adicionar-questoes-ao-simulado"
                   onClick={handleAdicionarAoSimulado}
-                  className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-tactical-700 to-tactical-800 hover:from-tactical-600 hover:to-tactical-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-black/40 cursor-pointer"
+                  className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-blue-700 to-blue-800 hover:from-blue-600 hover:to-blue-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-black/40 cursor-pointer"
                 >
-                  <Sparkles className="w-4 h-4 text-tactical-accent" />
+                  <Sparkles className="w-4 h-4 text-amber-500" />
                   <span>Adicionar ao Simulado e Resolver Agora</span>
                 </button>
 
@@ -711,8 +711,8 @@ export const GeradorQuestoesModal: React.FC<GeradorQuestoesModalProps> = ({
                   disabled={isLoading}
                   className={`w-full py-3 px-4 rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer ${
                     isLoading
-                      ? 'bg-amber-600/50 text-slate-400 cursor-not-allowed'
-                      : 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 shadow-amber-500/25'
+                      ? 'bg-blue-600/50 text-slate-400 cursor-not-allowed'
+                      : 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white shadow-blue-500/25'
                   }`}
                 >
                   {isLoading ? (

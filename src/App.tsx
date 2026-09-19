@@ -944,8 +944,8 @@ export default function App() {
   };
 
   return (
-    <div className={`min-h-screen flex flex-col items-center justify-start antialiased selection:bg-tactical-accent selection:text-slate-950 transition-colors duration-200 ${
-      isDark ? 'bg-camouflage text-slate-100' : 'bg-slate-50 text-slate-900'
+    <div className={`min-h-screen flex flex-col items-center justify-start antialiased selection:bg-amber-500 selection:text-slate-950 transition-colors duration-200 ${
+      isDark ? 'bg-slate-950 text-slate-100' : 'bg-slate-200 text-slate-900'
     }`}>
       {/* Outer Shell: Simulated smartphone frame on larger screens, full width on actual phones */}
       <div
